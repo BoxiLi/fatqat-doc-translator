@@ -1,0 +1,16 @@
+- id: 07d034e7c48fe278
+  en: Interoperability
+  zh: 互操作性
+  status: machine
+- id: efb448f119a6f190
+  en: Import or export supported OpenQASM, convert compatible Qiskit circuits, or use FatQat through Qiskit's backend interface. See [Bring Programs to and from OpenQASM and Qiskit](../../guide/interoperability.md) for the guided workflows.
+  zh: 导入或导出受支持的 OpenQASM，转换兼容的 Qiskit 电路，或通过 Qiskit 的后端接口使用 FatQat。引导式工作流请参见[在 OpenQASM 与 Qiskit 之间导入和导出程序](../../guide/interoperability.md)。
+  status: machine
+- id: 65b164c33af6024c
+  en: '[OpenQASM](openqasm.md)'
+  zh: '[OpenQASM](openqasm.md)'
+  status: machine
+- id: 30e2ef0e4625c4c2
+  en: '[Qiskit](qiskit.md)'
+  zh: '[Qiskit](qiskit.md)'
+  status: machine

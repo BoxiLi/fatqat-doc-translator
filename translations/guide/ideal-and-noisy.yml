@@ -1,0 +1,76 @@
+- id: 1b44e748262b4a4c
+  en: Compare the same Program ideally and noisily
+  zh: 在理想与含噪声条件下对比同一个 Program
+  status: machine
+- id: 10dbe17c728309df
+  en: Start with an ideal run, then change only the execution model. A [`NoiseModel`][fatqat.NoiseModel] describes errors and where they act; a backend decides how to realize them. The [`Program`][fatqat.Program] remains unchanged, so the difference between the two runs has a clear cause. Here, a measured Bell Program picks up both operation noise and readout confusion.
+  zh: 从一次理想运行开始，然后只更改执行模型。[`NoiseModel`][fatqat.NoiseModel] 描述误差及其作用位置；后端决定如何实现这些误差。[`Program`][fatqat.Program] 保持不变，因此两次运行之间的差异有明确的成因。此处，一个带测量的 Bell Program 会同时受到操作噪声和读出混淆的影响。
+  status: machine
+- id: 0dbc48399605c860
+  en: Establish an ideal baseline
+  zh: 建立理想基线
+  status: machine
+- id: 1fa6f76be22dc0d4
+  en: 'Build the computation before configuring the ideal and noisy backends:'
+  zh: 在配置理想后端和噪声后端之前，先构建计算：
+  status: machine
+- id: e558b0caa7e504be
+  en: 'An ideal Bell run has no wrong-parity outcomes: its two classical digits always agree. The split between `00` and `11` still fluctuates because measurement is sampled.'
+  zh: 理想的 Bell 运行不会出现奇偶不一致的结果：它的两个经典数字总是一致。由于测量是采样的，`00` 与 `11` 之间的比例仍会波动。
+  status: machine
+- id: 3d102cc7e0692786
+  en: Change the execution, not the Program
+  zh: 更改执行方式，而非 Program
+  status: machine
+- id: 222d3c2500e1cbc3
+  en: 'Add a finite channel after `CX` and classical confusion at measurement, then construct another backend:'
+  zh: 在 `CX` 之后添加一个有限信道，并在测量处添加经典混淆，然后构建另一个后端：
+  status: machine
+- id: cf6d8b81724ce9fb
+  en: 'The depolarizing channel changes the quantum state after the entangling gate. The confusion matrix changes only the reported classical digit: in this example, a true `0` is reported as `1` two percent of the time, while a true `1` is reported as `0` four percent of the time. Both effects can create the wrong-parity bars below.'
+  zh: 退极化信道会在纠缠门之后改变量子态。混淆矩阵只改变报告的经典数字：在本例中，真实的 `0` 有百分之二的概率被报告为 `1`，而真实的 `1` 有百分之四的概率被报告为 `0`。这两种效应都可能产生下图中奇偶不一致的柱形。
+  status: machine
+- id: b846c737ede73dfa
+  en: '![Side-by-side Bell-state histograms show only zero-zero and one-one ideally, while the noisy run also contains zero-one and one-zero outcomes.](../assets/generated/guide/ideal-and-noisy-1.png)'
+  zh: '![并排的 Bell 态直方图显示，理想运行只出现零零和一一，而噪声运行还包含零一和一零的结果。](../assets/generated/guide/ideal-and-noisy-1.png)'
+  status: machine
+- id: 395f79ecf7038b24
+  en: Reproduce this figure
+  zh: 复现此图
+  status: machine
+- id: f0fd85ad9ae8d915
+  en: The comparison is controlled because both backends receive the same `bell` object, shot count, and seed. Only the execution model changes.
+  zh: 这一对比是受控的，因为两个后端接收的是同一个 `bell` 对象、相同的 shot 数和种子。只有执行模型发生了变化。
+  status: machine
+- id: 28561e682e0a4d7b
+  en: Density matrices and sampled trajectories
+  zh: 密度矩阵与采样轨迹
+  status: machine
+- id: 3c8a408f1e25d28a
+  en: The density-matrix method applies supported finite channels as an exact mixed evolution before measurement. Counts are still sampled because they describe individual reported outcomes.
+  zh: 密度矩阵方法会在测量之前把受支持的有限信道作为精确的混合演化来应用。计数仍然是采样得到的，因为它们描述的是各次报告的结果。
+  status: machine
+- id: 2b4cd35dd4905119
+  en: A statevector backend instead samples a channel trajectory when stochastic noise reaches the Program. That can use less state storage, but each shot represents one branch rather than the exact ensemble. Use density matrix when the exact noisy state or expectation value is the answer; use statevector trajectories when sampling branches is part of the intended study. The two approaches should agree statistically on repeated measurement outcomes, not shot for shot.
+  zh: 而态矢量后端在随机噪声作用于 Program 时会对信道轨迹进行采样。这可以减少状态存储，但每个 shot 代表一个分支，而不是精确的系综。当精确的噪声态或期望值本身就是答案时，使用密度矩阵；当对分支进行采样是研究目标的一部分时，使用态矢量轨迹。两种方法在重复测量结果上应当在统计意义上一致，而不是逐个 shot 一致。
+  status: machine
+- id: d41dba8651230fe9
+  en: Circuit channels and continuous noise
+  zh: 电路信道与连续噪声
+  status: machine
+- id: 11d2010c7636d46c
+  en: FatQat does not invent a gate duration to convert between the two. Move to [Hamiltonian-level emulation](hamiltonian-emulation.md) for pulse duration, idle evolution, leakage, or continuous-time noise. For supported combinations, selectors, and validation rules, see the [noise-backend-support](../api/noise/backend-support.md#noise-backend-support) table and [Noise model API](../api/noise/model.md).
+  zh: FatQat 不会虚构一个门时长来在两者之间换算。当需要脉冲时长、空闲演化、泄漏或连续时间噪声时，请转到[哈密顿量级仿真](hamiltonian-emulation.md)。有关受支持的组合、选择器和校验规则，请参阅 [noise-backend-support](../api/noise/backend-support.md#noise-backend-support) 表和[噪声模型 API](../api/noise/model.md)。
+  status: machine
+- id: 2ff18aadc59bcdf5
+  en: '| Execution level | Noise description | Where it acts |'
+  zh: '| 执行层级 | 噪声描述 | 作用位置 |'
+  status: machine
+- id: 437e184cfeafd1be
+  en: '| Circuit simulator | finite probabilities and channels | at matched operation boundaries |'
+  zh: '| 电路模拟器 | 有限概率与信道 | 在匹配的操作边界处 |'
+  status: machine
+- id: 240b507c280916de
+  en: '| Physical emulator | rates and relaxation times | throughout elapsed Hamiltonian/Lindblad evolution |'
+  zh: '| 物理仿真器 | 速率与弛豫时间 | 贯穿哈密顿量/Lindblad 演化的全部经过时间 |'
+  status: machine

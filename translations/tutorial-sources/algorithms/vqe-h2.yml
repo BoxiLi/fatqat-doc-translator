@@ -1,0 +1,144 @@
+- id: c7c4a8bfdc960fb3
+  en: Find the ground-state energy of H₂ with VQE
+  zh: 用 VQE 求 H₂ 的基态能量
+  status: machine
+- id: e54b56dfd0b67b54
+  en: Run exact, finite-shot, and noisy VQE loops for molecular hydrogen and make the variational bound and sampling uncertainty explicit.
+  zh: 为氢分子运行精确、有限次采样和含噪声的 VQE 循环，并显式呈现变分上界与采样不确定度。
+  status: machine
+- id: 2abfa1bd1ad69020
+  en: Exact VQE convergence trace
+  zh: 精确 VQE 收敛曲线
+  status: machine
+- id: 94163a7d9e86d1d0
+  en: Finite-shot VQE traces with statistical uncertainty
+  zh: 带统计不确定度的有限次采样 VQE 曲线
+  status: machine
+- id: 271fc2ac7c22fcea
+  en: Noiseless and depolarizing-noise VQE energy traces
+  zh: 无噪声与退极化噪声下的 VQE 能量曲线
+  status: machine
+- id: 6cffdd317d1dc07e
+  en: 'The variational quantum eigensolver (VQE) estimates the ground-state energy of a Hamiltonian $H$ by making the variational principle $E(\theta) \geq E_0$ do the work: a parameterized circuit prepares $|\psi(\theta)\rangle$, the energy'
+  zh: 变分量子本征求解器（VQE）通过让变分原理 $E(\theta) \geq E_0$ 发挥作用来估计哈密顿量 $H$ 的基态能量：参数化电路制备 $|\psi(\theta)\rangle$，能量
+  status: machine
+- id: 6521b6b039748329
+  en: is evaluated on the quantum processor, and a classical optimizer walks $\theta$ downhill. The lowest energy found is an upper bound on the true ground-state energy $E_0$.
+  zh: 在量子处理器上求值，经典优化器则带着 $\theta$ 沿下降方向前进。找到的最低能量是真实基态能量 $E_0$ 的一个上界。
+  status: machine
+- id: 8803437142be4dba
+  en: 'This tutorial runs the full loop on the smallest interesting chemistry example: molecular hydrogen in the STO-3G basis, reduced to two qubits by qubit tapering (the form used in O''Malley et al., [arXiv:1512.06860](https://arxiv.org/abs/1512.06860)). The Hamiltonian is a sum of five Pauli terms,'
+  zh: 本教程在最小而有趣的化学示例上运行完整循环：STO-3G 基组下的氢分子，经量子比特削减（qubit tapering）约化为两个量子比特（即 O'Malley 等人 [arXiv:1512.06860](https://arxiv.org/abs/1512.06860) 使用的形式）。该哈密顿量是五个 Pauli 项之和，
+  status: machine
+- id: 16dec6792c30bda5
+  en: so the energy is a weighted sum of expectation values — exactly what an Estimator computes against one circuit evaluation.
+  zh: 因此能量是期望值的加权和——这正是 Estimator 针对一次电路求值所计算的东西。
+  status: machine
+- id: 5b00ff3de9375c2a
+  en: 'The tutorial source contains three executable acts:'
+  zh: 教程源码包含三幕可执行的内容：
+  status: machine
+- id: 7e072085a6d67316
+  en: '**Exact VQE** — the energy is evaluated exactly from the statevector, and COBYLA minimizes it. The convergence curve is compared against the exact ground energy, obtained here by dense diagonalization.'
+  zh: '**精确 VQE**——能量从态矢量精确求值，由 COBYLA 最小化。收敛曲线与精确基态能量进行比较，后者在这里通过稠密对角化得到。'
+  status: machine
+- id: 5ae0b299e8aa7bae
+  en: '**Finite-shot VQE** — the same loop, but every expectation is estimated from 1024 shots, with the statistical standard error made explicit.'
+  zh: '**有限次采样 VQE**——同样的循环，但每个期望值都由 1024 次测量估计，并显式给出统计标准误差。'
+  status: machine
+- id: f0d9187f27f688a5
+  en: '**VQE under noise** — a depolarizing noise model is attached to the simulator, and the energy floor moves up: a two-line summary of why NISQ chemistry is hard.'
+  zh: '**噪声下的 VQE**——给模拟器附加退极化噪声模型后，能量下限被抬高：这两行就概括了 NISQ 化学为何困难。'
+  status: machine
+- id: a8f123ba36178e9b
+  en: Everything is seeded and runs in seconds on a laptop CPU.
+  zh: 一切都设定了种子，在笔记本电脑 CPU 上几秒内即可运行完毕。
+  status: machine
+- id: 322017a9a2ae81a2
+  en: The Hamiltonian and its exact spectrum
+  zh: 哈密顿量及其精确谱
+  status: machine
+- id: 6ca765b790ce6169
+  en: 'The five Pauli terms are inlined as data. Pauli strings follow the convention *leftmost character = qubit 0*: `IZ` acts with $Z$ on qubit 1.'
+  zh: 五个 Pauli 项以数据形式内联给出。Pauli 字符串遵循*最左字符 = 量子比特 0* 的约定：`IZ` 表示 $Z$ 作用于量子比特 1。
+  status: machine
+- id: 4f8ae938f2309896
+  en: 'The exact ground energy is obtained by dense diagonalization of the 4x4 matrix. It serves two purposes: the reference line on the convergence plots, and a reminder that the variational principle bounds the *lowest* eigenvalue — the other three are printed for context.'
+  zh: 精确基态能量通过对 4x4 矩阵做稠密对角化得到。它有两个用途：作为收敛图上的参考线，并提醒我们变分原理界定的是*最低*本征值——其余三个本征值也打印出来以供参考。
+  status: machine
+- id: 23f2c885410e9028
+  en: 'The identity term has expectation 1 in every state, so it folds into a constant offset. The optimizer only ever sees the four non-identity expectations:'
+  zh: 恒等项在任何态下的期望值都是 1，因此它折叠为一个常数偏移。优化器始终只看到四个非恒等项的期望值：
+  status: machine
+- id: 60fddef08ec73323
+  en: The Hamiltonian as observables
+  zh: 用可观测量表示哈密顿量
+  status: machine
+- id: 7920fd66521fc517
+  en: 'Each non-identity Pauli term becomes one `fq.Observable`, built with `from_sparse`: only the non-identity factors are named, as explicit `(pauli, (qubit,), coefficient)` entries. The explicit qubit index sidesteps the string-endianness trap noted above (`IZ` means *Z on qubit 1*). One entry is a product — `("ZZ", (0, 1), 1.0)` is the single term $Z_0 Z_1$, while two entries would sum. Every observable carries coefficient 1.0; the Hamiltonian coefficients live in `COEFFS` and are applied classically, so the energy is `OFFSET` plus the weighted sum of the four expectations.'
+  zh: 每个非恒等 Pauli 项都变成一个用 `from_sparse` 构建的 `fq.Observable`：只需列出非恒等因子，以显式的 `(pauli, (qubit,), coefficient)` 条目给出。显式的量子比特索引避开了上文提到的字符串端序陷阱（`IZ` 表示 *Z 作用于量子比特 1*）。一个条目表示乘积——`("ZZ", (0, 1), 1.0)` 是单个项 $Z_0 Z_1$，而两个条目则表示求和。每个可观测量的系数都取 1.0；哈密顿量的系数存放在 `COEFFS` 中并在经典侧应用，因此能量等于 `OFFSET` 加上四个期望值的加权和。
+  status: machine
+- id: f1a61aaa1fe53e25
+  en: 'The ansatz: a parameterized template'
+  zh: 拟设：一个参数化模板
+  status: machine
+- id: 15440def4f0678ba
+  en: '`THETA` is a `fq.ParameterVector` of length 4 — a group of named placeholders. `build_template()` assembles the two-qubit ansatz with the placeholders in place of angles: two layers, each applying `RY` on both wires (one parameter each) and closing with `CX` from qubit 0 to qubit 1. The template is built once; binding it returns a new program and never mutates it.'
+  zh: '`THETA` 是长度为 4 的 `fq.ParameterVector`——一组具名占位符。`build_template()` 用占位符代替角度组装双量子比特拟设：共两层，每层在两条线路上各应用一个 `RY`（各带一个参数），并以从量子比特 0 到量子比特 1 的 `CX` 收尾。模板只构建一次；绑定它会返回新程序，绝不修改模板本身。'
+  status: machine
+- id: 47fe1a12dcbf9023
+  en: Because the Hamiltonian is real, its ground state can be chosen real, and four `RY` angles interleaved with an entangler span every real two-qubit state — so this ansatz can reach $E_0$ in principle.
+  zh: 由于该哈密顿量是实的，其基态可以取为实的，而四个 `RY` 角度与纠缠门交错足以张成所有实的双量子比特态——因此这个拟设原则上可以达到 $E_0$。
+  status: machine
+- id: 5803a7215a5aa27e
+  en: 'The template draws like any other program: two layers of parameter-bearing `RY` rotations, each closed by the entangler.'
+  zh: 该模板的绘制方式与其他程序无异：两层带参数的 `RY` 旋转，每层以纠缠门收尾。
+  status: machine
+- id: ad4a330e76137714
+  en: The exact energy function
+  zh: 精确能量函数
+  status: machine
+- id: 72986e9eee913a1d
+  en: One energy evaluation binds the template at the current parameters — `Estimator.run` rejects programs that still contain unbound parameters — then evaluates all four observables against a single evolution. With `shots=0`, the Estimator default, the expectations are exact; the energy is their weighted sum plus the identity offset.
+  zh: 一次能量求值先在当前参数处绑定模板——`Estimator.run` 会拒绝仍含未绑定参数的程序——然后针对一次演化评估全部四个可观测量。在 Estimator 默认的 `shots=0` 下，期望值是精确的；能量即为它们的加权和加上恒等项偏移。
+  status: machine
+- id: 72244ea575fa305d
+  en: Optimization
+  zh: 优化
+  status: machine
+- id: 3f2e45a0b8623001
+  en: COBYLA minimizes the black-box energy from a small random start — no gradients needed. The trace is recorded for the convergence plot.
+  zh: COBYLA 从一个小的随机起点最小化黑盒能量——无需梯度。轨迹被记录下来用于绘制收敛图。
+  status: machine
+- id: d900bb988a88a50a
+  en: Finite-shot expectations
+  zh: 有限次采样的期望值
+  status: machine
+- id: c83ccb93cc7936a5
+  en: 'The same energy, estimated the way hardware would deliver it: every expectation comes from 1024 measurement shots. `shots` is a per-run option, not an estimator property, so the same estimator serves exact and sampled evaluations. An explicit `simulation_config={"seed": ...}` reuses the same randomness at every evaluation, keeping the optimizer''s landscape deterministic. `sampled_std` propagates the per-observable standard errors (`get_std()`) through the weights in quadrature — $\sigma_E = \sqrt{\sum_i c_i^2 \sigma_i^2}$ — the scale of the error bar on the noisy objective.'
+  zh: '同样的能量，按硬件交付的方式估计：每个期望值来自 1024 次测量。`shots` 是每次运行的选项，而非估计器的属性，因此同一个估计器既能做精确求值也能做采样求值。显式的 `simulation_config={"seed": ...}` 让每次求值复用相同的随机性，使优化器面对的能量地形保持确定性。`sampled_std` 把各可观测量的标准误差（`get_std()`）按权重以平方和开方的方式传播——$\sigma_E = \sqrt{\sum_i c_i^2 \sigma_i^2}$——这就是含噪目标函数误差棒的尺度。'
+  status: machine
+- id: add004053ba85637
+  en: The same COBYLA run, now optimizing the noisy objective. Note that what matters at the end is the *exact* energy of the point found — the shot noise only steers the search.
+  zh: 同样的 COBYLA 运行，这次优化的是含噪目标。注意最终重要的是所找到的点的*精确*能量——采样噪声只是影响搜索的走向。
+  status: machine
+- id: 46118b07138cb7d8
+  en: A depolarizing noise model
+  zh: 退极化噪声模型
+  status: machine
+- id: 56cd44d7fea98e8f
+  en: 'Noise is declared independently of the program: a `fq.NoiseModel` holds physical declarations — here `fq.noise.Depolarizing` after every `RY` ($p = 0.01$) and, more strongly, after every `CX` ($p = 0.05$) — and the same template runs on a density-matrix simulator constructed with that model. A density-matrix Estimator in `shots=0` mode returns the noise-averaged expectation exactly: no sampling is needed to *see* the noise. See [ideal and noisy execution](../guide/ideal-and-noisy.md) for the full workflow.'
+  zh: 噪声的声明独立于程序：`fq.NoiseModel` 保存物理声明——这里是在每个 `RY` 之后附加 `fq.noise.Depolarizing`（$p = 0.01$），并在每个 `CX` 之后附加更强的一份（$p = 0.05$）——同一个模板随后在用该模型构建的密度矩阵模拟器上运行。密度矩阵 Estimator 在 `shots=0` 模式下精确返回噪声平均后的期望值：无需采样即可*看到*噪声。完整工作流参见[理想与含噪执行](../guide/ideal-and-noisy.md)。
+  status: machine
+- id: 02f9374ac261d1d1
+  en: 'First, the degradation: the exact-VQE minimum is re-evaluated under noise. Then COBYLA re-optimizes under noise — and recovers essentially nothing: a variational ansatz cannot rotate unital noise away, so the lifted floor is there to stay (it can only be mitigated classically, not optimized away).'
+  zh: 先看退化：在噪声下重新评估精确 VQE 的最小值点。随后 COBYLA 在噪声下重新优化——结果几乎毫无挽回：变分拟设无法把 unital 噪声旋转掉，因此被抬高的能量下限会一直存在（它只能通过经典手段缓解，无法通过优化消除）。
+  status: machine
+- id: 175956a7ad13988f
+  en: Bigger molecules need a chemistry package to produce the Pauli sum and a physically motivated ansatz (e.g. UCCSD) instead of the hardware-efficient one used here.
+  zh: 更大的分子需要化学软件包来生成 Pauli 求和，并采用有物理动机的拟设（如 UCCSD）来取代这里使用的硬件高效拟设。
+  status: machine
+- id: 375b62441d724af7
+  en: On larger systems, the bitstrings sampled from the optimized state can be post-processed classically (sample-based quantum diagonalization) — overkill at two qubits, where the sampled subspace is the whole space.
+  zh: 在更大的系统上，从优化后的态采样得到的比特串可以在经典侧后处理（基于采样的量子对角化）——在两个量子比特上这属于大材小用，因为采样到的子空间就是整个空间。
+  status: machine

@@ -1,0 +1,72 @@
+- id: cc343a2845b49b3c
+  en: Choose and run a neutral-atom workflow
+  zh: 选择并运行中性原子工作流
+  status: machine
+- id: 7984d47515a52e46
+  en: 'FatQat offers two neutral-atom execution levels. Choose the least detailed one that still contains the effect you want to study:'
+  zh: FatQat 提供两个中性原子执行层级。请选择仍能包含你想研究的效应的最简层级：
+  status: machine
+- id: 305a51a3eb17cf2f
+  en: '**Gate-level array**'
+  zh: '**门级阵列**'
+  status: machine
+- id: d7fb8ad08e2f9a34
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] adds occupancy and a changing pairing graph to finite qubit gates. Use it for fast loading, loss, and connectivity checks.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 在有限的量子比特门之上增加了占据状态和可变的配对图。用它进行快速的装载、丢失和连通性检查。'
+  status: machine
+- id: 5665407c7117a301
+  en: '**Two physical levels**'
+  zh: '**两个物理能级**'
+  status: machine
+- id: e86f23c461a2b811
+  en: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] follows $\lvert g\rangle$ and $\lvert r\rangle$. Use it for global drive, detuning, and many-body Rydberg dynamics.'
+  zh: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 跟踪 $\lvert g\rangle$ 和 $\lvert r\rangle$。用它研究全局驱动、失谐和多体里德堡动力学。'
+  status: machine
+- id: 15f9e5f79f4b0467
+  en: The atom-array simulator is the profile introduced in [Hardware-profile simulation](hardware-profile-simulation.md); it does not integrate a Hamiltonian. The physical emulator below uses the pulse workflow from [Hamiltonian emulation](hamiltonian-emulation.md).
+  zh: 原子阵列模拟器就是[硬件配置文件模拟](hardware-profile-simulation.md)中介绍的那个配置文件；它不对哈密顿量进行积分。下面的物理仿真器使用[哈密顿量仿真](hamiltonian-emulation.md)中的脉冲工作流。
+  status: machine
+- id: ff611845e5bdbb41
+  en: Describe the sites once
+  zh: 一次性描述位点
+  status: machine
+- id: 5df0c1bedf249775
+  en: 'The physical emulator uses a fixed set of sites described by an [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Program resources map to those sites in declaration order by default:'
+  zh: 物理仿真器使用由 [`AtomArrangement`][fatqat.emulator.AtomArrangement] 描述的一组固定位点。默认情况下，Program 资源按声明顺序映射到这些位点：
+  status: machine
+- id: 066ab9e43cfb6ac0
+  en: The arrangement is fixed geometry, not an atom-transport instruction. It sets the distances used by Rydberg interactions, and the Program must declare exactly one dimension-two resource per site.
+  zh: 排布是固定的几何结构，不是原子搬运指令。它设定里德堡相互作用所用的距离，并且 Program 必须为每个位点恰好声明一个维度为二的资源。
+  status: machine
+- id: 9a631d1330ed4ba3
+  en: Use a [`ResourceLayout`][fatqat.ResourceLayout] only when you need to override the default declaration-order mapping.
+  zh: 仅当需要覆盖默认的声明顺序映射时，才使用 [`ResourceLayout`][fatqat.ResourceLayout]。
+  status: machine
+- id: e82691c5e1016476
+  en: Drive the array with the two-level model
+  zh: 用二能级模型驱动阵列
+  status: machine
+- id: ec7297494dfafc6b
+  en: 'The two-level model uses global drive and detuning channels. Its default gate map is empty, so a Program normally contains direct pulse blocks:'
+  zh: 二能级模型使用全局的驱动信道和失谐信道。它的默认门映射为空，因此 Program 通常包含直接脉冲块：
+  status: machine
+- id: 6368d4bf664cbbb9
+  en: Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts; `interaction_cutoff` can remove terms beyond a distance, but it is a Hamiltonian truncation rather than a blockade radius.
+  zh: 两个控制都作用于每个位点。排布提供距离，模型提供带符号的相互作用强度，因此改变间距可以在不改变 Program 的情况下改变动力学。默认情况下所有位点对都相互作用；`interaction_cutoff` 可以去掉超过某个距离的项，但它是哈密顿量截断，而不是阻塞半径。
+  status: machine
+- id: 7a17ea0b2d9ff5e7
+  en: For this short pulse, about 5.4% of the final probability lies outside the all-ground state. That number is a physical consequence of the waveform, detuning, spacing, interaction model, and duration—not a gate label.
+  zh: 对这个短脉冲而言，最终概率中约有 5.4% 位于全基态之外。这个数字是波形、失谐、间距、相互作用模型和时长共同作用的物理结果——而不是一个门标签。
+  status: machine
+- id: 3eafbe967c041999
+  en: The default method returns the complete two-level statevector. With supported Lindblad noise it follows one seeded trajectory when a final state is explicitly requested; choose `method="density_matrix"` for the exact ensemble. Terminal measurement returns counts. Mid-circuit measurement, reset, conditions, and per-site direct controls are not part of this two-level workflow.
+  zh: 默认方法返回完整的二能级态矢量。在存在受支持的 Lindblad 噪声时，若显式请求最终态，它会跟踪一条由种子决定的轨迹；要得到精确的系综，请选择 `method="density_matrix"`。终端测量返回计数。电路中途测量、重置、条件以及逐位点直接控制不属于这个二能级工作流。
+  status: machine
+- id: a629b94b7c5a42d3
+  en: Continue with a physics study
+  zh: 继续开展物理研究
+  status: machine
+- id: 5478bf9c31bd904b
+  en: Continue with the tutorials for a [PXP revival](../tutorials/pxp-z2-revival.md), [antiferromagnetic chain](../tutorials/antiferromagnetic-chain.md), or [gate-level GHZ preparation](../tutorials/atom-array-ghz8.md). For model schemas, units, channel limits, and noise support, use the [neutral-atom emulator API](../api/atom-emulators.md).
+  zh: 接下来可以学习 [PXP 回复](../tutorials/pxp-z2-revival.md)、[反铁磁链](../tutorials/antiferromagnetic-chain.md)或[门级 GHZ 态制备](../tutorials/atom-array-ghz8.md)教程。有关模型模式、单位、信道限制和噪声支持，请使用[中性原子仿真器 API](../api/atom-emulators.md)。
+  status: machine

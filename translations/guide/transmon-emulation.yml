@@ -1,0 +1,72 @@
+- id: 3c63544c3b8970db
+  en: Emulate a superconducting system
+  zh: 仿真超导系统
+  status: machine
+- id: 290ebe4ca0c42961
+  en: A transmon is operated as a qubit but modeled with at least three levels. [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] keeps the third level so that pulse-induced leakage remains visible, alongside timing and coupling effects. It uses the shared [Hamiltonian-emulation workflow](hamiltonian-emulation.md).
+  zh: transmon 作为量子比特来操作，但建模时至少要有三个能级。[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 保留第三能级，使脉冲引起的泄漏以及时序和耦合效应保持可见。它使用共享的[哈密顿量仿真工作流](hamiltonian-emulation.md)。
+  status: machine
+- id: 02456a4f53b8568f
+  en: Load a reproducible baseline
+  zh: 加载可复现的基线
+  status: machine
+- id: 0dcef73683d134ae
+  en: 'The packaged document describes two coupled physical transmons. It is a simulation baseline, not a live calibration from a named device:'
+  zh: 打包文档描述两个相互耦合的物理 transmon。它是一个模拟基线，而不是来自某台具名设备的在线校准：
+  status: machine
+- id: 31ddcca003cbd258
+  en: Program qubits bind to those subsystem IDs in declaration order unless a [`ResourceLayout`][fatqat.ResourceLayout] says otherwise. Every model transmon remains in the physical state even when the Program addresses only one of them. Retain `model_document` when you need persisted frequencies, anharmonicities, model identity, or coupling topology; the runtime model intentionally exposes execution capabilities rather than normalized copies of those records. This guide chooses the density-matrix method because it repeatedly inspects populations. The common default is `method="statevector"`; use `method="unitary"` when the complete coherent operator is the result you need.
+  zh: 除非 [`ResourceLayout`][fatqat.ResourceLayout] 另有指定，Program 量子比特按声明顺序绑定到这些子系统 ID。即使 Program 只寻址其中一个 transmon，模型中的每个 transmon 仍存在于物理态中。当你需要持久化的频率、非谐性、模型标识或耦合拓扑时，请保留 `model_document`；运行时模型有意暴露的是执行能力，而不是这些记录的规范化副本。本指南选择密度矩阵方法，因为它需要反复查看布居数。常见的默认值是 `method="statevector"`；当你需要的结果是完整的相干算符时，使用 `method="unitary"`。
+  status: machine
+- id: d1233c2ab1f51f38
+  en: Run the rotation as a calibrated gate
+  zh: 以校准门的方式运行旋转
+  status: machine
+- id: 01aa76e1c50c7a0c
+  en: 'Reuse the guide''s central rotation as an ordinary Program operation. The emulator realizes it with its gate implementation map and reference calibration:'
+  zh: 把本指南的核心旋转作为普通 Program 操作复用。仿真器通过其门实现映射和参考校准来实现它：
+  status: machine
+- id: c5d1ba9a6946b539
+  en: 'The Program declares a logical qubit, but the result covers the complete two-transmon qutrit space. To inspect `q0`, reshape the diagonal in FatQat''s little-endian physical-axis order and sum over `q1`:'
+  zh: Program 声明的是一个逻辑量子比特，但结果覆盖完整的双 transmon qutrit 空间。要查看 `q0`，请按 FatQat 的小端物理轴顺序重塑对角元，并对 `q1` 求和：
+  status: machine
+- id: 91854786e7a3a16c
+  en: Here `calibrated_q0[2]` is population in physical level `|2>`. This is a physical qutrit used to model transmon leakage; it is not the logical qutrit authoring feature supported by the general simulator.
+  zh: 这里 `calibrated_q0[2]` 是物理能级 `|2>` 上的布居数。这是用于建模 transmon 泄漏的物理 qutrit；它不是通用模拟器所支持的逻辑 qutrit 编写特性。
+  status: machine
+- id: 659c33b29662c0cb
+  en: Replace the gate with a direct drive
+  zh: 用直接驱动替换门
+  status: machine
+- id: 6258daefcbbd16a4
+  en: 'To see how pulse shape changes the physical behavior, replace the calibrated `RX` with a drive on the same transmon. The pulse below is intentionally hard-edged so its leakage is visible:'
+  zh: 要观察脉冲形状如何改变物理行为，请把校准的 `RX` 替换为作用在同一 transmon 上的驱动。下面的脉冲有意采用硬边沿，以便其泄漏清晰可见：
+  status: machine
+- id: 60c168b801b22304
+  en: '`q0_leakage` is the probability that the driven transmon finishes in physical level `|2>`. The plot keeps that small value on its own scale so it does not disappear beside the computational-level populations.'
+  zh: '`q0_leakage` 是被驱动的 transmon 最终处于物理能级 `|2>` 的概率。图中把这个小数值放在单独的刻度上，以免它在计算能级布居数旁边被淹没。'
+  status: machine
+- id: d55b102a2206c7a7
+  en: '![Computational-level populations for a calibrated rotation and a direct drive are shown beside a magnified comparison of their level-two leakage percentages.](../assets/generated/guide/transmon-emulation-1.png)'
+  zh: '![图中并排显示校准旋转与直接驱动的计算能级布居数，旁边是二者第二能级泄漏百分比的放大对比。](../assets/generated/guide/transmon-emulation-1.png)'
+  status: machine
+- id: 29f1e267358dec67
+  en: Know when more physics changes the answer
+  zh: 知道何时更多的物理会改变答案
+  status: machine
+- id: 238a7287cbbf5a6a
+  en: '**Coupling:** two-transmon gates are available only on coupling edges in the model, and an unaddressed neighbour is still part of the Hamiltonian.'
+  zh: '**耦合：**双 transmon 门只在模型中的耦合边上可用，而未被寻址的邻居仍然是哈密顿量的一部分。'
+  status: machine
+- id: 02243639df09fd76
+  en: '**Frames and timing:** calibrated frame changes and the placement of later controls can change phases even when computational populations look alike.'
+  zh: '**参考系与时序：**校准的参考系变换以及后续控制的放置可能改变相位，即使计算能级布居数看起来相同。'
+  status: machine
+- id: aeb2f9eb789c9b83
+  en: '**Continuous noise:** rate- or time-form Lindblad declarations act over elapsed physical time, rather than once at a circuit-operation boundary.'
+  zh: '**连续噪声：**以速率或时间形式声明的 Lindblad 噪声作用于经过的物理时间，而不是在电路操作边界处只作用一次。'
+  status: machine
+- id: 06bc25cc87da7e9a
+  en: Use the calibrated path to study the supplied gate recipe. Use direct controls when the waveform itself is the experiment; the two forms can also coexist in one Program. The [transmon emulator API](../api/pulse-emulator.md) lists the supported units, gates, noise forms, and execution methods.
+  zh: 使用校准路径来研究所提供的门配方。当波形本身就是实验对象时使用直接控制；两种形式也可以共存于同一个 Program 中。[transmon 仿真器 API](../api/pulse-emulator.md)列出了受支持的单位、门、噪声形式和执行方法。
+  status: machine

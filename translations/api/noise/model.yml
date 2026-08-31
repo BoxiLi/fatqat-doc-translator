@@ -1,0 +1,196 @@
+- id: f840c2e5c2d13e69
+  en: Noise model
+  zh: 噪声模型
+  status: machine
+- id: 871bfe559385ca54
+  en: '[`NoiseModel`][fatqat.NoiseModel] collects noise rules and says where each one applies: on matching operations, throughout pulse time, or when reporting measurements. A model can combine simulator channels, emulator Lindblad operators, carrier loss, and readout confusion. Each backend accepts only the rules it can implement.'
+  zh: '[`NoiseModel`][fatqat.NoiseModel] 收集噪声规则，并指明每条规则的作用位置：作用于匹配的操作、贯穿脉冲时间，或在报告测量结果时。一个模型可以组合模拟器信道、仿真器 Lindblad 算符、载体损失与读出混淆。每个后端只接受它能够实现的规则。'
+  status: machine
+- id: 0e84698742201727
+  en: Build a model
+  zh: 构建模型
+  status: machine
+- id: 1c53902058915ae8
+  en: This example adds phase damping after every `RX`, amplitude damping to the second operand of every `CZ`, and readout confusion on `q[0]`. Logical targets use references from the program; device-label targets use labels from the run's [`ResourceLayout`][fatqat.ResourceLayout].
+  zh: 本示例在每个 `RX` 之后添加相位阻尼，对每个 `CZ` 的第二个操作数添加振幅阻尼，并对 `q[0]` 添加读出混淆。逻辑目标使用来自程序的引用；设备标签目标使用来自本次运行的 [`ResourceLayout`][fatqat.ResourceLayout] 的标签。
+  status: machine
+- id: c51f9e545eaeaef5
+  en: Where noise applies
+  zh: 噪声的作用位置
+  status: machine
+- id: b632bca81b5aa192
+  en: Pass `operation` for noise tied to a matching operation. A simulator applies a channel or samples loss after the operation; an emulator keeps the matching Lindblad operators active during the pulse. Omit `operation` for background noise; this does not mean “on every gate.” Readout confusion always applies at measurement.
+  zh: 若噪声与匹配的操作绑定，请传入 `operation`。模拟器在操作之后应用信道或对损失进行采样；仿真器在脉冲期间保持匹配的 Lindblad 算符生效。省略 `operation` 表示背景噪声；这并不意味着“作用于每个门”。读出混淆始终在测量时应用。
+  status: machine
+- id: 4796572d4bd078a9
+  en: '**Noise scopes**'
+  zh: '**噪声作用域**'
+  status: machine
+- id: a8ccec27d8aa01d9
+  en: For readout confusion, both `operation` and `target_positions` must be absent. Passing either keyword explicitly, even as `None`, is an error.
+  zh: 对于读出混淆，`operation` 与 `target_positions` 都不得出现。显式传入其中任一关键字（即使为 `None`）都是错误。
+  status: machine
+- id: bfc1ef109fe15f59
+  en: Background noise uses local Lindblad operators over elapsed emulator time. [`Loss`][fatqat.noise.Loss], probability-form [`Depolarizing`][fatqat.noise.Depolarizing], and other noise types that do not act on exactly one subsystem cannot be used this way. Background noise remains active regardless of an individual operation's classical condition.
+  zh: 背景噪声使用在仿真器运行时间上作用的局部 Lindblad 算符。[`Loss`][fatqat.noise.Loss]、概率形式的 [`Depolarizing`][fatqat.noise.Depolarizing]，以及其他并非恰好作用于一个子系统的噪声类型不能这样使用。无论单个操作的经典条件如何，背景噪声都保持生效。
+  status: machine
+- id: 5fd65f7115e664fd
+  en: '`Barrier`, `Reset`, and direct [`PulseOperation`][fatqat.operations.PulseOperation] controls have no attachable noise boundary. `Put` accepts only [`Loss`][fatqat.noise.Loss]; the loss is applied after loading and models loading inefficiency. See [Backend support](backend-support.md#noise-backend-support) for the scopes and noise forms implemented by each built-in backend.'
+  zh: '`Barrier`、`Reset` 以及直接的 [`PulseOperation`][fatqat.operations.PulseOperation] 控制没有可附加噪声的边界。`Put` 只接受 [`Loss`][fatqat.noise.Loss]；该损失在装载之后应用，用于建模装载效率不足。各内置后端实现的作用域与噪声形式参见[后端支持](backend-support.md#noise-backend-support)。'
+  status: machine
+- id: f5cefb112839555b
+  en: Match operations
+  zh: 匹配操作
+  status: machine
+- id: 44fb89bf3d6d2fdb
+  en: You may pass either an operation value or an operation class. For example, `operation=ops.X` matches the exported `X` singleton, while `operation=ops.RX` matches every `RX(...)` angle. Parameters do not narrow the match, and registering a base operation class does not include its subclasses.
+  zh: 既可以传入操作值，也可以传入操作类。例如，`operation=ops.X` 匹配导出的 `X` 单例，而 `operation=ops.RX` 匹配任意角度的 `RX(...)`。参数不会缩小匹配范围，注册操作基类也不会包含其子类。
+  status: machine
+- id: 9713dfc2c21f5a24
+  en: Noise attached to an operation follows its classical condition. If the condition is false, neither the operation nor its noise runs. A simulator applies compatible channels after the operation, in registration order. An emulator keeps compatible Lindblad operators active together during the matching pulse.
+  zh: 附加到操作上的噪声遵循该操作的经典条件。若条件为假，操作及其噪声都不会执行。模拟器在操作之后按注册顺序应用兼容的信道。仿真器在匹配的脉冲期间同时保持兼容的 Lindblad 算符生效。
+  status: machine
+- id: cb30739b28612e26
+  en: Match targets
+  zh: 匹配目标
+  status: machine
+- id: 99ff0c2cd6a8334a
+  en: '`targets` may use logical [`RegisterRef`][fatqat.RegisterRef] values from the program or hashable device labels from the resource layout.'
+  zh: '`targets` 可使用来自程序的逻辑 [`RegisterRef`][fatqat.RegisterRef] 值，或来自资源布局的可哈希设备标签。'
+  status: machine
+- id: 8b2517c4f6da818e
+  en: '**Accepted `targets` forms**'
+  zh: '**接受的 `targets` 形式**'
+  status: machine
+- id: dc535fa721bfabfe
+  en: 'Lists and [`RegisterView`](../registers.md#fatqat.RegisterView) values are not accepted. A target tuple cannot mix logical references and device labels. FATQAT always treats a tuple as the complete ordered selector, so nest tuple-valued device labels: `targets=(("site", 0),)` selects one such label, and `targets=(("site", 0), ("site", 1))` selects an ordered pair. Readout noise cannot target a tuple-valued device label.'
+  zh: 不接受列表与 [`RegisterView`](../registers.md#fatqat.RegisterView) 值。目标元组不能混用逻辑引用与设备标签。FATQAT 总是把元组视为完整的有序选择器，因此元组形式的设备标签需要嵌套：`targets=(("site", 0),)` 选择一个这样的标签，而 `targets=(("site", 0), ("site", 1))` 选择一个有序对。读出噪声不能以元组形式的设备标签为目标。
+  status: machine
+- id: aa43dacf6eb018b4
+  en: The selector order must match the operation's target order in the program. A noise rule targeting `(q[0], q[1])` does not match the same operation on `(q[1], q[0])`. Logical and device-label selectors use the same ordering convention.
+  zh: 选择器的顺序必须与程序中该操作的目标顺序一致。以 `(q[0], q[1])` 为目标的噪声规则不会匹配作用在 `(q[1], q[0])` 上的同一操作。逻辑选择器与设备标签选择器遵循相同的顺序约定。
+  status: machine
+- id: 4d1da42b48bd66de
+  en: Select affected operands
+  zh: 选择受影响的操作数
+  status: machine
+- id: adf0959fdac1d783
+  en: After an operation matches, `target_positions` chooses which operands receive the noise. Pass one integer or a nonempty, strictly increasing tuple of nonnegative integers. Positions use zero-based operation order; `None` selects every operand.
+  zh: 操作匹配之后，`target_positions` 决定哪些操作数受到噪声影响。可传入一个整数，或由非负整数组成的非空且严格递增的元组。位置采用从零开始的操作顺序；`None` 选择每个操作数。
+  status: machine
+- id: 7e78a036f266d3c4
+  en: The number of selected operands must match the number of subsystems the noise type acts on. [`add`][fatqat.NoiseModel.add] checks this immediately when both sizes are known; variadic operations are checked when the program runs.
+  zh: 所选操作数的数量必须与该噪声类型作用的子系统数量一致。当两者大小都已知时，[`add`][fatqat.NoiseModel.add] 会立即检查；变长操作在程序运行时检查。
+  status: machine
+- id: ce28e4e0ea52d4d0
+  en: Combine noise sources
+  zh: 组合噪声源
+  status: machine
+- id: 179c995173e35c98
+  en: '[`add`][fatqat.NoiseModel.add] appends; it never replaces a registration. Different noise types may act on the same operation. The same type may also be used on disjoint targets or operand positions. Background and operation noise are independent, so the same type can appear in both scopes.'
+  zh: '[`add`][fatqat.NoiseModel.add] 只追加，从不替换已有注册。不同的噪声类型可以作用于同一操作。同一类型也可以用于互不相交的目标或操作数位置。背景噪声与操作噪声相互独立，因此同一类型可以同时出现在两个作用域中。'
+  status: machine
+- id: 918bae1152b61488
+  en: FATQAT rejects overlapping rules of the same type for the same operation or background scope. A rule for every matching operation overlaps an exact target selector, and selecting every operand overlaps a positional selection.
+  zh: FATQAT 会拒绝同一操作或同一背景作用域中同一类型的重叠规则。匹配所有操作的规则与精确目标选择器重叠，选择全部操作数也与按位置的选择重叠。
+  status: machine
+- id: 5a96458d6967b0fe
+  en: Logical and device-label selectors cannot be compared until a resource layout is available. They may therefore both be added, but execution raises [`BackendValidationError`][fatqat.errors.BackendValidationError] if the layout makes both select the same noise type and operands for an actual operation.
+  zh: 在资源布局可用之前，逻辑选择器与设备标签选择器无法比较。因此两者都可以被添加，但如果布局使二者对某个实际操作选中了相同的噪声类型与操作数，执行时会抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]。
+  status: machine
+- id: 2e1183801d3ccc5d
+  en: Readout is unique per measured operand. Duplicate universal or duplicate exact selectors fail during `add`; universal and targeted registrations cannot be mixed. A logical selector and a device-label selector that name the same measured operand are rejected when the program runs.
+  zh: 读出对每个被测量的操作数是唯一的。重复的全局选择器或重复的精确选择器会在 `add` 时失败；全局注册与定向注册不能混用。指向同一被测量操作数的逻辑选择器与设备标签选择器会在程序运行时被拒绝。
+  status: machine
+- id: 64a337ab8a01b8d1
+  en: When validation happens
+  zh: 验证发生的时机
+  status: machine
+- id: af7b15d1af7c7257
+  en: '**Validation stages**'
+  zh: '**验证阶段**'
+  status: machine
+- id: efbcae6bf062db62
+  en: A valid selector with no matching operation or measurement is a no-op, not an error. Some checks require a concrete program, resource layout, and execution method.
+  zh: 没有匹配到任何操作或测量的有效选择器是空操作，而不是错误。有些检查需要具体的程序、资源布局与执行方法。
+  status: machine
+- id: b65f6e28167e564a
+  en: Validate backend support
+  zh: 验证后端支持
+  status: machine
+- id: c5fb1649261f08b6
+  en: Use [`validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] for a simulator or [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] for a pulse emulator to validate a candidate model. The method returns `None` when the configured backend accepts the model. Otherwise, it raises [`BackendValidationError`][fatqat.errors.BackendValidationError] whose message includes every model-level rejection reason.
+  zh: 要验证候选模型，模拟器使用 [`validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model]，脉冲仿真器使用 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model]。当所配置的后端接受该模型时，方法返回 `None`；否则抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]，其消息包含模型层面的每一个拒绝原因。
+  status: machine
+- id: a3f076377a0c71d6
+  en: Program- and layout-dependent checks still happen when the model is used.
+  zh: 依赖程序与布局的检查仍会在模型被使用时进行。
+  status: machine
+- id: 099be14f1ad0a8d6
+  en: '| Scope | Noise type | `operation` | `targets` | `target_positions` |'
+  zh: '| 作用域 | 噪声类型 | `operation` | `targets` | `target_positions` |'
+  status: machine
+- id: a5903660e729c725
+  en: '| On matching operations | [`Channel`][fatqat.noise.Channel] or [`Loss`][fatqat.noise.Loss] | Required operation instance or subclass | Optional exact ordered target selector | Optional affected positions in the operation''s target order |'
+  zh: '| 作用于匹配的操作 | [`Channel`][fatqat.noise.Channel] 或 [`Loss`][fatqat.noise.Loss] | 必需的操作实例或子类 | 可选的精确有序目标选择器 | 可选，按操作目标顺序指定受影响的位置 |'
+  status: machine
+- id: 82cae8ad6ef89a0a
+  en: '| During pulse time (background) | A [`Channel`][fatqat.noise.Channel] that acts on one subsystem | Omitted or `None` | Exactly one logical reference or device label | Must be omitted or `None` |'
+  zh: '| 贯穿脉冲时间（背景） | 作用于一个子系统的 [`Channel`][fatqat.noise.Channel] | 省略或为 `None` | 恰好一个逻辑引用或设备标签 | 必须省略或为 `None` |'
+  status: machine
+- id: b7e18b79a0a9ebdf
+  en: '| At measurement (readout) | [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | Must be omitted | Omitted for universal readout, or one scalar selector | Must be omitted |'
+  zh: '| 测量时（读出） | [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | 必须省略 | 省略表示全局读出，或提供一个标量选择器 | 必须省略 |'
+  status: machine
+- id: 55823303a52ca048
+  en: '| Form | Scope | Meaning and constraints |'
+  zh: '| 形式 | 作用域 | 含义与约束 |'
+  status: machine
+- id: 433ecb4726d605ff
+  en: '| `None` | Operation | Match every operation of the exact class. |'
+  zh: '| `None` | 操作 | 匹配该确切类的每一个操作。 |'
+  status: machine
+- id: 8287cd114ed5cdb8
+  en: '| One `RegisterRef` or non-tuple hashable label | Operation | Shorthand for a one-element selector. An operation with a known width must take one target; a variadic operation is checked later. |'
+  zh: '| 一个 `RegisterRef` 或非元组的可哈希标签 | 操作 | 单元素选择器的简写。宽度已知的操作必须只取一个目标；变长操作会在之后检查。 |'
+  status: machine
+- id: 83d3828a1fd4ec38
+  en: '| Non-empty tuple of `RegisterRef` values | Operation | Exact ordered logical target selector. Its length must equal a known operation width. |'
+  zh: '| 由 `RegisterRef` 值组成的非空元组 | 操作 | 精确有序的逻辑目标选择器。其长度必须等于已知的操作宽度。 |'
+  status: machine
+- id: 1051c09bf372cdf3
+  en: '| Non-empty tuple of hashable device labels | Operation | Exact ordered device-label selector. Its length must equal a known operation width. |'
+  zh: '| 由可哈希设备标签组成的非空元组 | 操作 | 精确有序的设备标签选择器。其长度必须等于已知的操作宽度。 |'
+  status: machine
+- id: 8b34f77a57a5fa6c
+  en: '| One scalar or one-element tuple | Background | Select exactly one logical reference or device label. |'
+  zh: '| 一个标量或单元素元组 | 背景 | 恰好选择一个逻辑引用或设备标签。 |'
+  status: machine
+- id: 46ecb0a2db4b025f
+  en: '| `None` | Readout | Select every measured operand. Universal and targeted readout registrations cannot coexist. |'
+  zh: '| `None` | 读出 | 选择每个被测量的操作数。全局读出注册与定向读出注册不能共存。 |'
+  status: machine
+- id: 70514f414769a128
+  en: '| One `RegisterRef` or non-tuple hashable label | Readout | Select one measured logical reference or device label. Correlated readout is not supported. |'
+  zh: '| 一个 `RegisterRef` 或非元组的可哈希标签 | 读出 | 选择一个被测量的逻辑引用或设备标签。不支持关联读出。 |'
+  status: machine
+- id: a6d807fab6af62d4
+  en: '| When | Checks | Typical failure |'
+  zh: '| 时机 | 检查内容 | 典型失败 |'
+  status: machine
+- id: 6d62a80b3ed8607d
+  en: '| Creating a noise value | Probabilities, rates, matrices, finite values, and type-specific parameter relationships | `TypeError` or `ValueError` from the noise type |'
+  zh: '| 创建噪声值时 | 概率、速率、矩阵、有限值以及特定类型的参数关系 | 噪声类型抛出的 `TypeError` 或 `ValueError` |'
+  status: machine
+- id: 5f7e1ed4b393547e
+  en: '| [`add`][fatqat.NoiseModel.add] | Noise type, operation boundary, target form, known width, position ordering/range, and immediately visible conflicts | `TypeError` or `ValueError`; the failed addition changes nothing |'
+  zh: '| [`add`][fatqat.NoiseModel.add] | 噪声类型、操作边界、目标形式、已知宽度、位置的顺序与范围，以及立即可见的冲突 | `TypeError` 或 `ValueError`；失败的添加不产生任何更改 |'
+  status: machine
+- id: 2ff1f40f227bd06f
+  en: '| Creating the backend | Whether the configured backend accepts every noise form and scope | [`BackendValidationError`][fatqat.errors.BackendValidationError] |'
+  zh: '| 创建后端时 | 所配置的后端是否接受每一种噪声形式与作用域 | [`BackendValidationError`][fatqat.errors.BackendValidationError] |'
+  status: machine
+- id: a7b03e8c30b729bb
+  en: '| Running a program | Whether references belong to the program, device labels belong to the layout, selectors resolve without conflicts, and dimensions and the chosen execution method are compatible | Usually [`BackendValidationError`][fatqat.errors.BackendValidationError] or [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
+  zh: '| 运行程序时 | 引用是否属于该程序、设备标签是否属于该布局、选择器能否无冲突地解析，以及维度与所选执行方法是否兼容 | 通常为 [`BackendValidationError`][fatqat.errors.BackendValidationError] 或 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
+  status: machine

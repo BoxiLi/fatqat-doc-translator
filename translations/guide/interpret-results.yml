@@ -1,0 +1,88 @@
+- id: 30a62c058a799f69
+  en: Ask questions of a run
+  zh: 向一次运行提问
+  status: machine
+- id: b7f6f82e31146e97
+  en: 'Every FatQat execution crosses the same boundary: submit a [`Program`][fatqat.Program], receive a [`Job`][fatqat.Job], and call [`result`][fatqat.Job.result] for the answer. The useful result depends on the question you asked.'
+  zh: 每次 FatQat 执行都会跨越同一个边界：提交 [`Program`][fatqat.Program]，得到 [`Job`][fatqat.Job]，再调用 [`result`][fatqat.Job.result] 获取答案。哪种结果有用取决于你提出的问题。
+  status: machine
+- id: 0d3172bcac9da9b0
+  en: 'We will build one Bell Program and use it four ways: observed outcomes, final state, implemented map, and expectation value.'
+  zh: 我们将构建一个贝尔 Program，并以四种方式使用它：观测到的结果、最终状态、实现的映射，以及期望值。
+  status: machine
+- id: fc8b6e458ffeaba2
+  en: Build the computation once
+  zh: 只构建一次计算
+  status: machine
+- id: 9a18eaa6ec55139e
+  en: 'Keep the Program unmeasured at first. That leaves state-, map-, and observable-based questions open:'
+  zh: 先让 Program 保持未测量的状态。这样基于状态、映射和可观测量的问题都仍然可以提出：
+  status: machine
+- id: 2611b7dd7e9e9957
+  en: What outcomes occurred?
+  zh: 出现了哪些结果？
+  status: machine
+- id: e62426c145b70db6
+  en: 'Copy the Program and append measurement when the output you want is a sampled classical distribution:'
+  zh: 当你需要的输出是采样得到的经典分布时，复制 Program 并追加测量：
+  status: machine
+- id: e97ac3de82641518
+  en: 'Only the correlated Bell outcomes occur. Count strings display the highest classical slot on the left and slot 0 on the right. A deliberately asymmetric example makes that order visible:'
+  zh: 只会出现相互关联的贝尔结果。计数字符串把最高的经典槽位显示在左边、槽位 0 显示在右边。一个刻意不对称的示例能让这一顺序清晰可见：
+  status: machine
+- id: 16f4c5119cb588e5
+  en: Qubit 0 is `1`, so classical slot 0 appears as the rightmost digit. Use [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples] when code benefits from slot 0 being first rather than from display strings.
+  zh: 量子比特 0 是 `1`，因此经典槽位 0 显示为最右边的数字。当代码更需要槽位 0 排在最前而不是显示字符串时，使用 [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples]。
+  status: machine
+- id: 0ae8e0ab8329b413
+  en: What state did the run reach?
+  zh: 这次运行到达了什么状态？
+  status: machine
+- id: ac77ff6005297a06
+  en: 'Run the unmeasured Program and request its natural final state:'
+  zh: 运行未测量的 Program，并请求其自然的最终状态：
+  status: machine
+- id: f4e6ac90e1180c98
+  en: '`available_data` tells you what this run actually produced before you choose an accessor. Here the state has equal probability on `|00>` and `|11>`. A density-matrix run expresses the same pure state as a matrix and can also represent exact mixed evolution. Hamiltonian emulators may return states that include non-computational physical levels or model subsystems not addressed by the logical Program.'
+  zh: '`available_data` 会在你选择访问器之前告诉你这次运行实际产生了什么。这里的状态在 `|00>` 和 `|11>` 上概率相等。密度矩阵运行以矩阵形式表达同一个纯态，还能表示精确的混合演化。哈密顿量仿真器返回的状态可能包含非计算物理能级，或逻辑 Program 未寻址的模型子系统。'
+  status: machine
+- id: fd4bb186cbe81fbc
+  en: What transformation did the Program implement?
+  zh: Program 实现了什么变换？
+  status: machine
+- id: 11d21aaefd027a73
+  en: 'An unmeasured coherent Program can itself be the object of study. Running it with the unitary method returns a matrix whose first column is the state that the Program prepares from `|00>`:'
+  zh: 未测量的相干 Program 本身也可以作为研究对象。以 unitary 方法运行它会返回一个矩阵，其第一列就是该 Program 从 `|00>` 制备出的状态：
+  status: machine
+- id: 3b2b7ef8070f28dd
+  en: Use this route for a small coherent block whose complete action matters. A super-operator extends the idea to complete channels at substantially greater cost.
+  zh: 当一个小型相干模块的完整作用很重要时，走这条路线。超算符将这一思路扩展到完整的信道，但代价大得多。
+  status: machine
+- id: 326840fc8dc29964
+  en: What physical quantity do I care about?
+  zh: 我关心的物理量是什么？
+  status: machine
+- id: c537bb7e6df5e49f
+  en: 'Counts are indirect when the answer is already an expectation value such as a correlation or magnetization. [`Estimator`][fatqat.Estimator] evolves the unmeasured Program through a backend and evaluates an [`Observable`][fatqat.Observable] on the resulting state:'
+  zh: 当答案本身就是期望值（例如关联或磁化强度）时，计数就显得间接。[`Estimator`][fatqat.Estimator] 通过某个后端演化未测量的 Program，并在得到的状态上求值一个 [`Observable`][fatqat.Observable]：
+  status: machine
+- id: 699e98543f54406d
+  en: The Bell pair is perfectly correlated, so `<ZZ> = 1`. Either individual qubit is balanced between zero and one, so `<Z_0> = 0`. Observable labels place qubit 0 at the right, matching count-string order.
+  zh: 贝尔对是完全关联的，因此 `<ZZ> = 1`。任一单个量子比特在零和一之间均衡分布，因此 `<Z_0> = 0`。可观测量标签把量子比特 0 放在右边，与计数字符串的顺序一致。
+  status: machine
+- id: cd00ec896271f370
+  en: 'By default, Estimator calculates an exact value from the final state. A positive shot count instead shows the statistical precision of a finite-shot request:'
+  zh: 默认情况下，Estimator 从最终状态计算精确值。给定正的 shot 数则会转而展示有限 shot 请求的统计精度：
+  status: machine
+- id: 94522ff0c66b904f
+  en: The estimate fluctuates around zero, and `get_std()` reports its standard error. Increase the shots when statistical precision—not state evolution—is the limiting factor.
+  zh: 估计值在零附近波动，`get_std()` 报告其标准误差。当限制因素是统计精度——而非状态演化——时，增加 shot 数。
+  status: machine
+- id: c39ced49852e32fa
+  en: For formal state-axis, operator-vectorization, and observable-shape contracts, use the [Result](../api/result.md), [Simulator](../api/simulator.md), and [Estimator](../api/estimator.md) references.
+  zh: 关于状态轴、算符向量化和可观测量形状的正式契约，请查阅 [Result](../api/result.md)、[Simulator](../api/simulator.md) 和 [Estimator](../api/estimator.md) 参考。
+  status: machine
+- id: f4ab5dfd52a23f60
+  en: The next question is often whether that answer survives realistic errors. [Compare the same Program ideally and noisily](ideal-and-noisy.md) changes the execution model while leaving the Bell Program untouched.
+  zh: 接下来的问题往往是：这个答案在真实误差下是否仍然成立。[在理想与含噪条件下比较同一个 Program](ideal-and-noisy.md)改变的是执行模型，而贝尔 Program 保持原样。
+  status: machine

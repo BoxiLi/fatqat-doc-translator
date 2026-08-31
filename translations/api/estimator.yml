@@ -1,0 +1,72 @@
+- id: a566e72b5d4b124c
+  en: Observables and estimation
+  zh: 可观测量与估计
+  status: machine
+- id: 83e1683eeb0aa52e
+  en: Use [`Estimator`][fatqat.Estimator] to evaluate one or more [`Observable`][fatqat.Observable] values from a backend's final state. The program must be unmeasured, fully bound, and qubit-only; the backend must return a statevector or density matrix in the program's logical qubit space.
+  zh: 使用 [`Estimator`][fatqat.Estimator] 基于后端的末态求取一个或多个 [`Observable`][fatqat.Observable] 的值。程序必须未经测量、完全绑定且仅含量子比特；后端必须在程序的逻辑量子比特空间中返回态矢量或密度矩阵。
+  status: machine
+- id: 021ea6651f894374
+  en: Estimate an observable
+  zh: 估计可观测量
+  status: machine
+- id: 64ba577b3d92a793
+  en: For a guided workflow, see [Ask questions of a run](../guide/interpret-results.md).
+  zh: 有关引导式工作流，参见[向一次运行提问](../guide/interpret-results.md)。
+  status: machine
+- id: 73fca541df0c0421
+  en: Construct an observable
+  zh: 构造可观测量
+  status: machine
+- id: 4d0a14ca8557f291
+  en: 'Dense labels put qubit 0 at the right and accept `I`, `X`, `Y`, and `Z`. These forms are equivalent:'
+  zh: 稠密标签将量子比特 0 放在最右侧，并接受 `I`、`X`、`Y` 和 `Z`。以下形式等价：
+  status: machine
+- id: 865d4ff9ecf23007
+  en: '[`from_sparse`][fatqat.Observable.from_sparse] names each non-identity factor and its qubit explicitly. It also supports `ZERO` and `ONE` projectors:'
+  zh: '[`from_sparse`][fatqat.Observable.from_sparse] 显式指明每个非恒等因子及其量子比特。它还支持 `ZERO` 和 `ONE` 投影算符：'
+  status: machine
+- id: 622c863621c52148
+  en: Coefficients must be real.
+  zh: 系数必须为实数。
+  status: machine
+- id: 479684de59bfab33
+  en: Exact and sampled results
+  zh: 精确结果与采样结果
+  status: machine
+- id: 06f36e9304d929af
+  en: Pass one observable to receive scalar expectation and standard-error values, or a list or tuple to receive arrays in the same order.
+  zh: 传入单个可观测量可得到标量的期望值和标准误差；传入列表或元组则按相同顺序得到数组。
+  status: machine
+- id: cb6a6c49e63c571c
+  en: '`shots=0` computes an exact value. A positive `shots` value samples each observable term, and [`get_std`][fatqat.Result.get_std] reports the resulting standard error. Set `simulation_config["seed"]` to reproduce a sampled run.'
+  zh: '`shots=0` 计算精确值。正的 `shots` 值会对每个可观测量项进行采样，[`get_std`][fatqat.Result.get_std] 报告由此产生的标准误差。设置 `simulation_config["seed"]` 可重现一次采样运行。'
+  status: machine
+- id: 7a5010a7c2a3e305
+  en: Configure the simulation method, runtime, and noise on the backend. Invalid programs, observable widths, and shot values raise [`BackendValidationError`][fatqat.errors.BackendValidationError] before a job is returned; unsupported observable types raise `TypeError`. Later failures are raised by [`result`][fatqat.Job.result].
+  zh: 在后端上配置模拟方法、运行时与噪声。无效的程序、可观测量宽度和 shots 值会在作业返回之前抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]；不支持的可观测量类型抛出 `TypeError`。之后的失败由 [`result`][fatqat.Job.result] 抛出。
+  status: machine
+- id: 0ce51498bfb25291
+  en: Use a density-matrix backend when the program resets qubits or channel noise applies.
+  zh: 当程序重置量子比特或存在信道噪声时，使用密度矩阵后端。
+  status: machine
+- id: f871dbe410139984
+  en: For a program with `N` qubits, the returned statevector must have shape `(2**N,)` or the density matrix must have shape `(2**N, 2**N)`. A backend state with another shape raises [`BackendValidationError`][fatqat.errors.BackendValidationError] before any Pauli expectation kernel runs. In particular, a full physical qutrit state returned by a Transmon emulator is not implicitly projected into the logical subspace. Inspect that physical state directly with the backend [`Result`][fatqat.Result] until explicit leakage-aware observable semantics are available.
+  zh: 对于含 `N` 个量子比特的程序，返回的态矢量形状必须为 `(2**N,)`，或密度矩阵形状必须为 `(2**N, 2**N)`。形状不符的后端态会在任何 Pauli 期望值计算内核运行之前抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]。特别地，Transmon 仿真器返回的完整物理 qutrit 态不会被隐式投影到逻辑子空间。在提供显式的泄漏感知可观测量语义之前，请直接通过后端 [`Result`][fatqat.Result] 检查该物理态。
+  status: machine
+- id: 4eaf664b5a905052
+  en: Read estimator results with [`get_expectation`][fatqat.Result.get_expectation] and [`get_std`][fatqat.Result.get_std]. Run the backend separately if you also need its final state.
+  zh: 使用 [`get_expectation`][fatqat.Result.get_expectation] 和 [`get_std`][fatqat.Result.get_std] 读取估计器结果。如果还需要后端的末态，请单独运行该后端。
+  status: machine
+- id: 72a7d5d9dd560aef
+  en: Parameter sweeps
+  zh: 参数扫描
+  status: machine
+- id: 3a37a2050aedc2d7
+  en: '[`run_sweep`][fatqat.Estimator.run_sweep] evaluates binding rows in input order. Validation errors raise directly; other row failures are raised by [`result`][fatqat.Job.result]. No partial result list is returned. See [Simulate a quantum program](../guide/simulation.md) for a guided parameter sweep; accepted binding shapes and seed behavior are specified here.'
+  zh: '[`run_sweep`][fatqat.Estimator.run_sweep] 按输入顺序求值各绑定行。校验错误直接抛出；其他行的失败由 [`result`][fatqat.Job.result] 抛出。不会返回部分结果列表。有关引导式参数扫描，参见[模拟量子程序](../guide/simulation.md)；接受的绑定形状与种子行为以本页规定为准。'
+  status: machine
+- id: 0512da99303af84f
+  en: Detailed reference
+  zh: 详细参考
+  status: machine

@@ -1,0 +1,96 @@
+- id: a78d45842ac7ae2e
+  en: Prepare and measure a Bell state
+  zh: 制备并测量 Bell 态
+  status: machine
+- id: 9457640a36c563fc
+  en: Follow a two-qubit Bell state from exact amplitudes to seeded measurement counts and a comparison with the ideal distribution.
+  zh: 跟随一个双量子比特 Bell 态，从精确振幅走到设定种子的测量计数，再到与理想分布的比较。
+  status: machine
+- id: 9495d0b5d4136e2a
+  en: Seeded Bell-state measurement frequencies compared with the ideal distribution
+  zh: 设定种子的 Bell 态测量频率与理想分布的对比
+  status: machine
+- id: 956547c1ccb4be6d
+  en: This tutorial builds the smallest entangled quantum system and follows it from an exact statevector to finite-shot measurement data. Along the way, it shows the distinction between a quantum state and the classical evidence collected from repeated measurements.
+  zh: 本教程构建最小的纠缠量子系统，并跟踪它从精确态矢量到有限次测量数据的全过程。在此过程中，教程展示了量子态与从重复测量中收集到的经典证据之间的区别。
+  status: machine
+- id: 8d3c38839aff0ea7
+  en: For two qubits, the Bell state used here is
+  zh: 对于两个量子比特，这里使用的 Bell 态为
+  status: machine
+- id: 3f795dc484e58482
+  en: The ket cannot be factored into independent single-qubit states. Measuring either qubit alone produces zero or one with equal probability, but the two outcomes are perfectly correlated. In ideal sampling we therefore expect $P(00)=P(11)=1/2$ and $P(01)=P(10)=0$.
+  zh: 这个右矢无法分解为相互独立的单量子比特态。单独测量任一量子比特都会以相等概率得到零或一，但两个结果完全相关。因此在理想采样中，我们期望 $P(00)=P(11)=1/2$ 且 $P(01)=P(10)=0$。
+  status: machine
+- id: dff8d0e6276a7340
+  en: We first inspect the exact amplitudes, then add measurements and collect reproducible shot counts, and finally compare their observed frequencies with the theoretical distribution in a figure.
+  zh: 我们首先查看精确振幅，然后添加测量并收集可复现的采样计数，最后在一张图中把观测到的频率与理论分布进行比较。
+  status: machine
+- id: 765805113af4d820
+  en: Imports and display settings
+  zh: 导入与显示设置
+  status: machine
+- id: 14a2201da41c34ca
+  en: A `fatqat.Program` is the backend-independent circuit description. Gate values live in `fatqat.operations`; fixed gates such as `H` and `CX` are passed directly rather than constructed. NumPy helps us check the state, and Matplotlib supplies the captured runtime figure.
+  zh: '`fatqat.Program` 是与后端无关的电路描述。门的取值位于 `fatqat.operations` 中；诸如 `H` 和 `CX` 之类的固定门直接传入而无需构造。NumPy 帮助我们检查量子态，Matplotlib 则提供捕获的运行时图像。'
+  status: machine
+- id: 37b77839e1a80338
+  en: Build the entangling circuit
+  zh: 构建纠缠电路
+  status: machine
+- id: ecad94f81e911ca9
+  en: The system begins in $|00\rangle$. Applying a Hadamard gate to qubit zero creates
+  zh: 系统初始处于 $|00\rangle$。对量子比特 0 施加一个 Hadamard 门会产生
+  status: machine
+- id: 0e86cef014b59788
+  en: in fatqat's little-endian subsystem convention. The controlled-X then flips qubit one exactly when qubit zero is one, producing $|\Phi^+\rangle$. This first program has no classical register and no measurements because we want the exact final state.
+  zh: 这里采用 fatqat 的小端序子系统约定。随后受控 X 门恰好在量子比特 0 为 1 时翻转量子比特 1，从而产生 $|\Phi^+\rangle$。这第一个程序没有经典寄存器也没有测量，因为我们想要精确的最终态。
+  status: machine
+- id: 70199ffe99b0bbac
+  en: Inspect the exact statevector
+  zh: 查看精确态矢量
+  status: machine
+- id: b5c883b1aab38afb
+  en: '`method="SV"` selects statevector simulation. With no measurement, the run is deterministic: one backend execution gives the exact final vector. We disable counts and explicitly request the native final-state artifact.'
+  zh: '`method="SV"` 选择态矢量模拟。由于没有测量，这次运行是确定性的：一次后端执行即可给出精确的最终向量。我们禁用计数，并显式请求原生的最终态产物。'
+  status: machine
+- id: 62febb058a556e96
+  en: The basis order is $|00\rangle$, $|01\rangle$, $|10\rangle$, $|11\rangle$. The printed vector therefore has amplitudes $1/\sqrt{2}$ at indices zero and three and zero elsewhere. The next cell makes those probabilities explicit so the runtime output can be checked directly against the printed statevector.
+  zh: 基矢顺序为 $|00\rangle$、$|01\rangle$、$|10\rangle$、$|11\rangle$。因此打印出的向量在索引 0 和 3 处振幅为 $1/\sqrt{2}$，其余位置为零。下一个单元把这些概率显式写出，使运行时输出可以直接对照打印的态矢量检查。
+  status: machine
+- id: b38fc25e8d5d7f67
+  en: Add classical measurement
+  zh: 添加经典测量
+  status: machine
+- id: c1f95c3865b3258f
+  en: A sampled program needs two classical bits. We rebuild the short program so its quantum instructions are unchanged, then measure quantum slots zero and one into classical slots zero and one. Count strings are displayed with the highest classical index on the left, so the correlated results appear as `"00"` and `"11"`.
+  zh: 采样程序需要两个经典比特。我们重建这个短程序，保持其量子指令不变，然后把量子槽位 0 和 1 测量到经典槽位 0 和 1。计数字符串按最高经典索引在最左侧的方式显示，因此相关的结果显示为 `"00"` 和 `"11"`。
+  status: machine
+- id: d03062c96c66bd73
+  en: Sample a reproducible experiment
+  zh: 采样一个可复现的实验
+  status: machine
+- id: b4ac6ad142ad3f93
+  en: Finite-shot results fluctuate around the exact probabilities. A fixed seed makes the tutorial's printed output stable across repeated tutorial runs; applications that want independent experimental samples can omit it. The seed controls sampling, not the state prepared by the gates.
+  zh: 有限次测量的结果围绕精确概率波动。固定的种子使教程打印的输出在多次运行之间保持稳定；需要独立实验样本的应用可以省略它。种子只控制采样，不影响门所制备的量子态。
+  status: machine
+- id: c86243e5b67497ae
+  en: Compare observation with theory
+  zh: 观测与理论的比较
+  status: machine
+- id: 829e570333793c22
+  en: For outcome $x$, the empirical frequency
+  zh: 对于结果 $x$，经验频率
+  status: machine
+- id: 3a72a926e22f1764
+  en: estimates the Born probability. The dashed line marks the ideal probability $1/2$ for both allowed outcomes. Sampling noise moves each bar slightly away from that value, while the impossible `01` and `10` outcomes remain absent in this noiseless circuit.
+  zh: 用于估计 Born 概率。虚线标出两个允许结果的理想概率 $1/2$。采样噪声使每个柱条略微偏离该值，而不可能出现的 `01` 和 `10` 结果在这个无噪声电路中始终不出现。
+  status: machine
+- id: c059a947e7deaac3
+  en: The exact statevector and the sampled histogram answer different questions. The vector describes the coherent state before observation, including its amplitudes and relative phases. Counts describe classical outcomes after measurement, and their precision is limited by `shots`. Increasing the shot count narrows the statistical fluctuations but does not reveal phase information; experiments that target phase require a different measurement basis.
+  zh: 精确态矢量与采样直方图回答的是不同的问题。态矢量描述观测之前的相干态，包括其振幅和相对相位。计数描述测量之后的经典结果，其精度受 `shots` 限制。增加测量次数可以缩小统计涨落，但不会揭示相位信息；针对相位的实验需要不同的测量基。
+  status: machine
+- id: ad2e37232da73dd6
+  en: From here, try changing the Hadamard to `X`, removing the controlled-X, or using the noise tools from the user guide. The downloadable Python is generated from these Markdown cells, so each variation can be explored directly.
+  zh: 接下来，可以尝试把 Hadamard 换成 `X`、去掉受控 X 门，或使用用户指南中的噪声工具。可下载的 Python 代码由这些 Markdown 单元生成，因此每种变体都可以直接探索。
+  status: machine

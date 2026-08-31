@@ -1,0 +1,52 @@
+- id: f98402bf2f521b2d
+  en: ThermalRelaxation
+  zh: ThermalRelaxation
+  status: machine
+- id: da8b5ab9a8c92a58
+  en: '[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] models zero-temperature T1 and T2 relaxation on an emulator. It combines downward population decay with the additional pure dephasing needed to reproduce T2. It is a continuous-time emulator declaration, not a finite simulator channel. Matrix simulators instead use operation-bound probability-form [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] and [`PhaseDamping`][fatqat.noise.PhaseDamping] descriptors.'
+  zh: '[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] 在仿真器上建模零温 T1 和 T2 弛豫。它将向下的布居衰减与再现 T2 所需的额外纯退相位相结合。它是连续时间的仿真器声明，而非有限的模拟器信道。矩阵模拟器应改用绑定到操作的概率形式 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] 和 [`PhaseDamping`][fatqat.noise.PhaseDamping] 描述符。'
+  status: machine
+- id: aa7fb16e3a4b4b82
+  en: Times and rates
+  zh: 时间与速率
+  status: machine
+- id: 124fa6141bdfdaa7
+  en: '`t1` and `t2` are finite positive values in the same unit; they have no intrinsic unit of their own. When registering the noise with an emulator, use the emulator model''s time unit. Physical consistency requires'
+  zh: '`t1` 和 `t2` 是使用同一单位的有限正值，其本身没有固有单位。向仿真器注册此噪声时，请使用仿真器模型的时间单位。物理一致性要求'
+  status: machine
+- id: e6cfa2ffe9bf5c6d
+  en: The derived rates are
+  zh: 导出的速率为
+  status: machine
+- id: 3d789030f2a6ed20
+  en: '[`ThermalRelaxation.amplitude_rate`][fatqat.noise.ThermalRelaxation.amplitude_rate] returns $\gamma_1$, and [`ThermalRelaxation.pure_dephasing_rate`][fatqat.noise.ThermalRelaxation.pure_dephasing_rate] returns $\gamma_\phi$. The latter is nonnegative under the T2 bound and becomes zero at $T_2=2T_1$.'
+  zh: '[`ThermalRelaxation.amplitude_rate`][fatqat.noise.ThermalRelaxation.amplitude_rate] 返回 $\gamma_1$，[`ThermalRelaxation.pure_dephasing_rate`][fatqat.noise.ThermalRelaxation.pure_dephasing_rate] 返回 $\gamma_\phi$。在 T2 约束下，后者为非负，并在 $T_2=2T_1$ 时变为零。'
+  status: machine
+- id: dd2c4c227241fba9
+  en: For a $d$-level pulse model, the emulator uses the local Lindblad operators
+  zh: 对于 $d$ 能级脉冲模型，仿真器使用局部 Lindblad 算符
+  status: machine
+- id: 4c5aab31ef4cf4bc
+  en: 'The second operator is omitted when $\gamma_\phi=0$. This is a local, zero-temperature model: it includes downward relaxation but no thermal excitation or equilibrium-population parameter.'
+  zh: 当 $\gamma_\phi=0$ 时省略第二个算符。这是一个局部零温模型：它包含向下弛豫，但不包含热激发或平衡布居参数。
+  status: machine
+- id: 37bd756f29254a0a
+  en: Matrix simulators
+  zh: 矩阵模拟器
+  status: machine
+- id: 85b6265b94be1e14
+  en: For a known qubit operation duration $t$, the corresponding finite probabilities are below. The duration must use the same time unit as `t1` and `t2`.
+  zh: 对于已知的量子比特操作持续时间 $t$，对应的有限概率如下。持续时间必须与 `t1` 和 `t2` 使用相同的时间单位。
+  status: machine
+- id: 25d236453efe350a
+  en: 'Construct the two probability-form descriptors explicitly. The rate-form descriptors provide the public conversion methods:'
+  zh: 需显式构造这两个概率形式的描述符。速率形式的描述符提供公开的转换方法：
+  status: machine
+- id: a995478a353306e9
+  en: Register `damping` and `dephasing` on the relevant operation. For a qubit, their composition gives population decay $e^{-t/T_1}$ and coherence decay $e^{-t/T_2}$.
+  zh: 在相关操作上注册 `damping` 和 `dephasing`。对于量子比特，二者的复合给出布居衰减 $e^{-t/T_1}$ 和相干衰减 $e^{-t/T_2}$。
+  status: machine
+- id: 52e8d3c4ba1874e5
+  en: This construction is for qubits. A higher-dimensional amplitude-damping channel needs $d-1$ values, and the elementwise probability conversion does not reproduce full multilevel Lindblad evolution. See [Simulators](backend-support.md#noise-simulator-support) for simulator support.
+  zh: 此构造仅适用于量子比特。更高维的振幅阻尼信道需要 $d-1$ 个值，而逐元素的概率转换无法再现完整的多能级 Lindblad 演化。模拟器支持情况参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine

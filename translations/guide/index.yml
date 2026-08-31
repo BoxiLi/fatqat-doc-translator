@@ -1,0 +1,96 @@
+- id: 86a2a9ba70bc0260
+  en: User guide
+  zh: 用户指南
+  status: machine
+- id: d3df2cc97b2ba1eb
+  en: Choose the level of detail that answers your question. Every path starts from the same backend-independent [`Program`][fatqat.Program], so moving from an algorithm study to a hardware or physics study does not require a second authoring model.
+  zh: 选择能回答你问题的细节层级。每条路径都从同一个与后端无关的 [`Program`][fatqat.Program] 出发，因此从算法研究转向硬件或物理研究并不需要第二套编写模型。
+  status: machine
+- id: b2608199afbcf2fe
+  en: '![Five-qubit variational ansatz](../assets/generated/guide/guide-path-algorithm.png){ loading=lazy width="636" height="409" }'
+  zh: '![五量子比特变分拟设](../assets/generated/guide/guide-path-algorithm.png){ loading=lazy width="636" height="409" }'
+  status: machine
+- id: 29a7e89d01af2bc6
+  en: ':material-chart-bell-curve-cumulative: **Explore the algorithm**'
+  zh: ':material-chart-bell-curve-cumulative: **探索算法**'
+  status: machine
+- id: 0603685298480922
+  en: Start with ideal circuit behavior, inspect states and measurements, then add controlled noise and measure performance.
+  zh: 从理想电路行为开始，检查状态和测量，然后加入受控的噪声并衡量性能。
+  status: machine
+- id: a55f972269404651
+  en: '[Start with simulation :material-arrow-right:](simulation.md)'
+  zh: '[从模拟开始 :material-arrow-right:](simulation.md)'
+  status: machine
+- id: cd492ef391c8cf3d
+  en: '![Hardware topology with supported and unsupported couplings](../assets/generated/guide/guide-path-hardware.png){ loading=lazy width="490" height="400" }'
+  zh: '![标出支持与不支持耦合的硬件拓扑](../assets/generated/guide/guide-path-hardware.png){ loading=lazy width="490" height="400" }'
+  status: machine
+- id: 6f2626281db49f9c
+  en: ':material-chip: **Test hardware constraints**'
+  zh: ':material-chip: **测试硬件约束**'
+  status: machine
+- id: eb870c531e4bf93c
+  en: Add topology, native operations, placement, occupancy, movement, and reference noise without changing the logical workload.
+  zh: 在不改变逻辑工作负载的情况下，加入拓扑、原生操作、放置、占用、移动和参考噪声。
+  status: machine
+- id: d24245b1fe2c7c94
+  en: '[Open hardware-profile simulation :material-arrow-right:](hardware-profile-simulation.md)'
+  zh: '[打开硬件配置文件模拟 :material-arrow-right:](hardware-profile-simulation.md)'
+  status: machine
+- id: 1dd7f779f3bf5ef4
+  en: '![Driven-atom spectroscopy heatmap](../assets/generated/guide/guide-path-physics.png){ loading=lazy width="639" height="418" }'
+  zh: '![受驱原子光谱热图](../assets/generated/guide/guide-path-physics.png){ loading=lazy width="639" height="418" }'
+  status: machine
+- id: da25ed4fe7d38c9c
+  en: ':material-atom: **Follow the physics**'
+  zh: ':material-atom: **跟随物理**'
+  status: machine
+- id: 82f31475a823abd7
+  en: Resolve calibrated gates and direct pulse controls into continuous dynamics for transmons and neutral atoms.
+  zh: 将校准的门和直接脉冲控制解析为 transmon 与中性原子的连续动力学。
+  status: machine
+- id: 197f1a458192becc
+  en: '[Open Hamiltonian emulation :material-arrow-right:](hamiltonian-emulation.md)'
+  zh: '[打开哈密顿量仿真 :material-arrow-right:](hamiltonian-emulation.md)'
+  status: machine
+- id: c2fbdff2be61a55c
+  en: One Program, three levels
+  zh: 一个 Program，三个层级
+  status: machine
+- id: 16d344c0b2e0fb02
+  en: Begin with a working program
+  zh: 从一个可运行的程序开始
+  status: machine
+- id: 81408cccd382026f
+  en: New to FatQat? [Build and run a Bell program](quickstart.md). It takes about ten minutes and ends with a circuit drawing and a counts plot.
+  zh: 初次接触 FatQat？[构建并运行一个贝尔程序](quickstart.md)。它大约需要十分钟，最后会得到一张电路图和一张计数图。
+  status: machine
+- id: 3d039d4c8ded5334
+  en: When you are ready to go beyond the first circuit, [write a richer Program](program.md). That chapter introduces named registers, classical control, reusable parameters, and mixed qubit–qutrit systems without changing the authoring model.
+  zh: 当你准备超越第一个电路时，请[编写更丰富的 Program](program.md)。那一章介绍命名寄存器、经典控制、可复用参数以及量子比特–qutrit 混合系统，而无需改变编写模型。
+  status: machine
+- id: 199aa25730d144d7
+  en: '!!! tip'
+  zh: '!!! tip'
+  status: machine
+- id: b178c070c1fed1bf
+  en: The guide teaches complete workflows and the reasoning behind them. Follow a link to the [API reference](../api/index.md) when you need a precise signature or contract. The [tutorials](../tutorials/index.md) are longer case studies built on the same features.
+  zh: 本指南讲授完整的工作流及其背后的推理。当你需要精确的签名或契约时，请通过链接查阅 [API 参考](../api/index.md)。[教程](../tutorials/index.md)是基于相同功能的更长篇案例研究。
+  status: machine
+- id: 1080a3d338cf5d1d
+  en: '| Question | Execution target | Typical answer |'
+  zh: '| 问题 | 执行目标 | 典型答案 |'
+  status: machine
+- id: d2e2f49bf495ee0a
+  en: '| What does the algorithm do? | General simulator | Counts, states, expectations, or a unitary |'
+  zh: '| 算法做了什么？ | 通用模拟器 | 计数、状态、期望值或酉矩阵 |'
+  status: machine
+- id: 1b8f6b17b5797f3e
+  en: '| Does it fit this device profile? | Hardware-profile simulator | Native-operation, layout, and noise behavior |'
+  zh: '| 它符合这个设备配置文件吗？ | 硬件配置文件模拟器 | 原生操作、布局与噪声行为 |'
+  status: machine
+- id: f3e03c4b532b6ca3
+  en: '| What dynamics produce it? | Hamiltonian emulator | Time evolution, leakage, occupancy, and pulse effects |'
+  zh: '| 什么样的动力学产生了它？ | 哈密顿量仿真器 | 时间演化、泄漏、占用与脉冲效应 |'
+  status: machine

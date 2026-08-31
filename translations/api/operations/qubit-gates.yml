@@ -1,0 +1,216 @@
+- id: 4578b1afce590fe6
+  en: Qubit gates
+  zh: 量子比特门
+  status: machine
+- id: c42a34a9d32421d7
+  en: Every gate on this page is defined for dimension-2 targets (qubits). [`add`][fatqat.Program.add] records the operation without checking target dimensions. The backend checks that requirement and any device-specific limits when the program runs.
+  zh: 本页所有门均针对维度为 2 的目标（量子比特）定义。[`add`][fatqat.Program.add] 只记录操作，不检查目标维度。后端会在程序运行时检查该要求以及任何设备特定的限制。
+  status: machine
+- id: 6f5e9b2a238bef11
+  en: Every unary gate accepts either one scalar target or one [`RegisterView`](../registers.md#fatqat.RegisterView). Every multi-qubit gate accepts either scalar operands or one compatible view per operand and zips the views in order.
+  zh: 每个一元门接受一个标量目标或一个 [`RegisterView`](../registers.md#fatqat.RegisterView)。每个多量子比特门接受标量操作数，或每个操作数各一个兼容视图，并按顺序将各视图的成员逐一配对。
+  status: machine
+- id: 6429dc71b525a77e
+  en: Fixed gates
+  zh: 固定门
+  status: machine
+- id: ded2ecb0912285d5
+  en: Fixed gates are ready-to-use values and must not be called. The single-qubit matrices use `|0>, |1>` basis order.
+  zh: 固定门是可直接使用的值，不得被调用。单量子比特矩阵采用 `|0>, |1>` 基顺序。
+  status: machine
+- id: af8f7f7184b49c97
+  en: '**Fixed single-qubit gates**'
+  zh: '**固定单量子比特门**'
+  status: machine
+- id: a29819d4e6637ad4
+  en: For the multi-qubit values below, targets are ordered exactly as shown.
+  zh: 对于下面的多量子比特值，目标顺序与所示完全一致。
+  status: machine
+- id: ed49cb32eac69cdf
+  en: '**Fixed multi-qubit gates**'
+  zh: '**固定多量子比特门**'
+  status: machine
+- id: 4710714cf40a10fb
+  en: Matrix definitions
+  zh: 矩阵定义
+  status: machine
+- id: d751353ad499fc58
+  en: 'These matrices act on column state vectors. For the single-qubit gates, rows and columns use basis order $(|0\rangle,|1\rangle)$:'
+  zh: 这些矩阵作用于列态矢量。对于单量子比特门，行和列采用基顺序 $(|0\rangle,|1\rangle)$：
+  status: machine
+- id: 547205a94a4dad88
+  en: For each two-qubit matrix, the targets are $(q_0,q_1)$ and rows and columns use basis order $(|00\rangle,|01\rangle,|10\rangle,|11\rangle)$. The first operand $q_0$ is the local most-significant bit. It is the control for `CX`, `CY`, `CZ`, and `CS`; $q_1$ is the target.
+  zh: 对于每个双量子比特矩阵，目标为 $(q_0,q_1)$，行和列采用基顺序 $(|00\rangle,|01\rangle,|10\rangle,|11\rangle)$。第一个操作数 $q_0$ 是局部最高有效位；对 `CX`、`CY`、`CZ` 和 `CS` 而言它是控制位，$q_1$ 是目标位。
+  status: machine
+- id: c90cb958977a087a
+  en: For `Swap` and `iSwap`, the same basis order applies with operand order `(target0, target1)`.
+  zh: 对于 `Swap` 和 `iSwap`，采用相同的基顺序，操作数顺序为 `(target0, target1)`。
+  status: machine
+- id: d8ee12f7b4cf55fc
+  en: 'For `CCX`, operand order is `(control0, control1, target)`. Rows and columns use basis order $(|000\rangle,|001\rangle,|010\rangle, |011\rangle,|100\rangle,|101\rangle,|110\rangle,|111\rangle)$, with the first operand as the most-significant bit:'
+  zh: 对于 `CCX`，操作数顺序为 `(control0, control1, target)`。行和列采用基顺序 $(|000\rangle,|001\rangle,|010\rangle, |011\rangle,|100\rangle,|101\rangle,|110\rangle,|111\rangle)$，第一个操作数为最高有效位：
+  status: machine
+- id: 74770dc9bb383fdd
+  en: 'For `CSwap`, operand order is `(control, target0, target1)`. Rows and columns use the same three-bit basis order, again with the first operand as the most-significant bit:'
+  zh: 对于 `CSwap`，操作数顺序为 `(control, target0, target1)`。行和列采用相同的三比特基顺序，同样以第一个操作数为最高有效位：
+  status: machine
+- id: b8afbdbf8e7ca0b9
+  en: Parameterized gates
+  zh: 参数化门
+  status: machine
+- id: 1e0b085dd37e7a7a
+  en: All angles are in radians and are not normalized. Every angle field accepts a [`Parameter`][fatqat.Parameter] for later binding through [`fatqat.Program.assign_parameters`][fatqat.Program.assign_parameters].
+  zh: 所有角度均以弧度为单位，且不做归一化。每个角度字段都接受 [`Parameter`][fatqat.Parameter]，可稍后通过 [`fatqat.Program.assign_parameters`][fatqat.Program.assign_parameters] 绑定。
+  status: machine
+- id: dc745762f08d06b3
+  en: '**Parameterized qubit gates**'
+  zh: '**参数化量子比特门**'
+  status: machine
+- id: 27445f6ab61d9a5c
+  en: Targets
+  zh: 目标
+  status: machine
+- id: 75c613a8bef7c752
+  en: 'These matrices act on column state vectors. The single-qubit matrices below use row and column basis order $(|0\rangle,|1\rangle)$. Let $c=\cos(\theta/2)$ and $s=\sin(\theta/2)$:'
+  zh: 这些矩阵作用于列态矢量。下面的单量子比特矩阵的行和列采用基顺序 $(|0\rangle,|1\rangle)$。令 $c=\cos(\theta/2)$、$s=\sin(\theta/2)$：
+  status: machine
+- id: 9aa321dc4dd54dd7
+  en: 'For `U`, `U1`, `U2`, and `U3`, operands still use the single-qubit basis above and the parameter order is the constructor order shown in the table:'
+  zh: 对于 `U`、`U1`、`U2` 和 `U3`，操作数仍采用上述单量子比特基，参数顺序即表中所示的构造函数顺序：
+  status: machine
+- id: ca9976b9062b90cf
+  en: 'For `CPhase`, operand order is `(control, target)`. Rows and columns use basis order $(|00\rangle,|01\rangle,|10\rangle,|11\rangle)$, with the control as the local most-significant bit:'
+  zh: 对于 `CPhase`，操作数顺序为 `(control, target)`。行和列采用基顺序 $(|00\rangle,|01\rangle,|10\rangle,|11\rangle)$，控制位为局部最高有效位：
+  status: machine
+- id: 88d2bdc5edf81ec3
+  en: Common operation properties are documented on the [Operations overview](../operations.md).
+  zh: 通用的操作属性记录在[操作概览](../operations.md)中。
+  status: machine
+- id: 1ff587133108c201
+  en: Fixed values
+  zh: 固定值
+  status: machine
+- id: 722950457f60ae8c
+  en: Parameterized classes
+  zh: 参数化类
+  status: machine
+- id: 4ce012426ae19b46
+  en: '| Value | Basis action |'
+  zh: '| 值 | 对基态的作用 |'
+  status: machine
+- id: 254da98737f33b1b
+  en: '| [`I`][fatqat.operations.I] | Leaves $\|0\rangle$ and $\|1\rangle$ unchanged. |'
+  zh: '| [`I`][fatqat.operations.I] | 保持 $\ | 0\rangle$ 和 $\ | 1\rangle$ 不变。 |'
+  status: machine
+- id: 99b895100ba7e87a
+  en: '| [`H`][fatqat.operations.H] | Maps $\|0\rangle$ to $(\|0\rangle+\|1\rangle)/\sqrt{2}$ and $\|1\rangle$ to $(\|0\rangle-\|1\rangle)/\sqrt{2}$. |'
+  zh: '| [`H`][fatqat.operations.H] | 将 $\ | 0\rangle$ 映射为 $(\ | 0\rangle+\ | 1\rangle)/\sqrt{2}$，并将 $\ | 1\rangle$ 映射为 $(\ | 0\rangle-\ | 1\rangle)/\sqrt{2}$。 |'
+  status: machine
+- id: d68ed51817edce34
+  en: '| [`X`][fatqat.operations.X] | Exchanges $\|0\rangle$ and $\|1\rangle$. |'
+  zh: '| [`X`][fatqat.operations.X] | 交换 $\ | 0\rangle$ 和 $\ | 1\rangle$。 |'
+  status: machine
+- id: 873dc47d62a7441f
+  en: '| [`Y`][fatqat.operations.Y] | Maps $\|0\rangle$ to $i\|1\rangle$ and $\|1\rangle$ to $-i\|0\rangle$. |'
+  zh: '| [`Y`][fatqat.operations.Y] | 将 $\ | 0\rangle$ 映射为 $i\ | 1\rangle$，并将 $\ | 1\rangle$ 映射为 $-i\ | 0\rangle$。 |'
+  status: machine
+- id: 12e09223ec1a305f
+  en: '| [`Z`][fatqat.operations.Z] | Maps $\|1\rangle$ to $-\|1\rangle$. |'
+  zh: '| [`Z`][fatqat.operations.Z] | 将 $\ | 1\rangle$ 映射为 $-\ | 1\rangle$。 |'
+  status: machine
+- id: 848034f1f6be5d2b
+  en: '| [`S`][fatqat.operations.S] | Maps $\|1\rangle$ to $i\|1\rangle$. |'
+  zh: '| [`S`][fatqat.operations.S] | 将 $\ | 1\rangle$ 映射为 $i\ | 1\rangle$。 |'
+  status: machine
+- id: 5ae4f1e60bb0f911
+  en: '| [`Sdg`][fatqat.operations.Sdg] | Maps $\|1\rangle$ to $-i\|1\rangle$. |'
+  zh: '| [`Sdg`][fatqat.operations.Sdg] | 将 $\ | 1\rangle$ 映射为 $-i\ | 1\rangle$。 |'
+  status: machine
+- id: 5cc89a5ab388590a
+  en: '| [`SX`][fatqat.operations.SX] | Two applications have the same action as X. |'
+  zh: '| [`SX`][fatqat.operations.SX] | 连续作用两次与 X 的作用相同。 |'
+  status: machine
+- id: 3096793f1b42c9ab
+  en: '| [`T`][fatqat.operations.T] | Maps $\|1\rangle$ to $e^{i\pi/4}\|1\rangle$. |'
+  zh: '| [`T`][fatqat.operations.T] | 将 $\ | 1\rangle$ 映射为 $e^{i\pi/4}\ | 1\rangle$。 |'
+  status: machine
+- id: 567c4748eb54d919
+  en: '| [`Tdg`][fatqat.operations.Tdg] | Maps $\|1\rangle$ to $e^{-i\pi/4}\|1\rangle$. |'
+  zh: '| [`Tdg`][fatqat.operations.Tdg] | 将 $\ | 1\rangle$ 映射为 $e^{-i\pi/4}\ | 1\rangle$。 |'
+  status: machine
+- id: eb7b260472eb3742
+  en: '| Value | Target order | Basis action |'
+  zh: '| 值 | 目标顺序 | 对基态的作用 |'
+  status: machine
+- id: 41c9b1a913de05c7
+  en: '| [`CX`][fatqat.operations.CX] | `(control, target)` | Applies X to the target when the control is `\|1>`. |'
+  zh: '| [`CX`][fatqat.operations.CX] | `(control, target)` | 对目标应用 X，条件是控制位为 `\ | 1>`. |'
+  status: machine
+- id: 1aedaa43b567b36f
+  en: '| [`CY`][fatqat.operations.CY] | `(control, target)` | Applies Y to the target when the control is `\|1>`. |'
+  zh: '| [`CY`][fatqat.operations.CY] | `(control, target)` | 对目标应用 Y，条件是控制位为 `\ | 1>`. |'
+  status: machine
+- id: 10e2634210013478
+  en: '| [`CZ`][fatqat.operations.CZ] | `(control, target)` | Negates `\|11>`. |'
+  zh: '| [`CZ`][fatqat.operations.CZ] | `(control, target)` | 将负号施加于 `\ | 11>`. |'
+  status: machine
+- id: 94e2cdc02337b62b
+  en: '| [`CS`][fatqat.operations.CS] | `(control, target)` | Applies S to the target when the control is `\|1>`. |'
+  zh: '| [`CS`][fatqat.operations.CS] | `(control, target)` | 对目标应用 S，条件是控制位为 `\ | 1>`. |'
+  status: machine
+- id: d81e14bdf000ca22
+  en: '| [`Swap`][fatqat.operations.Swap] | `(target0, target1)` | Exchanges the two target states. |'
+  zh: '| [`Swap`][fatqat.operations.Swap] | `(target0, target1)` | 交换两个目标的状态。 |'
+  status: machine
+- id: b3082ec7e83f4164
+  en: '| [`iSwap`][fatqat.operations.iSwap] | `(target0, target1)` | Maps `\|01>` to `i\|10>` and `\|10>` to `i\|01>`. |'
+  zh: '| [`iSwap`][fatqat.operations.iSwap] | `(target0, target1)` | 将 `\ | 01>` 映射为 `i\ | 10>` and `\ | 10>` 映射为 `i\ | 01>`. |'
+  status: machine
+- id: 6a34e74aeaabdf5b
+  en: '| [`CCX`][fatqat.operations.CCX] | `(control0, control1, target)` | Toffoli: applies X when both controls are `\|1>`. |'
+  zh: '| [`CCX`][fatqat.operations.CCX] | `(control0, control1, target)` | Toffoli 门：应用 X，条件是两个控制位均为 `\ | 1>`. |'
+  status: machine
+- id: bd1628539218f6c8
+  en: '| [`CSwap`][fatqat.operations.CSwap] | `(control, target0, target1)` | Fredkin: exchanges the two targets when the control is `\|1>`. |'
+  zh: '| [`CSwap`][fatqat.operations.CSwap] | `(control, target0, target1)` | Fredkin 门：交换两个目标，条件是控制位为 `\ | 1>`. |'
+  status: machine
+- id: adb2d3d8f0948393
+  en: '| Constructor | Targets | Definition |'
+  zh: '| 构造函数 | 目标 | 定义 |'
+  status: machine
+- id: 54303deff4296d6b
+  en: '| [`RX`][fatqat.operations.RX] `(theta)` | One scalar or one view | Rotation about the X axis by `theta`. |'
+  zh: '| [`RX`][fatqat.operations.RX] `(theta)` | 一个标量或一个视图 | 绕 X 轴旋转 `theta`。 |'
+  status: machine
+- id: 4ac47dee4dff23f4
+  en: '| [`RY`][fatqat.operations.RY] `(theta)` | One scalar or one view | Rotation about the Y axis by `theta`. |'
+  zh: '| [`RY`][fatqat.operations.RY] `(theta)` | 一个标量或一个视图 | 绕 Y 轴旋转 `theta`。 |'
+  status: machine
+- id: 5d7d3269b29c90a6
+  en: '| [`RZ`][fatqat.operations.RZ] `(theta)` | One scalar or one view | Rotation about the Z axis by `theta`. |'
+  zh: '| [`RZ`][fatqat.operations.RZ] `(theta)` | 一个标量或一个视图 | 绕 Z 轴旋转 `theta`。 |'
+  status: machine
+- id: f5b96991bd7572f0
+  en: '| [`Phase`][fatqat.operations.Phase] `(theta)` | One scalar or one view | Differs from RZ only by global phase. |'
+  zh: '| [`Phase`][fatqat.operations.Phase] `(theta)` | 一个标量或一个视图 | 与 RZ 仅相差一个全局相位。 |'
+  status: machine
+- id: 6178d02da842e84d
+  en: '| [`U`][fatqat.operations.U] `(theta, phi, lam)` | One scalar or one view | General single-qubit gate using Qiskit''s parameter convention. |'
+  zh: '| [`U`][fatqat.operations.U] `(theta, phi, lam)` | 一个标量或一个视图 | 采用 Qiskit 参数约定的通用单量子比特门。 |'
+  status: machine
+- id: 86c388132ffcc76e
+  en: '| [`U1`][fatqat.operations.U1] `(lam)` | One scalar or one view | Equivalent to `Phase(lam)`. |'
+  zh: '| [`U1`][fatqat.operations.U1] `(lam)` | 一个标量或一个视图 | 等价于 `Phase(lam)`。 |'
+  status: machine
+- id: 42c09435788ef977
+  en: '| [`U2`][fatqat.operations.U2] `(phi, lam)` | One scalar or one view | Equivalent to `U(pi/2, phi, lam)`. |'
+  zh: '| [`U2`][fatqat.operations.U2] `(phi, lam)` | 一个标量或一个视图 | 等价于 `U(pi/2, phi, lam)`。 |'
+  status: machine
+- id: 59c137d7129c559d
+  en: '| [`U3`][fatqat.operations.U3] `(theta, phi, lam)` | One scalar or one view | Same matrix as `U(theta, phi, lam)`; retained for Qiskit compatibility. |'
+  zh: '| [`U3`][fatqat.operations.U3] `(theta, phi, lam)` | 一个标量或一个视图 | 矩阵与 `U(theta, phi, lam)` 相同；为兼容 Qiskit 而保留。 |'
+  status: machine
+- id: fff46ca18fb46b1c
+  en: '| [`CPhase`][fatqat.operations.CPhase] `(theta)` | `(control, target)` scalars or compatible views | Multiplies $\|11\rangle$ by $e^{i\theta}$. |'
+  zh: '| [`CPhase`][fatqat.operations.CPhase] `(theta)` | `(control, target)` 标量或兼容视图 | 将 $\ | 11\rangle$ 乘以 $e^{i\theta}$。 |'
+  status: machine

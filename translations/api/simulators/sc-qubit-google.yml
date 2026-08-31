@@ -1,0 +1,104 @@
+- id: f300b8084d695579
+  en: SCQubitGoogleSimulator
+  zh: SCQubitGoogleSimulator
+  status: machine
+- id: 9d04de347ed8f835
+  en: '[`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] applies the [`Simulator`][fatqat.simulator.Simulator] execution model to a configurable Google-style superconducting grid. Use it to test native rotation gates and nearest-neighbour `iSwap`/`CZ` programs. It is not a model of a named Google processor and does not transpile, route, schedule, or reproduce hardware calibration data.'
+  zh: '[`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] 将 [`Simulator`][fatqat.simulator.Simulator] 的执行模型应用于可配置的 Google 风格超导网格。用它来测试使用原生旋转门以及最近邻 `iSwap`/`CZ` 的程序。它不是任何具名 Google 处理器的模型，不做转译、布线或调度，也不复现硬件校准数据。'
+  status: machine
+- id: cb640281c3dd2bd3
+  en: Native gates and layout
+  zh: 原生门与布局
+  status: machine
+- id: 931f5812a7571cb3
+  en: 'Device labels are row-major. On the default grid they are:'
+  zh: 设备标签按行主序排列。在默认网格上为：
+  status: machine
+- id: d5acd1b446c6812b
+  en: Both operand orders of every grid edge are legal. Thus `iSwap` is accepted on device labels `(0, 1)` and `(1, 0)`, but not `(0, 5)`. `CZ` follows the same rule for any positive `grid_size=(rows, columns)`.
+  zh: 每条网格边的两种操作数顺序都合法。因此 `iSwap` 在设备标签 `(0, 1)` 和 `(1, 0)` 上被接受，但在 `(0, 5)` 上不被接受。对任何正的 `grid_size=(rows, columns)`，`CZ` 都遵循同样的规则。
+  status: machine
+- id: 6c837eae4754bd5f
+  en: With the automatic layout, an ordinary program maps its qubits to device labels `0, 1, ...` in declaration order. One [`GridRegister`][fatqat.GridRegister] instead maps into the device's top-left corner while preserving row and column coordinates. In this automatic mode, it must be the program's only quantum register and must fit along both device axes. An explicit, complete [`ResourceLayout`][fatqat.ResourceLayout] can place program references differently. Capacity and the qubit-only restriction still apply.
+  zh: 使用自动布局时，普通程序按声明顺序将其量子比特映射到设备标签 `0, 1, ...`。而单个 [`GridRegister`][fatqat.GridRegister] 会映射到设备的左上角，同时保留行列坐标。在这种自动模式下，它必须是程序中唯一的量子寄存器，且必须在设备的两个轴向上都放得下。显式且完整的 [`ResourceLayout`][fatqat.ResourceLayout] 可以按不同方式放置程序引用。容量限制和仅限量子比特的限制仍然适用。
+  status: machine
+- id: e7f4c675844fb94e
+  en: 'The backend does not decompose non-native operations. In particular, [`fatqat.operations.CX`][fatqat.operations.CX] and [`fatqat.operations.SX`][fatqat.operations.SX] are rejected. Inspect [`SCQubitGoogleSimulator.implementation_map`][fatqat.simulator.SCQubitGoogleSimulator.implementation_map] to see the gate set and legal operand tuples:'
+  zh: 该后端不会分解非原生操作。特别地，[`fatqat.operations.CX`][fatqat.operations.CX] 和 [`fatqat.operations.SX`][fatqat.operations.SX] 会被拒绝。请检查 [`SCQubitGoogleSimulator.implementation_map`][fatqat.simulator.SCQubitGoogleSimulator.implementation_map] 以查看门集和合法的操作数元组：
+  status: machine
+- id: b1825a5fcca4f573
+  en: '`device_operands_for(operation)` returns an empty set for a gate available everywhere and ordered tuples for a connectivity-limited gate.'
+  zh: '`device_operands_for(operation)` 对处处可用的门返回空集合，对受连接性限制的门返回有序元组。'
+  status: machine
+- id: 51c8d2a23cdcfa44
+  en: Built-in noise
+  zh: 内置噪声
+  status: machine
+- id: 3022f53494bdf396
+  en: 'The simulator remains ideal unless a noise model is supplied. To use the built-in profile, request it explicitly:'
+  zh: 除非提供噪声模型，否则模拟器保持理想状态。若要使用内置配置，请显式请求：
+  status: machine
+- id: 3e07c0fc4f62be5c
+  en: The profile uses `T1 = 60 us` and `T2 = 48 us`. Each call returns a fresh [`NoiseModel`][fatqat.NoiseModel] that you can extend before passing it to the simulator.
+  zh: 该配置使用 `T1 = 60 us` 和 `T2 = 48 us`。每次调用都返回一个全新的 [`NoiseModel`][fatqat.NoiseModel]，你可以在把它传给模拟器之前对其进行扩展。
+  status: machine
+- id: e36a14de3e722e02
+  en: '**Built-in profile**'
+  zh: '**内置配置**'
+  status: machine
+- id: 809fe44757c6233b
+  en: Unlike the IBM-style profile, `RZ` is a physical, noisy 20 ns rotation in this profile. See [Noise](../noise.md) for method-dependent channel execution.
+  zh: 与 IBM 风格配置不同，在此配置中 `RZ` 是一个物理的、有噪声的 20 ns 旋转。与方法相关的信道执行方式参见[噪声](../noise.md)。
+  status: machine
+- id: d25e8da8c3b9eff2
+  en: '[`Simulator.method`][fatqat.simulator.Simulator.method], [`SCQubitGoogleSimulator.implementation_map`][fatqat.simulator.SCQubitGoogleSimulator.implementation_map], [`Simulator.run`][fatqat.simulator.Simulator.run], [`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep], and [`Simulator.validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] follow the general Simulator API and are included below for a complete class reference.'
+  zh: '[`Simulator.method`][fatqat.simulator.Simulator.method]、[`SCQubitGoogleSimulator.implementation_map`][fatqat.simulator.SCQubitGoogleSimulator.implementation_map]、[`Simulator.run`][fatqat.simulator.Simulator.run]、[`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep] 和 [`Simulator.validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] 遵循通用的 Simulator API，为提供完整的类参考，一并列在下方。'
+  status: machine
+- id: 18179e9ecef41271
+  en: '| Default device | `grid_size=(4, 4)`; 16 row-major qubits |'
+  zh: '| 默认设备 | `grid_size=(4, 4)`；16 个按行主序编号的量子比特 |'
+  status: machine
+- id: ba3252dd05306a69
+  en: '| Uniform native gates | [`fatqat.operations.RX`][fatqat.operations.RX], [`fatqat.operations.RY`][fatqat.operations.RY], [`fatqat.operations.RZ`][fatqat.operations.RZ] |'
+  zh: '| 全局可用的原生门 | [`fatqat.operations.RX`][fatqat.operations.RX], [`fatqat.operations.RY`][fatqat.operations.RY], [`fatqat.operations.RZ`][fatqat.operations.RZ] |'
+  status: machine
+- id: 4e721bdf5ee3c62d
+  en: '| Connected native gates | [`fatqat.operations.iSwap`][fatqat.operations.iSwap] and [`fatqat.operations.CZ`][fatqat.operations.CZ] on horizontal or vertical neighbours |'
+  zh: '| 受连接性限制的原生门 | 作用于水平或垂直相邻量子比特的 [`fatqat.operations.iSwap`][fatqat.operations.iSwap] 和 [`fatqat.operations.CZ`][fatqat.operations.CZ] |'
+  status: machine
+- id: 49894500914a74ad
+  en: '| Other built-in operations | Measurement and [`fatqat.operations.Reset`][fatqat.operations.Reset] follow the method rules described by [`Simulator`][fatqat.simulator.Simulator] |'
+  zh: '| 其他内置操作 | 测量和 [`fatqat.operations.Reset`][fatqat.operations.Reset] 遵循 [`Simulator`][fatqat.simulator.Simulator] 所述的方法规则 |'
+  status: machine
+- id: 84a695fbfb048653
+  en: '| Methods | All methods supported by [`Simulator`][fatqat.simulator.Simulator]; default `statevector` |'
+  zh: '| 方法 | 支持 [`Simulator`][fatqat.simulator.Simulator] 的所有方法；默认为 `statevector` |'
+  status: machine
+- id: 75d1d475e0d9210a
+  en: '| Runtime | `numba` by default; `numpy` is also supported |'
+  zh: '| 运行时 | 默认为 `numba`；也支持 `numpy` |'
+  status: machine
+- id: 9afe2d589c7a9bea
+  en: '| Noise | Ideal by default; a built-in reference model is available explicitly |'
+  zh: '| 噪声 | 默认理想（无噪声）；可显式启用内置参考模型 |'
+  status: machine
+- id: 9d4743871d97531e
+  en: '| Operation | Duration | Noise |'
+  zh: '| 操作 | 时长 | 噪声 |'
+  status: machine
+- id: 4f0ad5f65fb161bc
+  en: '| `RX`, `RY`, `RZ` | 20 ns | T1/T2-derived amplitude and phase damping |'
+  zh: '| `RX`, `RY`, `RZ` | 20 ns | 由 T1/T2 导出的振幅阻尼和相位阻尼 |'
+  status: machine
+- id: df419ff43093ae7a
+  en: '| `iSwap` | 30 ns | Relaxation on each qubit, followed by joint depolarizing noise with `p = 0.001` |'
+  zh: '| `iSwap` | 30 ns | 每个量子比特上的弛豫，随后是 `p = 0.001` 的联合退极化噪声 |'
+  status: machine
+- id: a39572ad95d9db21
+  en: '| `CZ` | 50 ns | Relaxation on each qubit, followed by joint depolarizing noise with `p = 0.001` |'
+  zh: '| `CZ` | 50 ns | 每个量子比特上的弛豫，随后是 `p = 0.001` 的联合退极化噪声 |'
+  status: machine
+- id: 15ec2ec4ac5a537c
+  en: '| Measurement | — | `P(report 1 \| true 0) = 0.02` and `P(report 0 \| true 1) = 0.04` |'
+  zh: '| 测量 | — | `P(report 1 \ | true 0) = 0.02` 和 `P(report 0 \ | true 1) = 0.04` |'
+  status: machine

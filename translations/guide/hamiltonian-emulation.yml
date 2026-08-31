@@ -1,0 +1,76 @@
+- id: 029b3729b776c140
+  en: Follow a Program into physical dynamics
+  zh: 跟随 Program 进入物理动力学
+  status: machine
+- id: 64602d873716688f
+  en: A FatQat emulator still accepts a [`Program`][fatqat.Program], but it changes what execution means. Instead of applying discrete gate transformations, it builds a physical schedule and integrates a time-dependent Hamiltonian (and, when requested, Lindblad evolution).
+  zh: FatQat 仿真器仍然接受 [`Program`][fatqat.Program]，但它改变了执行的含义。它不再应用离散的门变换，而是构建物理调度并对时变哈密顿量进行积分（在需要时还包括 Lindblad 演化）。
+  status: machine
+- id: 9e82fb5edc155f3b
+  en: 'Two authoring paths meet at that same schedule:'
+  zh: 两条编写路径汇聚到同一份调度：
+  status: machine
+- id: 1cb2f329da8e71d3
+  en: The model supplies the physical levels, units, drift, channels, and coupling. A gate implementation map turns an ordinary gate into calibrated controls. A direct pulse supplies those controls explicitly. The following pages apply this shared workflow to transmons and atoms.
+  zh: 模型提供物理能级、单位、漂移、信道和耦合。门实现映射把普通的门变成经过校准的控制。直接脉冲则显式提供这些控制。接下来的几页将这一共享工作流应用于 transmon 和原子。
+  status: machine
+- id: 32e3064eeba6e018
+  en: Run a calibrated gate
+  zh: 运行校准过的门
+  status: machine
+- id: ab22e1776ac34659
+  en: 'Use a packaged physical model as a reproducible baseline, then construct its emulator. Here a one-qubit Program is realized on a model containing two three-level transmons:'
+  zh: 使用打包的物理模型作为可复现的基线，然后构建它的仿真器。这里，一个单量子比特 Program 在包含两个三能级 transmon 的模型上实现：
+  status: machine
+- id: 035fa28c8323af7f
+  en: '`RX` remains an ordinary Program operation. At execution time, the emulator''s gate map obtains a pulse recipe from its calibration and binds that recipe to the model''s drive channel. The physical model has two qutrits, so the returned vector covers all $3^2$ basis states, including the unaddressed second transmon. This physical qutrit state is not a logical qutrit Program.'
+  zh: '`RX` 仍然是普通的 Program 操作。执行时，仿真器的门映射从其校准中获取脉冲配方，并把该配方绑定到模型的驱动信道上。物理模型有两个 qutrit，因此返回的向量覆盖全部 $3^2$ 个基态，包括未被寻址的第二个 transmon。这个物理 qutrit 态不是逻辑 qutrit Program。'
+  status: machine
+- id: c1aa9ad6278fd40e
+  en: Packaged models and calibrations are reference snapshots. Supply a validated model document and implementation map when the physical system or calibration changes; do not interpret the packaged data as a live-device calibration.
+  zh: 打包的模型和校准是参考快照。当物理系统或校准发生变化时，请提供经过验证的模型文档和实现映射；不要把打包数据当作在线设备的校准。
+  status: machine
+- id: 697dc50b09c3d990
+  en: Add a pulse directly
+  zh: 直接添加脉冲
+  status: machine
+- id: db7917a37985a929
+  en: 'A direct pulse has three pieces: waveform samples, the physical channel they drive, and the duration of the control block. The code below builds them in that order as a [`SampledWaveform`][fatqat.emulator.SampledWaveform], a [`PulseControl`][fatqat.emulator.PulseControl], and finally a [`PulseOperation`][fatqat.operations.PulseOperation]:'
+  zh: 直接脉冲由三部分组成：波形样本、它们驱动的物理信道，以及控制块的时长。下面的代码按此顺序构建 [`SampledWaveform`][fatqat.emulator.SampledWaveform]、[`PulseControl`][fatqat.emulator.PulseControl]，最后是 [`PulseOperation`][fatqat.operations.PulseOperation]：
+  status: machine
+- id: d935092160139fc2
+  en: Notice that `direct_program.add(pulse)` has no logical target. The channel already names physical transmon `q0`, and a [`ResourceLayout`][fatqat.ResourceLayout] does not remap that address. The model and channel define the time and value units; the API reference records the exact domains for each emulator.
+  zh: 注意 `direct_program.add(pulse)` 没有逻辑目标。信道已经指明了物理 transmon `q0`，而 [`ResourceLayout`][fatqat.ResourceLayout] 不会重新映射该地址。模型和信道定义时间与数值单位；API 参考记录了每个仿真器的精确取值域。
+  status: machine
+- id: bc074eb4e083958f
+  en: Read a pulse as continuous evolution
+  zh: 把脉冲理解为连续演化
+  status: machine
+- id: fbceb8bb98a0ff20
+  en: The two waveform samples above are not two gate steps. Over the full 20-unit interval, the emulator interpolates the drive, combines it with drift and coupling terms, and integrates the physical state. That is why the result retains every level in the model, including levels that the logical Program did not declare.
+  zh: 上面的两个波形样本并不是两个门步骤。在整个 20 个单位的区间内，仿真器对驱动进行插值，将其与漂移项和耦合项合并，并对物理态进行积分。这就是结果保留模型中所有能级（包括逻辑 Program 未声明的能级）的原因。
+  status: machine
+- id: e428f989cfeba0ac
+  en: 'The next chapter turns this mechanism into a concrete transmon experiment: it compares a calibrated rotation with a direct drive and makes the resulting leakage visible.'
+  zh: 下一章将把这一机制变成具体的 transmon 实验：它比较校准旋转与直接驱动，并让由此产生的泄漏清晰可见。
+  status: machine
+- id: eb74b3ff33415145
+  en: Understand scheduling
+  zh: 理解调度
+  status: machine
+- id: ae8716179ea8ef4a
+  en: All controls inside one `PulseOperation` share its interval; `start_offset` can move an individual waveform within that interval. Between operations, the lightweight scheduler preserves source order for blocks that claim the same physical resource and may overlap independent blocks. Choose `"ASAP"` or `"ALAP"` through `simulation_config` when that placement matters.
+  zh: 同一个 `PulseOperation` 内的所有控制共享其时间区间；`start_offset` 可以在该区间内移动单个波形。在操作之间，轻量级调度器为占用同一物理资源的块保持源码顺序，而相互独立的块则可能重叠。当这种放置很重要时，通过 `simulation_config` 选择 `"ASAP"` 或 `"ALAP"`。
+  status: machine
+- id: 5578acc9a8b282fd
+  en: Drift and background continuous noise evolve throughout elapsed time. On an emulator that supports classical conditions, a false condition can skip a control block without deleting its duration, so the model still evolves during the interval. Those differences are why a Hamiltonian emulator answers a different question from a hardware-profile simulator.
+  zh: 漂移和背景连续噪声在整个经过的时间内持续演化。在支持经典条件的仿真器上，条件为假可以跳过控制块但不会删除其时长，因此模型在该区间内仍然演化。这些差异正是哈密顿量仿真器与硬件配置文件模拟器回答不同问题的原因。
+  status: machine
+- id: 9e73b4f96f6c735a
+  en: 'The constructor''s `method` selects the mathematical representation and Result accessor: `statevector` (the default), `density_matrix`, or `unitary`. It does not select an internal differential-equation solver.'
+  zh: 构造函数的 `method` 选择数学表示和 Result 访问器：`statevector`（默认）、`density_matrix` 或 `unitary`。它不选择内部的微分方程求解器。
+  status: machine
+- id: 966d30c7aad11f15
+  en: Continue with [Transmon emulation](transmon-emulation.md) or [Neutral-atom emulation](neutral-atom-emulation.md). For pulse object, schedule, execution-method, and model contracts, use the [pulse-control API](../api/pulse-control/index.md) and [emulator API](../api/emulators/index.md).
+  zh: 继续阅读 [transmon 仿真](transmon-emulation.md)或[中性原子仿真](neutral-atom-emulation.md)。有关脉冲对象、调度、执行方法和模型约定，请使用[脉冲控制 API](../api/pulse-control/index.md)和[仿真器 API](../api/emulators/index.md)。
+  status: machine

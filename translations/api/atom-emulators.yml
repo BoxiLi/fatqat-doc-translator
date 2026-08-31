@@ -1,0 +1,164 @@
+- id: ba012a8c77dc2e5e
+  en: Neutral-atom emulator
+  zh: 中性原子仿真器
+  status: machine
+- id: ed7d514f8879f0ff
+  en: The neutral-atom pulse emulator follows the standard [`Simulator`][fatqat.simulator.Simulator] workflow. Pass a [`Program`][fatqat.Program] to `run()`, then call `job.result()` on the eager [`Job`][fatqat.Job] to get a [`Result`][fatqat.Result]. It is a pulse-resolved physical emulator rather than a mode of [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator].
+  zh: 中性原子脉冲仿真器遵循标准的 [`Simulator`][fatqat.simulator.Simulator] 工作流。将 [`Program`][fatqat.Program] 传给 `run()`，然后在急切执行的 [`Job`][fatqat.Job] 上调用 `job.result()` 以获取 [`Result`][fatqat.Result]。它是脉冲级分辨的物理仿真器，而不是 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 的一种模式。
+  status: machine
+- id: ee1ecfd8b861cb83
+  en: Use [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] for directly authored global controls in the physical `|g>, |r>` model. See [Choose and run a neutral-atom workflow](../guide/neutral-atom-emulation.md) for a complete executable example.
+  zh: 使用 [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 可在物理 `|g>, |r>` 模型中直接编写全局控制。完整的可执行示例请参见[选择并运行中性原子工作流](../guide/neutral-atom-emulation.md)。
+  status: machine
+- id: 9e8b4f9337f41d32
+  en: Arrangements and program resources
+  zh: 原子排布与程序资源
+  status: machine
+- id: df3738808df6dca8
+  en: The backend requires a regular [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Coordinates are row-major, `(column * spacing, row * spacing, 0)`, and the atom model interprets spacing in micrometres. A program must declare exactly one dimension-two quantum resource per site; declaration order binds resources to coordinates. The arrangement describes fixed geometry; it does not track atom loading or loss. `arrangement.num_sites` and `len(arrangement)` both return the site count, which must exactly match the number of quantum resources declared by a pulse program. By contrast, `AtomArraySimulator(num_sites=6)` declares a maximum gate-level device capacity and accepts programs with at most six resources; omitting its `num_sites` argument leaves that simulator unbounded.
+  zh: 该后端需要一个规则的 [`AtomArrangement`][fatqat.emulator.AtomArrangement]。坐标按行主序排列，即 `(column * spacing, row * spacing, 0)`，原子模型将间距解释为微米。程序必须为每个位点恰好声明一个维度为 2 的量子资源；声明顺序将资源绑定到坐标。排布描述的是固定的几何结构，不跟踪原子的装载或丢失。`arrangement.num_sites` 和 `len(arrangement)` 都返回位点数量，该数量必须与脉冲程序声明的量子资源数量完全一致。相比之下，`AtomArraySimulator(num_sites=6)` 声明的是门级设备的最大容量，接受至多包含六个资源的程序；省略其 `num_sites` 参数则该模拟器不设上限。
+  status: machine
+- id: 067d25d0bd554893
+  en: Run configuration and results
+  zh: 运行配置与结果
+  status: machine
+- id: ae39b92e35ae7343
+  en: The `run()` method has the signature `(program, *, shots=1024, resource_layout=None, simulation_config=None, result_config=None)`. The optional layout must still cover every arrangement site exactly once; the default uses declaration order. Validation errors are raised directly from `run()` before a job is returned. A failure after execution starts is represented by a failed job, and `job.result()` raises [`BackendExecutionError`][fatqat.errors.BackendExecutionError].
+  zh: '`run()` 方法的签名为 `(program, *, shots=1024, resource_layout=None, simulation_config=None, result_config=None)`。可选的布局仍必须恰好覆盖每个排布位点一次；默认使用声明顺序。验证错误会在返回作业之前直接由 `run()` 引发。执行开始之后的失败以失败作业表示，此时 `job.result()` 会引发 [`BackendExecutionError`][fatqat.errors.BackendExecutionError]。'
+  status: machine
+- id: '8259028330497640'
+  en: '`simulation_config` accepts only `seed` and `schedule_mode`:'
+  zh: '`simulation_config` 仅接受 `seed` 和 `schedule_mode`：'
+  status: machine
+- id: 6b2cab5dcf5316ee
+  en: '**Simulation configuration**'
+  zh: '**模拟配置**'
+  status: machine
+- id: 7a940922afc757a5
+  en: '`result_config` accepts only these keys:'
+  zh: '`result_config` 仅接受以下键：'
+  status: machine
+- id: b6f17f0e4701f9d5
+  en: '**Result configuration**'
+  zh: '**结果配置**'
+  status: machine
+- id: f5bd13f28fc868e5
+  en: Both configuration arguments must be a `dict` or `None`; unknown keys are rejected.
+  zh: 两个配置参数都必须是 `dict` 或 `None`；未知的键会被拒绝。
+  status: machine
+- id: d47662f8c9662496
+  en: Each run starts from the fixed product state `|g>` on every site. The constructor does not accept an `initial_state` argument.
+  zh: 每次运行都从每个位点均为 `|g>` 的固定直积态开始。构造函数不接受 `initial_state` 参数。
+  status: machine
+- id: 25775e19f18f9422
+  en: 'The constructor accepts the case-insensitive values `method="statevector"` (the default), `"density_matrix"`, or `"unitary"`. `"SV"` and `"DM"` are aliases. The read-only `backend.method` property and `result.metadata["method"]` use the canonical full name. A method selects the mathematical representation and its corresponding Result accessor, not an internal solver:'
+  zh: 构造函数接受不区分大小写的值 `method="statevector"`（默认）、`"density_matrix"` 或 `"unitary"`。`"SV"` 和 `"DM"` 是别名。只读属性 `backend.method` 和 `result.metadata["method"]` 使用规范全名。method 选择的是数学表示及其对应的 Result 访问器，而不是内部求解器：
+  status: machine
+- id: a9d077620bb61fd5
+  en: '**Final-state representations**'
+  zh: '**最终状态表示**'
+  status: machine
+- id: d68b9661a0912461
+  en: Here `d=2` for [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]. Its results use FATQAT and NumPy types; the public API does not expose QuTiP objects, `superop`, or internal solver names.
+  zh: 对 [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 而言，此处 `d=2`。其结果使用 FATQAT 和 NumPy 类型；公共 API 不暴露 QuTiP 对象、`superop` 或内部求解器名称。
+  status: machine
+- id: fbcd864ea91aae3d
+  en: 'Measurement and potentially active Lindblad noise make a retained final state stochastic. In those cases, the default request returns counts when the program contains measurement and otherwise returns metadata only. Request a single seeded final state explicitly with `result_config={"final_state": True}`, `shots=1`, and `simulation_config={"seed": ...}`. Select `method="density_matrix"` for an exact supported Lindblad ensemble.'
+  zh: '测量以及可能处于活动状态的 Lindblad 噪声会使保留的最终状态成为随机的。在这些情况下，默认请求会在程序包含测量时返回计数，否则仅返回元数据。要显式请求单个带种子的最终状态，请使用 `result_config={"final_state": True}`、`shots=1` 和 `simulation_config={"seed": ...}`。选择 `method="density_matrix"` 可获得受支持 Lindblad 演化的精确系综。'
+  status: machine
+- id: 50deee6556c299e3
+  en: For unitary execution, construct the backend with `method="unitary"`, call `run()`, and retrieve the result with [`get_unitary`][fatqat.Result.get_unitary]. Unitary execution rejects measurement, reset, conditions, counts, and potentially active Lindblad evolution. There is no separate public propagator API.
+  zh: 要进行幺正执行，请使用 `method="unitary"` 构造后端，调用 `run()`，并通过 [`get_unitary`][fatqat.Result.get_unitary] 获取结果。幺正执行拒绝测量、重置、条件、计数以及可能处于活动状态的 Lindblad 演化。没有单独的公共传播子 API。
+  status: machine
+- id: 912f602dd9909770
+  en: Two-level atom emulator
+  zh: 二能级原子仿真器
+  status: machine
+- id: f8f47a58563d185f
+  en: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] requires an `Atom2LevelModel` and an arrangement. Its global drive and detuning channels act on every site; see [PulseOperation](pulse-control/pulse-operation.md) for how to add a direct pulse block. A terminal measurement may follow the pulse program, and barriers are ignored. The built-in gate map is empty, so ordinary gates require a custom map. Reset, conditions, per-site controls, mid-circuit measurement, and pulses after measurement are not supported.'
+  zh: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 需要一个 `Atom2LevelModel` 和一个排布。其全局驱动信道和失谐信道作用于每个位点；关于如何添加直接脉冲块，请参见 [PulseOperation](pulse-control/pulse-operation.md)。脉冲程序之后可以跟随一次末端测量，barrier 会被忽略。内置门映射为空，因此普通门需要自定义映射。不支持重置、条件、逐位点控制、电路中途测量以及测量之后的脉冲。'
+  status: machine
+- id: b22b8b950b9c3eaf
+  en: Model and controls
+  zh: 模型与控制
+  status: machine
+- id: 38f52ec4df7534d9
+  en: The runtime model exposes basis order `("g", "r")`, the pulse time unit, and global control selectors, but it contains no geometry or calibration. Retain the decoded source document when application code needs persisted species data, state labels, signed `C6`, interaction-law metadata, parameter units, or channel bounds. Derive the local dimension as `len(model.basis_order)`.
+  zh: 运行时模型暴露基矢顺序 `("g", "r")`、脉冲时间单位和全局控制选择器，但不包含几何结构或校准信息。当应用代码需要持久化的原子种类数据、状态标签、带符号的 `C6`、相互作用规律元数据、参数单位或信道边界时，请保留解码后的源文档。局部维度可由 `len(model.basis_order)` 得到。
+  status: machine
+- id: 3eba5ccb267af8ad
+  en: Create instances with [`from_document`][fatqat.emulator.Atom2LevelModel.from_document]; direct construction is not supported.
+  zh: 使用 [`from_document`][fatqat.emulator.Atom2LevelModel.from_document] 创建实例；不支持直接构造。
+  status: machine
+- id: 3c30a965de457b63
+  en: The global drive accepts a complex [`SampledWaveform`][fatqat.emulator.SampledWaveform]; its values encode amplitude and phase together. The global detuning accepts real samples. Both controls use `rad/us` and apply to every arrangement site. At runtime, read this unit from each selector's `coefficient_unit` property.
+  zh: 全局驱动接受复数 [`SampledWaveform`][fatqat.emulator.SampledWaveform]，其值同时编码振幅和相位。全局失谐接受实数样本。两种控制均使用 `rad/us`，并作用于每个排布位点。在运行时，可从每个选择器的 `coefficient_unit` 属性读取该单位。
+  status: machine
+- id: 7734c31feafdd674
+  en: Interaction cutoff
+  zh: 相互作用截断
+  status: machine
+- id: 5ac5e0c77d34d31e
+  en: The default `interaction_cutoff=None` keeps every pair and preserves the complete `C6/R^6` Hamiltonian. A finite nonnegative cutoff keeps pairs whose Euclidean distance is at or below that value in `arrangement.distance_unit` (currently micrometres); `0.0` disables pair interactions. For a rectangular arrangement, `interaction_cutoff=arrangement.spacing` keeps only horizontal and vertical nearest pairs. This is a numerical Hamiltonian truncation, not a physical blockade radius.
+  zh: 默认的 `interaction_cutoff=None` 保留所有原子对，并保持完整的 `C6/R^6` 哈密顿量。有限的非负截断值保留欧几里得距离不超过该值（以 `arrangement.distance_unit` 计，目前为微米）的原子对；`0.0` 禁用原子对相互作用。对于矩形排布，`interaction_cutoff=arrangement.spacing` 仅保留水平和竖直方向的最近邻原子对。这是对哈密顿量的数值截断，而非物理上的阻塞半径。
+  status: machine
+- id: 5558f6ca0291ac31
+  en: Lindblad noise
+  zh: Lindblad 噪声
+  status: machine
+- id: 4248dfb14cfee1f9
+  en: The built-in forms are listed under [Pulse emulators](noise/backend-support.md#noise-emulator-support). Each background registration names one site; enumerate sites explicitly to apply the same noise at several sites. Rates use inverse microseconds and relaxation times use microseconds. Finite-probability (`p`) forms are not converted into rates from the pulse duration. Binary [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] is a classical report channel applied only to the reported digit after physical collapse, not a Lindblad operator.
+  zh: 内置形式列于[脉冲仿真器](noise/backend-support.md#noise-emulator-support)之下。每条背景注册指定一个位点；若要在多个位点应用相同的噪声，请显式枚举这些位点。速率使用微秒的倒数，弛豫时间使用微秒。有限概率（`p`）形式不会根据脉冲时长转换为速率。二值 [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] 是仅在物理坍缩后作用于所报告数字的经典报告信道，而不是 Lindblad 算符。
+  status: machine
+- id: 968997f8d5f71e75
+  en: The emulator provides built-in amplitude damping, phase damping, thermal relaxation, and depolarizing noise. These forms accept background declarations only; operation-scoped continuous noise is unsupported.
+  zh: 该仿真器提供内置的振幅阻尼、相位阻尼、热弛豫和退极化噪声。这些形式仅接受背景声明；不支持操作范围的连续噪声。
+  status: machine
+- id: b082941e5d4a4016
+  en: With `method="statevector"`, resolved Lindblad noise that can act during a nonzero-duration block uses seeded trajectories. Because the atom emulator accepts background declarations only, a declaration is conservatively considered active whenever a nonzero-duration block exists. Zero-rate declarations are still considered active. Use `method="density_matrix"` for the exact ensemble. A zero-duration measured program samples the initial state without time evolution.
+  zh: 使用 `method="statevector"` 时，能够在非零时长块期间起作用的已解析 Lindblad 噪声会使用带种子的轨迹。由于原子仿真器仅接受背景声明，只要存在非零时长的块，声明就会被保守地视为活动的。零速率声明同样被视为活动的。要获得精确系综，请使用 `method="density_matrix"`。零时长的含测量程序会在不进行时间演化的情况下对初态进行采样。
+  status: machine
+- id: 24143af5af7b3d07
+  en: See [Pulse control](pulse-control/index.md) for direct pulse authoring. For the complete two-level workflow, see [Choose and run a neutral-atom workflow](../guide/neutral-atom-emulation.md).
+  zh: 关于直接脉冲编写，请参见[脉冲控制](pulse-control/index.md)。完整的二能级工作流请参见[选择并运行中性原子工作流](../guide/neutral-atom-emulation.md)。
+  status: machine
+- id: c8e5998f6a3955c2
+  en: API
+  zh: API
+  status: machine
+- id: 9f6c47f84aa83bb1
+  en: '| Key | Type | Default | Effect and constraints |'
+  zh: '| 键 | 类型 | 默认值 | 作用与约束 |'
+  status: machine
+- id: 318828da59c4a3d2
+  en: '| `seed` | `int` or `None`; not `bool` | `None` | Random seed for measurement, readout, and statevector trajectory sampling. Integers must be non-negative; `None` chooses a fresh seed. |'
+  zh: '| `seed` | `int` 或 `None`；不接受 `bool` | `None` | 用于测量、读出和态矢量轨迹采样的随机种子。整数必须为非负；`None` 表示选择一个新种子。 |'
+  status: machine
+- id: 87a4035114096350
+  en: '| `schedule_mode` | `"ASAP"` or `"ALAP"` | `"ASAP"` | Place operations as early or as late as their dependencies allow. |'
+  zh: '| `schedule_mode` | `"ASAP"` 或 `"ALAP"` | `"ASAP"` | 在依赖关系允许的范围内尽早或尽晚放置操作。 |'
+  status: machine
+- id: acab9d5db1bbed09
+  en: '| `counts` | `bool` or `None` | `None` | `True` requests classical counts, `False` suppresses them, and `None` enables them when measurement exists. Counts require a positive integer `shots` value. |'
+  zh: '| `counts` | `bool` 或 `None` | `None` | `True` 请求经典计数，`False` 禁止计数，`None` 在存在测量时启用计数。计数要求 `shots` 为正整数。 |'
+  status: machine
+- id: 3e0063173f37c598
+  en: '| `final_state` | `bool` or `None` | `None` | `True` requests the method-native state or operator, `False` suppresses it, and `None` enables deterministic unmeasured output. A stochastic final state requires an explicit request and `shots == 1`. |'
+  zh: '| `final_state` | `bool` 或 `None` | `None` | `True` 请求方法原生的状态或算符，`False` 禁止该输出，`None` 在确定性且无测量的情形下启用输出。随机的最终状态需要显式请求并满足 `shots == 1`。 |'
+  status: machine
+- id: 996c1fde38aae732
+  en: '| Method | Result accessor | Shape for `N` sites | Interpretation |'
+  zh: '| 方法 | Result 访问器 | `N` 个位点时的形状 | 含义 |'
+  status: machine
+- id: 15f2b26982144298
+  en: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | A pure coherent state, or one sampled posterior/trajectory when the execution is stochastic. |'
+  zh: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | 纯相干态；当执行是随机的时，为采样得到的一条后验/轨迹。 |'
+  status: machine
+- id: b2d0790c9a35b6fa
+  en: '| `"density_matrix"` | [`get_density_matrix`][fatqat.Result.get_density_matrix] | `(d**N, d**N)` | The exact ensemble state under supported Lindblad evolution. |'
+  zh: '| `"density_matrix"` | [`get_density_matrix`][fatqat.Result.get_density_matrix] | `(d**N, d**N)` | 受支持的 Lindblad 演化下的精确系综态。 |'
+  status: machine
+- id: 94250457af91b009
+  en: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(d**N, d**N)` | The complete coherent operator in the canonical terminal frame. |'
+  zh: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(d**N, d**N)` | 规范终止参考系中的完整相干算符。 |'
+  status: machine

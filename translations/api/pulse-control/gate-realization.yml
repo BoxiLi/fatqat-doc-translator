@@ -1,0 +1,36 @@
+- id: f9ae020319d767a3
+  en: Gate realization
+  zh: 门实现
+  status: machine
+- id: da9acabe4b0038b5
+  en: '[`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] maps ordinary gates to pulse definitions. A direct [PulseOperation](pulse-operation.md) already contains its controls and does not use this map.'
+  zh: '[`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] 将普通门映射到脉冲定义。直接的 [PulseOperation](pulse-operation.md) 已包含其控制，不使用此映射。'
+  status: machine
+- id: 4228aeb07c410ffc
+  en: Rules
+  zh: 规则
+  status: machine
+- id: 8a530d8c478787b8
+  en: A rule is called as `rule(operation, *, device_operands=...)` and must return a [`PulseDefinition`][fatqat.emulator.PulseDefinition]. Register a general rule to handle every ordered device-operand tuple, or register separate rules for specific tuples. A tuple-specific entry may also be a fixed definition or a callable that only accepts `operation`. The tuple contains ordered physical labels such as `("q0", "q1")`, not program register references.
+  zh: 规则以 `rule(operation, *, device_operands=...)` 的形式被调用，并且必须返回一个 [`PulseDefinition`][fatqat.emulator.PulseDefinition]。可以注册一条通用规则来处理每个有序的设备操作数元组，也可以为特定元组注册单独的规则。特定元组的条目还可以是一个固定的定义，或只接受 `operation` 的可调用对象。元组包含有序的物理标签（例如 `("q0", "q1")`），而不是程序寄存器引用。
+  status: machine
+- id: 8775bbb39cb0805e
+  en: Definitions
+  zh: 定义
+  status: machine
+- id: 48153003ccfc894b
+  en: A [`PulseDefinition`][fatqat.emulator.PulseDefinition] contains a duration, a tuple of controls, and optional `PhaseShift` or `PhaseSwap` actions. Conditions and noise remain on the operation in the program.
+  zh: '[`PulseDefinition`][fatqat.emulator.PulseDefinition] 包含一个时长、一个控制元组，以及可选的 `PhaseShift` 或 `PhaseSwap` 动作。条件与噪声仍保留在程序中的操作上。'
+  status: machine
+- id: d7e74cff60a094dc
+  en: '`PhaseShift` changes one model frame after the pulse. `PhaseSwap` exchanges two frames. Direct pulse operations do not have post-actions.'
+  zh: '`PhaseShift` 在脉冲之后改变一个模型帧。`PhaseSwap` 交换两个帧。直接脉冲操作没有后置动作。'
+  status: machine
+- id: 5f94377411a3958a
+  en: The emulator calls and validates a selected rule when the gate is used. Raise [`BackendValidationError`][fatqat.errors.BackendValidationError] to report unsupported operands or parameters. Other exceptions and return values that are not `PulseDefinition` are reported as `PulseImplementationError`.
+  zh: 仿真器在使用该门时调用并验证所选规则。请引发 [`BackendValidationError`][fatqat.errors.BackendValidationError] 来报告不支持的操作数或参数。其他异常以及不是 `PulseDefinition` 的返回值会被报告为 `PulseImplementationError`。
+  status: machine
+- id: d05cc5dc2b2be67a
+  en: The [transmon](../pulse-emulator.md) and [neutral-atom](../atom-emulators.md) pages show the built-in maps and full workflows.
+  zh: '[transmon](../pulse-emulator.md) 与[中性原子](../atom-emulators.md)页面展示了内置映射与完整工作流。'
+  status: machine

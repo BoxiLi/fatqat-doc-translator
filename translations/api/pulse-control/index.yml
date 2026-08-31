@@ -1,0 +1,104 @@
+- id: e31869f95dabb3f8
+  en: Pulse control
+  zh: 脉冲控制
+  status: machine
+- id: 4c1b4dccb6e49b6e
+  en: Read [Follow a Program into physical dynamics](../../guide/hamiltonian-emulation.md) first for the gate-calibration, direct-control, and scheduling workflow. This section defines the exact pulse objects and validation rules.
+  zh: 请先阅读[跟随 Program 进入物理动力学](../../guide/hamiltonian-emulation.md)，了解门校准、直接控制与调度工作流。本节定义确切的脉冲对象及其验证规则。
+  status: machine
+- id: ddca672ef1110b07
+  en: 'A direct pulse block is built from three values:'
+  zh: 直接脉冲块由三个值构成：
+  status: machine
+- id: 1002bcc580eea853
+  en: '[SampledWaveform](sampled-waveform.md) holds the samples for one signal.'
+  zh: '[SampledWaveform](sampled-waveform.md) 保存单个信号的采样值。'
+  status: machine
+- id: 8c7e0ad7d24d183d
+  en: '[PulseControl](pulse-control.md) assigns that signal to a model channel.'
+  zh: '[PulseControl](pulse-control.md) 将该信号分配给一个模型信道。'
+  status: machine
+- id: a4f7afcf50a571d4
+  en: '[PulseOperation](pulse-operation.md) groups one or more controls into a timed program instruction.'
+  zh: '[PulseOperation](pulse-operation.md) 将一个或多个控制组合成一条带时序的程序指令。'
+  status: machine
+- id: 920677dd69b700bf
+  en: '`PulseOperation` is imported from `fatqat.operations` and is normally used as `ops.PulseOperation`. `PulseControl` and `SampledWaveform` are in `fatqat.emulator`. Unlike an ordinary gate, a pulse operation is added without targets because its channels already name the physical resources to drive.'
+  zh: '`PulseOperation` 从 `fatqat.operations` 导入，通常以 `ops.PulseOperation` 的形式使用。`PulseControl` 和 `SampledWaveform` 位于 `fatqat.emulator` 中。与普通门不同，添加脉冲操作时无需指定目标，因为其信道已经指明了要驱动的物理资源。'
+  status: machine
+- id: b3f98df09d60e20c
+  en: To implement an ordinary gate with pulses, register a [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] rule that returns a [`PulseDefinition`][fatqat.emulator.PulseDefinition]. See [Gate realization](gate-realization.md).
+  zh: 要用脉冲实现普通门，请注册一条返回 [`PulseDefinition`][fatqat.emulator.PulseDefinition] 的 [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] 规则。参见[门实现](gate-realization.md)。
+  status: machine
+- id: 68e1ca575295bb56
+  en: Validation
+  zh: 验证
+  status: machine
+- id: 8468b8b6bb6372ae
+  en: FatQat checks sample structure and timing when you construct these values. It rejects invalid offsets, non-positive block durations, repeated channels, and controls that extend past the block. A model's channel factory checks its address arguments when you create a channel.
+  zh: FatQat 会在构造这些值时检查采样结构与时序，并拒绝无效的偏移量、非正的块时长、重复的信道，以及超出块范围的控制。模型的信道工厂会在创建信道时检查其地址参数。
+  status: machine
+- id: 6502f12a8c8ecb00
+  en: When a control is used, the emulator checks model compatibility, resource names, real or complex sample requirements, amplitude and duration limits, and channel combinations that cannot run together.
+  zh: 使用控制时，仿真器会检查模型兼容性、资源名称、实数或复数采样要求、振幅与时长限制，以及无法同时运行的信道组合。
+  status: machine
+- id: eca1741207a5b1bc
+  en: Built-in support
+  zh: 内置支持
+  status: machine
+- id: 6ac5664265587fe8
+  en: Use the model's time unit for every duration, offset, and sample time. Sample values use the channel's unit and may be restricted to real values.
+  zh: 所有时长、偏移量和采样时间都应使用模型的时间单位。采样值使用信道的单位，并且可能被限制为实数值。
+  status: machine
+- id: ae77a0dff632e233
+  en: '**Direct pulse support**'
+  zh: '**直接脉冲支持**'
+  status: machine
+- id: 62e744faf05e5cc3
+  en: The [transmon](../pulse-emulator.md) and [neutral-atom](../atom-emulators.md) pages document model resources and limits.
+  zh: '[transmon](../pulse-emulator.md) 与[中性原子](../atom-emulators.md)页面记录了模型资源与限制。'
+  status: machine
+- id: 6b12634b21e175a4
+  en: <a id="pulse-probability-noise"></a>
+  zh: <a id="pulse-probability-noise"></a>
+  status: machine
+- id: 4d8961598550e3c3
+  en: Continuous-time noise
+  zh: 连续时间噪声
+  status: machine
+- id: 2d512d6140f104a8
+  en: 'Pulse emulators evolve noise over time, so their family-owned Lindblad realizations use rates or relaxation times. They do not infer a rate from a finite probability. In particular, [`PauliChannel`][fatqat.noise.PauliChannel] remains a discrete Simulator channel: its probabilities do not specify a duration or conversion convention. Use [`Simulator`][fatqat.simulator.Simulator] for discrete Pauli noise, or a rate-form declaration listed for the pulse-emulator family in [Pulse emulators](../noise/backend-support.md#noise-emulator-support).'
+  zh: 脉冲仿真器随时间演化噪声，因此其家族专属的 Lindblad 实现使用速率或弛豫时间，而不会从有限概率推断速率。特别地，[`PauliChannel`][fatqat.noise.PauliChannel] 仍然是离散的 Simulator 信道：其概率并未指定时长或换算约定。对于离散 Pauli 噪声，请使用 [`Simulator`][fatqat.simulator.Simulator]，或使用[脉冲仿真器](../noise/backend-support.md#noise-emulator-support)中为脉冲仿真器家族列出的速率形式声明。
+  status: machine
+- id: e82ac69fa308ff9f
+  en: '[PulseOperation](pulse-operation.md)'
+  zh: '[PulseOperation](pulse-operation.md)'
+  status: machine
+- id: e401486428759ade
+  en: '[PulseControl](pulse-control.md)'
+  zh: '[PulseControl](pulse-control.md)'
+  status: machine
+- id: 1144a65c10fbdce9
+  en: '[SampledWaveform](sampled-waveform.md)'
+  zh: '[SampledWaveform](sampled-waveform.md)'
+  status: machine
+- id: 959453f771a8926b
+  en: '[Gate realization](gate-realization.md)'
+  zh: '[门实现](gate-realization.md)'
+  status: machine
+- id: 4b1c4d82399781ac
+  en: '| Backend | Channels | Time / sample units | Conditions in `run()` |'
+  zh: '| 后端 | 信道 | 时间/采样单位 | `run()` 中的条件 |'
+  status: machine
+- id: 78d5af8aba5cf75a
+  en: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | `drive(id)` accepts complex values; `detuning(id)` and `exchange(first, second)` require real values. | `ns`, `rad/ns` | Yes |'
+  zh: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | `drive(id)` 接受复数值；`detuning(id)` 和 `exchange(first, second)` 要求实数值。 | `ns`, `rad/ns` | 是 |'
+  status: machine
+- id: 39d949608c549bc8
+  en: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | Global `drive()` accepts complex values; global `detuning()` requires real values. | `us`, `rad/us` | No |'
+  zh: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | 全局 `drive()` 接受复数值；全局 `detuning()` 要求实数值。 | `us`, `rad/us` | 否 |'
+  status: machine
+- id: e5ddb4a22b35152d
+  en: '| [`Simulator`][fatqat.simulator.Simulator] | Direct pulse operations are not supported. | -- | -- |'
+  zh: '| [`Simulator`][fatqat.simulator.Simulator] | 不支持直接脉冲操作。 | -- | -- |'
+  status: machine

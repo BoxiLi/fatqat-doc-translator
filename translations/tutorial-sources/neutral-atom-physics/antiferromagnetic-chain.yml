@@ -1,0 +1,156 @@
+- id: 6e8450763098cfe8
+  en: Build antiferromagnetic correlations in a Rydberg chain
+  zh: 在里德堡链中构建反铁磁关联
+  status: machine
+- id: b9eac23dce1d309d
+  en: Design a three-stage Rydberg pulse from physical units and watch short-range antiferromagnetic order emerge in a ten-site chain.
+  zh: 从物理单位出发设计三阶段里德堡脉冲，观察短程反铁磁序在十格点链中出现。
+  status: machine
+- id: d2f7b03b9bc0fc24
+  en: Three-stage Rydberg pulse schedule
+  zh: 三阶段里德堡脉冲时序
+  status: machine
+- id: 1f610b63e7ed8da5
+  en: Rydberg density, connected correlations, and ordering summary
+  zh: 里德堡密度、连通关联与有序度摘要
+  status: machine
+- id: 8a5bf8158fc736a2
+  en: 'A single atom performs Rabi oscillations. Put several atoms close together and the same laser drive becomes a many-body experiment: two nearby Rydberg excitations cost interaction energy, so neighbouring atoms prefer opposite states. In this tutorial we use that competition to build correlations between nearby sites in a ten-site chain.'
+  zh: 单个原子做 Rabi 振荡。把几个原子放得足够近，同样的激光驱动就变成了多体实验：两个相邻的里德堡激发要付出相互作用能量，因此相邻原子倾向于处在相反的状态。在本教程中，我们利用这种竞争在十格点链中建立近邻格点之间的关联。
+  status: machine
+- id: 792cf650b72d4e6e
+  en: 'The pulse follows the three-stage protocol used in Rydberg-array experiments: turn on the drive at negative detuning, sweep the detuning into the ordered region, then turn the drive off. See [Bernien et al., Nature 551, 579 (2017)](https://doi.org/10.1038/nature24622) and [Lienhard et al., Physical Review X 8, 021070 (2018)](https://doi.org/10.1103/PhysRevX.8.021070).'
+  zh: 脉冲遵循里德堡阵列实验中使用的三阶段方案：在负失谐下打开驱动，把失谐扫入有序区，然后关闭驱动。参见 [Bernien et al., Nature 551, 579 (2017)](https://doi.org/10.1038/nature24622) 与 [Lienhard et al., Physical Review X 8, 021070 (2018)](https://doi.org/10.1103/PhysRevX.8.021070)。
+  status: machine
+- id: acae0dc1bbe348be
+  en: This is a small, ideal simulation inspired by those experiments, not a numerical reproduction. The packaged reference supplies the atomic states and $C_6$, so we will derive the distance and frequency scales explicitly from the selected model.
+  zh: 这是一个受上述实验启发的小型理想模拟，而非数值复现。打包的参考文档提供了原子态和 $C_6$，因此我们将从所选模型显式推导距离与频率尺度。
+  status: machine
+- id: 1ab440021bc584c7
+  en: 1. Load the physical model
+  zh: 1. 加载物理模型
+  status: machine
+- id: 309ae74481ba6f64
+  en: Model selection is explicit. The document tells us which atomic states and units its interaction coefficient describes; `from_document` validates it before the emulator sees it.
+  zh: 模型选择是显式的。该文档说明了其相互作用系数所描述的原子态和单位；`from_document` 会在仿真器接触它之前完成校验。
+  status: machine
+- id: 9b06b7660ad2401b
+  en: 2. Choose the distance from the desired ZZ strength
+  zh: 2. 由所需的 ZZ 强度确定原子间距
+  status: machine
+- id: 65ff8755a91ed9a7
+  en: In angular-frequency units, the native Rydberg Hamiltonian is
+  zh: 在角频率单位下，原生的里德堡哈密顿量为
+  status: machine
+- id: e4b7351e91be9511
+  en: 'where $n_i=|r\rangle\langle r|_i$. There is no missing factor of $2\pi$: `C6`, $\Omega$, $\Delta$, and $U$ all use rad/us in this model.'
+  zh: 其中 $n_i=|r\rangle\langle r|_i$。不存在缺失的 $2\pi$ 因子：在该模型中 `C6`、$\Omega$、$\Delta$ 和 $U$ 全部使用 rad/us。
+  status: machine
+- id: 302d311ac4e62b55
+  en: 'To see the Pauli coupling, substitute $n=(I-Z)/2$:'
+  zh: 要看出 Pauli 耦合，代入 $n=(I-Z)/2$：
+  status: machine
+- id: e42f6c65d99ff2f8
+  en: The coefficient multiplying $Z_iZ_j$ is therefore $J_{ZZ}=U_{ij}/4$, not $U_{ij}$. We choose a round peak drive $\Omega_{max}=2\pi$ rad/us. Its transverse-field coefficient is $h_x=\Omega_{max}/2$. Matching $J_{ZZ}=h_x$ requires $U=2\Omega_{max}$. The corresponding spacing follows from the model rather than being a magic number.
+  zh: 因此 $Z_iZ_j$ 前的系数是 $J_{ZZ}=U_{ij}/4$，而不是 $U_{ij}$。我们选择一个取整的峰值驱动 $\Omega_{max}=2\pi$ rad/us，其横场系数为 $h_x=\Omega_{max}/2$。要使 $J_{ZZ}=h_x$，需要 $U=2\Omega_{max}$。相应的间距由模型推导而来，而不是一个凭空设定的数字。
+  status: machine
+- id: 5ba35375996662b5
+  en: 'Why ten sites? It is already a 1024-dimensional many-body state, but it remains quick enough for a local tutorial run. An even chain also keeps us honest: its open boundaries admit several low-energy patterns, and global controls do not have to select one perfect alternating bit string. We will therefore measure both site populations and a squared order parameter that recognizes staggered correlations without assuming a unique final pattern.'
+  zh: 为什么是十个格点？它已经是 1024 维的多体态，但对本地教程运行来说仍然足够快。偶数长度的链还能让我们保持诚实：其开放边界允许多种低能构型，全局控制不必挑选出某一个完美的交替比特串。因此我们将同时测量格点布居和一个平方有序参量，后者能够识别交错关联，而无需假设唯一的最终构型。
+  status: machine
+- id: 20a585f0d1e7b45c
+  en: 3. Account for the induced longitudinal field
+  zh: 3. 考虑诱导的纵向场
+  status: machine
+- id: 3e6ff7e4206cbc76
+  en: Collecting all Pauli-Z terms gives
+  zh: 收集所有 Pauli-Z 项得到
+  status: machine
+- id: 575b5f9816c0aadd
+  en: 'For the nearest-neighbour approximation, an interior chain site has two neighbours. Choosing $\Delta=U$ cancels its induced longitudinal field. Our chosen peak drive makes the transverse and ZZ coefficients equal:'
+  zh: 在最近邻近似下，链内部的格点有两个近邻。取 $\Delta=U$ 可抵消其诱导纵向场。我们选定的峰值驱动使横场系数与 ZZ 系数相等：
+  status: machine
+- id: 9d29729d74c80b30
+  en: This cancellation is exact for the bulk of a periodic nearest-neighbour chain, but not for our finite open chain. An edge has only one neighbour and retains a $+U Z/4$ field. The full $1/R^6$ model adds smaller, position-dependent shifts as well. A single global detuning cannot cancel every site, and the tutorial will not hide that boundary effect.
+  zh: 这种抵消对周期性最近邻链的体区是精确的，但对我们的有限开放链并非如此。边缘格点只有一个近邻，仍保留 $+U Z/4$ 的场。完整的 $1/R^6$ 模型还会引入更小的、随位置变化的偏移。单一的全局失谐无法抵消每个格点，本教程也不会掩盖这一边界效应。
+  status: machine
+- id: c84d2e0b11cf968c
+  en: 'More importantly, bulk cancellation is not the best final point for this preparation. At zero drive, adding one excitation while creating one adjacent pair changes the energy by $-\Delta+U$; it costs nothing at $\Delta=U$. We instead finish at $\Delta=U/3$: positive detuning rewards Rydberg occupation, while one nearest-neighbour pair still costs more than the extra excitation gains. This suppresses adjacent excitations, but it does not leave only the two perfect Néel strings: a finite open chain also admits maximum-occupation patterns containing a domain wall. Nearest-pair interactions leave those patterns degenerate, while the full $1/R^6$ tails weakly split them. The goal is therefore short-range antiferromagnetic correlation, not perfect Néel-state preparation. The cancellation formula remains useful for interpreting the Hamiltonian even though we do not end at its bulk value.'
+  zh: 更重要的是，体区抵消并不是这次制备的最佳终点。在零驱动下，增加一个激发并同时形成一个相邻激发对，能量变化为 $-\Delta+U$；在 $\Delta=U$ 时这没有任何代价。我们改为终止于 $\Delta=U/3$：正失谐奖励里德堡占据，而一个最近邻激发对的代价仍高于额外激发带来的收益。这抑制了相邻激发，但并不会只留下两个完美的 Néel 串：有限开放链还允许包含畴壁的最大占据构型。最近邻相互作用使这些构型保持简并，而完整的 $1/R^6$ 尾部会将它们微弱地劈裂。因此目标是短程反铁磁关联，而非完美的 Néel 态制备。尽管我们没有终止在其体区取值，这个抵消公式对理解哈密顿量仍然有用。
+  status: machine
+- id: 532473ed383cea9c
+  en: 4. Build the three-stage pulse
+  zh: 4. 构建三阶段脉冲
+  status: machine
+- id: b66ec61d7aa30e7b
+  en: 'At the start, $\Omega=0$ and the negative detuning makes $|gg\ldots g\rangle$ the ground state. We then:'
+  zh: 起始时 $\Omega=0$，负失谐使 $|gg\ldots g\rangle$ 成为基态。随后我们：
+  status: machine
+- id: 2732ad7b03598995
+  en: raise $\Omega$ while holding $\Delta$ negative;
+  zh: 在保持 $\Delta$ 为负的同时升高 $\Omega$；
+  status: machine
+- id: 4250964de8fd1318
+  en: sweep $\Delta$ into the ordered region;
+  zh: 把 $\Delta$ 扫入有序区；
+  status: machine
+- id: 52582853d365625f
+  en: lower $\Omega$ at fixed positive detuning.
+  zh: 在固定的正失谐下降低 $\Omega$。
+  status: machine
+- id: 7c94e0255a492a4c
+  en: Each two-point `SampledWaveform` is linear. Splitting the schedule into three operations makes the constant and ramped parts explicit.
+  zh: 每个两点式 `SampledWaveform` 都是线性的。把时序拆成三个操作，使恒定段和斜坡段一目了然。
+  status: machine
+- id: 3bafffe966932b77
+  en: Plotting the controls before running is a useful sanity check. Normalizing by $U$ makes the physically important ratios visible.
+  zh: 在运行前绘制控制波形是一个有用的合理性检查。用 $U$ 归一化能让物理上重要的比值清晰可见。
+  status: machine
+- id: 08a10b2d3d504ef0
+  en: 5. Ask for observables, not measurement shots
+  zh: 5. 请求可观测量，而非测量采样
+  status: machine
+- id: 83a4bb123b7e9225
+  en: '`ONE` is the projector $|r\rangle\langle r|$, so its expectation is the Rydberg population of one site. We request all site populations plus the pair populations. From them we obtain the mean probability that an adjacent pair is simultaneously excited,'
+  zh: '`ONE` 是投影算符 $|r\rangle\langle r|$，因此它的期望值就是单个格点的里德堡布居。我们请求所有格点布居以及成对布居。由此可以得到相邻一对格点被同时激发的平均概率，'
+  status: machine
+- id: eca6cadf4e6dc8f2
+  en: and the connected correlation
+  zh: 以及连通关联
+  status: machine
+- id: 2881838c6969692e
+  en: Negative nearest-neighbour values mean that exciting one site makes its neighbour less likely to be excited. This is the correlation measured in the experiments cited above.
+  zh: 最近邻取负值意味着激发某个格点会降低其近邻被激发的可能性。这正是上文所引实验中测得的关联。
+  status: machine
+- id: 430332534c6a17ca
+  en: Global controls need not select one staggered orientation, and the open boundaries also permit domain walls. The signed staggered magnetization may therefore average to zero despite useful correlations. We instead use
+  zh: 全局控制不必挑选某一种交错取向，开放边界也允许畴壁存在。因此，即便存在有意义的关联，带符号的交错磁化强度也可能平均为零。我们改用
+  status: machine
+- id: 7e0cf00dee42bba6
+  en: Both perfect alternating patterns give $\langle m_s^2\rangle=1$. Passing the whole observable list to one `Estimator.run` evolves the program only once and evaluates every quantity against the same final state.
+  zh: 两种完美交替构型都给出 $\langle m_s^2\rangle=1$。把整个可观测量列表传给一次 `Estimator.run`，程序只演化一次，所有量都针对同一个最终态求值。
+  status: machine
+- id: 56f88dae96e759a6
+  en: 6. Keep all interactions, then test the nearest-pair approximation
+  zh: 6. 保留全部相互作用，再检验最近邻近似
+  status: machine
+- id: f5fdc712d4ea2987
+  en: The first emulator uses the default `interaction_cutoff=None` and retains every unordered pair. The second deletes terms beyond one lattice spacing. That cutoff is a numerical Hamiltonian truncation, not a blockade radius.
+  zh: 第一个仿真器使用默认的 `interaction_cutoff=None`，保留每一个无序对。第二个删除超出一个晶格间距的项。该截断是数值上的哈密顿量截断，而不是阻塞半径。
+  status: machine
+- id: 77f96283941ce429
+  en: In a uniform chain, the next-nearest interaction is only $U/(2^6)=U/64$. This suggests that nearest-pair physics should be a good explanation, but the comparison below checks the evolved state rather than assuming that a small Hamiltonian term is always irrelevant.
+  zh: 在均匀链中，次近邻相互作用只有 $U/(2^6)=U/64$。这提示最近邻物理应该能给出很好的解释，但下面的比较检验的是演化后的态，而不是假定哈密顿量中的小项总是无关紧要。
+  status: machine
+- id: 08b3a27a4e24b1b5
+  en: The squared staggered order is one for either ideal alternating pattern. For comparison, an uncorrelated, uniformly random state has the baseline $1/N$. The adjacent double-excitation probability is zero for either perfect alternating orientation. Together they distinguish antiferromagnetic correlations from both a featureless state and one that merely has the right average excitation density.
+  zh: 对两种理想交替构型，平方交错序参量都等于 1。作为对照，一个无关联的均匀随机态的基线是 $1/N$。对任一完美交替取向，相邻双激发概率为零。两者结合，就能把反铁磁关联与无特征的态以及仅具有正确平均激发密度的态区分开来。
+  status: machine
+- id: ee422ba60954ccc3
+  en: 7. Read the many-body result
+  zh: 7. 解读多体结果
+  status: machine
+- id: 201231e5d3f5c3ee
+  en: 'The one-site profile is reflection symmetric and visibly influenced by the open edges; it does not pretend that the finite chain selected one perfect bit string. The connected-correlation matrix carries the clearer many-body signature: its signs alternate with separation, while neighbouring double excitations are strongly suppressed. Retaining all $C_6/R^6$ pairs and keeping only nearest pairs lead to the same qualitative state; their small quantitative difference comes from the long-range tails and the associated site-dependent Z shifts. The all-pair result is the physical default. The truncated result is useful because it exposes the familiar nearest-neighbour Ising interpretation.'
+  zh: 单格点分布具有反射对称性，并明显受到开放边缘的影响；它并不假装有限链选出了某一个完美比特串。连通关联矩阵携带更清晰的多体特征：其符号随间距交替，而相邻双激发被强烈抑制。保留全部 $C_6/R^6$ 对与只保留最近邻对得到的态在定性上相同；它们之间微小的定量差异来自长程尾部以及相应的随格点变化的 Z 偏移。全对结果是物理上的默认选择。截断结果的价值在于揭示出人们熟悉的最近邻 Ising 图像。
+  status: machine

@@ -1,0 +1,36 @@
+- id: 0bcd62e2792f624a
+  en: Experimental APIs
+  zh: 实验性 API
+  status: machine
+- id: c7c8e3a9cc931706
+  en: The APIs listed here are public, but their signatures and behavior may change between releases. Use them only when the stable backend workflow does not cover your integration.
+  zh: 此处列出的 API 是公开的，但其签名与行为可能在不同版本之间发生变化。仅当稳定的后端工作流无法覆盖你的集成需求时才使用它们。
+  status: machine
+- id: 90bcd2b94fbdea07
+  en: Direct construction
+  zh: 直接构造
+  status: machine
+- id: cb5e8095e2b4cc62
+  en: Backends return [`Job`][fatqat.Job] and [`Result`][fatqat.Result]; applications normally should not construct either class. When writing a backend integration, create a successful job as `Job("DONE", result=value)` or a failed job as `Job("ERROR", error=exc)`, and translate the backend's output into a `Result`. See [Job](job.md) and [Result](result.md) for the interfaces.
+  zh: 后端返回 [`Job`][fatqat.Job] 和 [`Result`][fatqat.Result]；应用程序通常不应构造这两个类。编写后端集成时，用 `Job("DONE", result=value)` 创建成功的作业，或用 `Job("ERROR", error=exc)` 创建失败的作业，并将后端的输出转换为 `Result`。接口详情参见 [Job](job.md) 和 [Result](result.md)。
+  status: machine
+- id: a672b289e30db7aa
+  en: Extension points
+  zh: 扩展点
+  status: machine
+- id: ce1eccee9e09a4a2
+  en: 'The following extension points are also evolving:'
+  zh: 以下扩展点也在演进中：
+  status: machine
+- id: 28fbe3b3cd28700e
+  en: '[Matrix implementations](implementation.md) for custom matrices and device-specific gate rules'
+  zh: '[矩阵实现](implementation.md)：用于自定义矩阵与器件特定的门规则'
+  status: machine
+- id: b4075750b3d45a43
+  en: '[Gate realization](pulse-control/gate-realization.md) for custom pulse definitions'
+  zh: '[门实现](pulse-control/gate-realization.md)：用于自定义脉冲定义'
+  status: machine
+- id: 0917ebcfd35f26c9
+  en: Built-in pulse maps are listed under [Emulators](emulators/index.md).
+  zh: 内置的脉冲映射列于[仿真器](emulators/index.md)之下。
+  status: machine

@@ -1,0 +1,212 @@
+- id: 56b50a77036308e6
+  en: Qiskit
+  zh: Qiskit
+  status: machine
+- id: d619890e8c2368c3
+  en: <a id="fatqat.qiskit"></a>
+  zh: <a id="fatqat.qiskit"></a>
+  status: machine
+- id: eb6f02d125a7b8b9
+  en: Use [`FatqatBackend`](#fatqat.qiskit.FatqatBackend) to run supported Qiskit circuits on FATQAT, or [`circuit_to_program`](#fatqat.qiskit.circuit_to_program) to convert a circuit directly. Install Qiskit separately; Qiskit Aer is not required.
+  zh: 使用 [`FatqatBackend`](#fatqat.qiskit.FatqatBackend) 可在 FATQAT 上运行受支持的 Qiskit 电路，使用 [`circuit_to_program`](#fatqat.qiskit.circuit_to_program) 可直接转换电路。请单独安装 Qiskit；不需要 Qiskit Aer。
+  status: machine
+- id: b7fdd3b8fc98017a
+  en: 'To use FATQAT in a Qiskit backend workflow:'
+  zh: 要在 Qiskit 后端工作流中使用 FATQAT：
+  status: machine
+- id: a3114c2357151164
+  en: Circuit conversion
+  zh: 电路转换
+  status: machine
+- id: a0b5d9138df0421f
+  en: '[`circuit_to_program`](#fatqat.qiskit.circuit_to_program) accepts bound circuits containing instructions from [`build_simulator_target`](#fatqat.qiskit.build_simulator_target). Transpile other circuits to that target first. Named registers and circuit metadata are preserved. The global phase is stored in `program.metadata` but is not applied to the simulated state.'
+  zh: '[`circuit_to_program`](#fatqat.qiskit.circuit_to_program) 接受已绑定的电路，且其中的指令须来自 [`build_simulator_target`](#fatqat.qiskit.build_simulator_target)。其他电路请先转译到该目标。命名寄存器和电路元数据会被保留。全局相位存储在 `program.metadata` 中，但不会作用于模拟的状态。'
+  status: machine
+- id: 52d67d1c8d06840d
+  en: Measurement and reset are converted, while barriers are discarded. Unsupported instructions, dynamic control flow, unbound instruction parameters, and an unbound global phase raise [`QiskitConversionError`](#fatqat.qiskit.QiskitConversionError).
+  zh: 测量和重置会被转换，而 barrier 会被丢弃。不支持的指令、动态控制流、未绑定的指令参数以及未绑定的全局相位会引发 [`QiskitConversionError`](#fatqat.qiskit.QiskitConversionError)。
+  status: machine
+- id: f6dedc59039c8e53
+  en: Backend execution
+  zh: 后端执行
+  status: machine
+- id: ba1de22ea80f3514
+  en: '[`FatqatBackend`](#fatqat.qiskit.FatqatBackend) defaults to `method="statevector"` and `runtime="numpy"`. `method` accepts the names and aliases supported by [`Simulator`][fatqat.simulator.Simulator]; `runtime` accepts `"numpy"` or `"numba"`, case-insensitively. Unsupported values produce an error job from `run()` rather than failing construction. The backend accepts a FATQAT [`NoiseModel`][fatqat.NoiseModel], not a Qiskit Aer noise model.'
+  zh: '[`FatqatBackend`](#fatqat.qiskit.FatqatBackend) 默认使用 `method="statevector"` 和 `runtime="numpy"`。`method` 接受 [`Simulator`][fatqat.simulator.Simulator] 支持的名称和别名；`runtime` 接受 `"numpy"` 或 `"numba"`，不区分大小写。不受支持的值会使 `run()` 产生错误作业，而不是导致构造失败。该后端接受的是 FATQAT 的 [`NoiseModel`][fatqat.NoiseModel]，而非 Qiskit Aer 噪声模型。'
+  status: machine
+- id: 57547e9578f7124a
+  en: '`run()` accepts one circuit or a nonempty iterable and supports three options:'
+  zh: '`run()` 接受单个电路或非空的可迭代对象，并支持三个选项：'
+  status: machine
+- id: fcee79e40fd9cb44
+  en: '`shots`: positive `int`, default `1024`;'
+  zh: '`shots`：正 `int`，默认为 `1024`；'
+  status: machine
+- id: fd34f04113aa3881
+  en: '`memory`: `bool`, default `False`; and'
+  zh: '`memory`：`bool`，默认为 `False`；以及'
+  status: machine
+- id: 1ac4ad3220a7b948
+  en: '`seed_simulator`: non-negative `int` or `None`, default `None`.'
+  zh: '`seed_simulator`：非负 `int` 或 `None`，默认为 `None`。'
+  status: machine
+- id: 4a8edcc133ead22a
+  en: Options passed to `run()` override `backend.options`. Invalid options, an empty circuit iterable, or an iterable containing non-circuit values raise [`QiskitBackendError`](#fatqat.qiskit.QiskitBackendError) before a job is created. If circuit conversion or execution fails later, `run()` returns an `ERROR` job and [`FatqatJob.result`](#fatqat.qiskit.FatqatJob.result) raises Qiskit's `QiskitError`.
+  zh: 传给 `run()` 的选项会覆盖 `backend.options`。无效的选项、空的电路可迭代对象或包含非电路值的可迭代对象会在创建作业之前引发 [`QiskitBackendError`](#fatqat.qiskit.QiskitBackendError)。如果电路转换或执行在之后失败，`run()` 会返回 `ERROR` 作业，并且 [`FatqatJob.result`](#fatqat.qiskit.FatqatJob.result) 会引发 Qiskit 的 `QiskitError`。
+  status: machine
+- id: 6e6dbd9b2ff1a5de
+  en: The result contains Qiskit-formatted counts, including for multiple classical registers. `memory=True` returns entries consistent with those counts, without guaranteeing shot order. Circuits without classical bits have no counts or memory data. Statevector and related simulator artifacts are not included in the Qiskit result.
+  zh: 结果包含 Qiskit 格式的计数，包括多个经典寄存器的情形。`memory=True` 返回与这些计数一致的条目，但不保证 shot 的顺序。没有经典比特的电路没有计数或 memory 数据。态矢量及相关模拟器产物不包含在 Qiskit 结果中。
+  status: machine
+- id: 35d57859735df623
+  en: Jobs and provider helper
+  zh: 作业与提供者辅助工具
+  status: machine
+- id: cb7a9cf08bd51006
+  en: Execution is synchronous, so [`FatqatJob`](#fatqat.qiskit.FatqatJob) is `DONE` or `ERROR` when returned. [`FatqatProvider`](#fatqat.qiskit.FatqatProvider) creates configured [`FatqatBackend`](#fatqat.qiskit.FatqatBackend) instances for code that expects a provider-style interface.
+  zh: 执行是同步的，因此返回的 [`FatqatJob`](#fatqat.qiskit.FatqatJob) 状态为 `DONE` 或 `ERROR`。[`FatqatProvider`](#fatqat.qiskit.FatqatProvider) 为需要提供者风格接口的代码创建已配置的 [`FatqatBackend`](#fatqat.qiskit.FatqatBackend) 实例。
+  status: machine
+- id: 90252e08ebe0dba2
+  en: function `circuit_to_program(circuit)`
+  zh: 函数 `circuit_to_program(circuit)`
+  status: machine
+- id: 8e29056cf0779db2
+  en: Convert a bound, static Qiskit `QuantumCircuit` into a [`Program`][fatqat.Program]. Unrepresentable circuits raise [`QiskitConversionError`](#fatqat.qiskit.QiskitConversionError); non-circuit inputs raise [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError).
+  zh: 将已绑定的静态 Qiskit `QuantumCircuit` 转换为 [`Program`][fatqat.Program]。无法表示的电路会引发 [`QiskitConversionError`](#fatqat.qiskit.QiskitConversionError)；非电路输入会引发 [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError)。
+  status: machine
+- id: 117e750ffd80cc69
+  en: class `FatqatBackend(*, method="statevector", runtime="numpy", noise_model=None, provider=None, name="fatqat_simulator")`
+  zh: 类 `FatqatBackend(*, method="statevector", runtime="numpy", noise_model=None, provider=None, name="fatqat_simulator")`
+  status: machine
+- id: 141e69b19c80ea9d
+  en: Synchronous Qiskit `BackendV2` backed by the gate-level FATQAT simulator.
+  zh: 由门级 FATQAT 模拟器支持的同步 Qiskit `BackendV2`。
+  status: machine
+- id: 3f166f1974b05ba6
+  en: method `run(run_input, **run_options)`
+  zh: 方法 `run(run_input, **run_options)`
+  status: machine
+- id: ce497a217b7948de
+  en: Execute one circuit or a nonempty iterable and return a completed [`FatqatJob`](#fatqat.qiskit.FatqatJob).
+  zh: 执行单个电路或非空的可迭代对象，并返回已完成的 [`FatqatJob`](#fatqat.qiskit.FatqatJob)。
+  status: machine
+- id: e3d63071239cc88c
+  en: attribute `target`
+  zh: 属性 `target`
+  status: machine
+- id: 9232edd6e66604d4
+  en: The supported instruction basis used for transpilation.
+  zh: 用于转译的受支持指令基。
+  status: machine
+- id: 36e9db95717e0f95
+  en: attribute `max_circuits`
+  zh: 属性 `max_circuits`
+  status: machine
+- id: cda465e6d0a1a201
+  en: Always `None`; batches are not capped.
+  zh: 始终为 `None`；批量大小不设上限。
+  status: machine
+- id: 4cf85390058b3364
+  en: attribute `coupling_map`
+  zh: 属性 `coupling_map`
+  status: machine
+- id: 38767eb5acf75b8b
+  en: Always `None`; circuits are not restricted to a coupling map.
+  zh: 始终为 `None`；电路不受耦合图限制。
+  status: machine
+- id: bcd20066eb267e21
+  en: class `FatqatJob`
+  zh: 类 `FatqatJob`
+  status: machine
+- id: cc61c9afde12ff2d
+  en: Completed Qiskit `JobV1` returned by [`FatqatBackend.run`](#fatqat.qiskit.FatqatBackend.run).
+  zh: 由 [`FatqatBackend.run`](#fatqat.qiskit.FatqatBackend.run) 返回的已完成的 Qiskit `JobV1`。
+  status: machine
+- id: c345bb29669fa3ec
+  en: method `status()`
+  zh: 方法 `status()`
+  status: machine
+- id: 175ebb15df3094c3
+  en: Return Qiskit's `DONE` or `ERROR` status.
+  zh: 返回 Qiskit 的 `DONE` 或 `ERROR` 状态。
+  status: machine
+- id: 9f16b51ffd8cabe5
+  en: method `result(timeout=None)`
+  zh: 方法 `result(timeout=None)`
+  status: machine
+- id: aa1f3cd2073233bd
+  en: Return the Qiskit `Result` or raise `QiskitError`. `timeout` is accepted and ignored.
+  zh: 返回 Qiskit `Result`，或引发 `QiskitError`。`timeout` 参数被接受但会被忽略。
+  status: machine
+- id: d3feee8300aed8cc
+  en: method `submit()`
+  zh: 方法 `submit()`
+  status: machine
+- id: 3e7d0d2d9ef0d897
+  en: Return immediately because the job has already run.
+  zh: 立即返回，因为作业已经运行完毕。
+  status: machine
+- id: 662c852356c89fea
+  en: method `cancel()`
+  zh: 方法 `cancel()`
+  status: machine
+- id: 2b40766017eae6af
+  en: Return `False`.
+  zh: 返回 `False`。
+  status: machine
+- id: 6a5347a81893111a
+  en: method `backend()`
+  zh: 方法 `backend()`
+  status: machine
+- id: 40d037e60166a05e
+  en: Return the creating backend.
+  zh: 返回创建该作业的后端。
+  status: machine
+- id: 36384e1704b54d0a
+  en: class `FatqatProvider(**default_backend_kwargs)`
+  zh: 类 `FatqatProvider(**default_backend_kwargs)`
+  status: machine
+- id: f7a5ae72ad2cbdeb
+  en: Provider-style helper that creates configured [`FatqatBackend`](#fatqat.qiskit.FatqatBackend) instances.
+  zh: 创建已配置 [`FatqatBackend`](#fatqat.qiskit.FatqatBackend) 实例的提供者风格辅助类。
+  status: machine
+- id: 8886a45dea82fa8c
+  en: method `backends(name=None, *, filters=None, **kwargs)`
+  zh: 方法 `backends(name=None, *, filters=None, **kwargs)`
+  status: machine
+- id: 734adbfcc0859f76
+  en: Return a new backend in a one-item list when `name` matches, otherwise an empty list. `filters` has no effect; other constructor options in `kwargs` override the provider defaults.
+  zh: 当 `name` 匹配时返回包含一个新后端的单元素列表，否则返回空列表。`filters` 不起作用；`kwargs` 中的其他构造选项会覆盖提供者的默认值。
+  status: machine
+- id: 13ff02a6b0f8b2c9
+  en: method `get_backend(name=None, **kwargs)`
+  zh: 方法 `get_backend(name=None, **kwargs)`
+  status: machine
+- id: 79dc9dc3310ab6e6
+  en: Return a new matching backend, or raise [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError).
+  zh: 返回一个新的匹配后端，或引发 [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError)。
+  status: machine
+- id: 5b0121c4e71313ae
+  en: function `build_simulator_target()`
+  zh: 函数 `build_simulator_target()`
+  status: machine
+- id: f8389760342e97a2
+  en: Return a new unbounded Qiskit target for the supported gate basis.
+  zh: 为受支持的门基返回一个新的、不限量子比特数的 Qiskit target。
+  status: machine
+- id: 9322a4667f42a19b
+  en: exception `QiskitConversionError`
+  zh: 异常 `QiskitConversionError`
+  status: machine
+- id: bf3378da19e3ea6a
+  en: A circuit cannot be converted to a FATQAT program. This is a [`fatqat.errors.FatqatError`][fatqat.errors.FatqatError].
+  zh: 电路无法转换为 FATQAT 程序。这是一个 [`fatqat.errors.FatqatError`][fatqat.errors.FatqatError]。
+  status: machine
+- id: b5716685bf40c786
+  en: exception `QiskitBackendError`
+  zh: 异常 `QiskitBackendError`
+  status: machine
+- id: 7597349de3d61aae
+  en: A run request was rejected before execution. This is a [`fatqat.errors.FatqatError`][fatqat.errors.FatqatError].
+  zh: 运行请求在执行前被拒绝。这是一个 [`fatqat.errors.FatqatError`][fatqat.errors.FatqatError]。
+  status: machine

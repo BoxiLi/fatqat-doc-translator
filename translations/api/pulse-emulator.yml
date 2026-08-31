@@ -1,0 +1,268 @@
+- id: 45002c3050aa3e1d
+  en: Superconducting pulse emulator
+  zh: 超导脉冲仿真器
+  status: machine
+- id: e95ed5b74d9a4eb0
+  en: The [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] runs a [`Program`][fatqat.Program] against a three-level transmon model. It evolves sampled controls over the full physical model, and `run()` returns an eager [`Job`][fatqat.Job].
+  zh: '[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 在三能级 transmon 模型上运行 [`Program`][fatqat.Program]。它在完整物理模型上演化采样控制，`run()` 返回一个立即执行的 [`Job`][fatqat.Job]。'
+  status: machine
+- id: 4b802a73f4d6d01d
+  en: See [Emulate a superconducting system](../guide/transmon-emulation.md) for a walkthrough covering calibrated gates and direct drive.
+  zh: 有关校准门与直接驱动的完整讲解，参见[仿真超导系统](../guide/transmon-emulation.md)。
+  status: machine
+- id: c21a1e0b1c52589f
+  en: Ordinary gates use `gate_implementation_map`. A [`PulseOperation`][fatqat.operations.PulseOperation] contains its own physical channels and does not use that map. See [Pulse control](pulse-control/index.md) for direct pulse authoring.
+  zh: 普通门使用 `gate_implementation_map`。[`PulseOperation`][fatqat.operations.PulseOperation] 包含自己的物理信道，不使用该映射。有关直接脉冲的编写，参见[脉冲控制](pulse-control/index.md)。
+  status: machine
+- id: d63928e8dadaf71f
+  en: Unless a path is shown explicitly, the APIs on this page come from `fatqat.emulator`; the GHz conversion helper comes from `fatqat.emulator.superconducting`.
+  zh: 除非显式给出路径，本页的 API 均来自 `fatqat.emulator`；GHz 换算辅助函数来自 `fatqat.emulator.superconducting`。
+  status: machine
+- id: 11e08633dbaf689d
+  en: Create the emulator
+  zh: 创建仿真器
+  status: machine
+- id: 235849ba5d3fdf16
+  en: 'Load the packaged model and construct the emulator:'
+  zh: 加载软件包自带的模型并构造仿真器：
+  status: machine
+- id: c6202b8c62922b4e
+  en: 'To use an explicit calibration, build its gate map before constructing the emulator:'
+  zh: 要使用显式校准，请在构造仿真器之前先构建其门映射：
+  status: machine
+- id: f63560295b3b98bf
+  en: The packaged calibration is a reference configuration for simulation, not a hardware calibration. To customize it, supply a complete calibration document rather than a partial patch.
+  zh: 软件包自带的校准是用于模拟的参考配置，而非硬件校准。要自定义它，请提供完整的校准文档，而不是部分补丁。
+  status: machine
+- id: d60b98559749d7aa
+  en: By default, qubits in a [`Program`][fatqat.Program] bind in declaration order to `model.subsystem_ids`. Pass an explicit [`ResourceLayout`][fatqat.ResourceLayout] to `run(resource_layout=...)` to override that binding; its device labels must be model subsystem IDs. Unaddressed transmons remain part of the full physical state and still contribute factors of three to state and operator dimensions. The ordered public identities of all model transmons appear in the result's `state_axes` metadata.
+  zh: 默认情况下，[`Program`][fatqat.Program] 中的量子比特按声明顺序绑定到 `model.subsystem_ids`。向 `run(resource_layout=...)` 传递显式的 [`ResourceLayout`][fatqat.ResourceLayout] 可覆盖该绑定；其设备标签必须是模型子系统 ID。未被寻址的 transmon 仍是完整物理状态的一部分，并继续为状态和算符的维度贡献因子 3。所有模型 transmon 的有序公开标识出现在结果的 `state_axes` 元数据中。
+  status: machine
+- id: 9dfc91049197ea28
+  en: '`TransmonEmulator(...)` accepts these optional arguments:'
+  zh: '`TransmonEmulator(...)` 接受以下可选参数：'
+  status: machine
+- id: 67abc7291d7c8d8f
+  en: '**Constructor options**'
+  zh: '**构造函数选项**'
+  status: machine
+- id: af18feebbd6b1f16
+  en: Execution methods
+  zh: 执行方法
+  status: machine
+- id: 8962a38b946a9853
+  en: '`method` names a mathematical representation, not the internal differential- equation solver. The read-only `backend.method` property always returns the canonical full name, and `result.metadata["method"]` records it.'
+  zh: '`method` 指定的是一种数学表示，而不是内部的微分方程求解器。只读属性 `backend.method` 始终返回规范全名，并由 `result.metadata["method"]` 记录。'
+  status: machine
+- id: 92ba803d6b9927ba
+  en: '**Method-native results**'
+  zh: '**方法原生结果**'
+  status: machine
+- id: a7a09e961f4a18dc
+  en: All three representations cover the complete physical qutrit model, not just the logical resources declared by the program. Pulse emulators do not expose `superop` or internal solver names as methods.
+  zh: 三种表示都覆盖完整的物理 qutrit 模型，而不仅是程序声明的逻辑资源。脉冲仿真器不会将 `superop` 或内部求解器名称作为方法公开。
+  status: machine
+- id: 44504ff05040d8bd
+  en: 'An unmeasured statevector run with potentially active Lindblad noise is stochastic, so the default result request retains metadata only. Request one reproducible trajectory with `result_config={"final_state": True}`, `shots=1`, and a non-negative `simulation_config["seed"]`. Choose `method="density_matrix"` for the exact ensemble instead.'
+  zh: '在 Lindblad 噪声可能起作用时，未测量的态矢量运行是随机的，因此默认的结果请求仅保留元数据。要请求一条可复现的轨迹，请设置 `result_config={"final_state": True}`、`shots=1` 以及非负的 `simulation_config["seed"]`。若需要精确的系综结果，请改用 `method="density_matrix"`。'
+  status: machine
+- id: 3188395e78db1205
+  en: Each transmon statevector trajectory is an independent physical evolution, so the cost of a measured trajectory run grows with `shots`. Use `method="density_matrix"` when an exact ensemble result is more useful.
+  zh: 每条 transmon 态矢量轨迹都是一次独立的物理演化，因此带测量的轨迹运行的开销随 `shots` 增长。当精确的系综结果更有用时，请使用 `method="density_matrix"`。
+  status: machine
+- id: 04efbb61da2b0d2f
+  en: '`method="unitary"` is available through `run()` and [`get_unitary`][fatqat.Result.get_unitary]; there is no separate public propagator API. Unitary execution rejects measurement, reset, classical conditions, counts, and programs in which resolved Lindblad noise can act during nonzero-duration evolution. The check is deliberately structural: background noise is considered active whenever any nonzero-duration block exists, whereas operation-scoped noise is considered active only when attached to such a block. Conditioned blocks and zero-rate declarations still count as active; unmatched declarations and declarations scoped to zero-duration blocks do not. The check does not analyze reachability, trajectories, jump probability, or internal solver coefficients. Readout-only noise does not affect an unmeasured unitary run.'
+  zh: '`method="unitary"` 可通过 `run()` 和 [`get_unitary`][fatqat.Result.get_unitary] 使用；没有单独公开的传播子 API。酉执行会拒绝测量、复位、经典条件、计数，以及已解析的 Lindblad 噪声可能在非零时长演化期间作用的程序。该检查特意采用结构化判据：只要存在任何非零时长的块，背景噪声就被视为活跃；而操作范围的噪声仅在附加到此类块上时才被视为活跃。带条件的块和零速率声明仍计为活跃；未匹配的声明以及作用于零时长块的声明则不计。该检查不分析可达性、轨迹、跳跃概率或内部求解器系数。仅作用于读出的噪声不影响未测量的酉运行。'
+  status: machine
+- id: 3ceda4af0af1b9b9
+  en: The unitary uses per-subsystem near-resonant rotating frames and may differ from a conventional qubit `RZ` by global phase; compare ideal operators up to global phase.
+  zh: 该酉矩阵使用每个子系统的近共振旋转帧，可能与常规量子比特 `RZ` 相差一个全局相位；请在忽略全局相位的意义下比较理想算符。
+  status: machine
+- id: 00d60e31a4e6b834
+  en: Run
+  zh: 运行
+  status: machine
+- id: 3c0aee9880b80eb6
+  en: '[`run`][fatqat.emulator.TransmonEmulator.run] accepts these `simulation_config` keys:'
+  zh: '[`run`][fatqat.emulator.TransmonEmulator.run] 接受以下 `simulation_config` 键：'
+  status: machine
+- id: 2368645ee8fd1731
+  en: '**`simulation_config` keys**'
+  zh: '**`simulation_config` 键**'
+  status: machine
+- id: f7b5b5f788502380
+  en: These are the only two keys. Pulse emulators reject the matrix backend's `shot_parallelism`, `kernel_parallelism`, `max_workers`, and `fusion` settings.
+  zh: 仅有这两个键。脉冲仿真器拒绝矩阵后端的 `shot_parallelism`、`kernel_parallelism`、`max_workers` 和 `fusion` 设置。
+  status: machine
+- id: 453ce466b4c8e0b2
+  en: '**`result_config` keys**'
+  zh: '**`result_config` 键**'
+  status: machine
+- id: 5cf7951650ce7a07
+  en: Every run begins in the product state with each transmon in physical `|0>`. Pulse emulators do not accept an `initial_state` argument.
+  zh: 每次运行都从每个 transmon 处于物理 `|0>` 的乘积态开始。脉冲仿真器不接受 `initial_state` 参数。
+  status: machine
+- id: 89e449252ec5feeb
+  en: Measurement first samples a physical level, maps `0, 1, 2` to `0, 1, 1`, then applies any classical readout-confusion matrix. Reset prepares physical `|0>`.
+  zh: 测量首先采样一个物理能级，将 `0, 1, 2` 映射为 `0, 1, 1`，然后应用任何经典读出混淆矩阵。复位将系统制备到物理 `|0>`。
+  status: machine
+- id: cf871833220197ff
+  en: Result metadata includes the effective run and result settings, but not the model or calibration documents.
+  zh: 结果元数据包含实际生效的运行与结果设置，但不包含模型或校准文档。
+  status: machine
+- id: dbc06019f916d74a
+  en: '`run()` raises validation errors before returning a job. If execution fails after a job is returned, `job.result()` raises [`BackendExecutionError`][fatqat.errors.BackendExecutionError].'
+  zh: '`run()` 在返回作业之前引发验证错误。如果在返回作业之后执行失败，`job.result()` 会引发 [`BackendExecutionError`][fatqat.errors.BackendExecutionError]。'
+  status: machine
+- id: 804aeeed351171e8
+  en: Physics model and calibration
+  zh: 物理模型与校准
+  status: machine
+- id: 69cf67a6f4eb8544
+  en: '`TransmonModel.from_document(...)` accepts a decoded JSON-compatible model mapping; direct model construction is not supported. The [`TransmonCalibration`][fatqat.emulator.TransmonCalibration] constructor separately accepts a decoded calibration mapping. Use `load_model_document("transmon.reference")` for the packaged reference, or `json.load` or another JSON reader for custom documents. Documents must use a supported `format` ID and version. Missing or unknown keys, unsupported versions, non-finite values, and values outside the documented JSON-compatible types are rejected.'
+  zh: '`TransmonModel.from_document(...)` 接受解码后的 JSON 兼容模型映射；不支持直接构造模型。[`TransmonCalibration`][fatqat.emulator.TransmonCalibration] 构造函数单独接受解码后的校准映射。软件包自带的参考文档请用 `load_model_document("transmon.reference")` 加载；自定义文档请用 `json.load` 或其他 JSON 读取器。文档必须使用受支持的 `format` ID 和版本。缺失或未知的键、不受支持的版本、非有限值，以及超出文档所述 JSON 兼容类型的值都会被拒绝。'
+  status: machine
+- id: bc91da2e9721d999
+  en: Control and frame addresses name model resources. Invalid addresses are reported when you call `run()`.
+  zh: 控制地址与帧地址指向模型资源。无效地址会在调用 `run()` 时报告。
+  status: machine
+- id: 5b197474f2eec228
+  en: The built-in model contains fixed qutrit transmons and an arbitrary undirected coupling graph. A coupling declares where controlled exchange operations may be driven; it is not a residual always-on exchange Hamiltonian. Frequencies define the implicit resonant carriers.
+  zh: 内置模型包含固定的 qutrit transmon 和任意的无向耦合图。耦合声明了可以在何处驱动受控交换操作；它并不是一个始终存在的残余交换哈密顿量。频率定义了隐式的共振载波。
+  status: machine
+- id: 86c06503d206674a
+  en: Model documents
+  zh: 模型文档
+  status: machine
+- id: 4e1ee1d05db07f1d
+  en: Use [`available_model_documents`][fatqat.emulator.available_model_documents] to discover the packaged model IDs and [`load_model_document`][fatqat.emulator.load_model_document] to load one. Create runtime models with [`from_document`][fatqat.emulator.TransmonModel.from_document]; direct construction is not supported.
+  zh: 使用 [`available_model_documents`][fatqat.emulator.available_model_documents] 发现软件包自带的模型 ID，使用 [`load_model_document`][fatqat.emulator.load_model_document] 加载其中之一。使用 [`from_document`][fatqat.emulator.TransmonModel.from_document] 创建运行时模型；不支持直接构造。
+  status: machine
+- id: 3ae9630f512b9afe
+  en: Retain the decoded source documents when application code needs the persisted model identity, physical parameters, or topology. In a model document, `model` contains the ID and revision, `system.control_edges` contains the coupling graph, and `parameters.subsystems` contains frequencies and anharmonicities. The runtime model exposes ordered device labels through `subsystem_ids`, but it does not expose normalized subsystem or coupling records.
+  zh: 当应用代码需要持久化的模型标识、物理参数或拓扑时，请保留解码后的源文档。在模型文档中，`model` 包含 ID 和修订号，`system.control_edges` 包含耦合图，`parameters.subsystems` 包含频率和非谐性。运行时模型通过 `subsystem_ids` 公开有序的设备标签，但不公开规范化的子系统或耦合记录。
+  status: machine
+- id: 9fb6669a77ea48bb
+  en: Units
+  zh: 单位
+  status: machine
+- id: 006708faebd1a981
+  en: 'The runtime model exposes the pulse time coordinate:'
+  zh: 运行时模型公开脉冲时间坐标：
+  status: machine
+- id: 59b98365f7f66623
+  en: The coordinate for `PulseDefinition.duration` and for each `PulseControl` waveform and `start_offset`.
+  zh: '`PulseDefinition.duration` 以及每个 `PulseControl` 波形和 `start_offset` 所用的坐标。'
+  status: machine
+- id: 7fb94c18e14ae1c9
+  en: Model and calibration documents store ordinary frequencies in GHz. Convert document values to angular pulse rates with [`fatqat.emulator.superconducting.angular_rate_from_ghz`][fatqat.emulator.superconducting.angular_rate_from_ghz]. Each control selector exposes its accepted waveform unit through `selector.coefficient_unit`; the built-in drive, detuning, and exchange selectors use `"rad/ns"`.
+  zh: 模型与校准文档以 GHz 存储普通频率。使用 [`fatqat.emulator.superconducting.angular_rate_from_ghz`][fatqat.emulator.superconducting.angular_rate_from_ghz] 将文档值转换为角频率形式的脉冲速率。每个控制选择器通过 `selector.coefficient_unit` 公开其接受的波形单位；内置的 drive、detuning 和 exchange 选择器使用 `"rad/ns"`。
+  status: machine
+- id: 252293010f871e0a
+  en: '`model.basis_order` is `("0", "1", "2")`. Use it to interpret flattened physical results and derive the local dimension as `len(model.basis_order)`.'
+  zh: '`model.basis_order` 为 `("0", "1", "2")`。请用它来解释展平的物理结果，并通过 `len(model.basis_order)` 推导局部维度。'
+  status: machine
+- id: 94c4a092c8034f37
+  en: The `model.control` namespace selects the Hamiltonian mechanism, while `model.frame(...)` selects a virtual-drive phase. The control-selector methods are also available by name through the `model.available_controls` mapping. Each mapping entry describes a supported control kind, not every fully bound channel instance. Selectors expose `scope`, required `operands`, `coefficient_domain`, and `coefficient_unit` for lightweight inspection. Calling a selector returns a channel address. When you run the program, the emulator checks resource names, declared pairs, waveform type, and values.
+  zh: '`model.control` 命名空间选择哈密顿量机制，而 `model.frame(...)` 选择虚拟驱动相位。控制选择器方法也可以通过 `model.available_controls` 映射按名称访问。每个映射条目描述一种受支持的控制类型，而不是每个完全绑定的信道实例。选择器公开 `scope`、所需的 `operands`、`coefficient_domain` 和 `coefficient_unit`，便于轻量检查。调用选择器会返回一个信道地址。运行程序时，仿真器会检查资源名称、已声明的配对、波形类型和取值。'
+  status: machine
+- id: 655e4212c1bbf7ca
+  en: Calibration recipes
+  zh: 校准配方
+  status: machine
+- id: 79ffe0f7b6b5dbe3
+  en: The built-in calibration schema contains `rx_ry`, `iswap`, and per-edge `cz` recipes. [`RZ`][fatqat.operations.RZ] is virtual and has no calibration recipe.
+  zh: 内置校准 schema 包含 `rx_ry`、`iswap` 以及按边定义的 `cz` 配方。[`RZ`][fatqat.operations.RZ] 是虚拟门，没有校准配方。
+  status: machine
+- id: 861951ab82aea6b2
+  en: The public scalar unit accessors `recipe_time_unit`, `recipe_frequency_unit`, and `recipe_dimensionless_unit` describe the stored recipe quantities. They are distinct from the model's pulse coordinate `time_unit` and each control selector's `coefficient_unit`.
+  zh: 公开的标量单位访问器 `recipe_time_unit`、`recipe_frequency_unit` 和 `recipe_dimensionless_unit` 描述所存储的配方量。它们不同于模型的脉冲坐标 `time_unit` 以及每个控制选择器的 `coefficient_unit`。
+  status: machine
+- id: 1aec0e8f05eb8bbf
+  en: Pulse implementation maps
+  zh: 脉冲实现映射
+  status: machine
+- id: f0222c221f3885f4
+  en: A [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] realizes ordinary gates. The transmon constructor names this capability `gate_implementation_map`; direct controls bypass it. The [`default_transmon_gate_implementation_map`][fatqat.emulator.default_transmon_gate_implementation_map] builder returns a new map containing the built-in `RX`, `RY`, `RZ`, `iSwap`, and `CZ` rules for one model and calibration.
+  zh: '[`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] 用于实现普通门。transmon 构造函数将此能力命名为 `gate_implementation_map`；直接控制会绕过它。[`default_transmon_gate_implementation_map`][fatqat.emulator.default_transmon_gate_implementation_map] 构建器返回一个新映射，其中包含针对某个模型和校准的内置 `RX`、`RY`、`RZ`、`iSwap` 和 `CZ` 规则。'
+  status: machine
+- id: 3b6bef749563f4e8
+  en: See [Gate realization](pulse-control/gate-realization.md) for accepted rule forms and errors.
+  zh: 有关可接受的规则形式与错误，参见[门实现](pulse-control/gate-realization.md)。
+  status: machine
+- id: f5912ee4b98adf75
+  en: Direct controls
+  zh: 直接控制
+  status: machine
+- id: 80643f1d7cda31a8
+  en: The same model channels can be used without a gate-realization rule. Drive and detuning resolve one declared transmon; exchange resolves two transmons and their declared coupling. Drive accepts a complex envelope for the two quadratures, while detuning and exchange require real values. Pulse times use the model units described above. The current transmon model does not add amplitude or duration limits beyond requiring finite values.
+  zh: 同样的模型信道可以在没有门实现规则的情况下使用。drive 和 detuning 解析一个已声明的 transmon；exchange 解析两个 transmon 及其已声明的耦合。drive 接受表示两个正交分量的复数包络，而 detuning 和 exchange 要求实数值。脉冲时间使用上文所述的模型单位。当前的 transmon 模型除要求取值有限外，不施加额外的振幅或时长限制。
+  status: machine
+- id: ef89ea33fcdde777
+  en: See [PulseOperation](pulse-control/pulse-operation.md), [PulseControl](pulse-control/pulse-control.md), and [SampledWaveform](pulse-control/sampled-waveform.md) for construction and timing. `iSwap` is a gate whose built-in realization uses exchange; `iSwap` is not a channel name.
+  zh: 有关构造与时序，参见 [PulseOperation](pulse-control/pulse-operation.md)、[PulseControl](pulse-control/pulse-control.md) 和 [SampledWaveform](pulse-control/sampled-waveform.md)。`iSwap` 是一个门，其内置实现使用 exchange；`iSwap` 不是信道名称。
+  status: machine
+- id: d309acb3f84e23cf
+  en: Pass supported declarations through `noise=`. The transmon emulator provides the collapse-operator realizations documented in [Pulse emulators](noise/backend-support.md#noise-emulator-support), including [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping], [`PhaseDamping`][fatqat.noise.PhaseDamping], and [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation], plus rate-form [`Depolarizing`][fatqat.noise.Depolarizing]. Qutrit amplitude damping requires two adjacent-level rates. Depolarization acts on the full three-level space and can populate `|2>`. Rates use inverse nanoseconds, while `t1`, `t2`, and `t_phi` use nanoseconds. The emulator accepts both background declarations and declarations scoped to ordinary operations. Finite probability forms, `Loss`, and nonlocal declarations are rejected.
+  zh: 通过 `noise=` 传入受支持的声明。transmon 仿真器提供[脉冲仿真器](noise/backend-support.md#noise-emulator-support)中记录的塌缩算符实现，包括 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping]、[`PhaseDamping`][fatqat.noise.PhaseDamping] 和 [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]，以及速率形式的 [`Depolarizing`][fatqat.noise.Depolarizing]。qutrit 振幅阻尼需要两个相邻能级速率。退极化作用于完整的三能级空间，并可能布居 `|2>`。速率使用纳秒的倒数，而 `t1`、`t2` 和 `t_phi` 使用纳秒。仿真器既接受背景声明，也接受作用于普通操作的声明。有限概率形式、`Loss` 以及非局域声明会被拒绝。
+  status: machine
+- id: d8ac1b9feed26c91
+  en: Probability-form channels are not converted to rates. In particular, [`PauliChannel`][fatqat.noise.PauliChannel] remains Simulator-only. See [Continuous-time noise](pulse-control/index.md#pulse-probability-noise). Readout confusion is classical and must use a binary `2 x 2` matrix; construction and `validate_noise_model()` reject larger matrices before a measured run.
+  zh: 概率形式的信道不会被转换为速率。特别地，[`PauliChannel`][fatqat.noise.PauliChannel] 仍然仅限 Simulator 使用。参见[连续时间噪声](pulse-control/index.md#pulse-probability-noise)。读出混淆是经典的，必须使用二元 `2 x 2` 矩阵；构造时和 `validate_noise_model()` 都会在带测量的运行之前拒绝更大的矩阵。
+  status: machine
+- id: 621b8d6e068f96b9
+  en: Call [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] before running a program to validate its noise model. Program-specific selectors are checked at run time.
+  zh: 在运行程序之前，调用 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] 来验证其噪声模型。程序特定的选择器在运行时检查。
+  status: machine
+- id: 4708e41d83bb8266
+  en: Neutral-atom pulse emulator
+  zh: 中性原子脉冲仿真器
+  status: machine
+- id: f38b09c990d4b16e
+  en: The two-level atom backend also accepts an optional gate implementation map. It has its own continuous-noise implementations. `Atom2LevelEmulator` has an empty built-in gate map and global direct controls; user-supplied maps can add gate rules. See [Neutral-atom emulator](atom-emulators.md) for its API and [Choose and run a neutral-atom workflow](../guide/neutral-atom-emulation.md) for the complete workflow.
+  zh: 二能级原子后端也接受可选的门实现映射，并拥有自己的连续噪声实现。`Atom2LevelEmulator` 的内置门映射为空，并提供全局直接控制；用户提供的映射可以添加门规则。其 API 参见[中性原子仿真器](atom-emulators.md)，完整工作流参见[选择并运行中性原子工作流](../guide/neutral-atom-emulation.md)。
+  status: machine
+- id: 28cb936ad021b841
+  en: '| Argument | Meaning |'
+  zh: '| 参数 | 含义 |'
+  status: machine
+- id: 68681d2419563a0b
+  en: '| `method` | Mathematical representation and method-native result field. Accepted case-insensitive values are `"statevector"` (the default), `"density_matrix"`, and `"unitary"`; `"SV"` and `"DM"` are aliases. |'
+  zh: '| `method` | 数学表示及方法原生的结果字段。接受的值（不区分大小写）为 `"statevector"`（默认）、`"density_matrix"` 和 `"unitary"`；`"SV"` 与 `"DM"` 是别名。 |'
+  status: machine
+- id: dd3fcfcd0a31796f
+  en: '| `noise` | A [`NoiseModel`][fatqat.NoiseModel]. `None` means no noise. |'
+  zh: '| `noise` | 一个 [`NoiseModel`][fatqat.NoiseModel]。`None` 表示无噪声。 |'
+  status: machine
+- id: 0ef2508c620744d9
+  en: '| `gate_implementation_map` | A [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] mapping operation families and device labels to pulse definitions. `None` uses the built-in map. |'
+  zh: '| `gate_implementation_map` | 一个 [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap]，将操作家族与设备标签映射到脉冲定义。`None` 表示使用内置映射。 |'
+  status: machine
+- id: 5f37f344fda5a939
+  en: '| Method | Result accessor | Shape for `m` transmons | Meaning |'
+  zh: '| 方法 | Result 访问器 | `m` 个 transmon 时的形状 | 含义 |'
+  status: machine
+- id: 22bd6bb7c8988381
+  en: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(3**m,)` | A pure coherent state, or one seeded trajectory when Lindblad noise can act. |'
+  zh: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(3**m,)` | 一个纯相干态；或当 Lindblad 噪声可能作用时，一条带种子的轨迹。 |'
+  status: machine
+- id: 93d8e057b8bc6a27
+  en: '| `"density_matrix"` | [`get_density_matrix`][fatqat.Result.get_density_matrix] | `(3**m, 3**m)` | The exact ensemble state under supported Lindblad evolution. |'
+  zh: '| `"density_matrix"` | [`get_density_matrix`][fatqat.Result.get_density_matrix] | `(3**m, 3**m)` | 受支持的 Lindblad 演化下的精确系综态。 |'
+  status: machine
+- id: 1a8496972b19dfa6
+  en: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(3**m, 3**m)` | The complete coherent operator, including the canonical terminal virtual-frame transformation. |'
+  zh: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(3**m, 3**m)` | 完整的相干算符，包括规范的终端虚拟帧变换。 |'
+  status: machine
+- id: 06b48a7722ce9495
+  en: '| `seed` | `int` or `None`; not `bool` | `None` | Seed stochastic sampling for measurement, reset, readout, and statevector trajectories. Use a non-negative integer; `None` uses fresh entropy. |'
+  zh: '| `seed` | `int` 或 `None`；不接受 `bool` | `None` | 为测量、复位、读出和态矢量轨迹的随机采样设置种子。请使用非负整数；`None` 表示使用新的随机熵。 |'
+  status: machine
+- id: 4227703add0e4acb
+  en: '| `schedule_mode` | `"ASAP"` or `"ALAP"` | `"ASAP"` | Place operations as early or as late as possible while preserving dependencies and physical-resource conflicts. |'
+  zh: '| `schedule_mode` | `"ASAP"` 或 `"ALAP"` | `"ASAP"` | 在保持依赖关系与物理资源冲突约束的前提下，将操作尽可能提前或尽可能推后放置。 |'
+  status: machine
+- id: b720daa9ea717e31
+  en: '| `counts` | `bool` or `None` | `None` | `True` requests sampled classical counts, `False` suppresses them, and `None` enables them when measurement exists. Counts require a positive integer `shots` value. |'
+  zh: '| `counts` | `bool` 或 `None` | `None` | `True` 请求采样的经典计数，`False` 抑制计数，`None` 表示在存在测量时启用计数。计数要求 `shots` 为正整数。 |'
+  status: machine

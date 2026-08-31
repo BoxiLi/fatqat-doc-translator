@@ -1,0 +1,64 @@
+- id: d0a05e1da9a268b4
+  en: PauliChannel
+  zh: PauliChannel
+  status: machine
+- id: 45249067ee17d922
+  en: '[`PauliChannel`][fatqat.noise.PauliChannel] represents a stochastic mixture of Pauli-string errors. It is useful for biased or correlated qubit noise that uniform [`Depolarizing`][fatqat.noise.Depolarizing] cannot express.'
+  zh: '[`PauliChannel`][fatqat.noise.PauliChannel] 表示 Pauli 串错误的随机混合。它适用于均匀的 [`Depolarizing`][fatqat.noise.Depolarizing] 无法表达的有偏或关联量子比特噪声。'
+  status: machine
+- id: ede5489964834a51
+  en: Terms
+  zh: 项
+  status: machine
+- id: 09f27571a4665cbd
+  en: 'Pass either a mapping or an iterable of `(string, probability)` pairs. Every string must:'
+  zh: 传入一个映射，或由 `(string, probability)` 对组成的可迭代对象。每个字符串必须：
+  status: machine
+- id: d7578b87868d12b5
+  en: be nonempty;
+  zh: 非空；
+  status: machine
+- id: 3ceb2f01bbf964b6
+  en: contain only uppercase `I`, `X`, `Y`, and `Z`;
+  zh: 只包含大写的 `I`、`X`、`Y` 和 `Z`；
+  status: machine
+- id: c3670b004025b65e
+  en: have the same width as every other string.
+  zh: 与其他所有字符串具有相同的宽度。
+  status: machine
+- id: 15a9df1e2d069e66
+  en: Each probability is an `int` or `float` other than `bool` and must be finite and in `[0, 1]`. Duplicate strings are an error. Nonidentity probabilities may sum to less than 1; FATQAT assigns the remaining weight to the all-identity string. An explicitly supplied identity term must agree with that implied value. Small floating-point round-off is tolerated.
+  zh: 每个概率必须是 `int` 或 `float`（不包括 `bool`），且必须有限并位于 `[0, 1]` 内。重复的字符串会引发错误。非恒等项的概率之和可以小于 1；FATQAT 会将剩余权重分配给全恒等字符串。显式提供的恒等项必须与该隐含值一致。允许微小的浮点舍入误差。
+  status: machine
+- id: 2a962cd046b64376
+  en: 'FATQAT consumes the input and stores `PauliChannel.terms` as an immutable tuple. The identity term comes first; the other terms keep their input order:'
+  zh: FATQAT 会消耗输入并将 `PauliChannel.terms` 存储为不可变元组。恒等项排在最前，其余各项保持输入顺序：
+  status: machine
+- id: 4b568d7c224c31e2
+  en: After the identity weight has been filled in, the channel is
+  zh: 补齐恒等权重后，该信道为
+  status: machine
+- id: 0011ac1dd6d07dfd
+  en: Compatible simulators apply this channel after the matched operation. See [Simulators](backend-support.md#noise-simulator-support) for built-in availability and scope.
+  zh: 兼容的模拟器在匹配的操作之后应用此信道。内置可用性及作用范围参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine
+- id: a74b73e80c205cdb
+  en: Target order
+  zh: 目标顺序
+  status: machine
+- id: c38c572b72b88980
+  en: 'The string width determines the number of targets, and every target must be a qubit. The first character describes the first target and forms the most-significant tensor factor. For targets `(q0, q1)`:'
+  zh: 字符串宽度决定目标数量，且每个目标都必须是量子比特。第一个字符描述第一个目标，并构成最高位的张量因子。对于目标 `(q0, q1)`：
+  status: machine
+- id: be659940ef48e72a
+  en: '**Two-qubit ordering**'
+  zh: '**双量子比特顺序**'
+  status: machine
+- id: 70476e17e763b335
+  en: This left-to-right convention is the reverse of Qiskit's displayed Pauli strings. FATQAT checks the target count and qubit dimensions when the program runs.
+  zh: 这种从左到右的约定与 Qiskit 显示 Pauli 串的顺序相反。程序运行时，FATQAT 会检查目标数量和量子比特维度。
+  status: machine
+- id: 7c907406f6b8a059
+  en: '| String | First target `q0` | Second target `q1` |'
+  zh: '| 字符串 | 第一个目标 `q0` | 第二个目标 `q1` |'
+  status: machine

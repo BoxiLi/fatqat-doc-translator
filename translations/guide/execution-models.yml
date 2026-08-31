@@ -1,0 +1,92 @@
+- id: f180315ca93c1b46
+  en: Choose how much physics to model
+  zh: 选择建模多少物理细节
+  status: machine
+- id: 4cd4a8d10171803c
+  en: A backend is more than a place to send a program. It decides what FatQat means by “run this.” The general simulator follows logical circuit evolution; a hardware profile adds device rules; an emulator follows a physical model in time.
+  zh: 后端不只是接收程序的地方。它决定了 FatQat 所说的“运行这个程序”意味着什么。通用模拟器遵循逻辑电路演化；硬件配置文件加入设备规则；仿真器则在时间中遵循物理模型。
+  status: machine
+- id: e2579d602777c721
+  en: 'The distinction is easiest to see when the `Program` does not change. This single-qubit rotation is understood by all three examples below:'
+  zh: 当 `Program` 保持不变时，这种区别最容易看清。下面三个示例都能理解这个单量子比特旋转：
+  status: machine
+- id: ead641e7cf16d073
+  en: General simulator
+  zh: 通用模拟器
+  status: machine
+- id: 48ff0adc0b045a46
+  en: 'The general [`Simulator`][fatqat.simulator.Simulator] applies the logical gate operation without assigning the qubit to a particular device:'
+  zh: 通用的 [`Simulator`][fatqat.simulator.Simulator] 应用逻辑门操作，而不把量子比特分配到某个具体设备上：
+  status: machine
+- id: c469ac32eab3b5a7
+  en: 'This is the quickest answer to the algorithmic question: the rotation leaves equal probabilities for `0` and `1`.'
+  zh: 这是回答算法问题的最快途径：该旋转使 `0` 和 `1` 的概率相等。
+  status: machine
+- id: 8e2a7685bdbb5b7f
+  en: Hardware profile
+  zh: 硬件配置文件
+  status: machine
+- id: 9367753b7945f1d0
+  en: 'A hardware-profile simulator still evolves gates at circuit level, but first checks that the program is native and physically placeable. `RX` is native to the Google-style profile used here:'
+  zh: 硬件配置文件模拟器仍在电路层面演化门操作，但会先检查程序是否原生、能否在物理上放置。`RX` 是此处所用的 Google 风格配置文件的原生门：
+  status: machine
+- id: b25004bfc9facab9
+  en: 'The numerical answer matches, but the claim is stronger: this particular instruction also belongs to the selected native gate set and fits its resource model.'
+  zh: 数值结果相同，但结论更强：这条特定指令还属于所选的原生门集合，并符合其资源模型。
+  status: machine
+- id: b01e4b7435a4d9fc
+  en: Physical emulator
+  zh: 物理仿真器
+  status: machine
+- id: b63261371ef0b5a2
+  en: 'The transmon emulator realizes `RX` through its packaged pulse calibration and integrates a three-level physical model:'
+  zh: transmon 仿真器通过其打包的脉冲校准来实现 `RX`，并对三能级物理模型进行积分：
+  status: machine
+- id: f187647ab0c53345
+  en: The reference model contains two physical three-level transmons, so its state is larger than the two-amplitude logical state—even though the `Program` addresses only one qubit. That extra space is where unaddressed hardware and leakage live.
+  zh: 参考模型包含两个物理三能级 transmon，因此其状态比只有两个振幅的逻辑状态更大——尽管 `Program` 只寻址了一个量子比特。未被寻址的硬件和泄漏就存在于这部分额外空间中。
+  status: machine
+- id: 852bd16ffcd73a44
+  en: What each level tells you
+  zh: 每个层级能告诉你什么
+  status: machine
+- id: 5bee20b3a74f0510
+  en: Start with the simplest model that contains the effect you need. Add device rules or continuous-time physics only when those details affect the result.
+  zh: 从包含你所需效应的最简单模型开始。只有当设备规则或连续时间物理会影响结果时，才把这些细节加进来。
+  status: machine
+- id: a964dce43c51318d
+  en: Expect different capability checks
+  zh: 预期不同的能力检查
+  status: machine
+- id: 8f002e78fdfb150d
+  en: All three paths accept a `Program`, return a `Job`, and expose data through a `Result`, but they do not accept the same instruction set.
+  zh: 三条路径都接受 `Program`、返回 `Job`，并通过 `Result` 暴露数据，但它们接受的指令集并不相同。
+  status: machine
+- id: da16a5a278e5ab4d
+  en: For example, the general simulator supports logical qudits and registers with mixed local dimensions. Current hardware profiles and pulse emulators accept dimension-two logical resources. A transmon emulator may return a physical qutrit state because it retains a leakage level; that is different from declaring a logical qutrit in the Program.
+  zh: 例如，通用模拟器支持逻辑 qudit 以及具有混合局部维度的寄存器。目前的硬件配置文件和脉冲仿真器只接受维度为二的逻辑资源。transmon 仿真器可能返回物理上的 qutrit 状态，因为它保留了一个泄漏能级；这与在 Program 中声明逻辑 qutrit 不是一回事。
+  status: machine
+- id: a5e0abc83e8c2a94
+  en: Hardware profiles validate the Program as written; they do not transpile or route it. When logical and device labels differ, a [`ResourceLayout`][fatqat.ResourceLayout] makes the binding explicit. [Testing a hardware profile](hardware-profile-simulation.md) works through a failed placement and its correction.
+  zh: 硬件配置文件按 Program 的原样进行验证；它们不会转译或路由。当逻辑标签与设备标签不同时，[`ResourceLayout`][fatqat.ResourceLayout] 让这种绑定变得显式。[测试硬件配置文件](hardware-profile-simulation.md)完整演示了一次失败的放置及其修正。
+  status: machine
+- id: 495dc9e4000d1ceb
+  en: Next, [simulate a quantum program](simulation.md) to explore states, sweeps, and outputs at circuit level, or jump to [Hamiltonian-level emulation](hamiltonian-emulation.md) when time and controls are already the focus.
+  zh: 接下来，通过[模拟量子程序](simulation.md)在电路层面探索状态、扫描和输出；如果时间和控制已经是关注重点，可直接跳到[哈密顿量级仿真](hamiltonian-emulation.md)。
+  status: machine
+- id: 890533a712ddd97b
+  en: '| If you want to know… | Start with… | FatQat models… |'
+  zh: '| 如果你想知道…… | 从这里开始…… | FatQat 建模的内容…… |'
+  status: machine
+- id: 46df7a7a75510bbb
+  en: '| whether the algorithm produces the intended logical behavior | the general simulator | circuit operations on logical subsystems |'
+  zh: '| 算法是否产生预期的逻辑行为 | 通用模拟器 | 逻辑子系统上的电路操作 |'
+  status: machine
+- id: a110dd32b3aa76b4
+  en: '| whether the written program obeys a target''s native operations and resource rules | a hardware-profile simulator | circuit evolution plus layout, connectivity, occupancy, and optional profile noise |'
+  zh: '| 所写的程序是否遵守目标的原生操作和资源规则 | 硬件配置文件模拟器 | 电路演化，加上布局、连通性、占用情况和可选的配置文件噪声 |'
+  status: machine
+- id: d170bf192104acc7
+  en: '| how gates or controls behave as timed physical dynamics | an emulator | levels, drift, coupling, pulses, Hamiltonians, and compatible open-system noise |'
+  zh: '| 门或控制作为定时物理动力学时的行为 | 仿真器 | 能级、漂移、耦合、脉冲、哈密顿量，以及兼容的开放系统噪声 |'
+  status: machine

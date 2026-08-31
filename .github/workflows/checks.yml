@@ -1,0 +1,21 @@
+name: checks
+
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pyyaml
+      - name: Validate the translation database
+        run: python tools/translate.py check
+      - name: Report untranslated upstream segments
+        continue-on-error: true
+        run: python tools/translate.py extract --dry-run

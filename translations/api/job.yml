@@ -1,0 +1,8 @@
+- id: ad617a0fdd57e3f4
+  en: Job
+  zh: Job
+  status: machine
+- id: 23a697e79ef36e87
+  en: Native FATQAT backends and [`Estimator`][fatqat.Estimator] return a completed [`Job`][fatqat.Job]. Call [`result`][fatqat.Job.result] to obtain the result; it does not wait.
+  zh: 原生 FATQAT 后端和 [`Estimator`][fatqat.Estimator] 返回已完成的 [`Job`][fatqat.Job]。调用 [`result`][fatqat.Job.result] 获取结果；该调用不会等待。
+  status: machine

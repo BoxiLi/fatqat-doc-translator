@@ -1,0 +1,60 @@
+- id: 3006366a3c77233b
+  en: FatQat provides a general circuit simulator and three hardware profiles. They use the same run and result API. Choose [`Simulator`][fatqat.simulator.Simulator] for unrestricted gate-level work, or a profile when the program must obey a native gate set, layout, or connectivity rule.
+  zh: FatQat 提供一个通用电路模拟器和三种硬件配置。它们使用相同的运行与结果 API。进行不受限制的门级工作时选择 [`Simulator`][fatqat.simulator.Simulator]；当程序必须遵守原生门集、布局或连接性规则时选择硬件配置。
+  status: machine
+- id: 9bf34699612b6c6b
+  en: Start with [Choose how much physics to model](../../guide/execution-models.md) to choose an execution level, or follow [Test a Program against a hardware profile](../../guide/hardware-profile-simulation.md) for the profile workflow.
+  zh: 请先阅读[选择建模的物理程度](../../guide/execution-models.md)来选定执行层级，或按照[用硬件配置测试 Program](../../guide/hardware-profile-simulation.md)了解硬件配置的工作流程。
+  status: machine
+- id: 08872929bcfdb369
+  en: The superconducting profiles use a fixed rectangular grid. [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] accepts IBM-style native gates and nearest-neighbour `CZ`. [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] accepts native rotations and nearest-neighbour `iSwap` and `CZ`. Both offer an optional reference noise model.
+  zh: 超导硬件配置使用固定的矩形网格。[`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] 接受 IBM 风格的原生门和最近邻 `CZ`。[`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] 接受原生旋转门以及最近邻 `iSwap` 和 `CZ`。两者都提供可选的参考噪声模型。
+  status: machine
+- id: 8c5e34363d674dcb
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] has no fixed connectivity. `Pair` and `Unpair` change which atoms can interact, while `Put` and `Loss` control occupancy.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 没有固定的连接性。`Pair` 和 `Unpair` 改变哪些原子可以相互作用，而 `Put` 和 `Loss` 控制占据情况。'
+  status: machine
+- id: f1b9253556594d02
+  en: 'The profiles validate the program as written: they do not transpile or route it, and they do not reproduce a named processor. Use the [pulse emulators](../emulators/index.md) when timing or Hamiltonian evolution matters.'
+  zh: 硬件配置按程序原样进行验证：它们不做转译或布线，也不复现任何具名处理器。当时序或哈密顿量演化重要时，请使用[脉冲仿真器](../emulators/index.md)。
+  status: machine
+- id: b423a251c71fdae6
+  en: '**Choose a simulator**'
+  zh: '**选择模拟器**'
+  status: machine
+- id: 650d8b10026d80f7
+  en: '[Simulator](../simulator.md)'
+  zh: '[Simulator](../simulator.md)'
+  status: machine
+- id: 257cf06132c647fb
+  en: '[SCQubitIBMSimulator](sc-qubit-ibm.md)'
+  zh: '[SCQubitIBMSimulator](sc-qubit-ibm.md)'
+  status: machine
+- id: f88a978ddf8166e7
+  en: '[SCQubitGoogleSimulator](sc-qubit-google.md)'
+  zh: '[SCQubitGoogleSimulator](sc-qubit-google.md)'
+  status: machine
+- id: 425f36f4b00a0954
+  en: '[AtomArraySimulator](atom-array.md)'
+  zh: '[AtomArraySimulator](atom-array.md)'
+  status: machine
+- id: 8bc02a041b8d297e
+  en: '| Class | Use it for | Main constraint |'
+  zh: '| 类 | 适用场景 | 主要约束 |'
+  status: machine
+- id: 88d56b8f26e8c3bd
+  en: '| [`Simulator`][fatqat.simulator.Simulator] | General circuit simulation and custom matrix implementations | No device topology |'
+  zh: '| [`Simulator`][fatqat.simulator.Simulator] | 通用电路模拟和自定义矩阵实现 | 无设备拓扑 |'
+  status: machine
+- id: 557c0071ac36bd81
+  en: '| [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] | IBM-style native-gate and grid experiments | `X`, `SX`, `RZ`; nearest-neighbour `CZ` |'
+  zh: '| [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] | IBM 风格的原生门与网格实验 | `X`、`SX`、`RZ`；最近邻 `CZ` |'
+  status: machine
+- id: 795dde998cbc3ad7
+  en: '| [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] | Google-style native-gate and grid experiments | `RX`, `RY`, `RZ`; nearest-neighbour `iSwap` and `CZ` |'
+  zh: '| [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] | Google 风格的原生门与网格实验 | `RX`、`RY`、`RZ`；最近邻 `iSwap` 和 `CZ` |'
+  status: machine
+- id: d9451617863d6cb6
+  en: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | Neutral-atom occupancy, loss, and dynamic connectivity | `RX`, `RY`, `RZ`, and paired `CZ` |'
+  zh: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | 中性原子占据、丢失与动态连接性 | `RX`、`RY`、`RZ`，以及配对后的 `CZ` |'
+  status: machine

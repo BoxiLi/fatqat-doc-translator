@@ -1,0 +1,12 @@
+- id: 73b670878c58e8a0
+  en: PulseControl
+  zh: PulseControl
+  status: machine
+- id: e4214f0efbedbbcb
+  en: '[`PulseControl`][fatqat.emulator.PulseControl] assigns a waveform to one physical control channel. Get the channel from a model''s `control` selectors and use the result in a [PulseOperation](pulse-operation.md) or [Gate realization](gate-realization.md) definition. Do not construct [`ControlChannel`][fatqat.emulator.ControlChannel] directly.'
+  zh: '[`PulseControl`][fatqat.emulator.PulseControl] 将波形分配给一个物理控制信道。请通过模型的 `control` 选择器获取信道，并在 [PulseOperation](pulse-operation.md) 或[门实现](gate-realization.md)定义中使用其结果。不要直接构造 [`ControlChannel`][fatqat.emulator.ControlChannel]。'
+  status: machine
+- id: 302ae9c13e72b92e
+  en: Methods on `model.control` check their address arguments when they create a channel. When the control is used, the emulator checks that its model family and named resources are compatible and that the waveform meets the model's limits. A channel can therefore be reused with another compatible model that contains the same resource. The built-in methods and their units are listed in [Pulse control](index.md); see [SampledWaveform](sampled-waveform.md) for interpolation outside the sample grid.
+  zh: '`model.control` 上的方法会在创建信道时检查其地址参数。使用该控制时，仿真器会检查其模型家族与命名资源是否兼容，以及波形是否满足模型的限制。因此，一个信道可以在包含相同资源的另一个兼容模型中复用。内置方法及其单位列于[脉冲控制](index.md)；关于采样网格之外的插值，参见 [SampledWaveform](sampled-waveform.md)。'
+  status: machine

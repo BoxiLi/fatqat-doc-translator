@@ -1,0 +1,128 @@
+- id: 9ada8e83c1186cd6
+  en: Noise
+  zh: 噪声
+  status: machine
+- id: dd12920a0bc8b9ef
+  en: FatQat keeps noise separate from [`Program`][fatqat.Program]. Add the noise sources you need to a [`NoiseModel`][fatqat.NoiseModel], then pass that model to a compatible simulator or emulator with `noise=...`. You can reuse the same program for ideal and noisy runs.
+  zh: FatQat 将噪声与 [`Program`][fatqat.Program] 分离。将所需的噪声源添加到 [`NoiseModel`][fatqat.NoiseModel] 中，再通过 `noise=...` 把该模型传给兼容的模拟器或仿真器。同一个程序可以在理想运行与含噪运行中复用。
+  status: machine
+- id: cfe326ef2151e877
+  en: See [Compare the same Program ideally and noisily](../guide/ideal-and-noisy.md) for a controlled ideal-versus-noisy comparison. This section is the reference for selectors, support, units, and validation.
+  zh: 有关受控的理想与含噪对比，请参见[对同一 Program 进行理想与含噪比较](../guide/ideal-and-noisy.md)。本节是选择器、支持情况、单位与验证的参考。
+  status: machine
+- id: 7dea6b16fbac7b54
+  en: Noise types live in `fatqat.noise`. `NoiseModel` is also available as `fatqat.NoiseModel`.
+  zh: 噪声类型位于 `fatqat.noise` 中。`NoiseModel` 也可通过 `fatqat.NoiseModel` 使用。
+  status: machine
+- id: 0a4958e8792e912a
+  en: Choose a noise type
+  zh: 选择噪声类型
+  status: machine
+- id: 5002d68269ebe1c9
+  en: Probabilities describe one simulator channel application after a matched operation. Rates and relaxation times describe local Lindblad operators that act over emulator time. Backends do not convert between these forms.
+  zh: 概率描述匹配操作之后的一次模拟器信道作用。速率与弛豫时间描述在仿真器时间上作用的局部 Lindblad 算符。后端不会在这两种形式之间转换。
+  status: machine
+- id: 3e8eac22ec87e872
+  en: '**Built-in noise types**'
+  zh: '**内置噪声类型**'
+  status: machine
+- id: 3266089454f9c4c6
+  en: See [Noise model](noise/model.md) for operation and background noise, target selection, composition, conflicts, and validation timing. Each noise-type page covers its parameters, units, and mathematical definition.
+  zh: 有关操作噪声与背景噪声、目标选择、组合、冲突以及验证时机，请参见[噪声模型](noise/model.md)。每个噪声类型页面涵盖其参数、单位与数学定义。
+  status: machine
+- id: c9366d3f412ef90e
+  en: Support depends on the noise form, where it applies, and the backend. The [Backend support](noise/backend-support.md#noise-backend-support) tables show the built-in behavior and unsupported forms for each backend family. Pulse-emulator continuous-noise realizations are family-owned rather than user-replaceable.
+  zh: 支持情况取决于噪声形式、作用位置以及后端。[后端支持](noise/backend-support.md#noise-backend-support)中的表格展示了每个后端家族的内置行为与不受支持的形式。脉冲仿真器的连续噪声实现由各家族自行掌管，用户不可替换。
+  status: machine
+- id: 0eb95fb6244c03f1
+  en: Quick start
+  zh: 快速上手
+  status: machine
+- id: afcfc0f67d465620
+  en: 'This model adds a joint channel after every `CX` and then applies binary readout confusion to every measurement:'
+  zh: 该模型在每个 `CX` 之后添加一个联合信道，然后对每次测量应用二值读出混淆：
+  status: machine
+- id: 99c2299a697ccf62
+  en: 'For a pulse backend, express rates and relaxation times in the model''s time unit. For example, the reference transmon model uses device labels such as `"q0"`. This relaxation noise stays active there throughout elapsed pulse time:'
+  zh: 对于脉冲后端，请以模型的时间单位表示速率与弛豫时间。例如，参考 transmon 模型使用诸如 `"q0"` 的设备标签。下面的弛豫噪声在整个脉冲运行时间内在该处持续生效：
+  status: machine
+- id: 025749b05b549cc6
+  en: 'The reference transmon model uses nanoseconds, while the neutral-atom model uses microseconds. Check the chosen model''s `time_unit` instead of inferring a unit from the size of a value: see [`time_unit`][fatqat.emulator.TransmonModel.time_unit] and [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit].'
+  zh: 参考 transmon 模型使用纳秒，而中性原子模型使用微秒。请查看所选模型的 `time_unit`，不要根据数值大小推断单位：参见 [`time_unit`][fatqat.emulator.TransmonModel.time_unit] 与 [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit]。
+  status: machine
+- id: aa0fda68c27da5fc
+  en: API pages
+  zh: API 页面
+  status: machine
+- id: c67c1acc10c1ae15
+  en: '[Noise model](noise/model.md)'
+  zh: '[噪声模型](noise/model.md)'
+  status: machine
+- id: eb7185f556bc31fe
+  en: '[Backend support](noise/backend-support.md)'
+  zh: '[后端支持](noise/backend-support.md)'
+  status: machine
+- id: 1fe1ca1cccb91f37
+  en: '[Depolarizing](noise/depolarizing.md)'
+  zh: '[Depolarizing](noise/depolarizing.md)'
+  status: machine
+- id: fa13cc87bf406f0c
+  en: '[PauliChannel](noise/pauli-channel.md)'
+  zh: '[PauliChannel](noise/pauli-channel.md)'
+  status: machine
+- id: 489dfd1112340932
+  en: '[AmplitudeDamping](noise/amplitude-damping.md)'
+  zh: '[AmplitudeDamping](noise/amplitude-damping.md)'
+  status: machine
+- id: a7fb3a77a5b247ca
+  en: '[PhaseDamping](noise/phase-damping.md)'
+  zh: '[PhaseDamping](noise/phase-damping.md)'
+  status: machine
+- id: 9a3aeea4942eb055
+  en: '[ThermalRelaxation](noise/thermal-relaxation.md)'
+  zh: '[ThermalRelaxation](noise/thermal-relaxation.md)'
+  status: machine
+- id: c3e7f7163bb87141
+  en: '[Loss](noise/loss.md)'
+  zh: '[Loss](noise/loss.md)'
+  status: machine
+- id: a9bc9cd9f5945fef
+  en: '[ReadoutConfusion](noise/readout-confusion.md)'
+  zh: '[ReadoutConfusion](noise/readout-confusion.md)'
+  status: machine
+- id: d08ff5c91fb4d5a7
+  en: '[Custom noise implementations](noise/custom-implementations.md)'
+  zh: '[自定义噪声实现](noise/custom-implementations.md)'
+  status: machine
+- id: 923e0b10256db3ec
+  en: '| Noise type | Accepted parameters | Applies to | User-visible effect |'
+  zh: '| 噪声类型 | 接受的参数 | 作用对象 | 用户可见效果 |'
+  status: machine
+- id: 156c15a252c49924
+  en: '| [`Depolarizing`][fatqat.noise.Depolarizing] | Exactly one of `p` or `rate` | `p`: the selected operands; `rate`: one subsystem | Uniform mixing toward the maximally mixed state |'
+  zh: '| [`Depolarizing`][fatqat.noise.Depolarizing] | `p` 与 `rate` 中恰好其一 | `p`：所选操作数；`rate`：一个子系统 | 向最大混合态的均匀混合 |'
+  status: machine
+- id: 9aabbed5deff741d
+  en: '| [`PauliChannel`][fatqat.noise.PauliChannel] | Pauli-string probability mapping or pair sequence | One qubit per string character | A stochastic mixture of `I`, `X`, `Y`, and `Z` strings |'
+  zh: '| [`PauliChannel`][fatqat.noise.PauliChannel] | Pauli 串到概率的映射，或键值对序列 | 字符串中每个字符对应一个量子比特 | `I`、`X`、`Y` 与 `Z` 串的随机混合 |'
+  status: machine
+- id: 6cbdd4700b1ba810
+  en: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] | Exactly one of `p` or `rate`, with one value per adjacent transition | One subsystem | Ladder decay from level `k` to `k - 1` |'
+  zh: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] | `p` 与 `rate` 中恰好其一，每个相邻跃迁对应一个值 | 单个子系统 | 从能级 `k` 到 `k - 1` 的阶梯式衰减 |'
+  status: machine
+- id: efa905c053cdb71f
+  en: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] | Exactly one of `p`, `rate`, or `t_phi` | One subsystem | Coherence decay without population transfer |'
+  zh: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] | `p`、`rate` 与 `t_phi` 中恰好其一 | 单个子系统 | 无布居转移的相干衰减 |'
+  status: machine
+- id: 2d73e3d318c879fe
+  en: '| [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | `t1` and `t2` | One subsystem | Combined energy relaxation and residual pure dephasing |'
+  zh: '| [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | `t1` 与 `t2` | 单个子系统 | 能量弛豫与剩余纯退相位的组合 |'
+  status: machine
+- id: eebe1848a578f638
+  en: '| [`Loss`][fatqat.noise.Loss] | Per-carrier probability `p` | Every selected carrier in a matched operation | Persistent carrier removal on an occupancy-aware backend |'
+  zh: '| [`Loss`][fatqat.noise.Loss] | 每个载体各自的概率 `p` | 匹配操作中每个被选中的载体 | 在感知占据状态的后端上持久移除载体 |'
+  status: machine
+- id: bfe822216ede4f67
+  en: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | Column-stochastic report matrix | Each measured subsystem independently, or one selected subsystem | Classical resampling of the reported digit after physical collapse |'
+  zh: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | 列随机的报告矩阵 | 每个被测量的子系统各自独立，或一个选定的子系统 | 物理坍缩后对报告数位的经典重采样 |'
+  status: machine

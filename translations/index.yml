@@ -1,0 +1,268 @@
+- id: c85e2abef47df895
+  en: Build one FatQat Program and choose the physical detail each quantum study needs.
+  zh: 构建一个 FatQat Program，并为每项量子研究选择所需的物理细节。
+  status: machine
+- id: f28d8c0b5bec69ef
+  en: Quantum SDK
+  zh: 量子 SDK
+  status: machine
+- id: edac07faab9cf3aa
+  en: One Program. Three levels of physical detail.
+  zh: 一个 Program，三种物理细节层级。
+  status: machine
+- id: 5569dcca82597114
+  en: Write a quantum computation once. Then study logical behavior, test device constraints, or follow time-dependent physical dynamics without changing authoring models.
+  zh: 量子计算只需编写一次，即可研究逻辑行为、检验器件约束，或跟踪含时物理动力学，而无需更换编写模型。
+  status: machine
+- id: ca2c72dc8e9261ab
+  en: Build your first Program
+  zh: 构建你的第一个 Program
+  status: machine
+- id: 0da28eebb3fb7edc
+  en: Compare execution levels
+  zh: 比较执行层级
+  status: machine
+- id: 74f849ea06bc4af0
+  en: Install from source
+  zh: 从源码安装
+  status: machine
+- id: fa38afbdf4891cef
+  en: One FatQat Program runs through general simulation, a hardware profile, or Hamiltonian emulation, with every path returning a Result.
+  zh: 同一个 FatQat Program 可通过通用模拟、硬件配置或哈密顿量仿真运行，每条路径都返回 Result。
+  status: machine
+- id: ffca00eca6723b30
+  en: Choose one execution level
+  zh: 选择一个执行层级
+  status: machine
+- id: 1dc50fe3f24d08bb
+  en: General simulation
+  zh: 通用模拟
+  status: machine
+- id: af4632c2080ff5a0
+  en: states · counts · noise
+  zh: 态 · 计数 · 噪声
+  status: machine
+- id: 2132121b49fca00b
+  en: native gates · topology
+  zh: 原生门 · 拓扑
+  status: machine
+- id: d5d3764f60b6281e
+  en: Hamiltonian emulation
+  zh: 哈密顿量仿真
+  status: machine
+- id: f3507ef053a39574
+  en: pulses · leakage · dynamics
+  zh: 脉冲 · 泄漏 · 动力学
+  status: machine
+- id: 4ad66d39250114c4
+  en: Author once, then choose the detail at run time.
+  zh: 一次编写，运行时按需选择细节。
+  status: machine
+- id: 2f29fdcd680a7b13
+  en: :material-code-braces-box:{ .lg .middle } **One authoring model**
+  zh: :material-code-braces-box:{ .lg .middle } **统一的编写模型**
+  status: machine
+- id: 38dc4daaf0b125e5
+  en: Keep gates, measurements, conditions, parameters, qudits, and direct controls in a single `Program`.
+  zh: 将门、测量、条件、参数、qudit 与直接控制统一保存在一个 `Program` 中。
+  status: machine
+- id: 3fbcd86c1cba7c94
+  en: :material-tune-variant:{ .lg .middle } **Only the detail you need**
+  zh: :material-tune-variant:{ .lg .middle } **只取所需的细节**
+  status: machine
+- id: d6156a793f9a0032
+  en: Start with algorithm behavior, add device constraints when needed, or follow continuous-time dynamics when the physics matters.
+  zh: 先从算法行为入手，需要时加入器件约束，当物理特性重要时再跟踪连续时间动力学。
+  status: machine
+- id: 55ed68b2b391fd3e
+  en: :material-transit-connection-variant:{ .lg .middle } **One execution workflow**
+  zh: :material-transit-connection-variant:{ .lg .middle } **统一的执行工作流**
+  status: machine
+- id: c127c39571e18da5
+  en: Every target accepts a `Program` and uses the same `Job` / `Result` interface, while validating what it can realize.
+  zh: 每个目标都接受 `Program` 并使用相同的 `Job` / `Result` 接口，同时校验自身能够实现的内容。
+  status: machine
+- id: 8cd95d2368a1e25c
+  en: One workflow, three execution levels
+  zh: 一个工作流，三种执行层级
+  status: machine
+- id: 8996a60b9917127d
+  en: Every path starts from the same [`Program`][fatqat.Program] and returns familiar `Job` and `Result` objects. Choose the least physical detail that can answer the question in front of you.
+  zh: 每条路径都从同一个 [`Program`][fatqat.Program] 出发，并返回熟悉的 `Job` 和 `Result` 对象。选择能回答眼前问题的最少物理细节即可。
+  status: machine
+- id: 87698054e77679b1
+  en: :material-chart-box-outline:{ .lg .middle } **General simulation**
+  zh: :material-chart-box-outline:{ .lg .middle } **通用模拟**
+  status: machine
+- id: 032dee086c8f888b
+  en: Inspect states, counts, and noise when logical behavior is the question.
+  zh: 当问题在于逻辑行为时，检查态、计数与噪声。
+  status: machine
+- id: 81f8576f4b029eca
+  en: '[:octicons-arrow-right-24: Study simulation](guide/simulation.md)'
+  zh: '[:octicons-arrow-right-24: 了解模拟](guide/simulation.md)'
+  status: machine
+- id: 3d43d9d5abfe7564
+  en: :material-memory:{ .lg .middle } **Hardware-profile simulation**
+  zh: :material-memory:{ .lg .middle } **硬件配置模拟**
+  status: machine
+- id: b95adf7c6c7474f9
+  en: Add native gates and topology when device constraints matter.
+  zh: 当器件约束重要时，加入原生门与拓扑。
+  status: machine
+- id: 1299ad9b9f1f0437
+  en: '[:octicons-arrow-right-24: Model a hardware profile](guide/hardware-profile-simulation.md)'
+  zh: '[:octicons-arrow-right-24: 建模硬件配置](guide/hardware-profile-simulation.md)'
+  status: machine
+- id: 39ab5a00c9c195a3
+  en: :material-sine-wave:{ .lg .middle } **Hamiltonian emulation**
+  zh: :material-sine-wave:{ .lg .middle } **哈密顿量仿真**
+  status: machine
+- id: 48bb3f6fea0c04a4
+  en: Follow pulses, leakage, and dynamics when physical behavior matters.
+  zh: 当物理行为重要时，跟踪脉冲、泄漏与动力学。
+  status: machine
+- id: 0f98f7f7f4b5ad59
+  en: '[:octicons-arrow-right-24: Follow physical dynamics](guide/hamiltonian-emulation.md)'
+  zh: '[:octicons-arrow-right-24: 跟踪物理动力学](guide/hamiltonian-emulation.md)'
+  status: machine
+- id: 62f1fcc11e911c4b
+  en: One Grover Program, three execution models
+  zh: 一个 Grover Program，三种执行模型
+  status: machine
+- id: d73c25a9c24c3110
+  en: This three-qubit Grover `Program` begins with all eight bit strings equally likely. Two iterations mark `101` and amplify it. Its fused `RX` / `RY` / `RZ` / `CZ` realization runs unchanged on all three targets below. The two physical models share the same `T1 = T2 = 200 µs` coherence assumption.
+  zh: 这个三量子比特 Grover `Program` 从八个比特串等概率的状态开始。两次迭代标记并放大 `101`。其融合后的 `RX` / `RY` / `RZ` / `CZ` 实现可在下面三个目标上原样运行。两个物理模型采用相同的 `T1 = T2 = 200 µs` 相干假设。
+  status: machine
+- id: a9bbf98dcd92ce40
+  en: '![A compact three-qubit Grover search uses fused RY and RZ rotations with four logical Toffoli gates to amplify 101.](assets/generated/home/grover-circuit.png){ loading=lazy width=1100 height=318 }'
+  zh: '![一个紧凑的三量子比特 Grover 搜索使用融合的 RY 与 RZ 旋转以及四个逻辑 Toffoli 门来放大 101。](assets/generated/home/grover-circuit.png){ loading=lazy width=1100 height=318 }'
+  status: machine
+- id: 47b913e7577cba7d
+  en: Adjacent single-qubit gates are fused into rotations; Toffoli stays logical. All three backends execute the same fused native Program.
+  zh: 相邻的单量子比特门被融合为旋转门；Toffoli 保持逻辑形式。三个后端执行的都是同一个融合后的原生 Program。
+  status: machine
+- id: e55b1f00b665bfa1
+  en: :material-chart-box-outline:{ .lg .middle } **General `Simulator`**
+  zh: :material-chart-box-outline:{ .lg .middle } **通用 `Simulator`**
+  status: machine
+- id: 608541444ee76532
+  en: '![The ideal Simulator result gives the target outcome 101 a probability of 94.53 percent.](assets/generated/home/grover-general.png){ loading=lazy width=714 height=515 }'
+  zh: '![理想 Simulator 的结果中，目标输出 101 的概率为 94.53%。](assets/generated/home/grover-general.png){ loading=lazy width=714 height=515 }'
+  status: machine
+- id: ed4bfdc92ec8b7c4
+  en: Circuit-level evolution returns `101` with **94.53%** probability.
+  zh: 电路层面的演化以 **94.53%** 的概率返回 `101`。
+  status: machine
+- id: deec88164d23dd4b
+  en: '![The SCQubitGoogleSimulator result gives the target outcome 101 a probability of 86.36 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-google-profile.png){ loading=lazy width=714 height=515 }'
+  zh: '![在 200 微秒相干时间并在两条边上附加 0.003 的 CZ 退极化噪声时，SCQubitGoogleSimulator 的结果中目标输出 101 的概率为 86.36%。](assets/generated/home/grover-google-profile.png){ loading=lazy width=714 height=515 }'
+  status: machine
+- id: 6dc01e7b1be69f7c
+  en: With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003` on both q0–q1 and q1–q2. Native-gate simulation then returns `101` with **86.36%** probability.
+  zh: 在 `T1 = T2 = 200 µs` 的条件下，我们在 q0–q1 与 q1–q2 两条边上都加入 `p = 0.003` 的 CZ 退极化噪声。原生门模拟随后以 **86.36%** 的概率返回 `101`。
+  status: machine
+- id: 8ebab726273ca292
+  en: '![The three-level TransmonEmulator result gives the target outcome 101 a probability of 68.59 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
+  zh: '![在相同相干时间下，三能级 TransmonEmulator 的结果中目标输出 101 的概率为 68.59%。](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
+  status: machine
+- id: 3adb93a8091543f6
+  en: Calibrated pulses, three physical levels, and the same coherence times return `101` with **68.59%** probability; physical leakage is **0.0446%**.
+  zh: 校准脉冲、三个物理能级和相同的相干时间以 **68.59%** 的概率返回 `101`；物理泄漏为 **0.0446%**。
+  status: machine
+- id: 8fb281d9adc6ebde
+  en: Shared `Program` — `home_grover_program.py`
+  zh: 共享的 `Program` — `home_grover_program.py`
+  status: machine
+- id: 6add198f8427f13b
+  en: The compact logical view and the exact fused native Program live in this one visible source. Every execution script below imports it unchanged.
+  zh: 紧凑的逻辑视图与精确的融合原生 Program 都位于这一个可见的源文件中。下面的每个执行脚本都原样导入它。
+  status: machine
+- id: 3c5e118fd497f10a
+  en: Run each execution model independently
+  zh: 独立运行每种执行模型
+  status: machine
+- id: 02574f5e9f17cb3c
+  en: Each tab is a top-to-bottom script. It imports the shared Program above, while private plotting details stay out of the execution flow.
+  zh: 每个标签页都是一份自上而下的脚本。它导入上面共享的 Program，而私有的绘图细节不进入执行流程。
+  status: machine
+- id: 960c98ad9d1c39bc
+  en: General `Simulator`
+  zh: 通用 `Simulator`
+  status: machine
+- id: acc4fc2f9edf2163
+  en: Program a reconfigurable atom array
+  zh: 为可重构原子阵列编程
+  status: machine
+- id: c32ca67e52d63729
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] brings occupancy and changing connectivity into the same `Program` model. `Put` establishes which sites are occupied, `Pair` makes native `CZ` legal, and `Unpair` removes that eligibility. Optional movement noise can attach to those operations explicitly.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 将占据情况与可变的连接性纳入同一 `Program` 模型。`Put` 确定哪些位点被占据，`Pair` 使原生 `CZ` 成为合法操作，`Unpair` 则取消这一资格。可选的移动噪声可以显式附加到这些操作上。'
+  status: machine
+- id: 7a8db953a972dfce
+  en: '![Two occupied atoms begin separated, pair so that CZ becomes legal, and unpair while optional depolarizing noise follows the pairing operations.](assets/generated/guide/atom-pairing-lifecycle.svg){ loading=lazy width=960 height=306 }'
+  zh: '![两个被占据的原子起初彼此分离，配对后 CZ 变为合法，随后解除配对，可选的退极化噪声伴随配对操作。](assets/generated/guide/atom-pairing-lifecycle.svg){ loading=lazy width=960 height=306 }'
+  status: machine
+- id: 680d0ffc9139960f
+  en: Occupancy stays explicit while pairing changes which native interactions are legal.
+  zh: 占据情况始终显式可见，而配对会改变哪些原生相互作用是合法的。
+  status: machine
+- id: b5a069470af040be
+  en: Run the atom-array Program
+  zh: 运行原子阵列 Program
+  status: machine
+- id: 40d9e61b7aa34a99
+  en: '[:octicons-arrow-right-24: Track occupancy, pairing, and loss](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)'
+  zh: '[:octicons-arrow-right-24: 跟踪占据、配对与损失](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)'
+  status: machine
+- id: 218012b043fe7425
+  en: Explore the documentation
+  zh: 浏览文档
+  status: machine
+- id: c5e08933ff3eaa40
+  en: :material-play-circle-outline:{ .lg .middle } **Quickstart**
+  zh: :material-play-circle-outline:{ .lg .middle } **快速入门**
+  status: machine
+- id: 4832b47193f37da9
+  en: Build, draw, and run a first Program.
+  zh: 构建、绘制并运行第一个 Program。
+  status: machine
+- id: cba7377ea31b8410
+  en: '[:octicons-arrow-right-24: Start building](guide/quickstart.md)'
+  zh: '[:octicons-arrow-right-24: 开始构建](guide/quickstart.md)'
+  status: machine
+- id: 3d33e3cf1fc81164
+  en: :material-book-open-page-variant-outline:{ .lg .middle } **User guide**
+  zh: :material-book-open-page-variant-outline:{ .lg .middle } **用户指南**
+  status: machine
+- id: e427a7497f0b4f4c
+  en: Learn concepts and complete workflows.
+  zh: 学习概念与完整工作流。
+  status: machine
+- id: 8ac6769387e04f5e
+  en: '[:octicons-arrow-right-24: Read the guide](guide/index.md)'
+  zh: '[:octicons-arrow-right-24: 阅读指南](guide/index.md)'
+  status: machine
+- id: d068bbe6724bdb9e
+  en: :material-flask-outline:{ .lg .middle } **Tutorials**
+  zh: :material-flask-outline:{ .lg .middle } **教程**
+  status: machine
+- id: 0916d2e97bf78c99
+  en: Explore executable algorithm and physics studies.
+  zh: 探索可执行的算法与物理研究。
+  status: machine
+- id: ca8a2b426e416bb0
+  en: '[:octicons-arrow-right-24: Run a tutorial](tutorials/index.md)'
+  zh: '[:octicons-arrow-right-24: 运行教程](tutorials/index.md)'
+  status: machine
+- id: 4e0c6bcdc65e3454
+  en: :material-format-list-bulleted:{ .lg .middle } **API reference**
+  zh: :material-format-list-bulleted:{ .lg .middle } **API 参考**
+  status: machine
+- id: 7f98c8b333de3c4c
+  en: Find exact signatures and validation contracts.
+  zh: 查找精确的签名与校验契约。
+  status: machine
+- id: b242595bbda9459f
+  en: '[:octicons-arrow-right-24: Look up an API](api/index.md)'
+  zh: '[:octicons-arrow-right-24: 查阅 API](api/index.md)'
+  status: machine

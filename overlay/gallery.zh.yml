@@ -1,0 +1,30 @@
+ui:
+  zh:
+    runtime_result: 运行结果
+    python_cell: Python 代码块
+    track: 系列
+    downloads: 下载
+    python_script: Python 脚本
+    notebook: Jupyter 笔记本
+    default_category_description: 收录自 {title} 源目录的教程。
+index:
+  zh:
+    title: 教程
+    description: 可执行的 FatQat 案例研究，从第一个电路到多体动力学。
+    introduction: 超越面向任务的用户指南，学习完整、可执行的案例研究。每张卡片和运行结果面板 都是从其分类目录下的 Markdown 源文件自动发现的。
+    tip_title: 选择一条路径
+    tip: 如果你刚接触 FatQat，请从贝尔态开始。算法系列复用同一执行模型，而中性原子 系列则逐步深入多体硬件物理。
+    open: 打开教程
+categories:
+  foundations:
+    zh:
+      title: 基础
+      description: 从一个小巧的电路开始，它的量子态、采样结果和可视化解读都可以手工验证。
+  algorithms:
+    zh:
+      title: 算法
+      description: 使用参数化程序、优化器、参数扫描和估计器来回答化学与机器学习问题。
+  neutral-atom-physics:
+    zh:
+      title: 中性原子物理
+      description: 从可编程的连接性出发，走向连续时间的里德堡动力学与受约束的多体演化。

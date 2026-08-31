@@ -1,0 +1,64 @@
+- id: 7724496895a34c5f
+  en: ReadoutConfusion
+  zh: ReadoutConfusion
+  status: machine
+- id: 5c26aa04e9996d59
+  en: '[`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] is a classical channel applied to the digit reported after physical measurement. It changes counts and feedforward inputs, not the post-measurement quantum state.'
+  zh: '[`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] 是应用于物理测量后所报告数字的经典信道。它改变计数和前馈输入，而不改变测量后的量子态。'
+  status: machine
+- id: 0401176c32cc37ac
+  en: Matrix convention
+  zh: 矩阵约定
+  status: machine
+- id: 8afe61fa5fd5659f
+  en: For confusion matrix C,
+  zh: 对于混淆矩阵 C，
+  status: machine
+- id: bfa2576ce21f5dd5
+  en: Rows are reported digits and columns are true digits. Each column must therefore sum to 1. A qubit matrix
+  zh: 行对应报告的数字，列对应真实的数字，因此每列之和必须为 1。量子比特矩阵
+  status: machine
+- id: 842c196075c3fbec
+  en: means that true 0 is reported as 1 with probability 0.02, while true 1 is reported as 0 with probability 0.04.
+  zh: 表示真实值 0 以 0.02 的概率被报告为 1，而真实值 1 以 0.04 的概率被报告为 0。
+  status: machine
+- id: 1f38a29e86d6afcf
+  en: The input may be any float-convertible array-like value. It must produce a finite square matrix of side length at least 2, with entries in `[0, 1]` and columns that sum to 1 within numerical tolerance. The matrix size must also match the backend's reported digit dimension.
+  zh: 输入可以是任何可转换为浮点数的类数组值。它必须生成边长至少为 2 的有限方阵，元素位于 `[0, 1]` 内，且各列之和在数值容差范围内等于 1。矩阵大小还必须与后端报告的数字维度一致。
+  status: machine
+- id: c5e6232e39cba4dd
+  en: FATQAT converts the matrix to float and stores its own read-only copy. Changing the input array later does not affect the noise object.
+  zh: FATQAT 会将矩阵转换为浮点数并存储自己的只读副本。之后更改输入数组不会影响该噪声对象。
+  status: machine
+- id: b8c1611f1a272ca1
+  en: How measurements are reported
+  zh: 测量结果的报告方式
+  status: machine
+- id: bcb8331ae2d4f202
+  en: The backend first samples the true physical outcome and collapses the quantum state. It then samples the reported digit from the corresponding matrix column. The reported value is written to classical memory, so subsequent feedforward sees the confused value. Reusing the measured subsystem still evolves from its true collapsed state.
+  zh: 后端首先采样真实的物理结果并使量子态坍缩，然后从相应的矩阵列中采样报告的数字。报告值被写入经典存储器，因此后续前馈看到的是混淆后的值。再次使用被测子系统时，仍从其真实的坍缩态继续演化。
+  status: machine
+- id: 39e44cbf5682d56e
+  en: Where it applies
+  zh: 适用范围
+  status: machine
+- id: afc02a548220baa5
+  en: 'Readout confusion always applies at measurement in [`NoiseModel`][fatqat.NoiseModel]:'
+  zh: 在 [`NoiseModel`][fatqat.NoiseModel] 中，读出混淆总是在测量时应用：
+  status: machine
+- id: 257000375ab1de28
+  en: Omit `targets` to affect every measured operand, or pass one quantum [`RegisterRef`][fatqat.RegisterRef] or device label. Correlated multi-operand readout is not supported. Do not pass `operation` or `target_positions`, even as `None`.
+  zh: 省略 `targets` 可影响每个被测操作数，或者传入一个量子 [`RegisterRef`][fatqat.RegisterRef] 或设备标签。不支持关联的多操作数读出。不要传入 `operation` 或 `target_positions`，即使传 `None` 也不行。
+  status: machine
+- id: cbddecbd7b5a6daf
+  en: A universal registration cannot coexist with targeted registrations, and the same target cannot be registered twice. Logical and device-label registrations that select the same operand are rejected when the program runs with a concrete layout.
+  zh: 全局注册不能与针对特定目标的注册共存，同一目标也不能注册两次。当程序以具体布局运行时，选中同一操作数的逻辑注册与设备标签注册会被拒绝。
+  status: machine
+- id: 1a216e0f614dfca8
+  en: Simulators require the matrix side length to match the measured subsystem's reported digit dimension. An empty-site erasure bypasses confusion because no physical digit was measured. See [Simulators](backend-support.md#noise-simulator-support) for backend and dimension details.
+  zh: 模拟器要求矩阵边长与被测子系统报告的数字维度一致。空位点擦除会绕过混淆，因为没有测得物理数字。后端与维度详情参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine
+- id: 24d695eef4631b99
+  en: Readout confusion remains a classical reporting step; it is not represented by a Lindblad operator. See [Pulse emulators](backend-support.md#noise-emulator-support) for each emulator's reported digit dimension and physical-level mapping.
+  zh: 读出混淆始终是经典的报告步骤，不由 Lindblad 算符表示。各仿真器报告的数字维度及物理能级映射参见[脉冲仿真器](backend-support.md#noise-emulator-support)。
+  status: machine

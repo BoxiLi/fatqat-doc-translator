@@ -1,0 +1,84 @@
+- id: 358cc201f87d9dc9
+  en: Operations
+  zh: 操作
+  status: machine
+- id: f00b1754cae1425e
+  en: 'Import `fatqat.operations` as `ops`, then add operations to a program with [`fatqat.Program.add`][fatqat.Program.add]:'
+  zh: 将 `fatqat.operations` 导入为 `ops`，然后使用 [`fatqat.Program.add`][fatqat.Program.add] 向程序中添加操作：
+  status: machine
+- id: b4ceafdf1d69d812
+  en: Parameter-free operations such as `ops.H` and `ops.Reset` are ready to use without parentheses. Construct parameterized gates and [`PulseOperation`][fatqat.operations.PulseOperation] values before adding them. Create measurements with [`measure`][fatqat.Program.measure] or [`measure_all`][fatqat.Program.measure_all].
+  zh: '`ops.H` 和 `ops.Reset` 等无参数操作无需括号即可直接使用。参数化门和 [`PulseOperation`][fatqat.operations.PulseOperation] 值需要先构造再添加。请使用 [`measure`][fatqat.Program.measure] 或 [`measure_all`][fatqat.Program.measure_all] 创建测量。'
+  status: machine
+- id: 129153d2965ba22b
+  en: Reference pages
+  zh: 参考页面
+  status: machine
+- id: 9f95e58876b4417e
+  en: '**Operation families**'
+  zh: '**操作族**'
+  status: machine
+- id: 8217d3b80f18392d
+  en: '[Qubit gates](operations/qubit-gates.md)'
+  zh: '[量子比特门](operations/qubit-gates.md)'
+  status: machine
+- id: c61fbe6a8c71a2f7
+  en: '[Qudit gates](operations/qudit-gates.md)'
+  zh: '[Qudit 门](operations/qudit-gates.md)'
+  status: machine
+- id: abe68d4981de7224
+  en: '[Measurement and structural operations](operations/structural.md)'
+  zh: '[测量与结构化操作](operations/structural.md)'
+  status: machine
+- id: dff7a30ee2ee5df2
+  en: '[Atom-array operations](operations/atom-gates.md)'
+  zh: '[原子阵列操作](operations/atom-gates.md)'
+  status: machine
+- id: 9dc7e90e56b2f263
+  en: Construction
+  zh: 构造
+  status: machine
+- id: c6c4846e2d6ecd30
+  en: For target-based operations, [`add`][fatqat.Program.add] resolves target references, checks arity, and rejects repeated scalar targets. The selected backend checks operation and device support when you submit the program; an unsupported family raises [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. A direct [`PulseOperation`][fatqat.operations.PulseOperation] follows the channel-addressing rules on [PulseOperation](pulse-control/pulse-operation.md) and is added without targets.
+  zh: 对于基于目标的操作，[`add`][fatqat.Program.add] 会解析目标引用、检查操作数个数，并拒绝重复的标量目标。所选后端在你提交程序时检查操作与设备支持；不受支持的操作族会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。直接添加的 [`PulseOperation`][fatqat.operations.PulseOperation] 遵循 [PulseOperation](pulse-control/pulse-operation.md) 中的信道寻址规则，添加时不带目标。
+  status: machine
+- id: e112586e4acd1531
+  en: Most targets are a scalar [`RegisterRef`][fatqat.RegisterRef] or an integer. Use an integer when the program has one quantum register; with multiple registers, index the register you want. Controlled gates use control-first order, and the first local operand is the most-significant digit in the matrices and basis actions on the family pages.
+  zh: 大多数目标是标量 [`RegisterRef`][fatqat.RegisterRef] 或整数。程序只有一个量子寄存器时可以使用整数；存在多个寄存器时，请索引所需的寄存器。受控门采用控制位在前的顺序，并且在各操作族页面的矩阵和基作用中，第一个局部操作数是最高有效数位。
+  status: machine
+- id: f7b72fa50fc6eb9f
+  en: Every built-in unitary gate accepts [`RegisterView`](registers.md#fatqat.RegisterView) targets. A unary gate acts on each selected member. A multi-target gate accepts one compatible view per operand and zips their members in order. See [Registers](registers.md) for the compatibility rules and [Write quantum computations with Program](../guide/program.md) for the ordinary construction workflow.
+  zh: 每个内置的酉门都接受 [`RegisterView`](registers.md#fatqat.RegisterView) 目标。一元门作用于每个选中的成员。多目标门为每个操作数接受一个兼容视图，并将它们的成员按序配对。有关兼容性规则，参见[寄存器](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。
+  status: machine
+- id: 3ec8fc994e977af6
+  en: Operation base
+  zh: 操作基类
+  status: machine
+- id: 83a7dfd2e4379f90
+  en: Subclassing [`Operation`][fatqat.operations.Operation] defines a new program-level value; it does not register a matrix or pulse realization. See [Matrix implementations](implementation.md) for the custom matrix contract and [Gate realization](pulse-control/gate-realization.md) for pulse realizations.
+  zh: 子类化 [`Operation`][fatqat.operations.Operation] 只定义一个新的程序级值；它不会注册矩阵实现或脉冲实现。有关自定义矩阵契约，参见[矩阵实现](implementation.md)；有关脉冲实现，参见[门实现](pulse-control/gate-realization.md)。
+  status: machine
+- id: d98d878da3d15b0e
+  en: '| Page | Contents |'
+  zh: '| 页面 | 内容 |'
+  status: machine
+- id: 7fe29d99e5b41a50
+  en: '| [Qubit gates](operations/qubit-gates.md) | Fixed and parameterized qubit gates, exact target order, matrices, and constructor reference. |'
+  zh: '| [量子比特门](operations/qubit-gates.md) | 固定和参数化的量子比特门、精确的目标顺序、矩阵，以及构造函数参考 |'
+  status: machine
+- id: 3d0888892b68be2e
+  en: '| [Qudit gates](operations/qudit-gates.md) | Qudit gates, level constraints, and basis actions. |'
+  zh: '| [Qudit 门](operations/qudit-gates.md) | Qudit 门、能级约束和基作用 |'
+  status: machine
+- id: f4e94ab63f3c8770
+  en: '| [Measurement and structural operations](operations/structural.md) | Measurement and reset behavior, and compiler barriers. |'
+  zh: '| [测量与结构化操作](operations/structural.md) | 测量与重置行为，以及编译器屏障 |'
+  status: machine
+- id: ec5c8d562e7afc4b
+  en: '| [Atom-array operations](operations/atom-gates.md) | Atom-array occupancy, pairing, and attached-noise constraints. |'
+  zh: '| [原子阵列操作](operations/atom-gates.md) | 原子阵列的占据、配对与附加噪声约束 |'
+  status: machine
+- id: cb7fa3d7674e83c2
+  en: '| [PulseOperation](pulse-control/pulse-operation.md) | Channel-addressed `PulseOperation`—still imported from `fatqat.operations`—with its timing and backend support. |'
+  zh: '| [PulseOperation](pulse-control/pulse-operation.md) | 按信道寻址的 `PulseOperation`（仍从 `fatqat.operations` 导入），及其时序和后端支持 |'
+  status: machine

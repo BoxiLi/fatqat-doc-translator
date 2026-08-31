@@ -1,0 +1,64 @@
+- id: 2e02f62971ecd7eb
+  en: Depolarizing
+  zh: Depolarizing
+  status: machine
+- id: 98bc968dbd0edf9b
+  en: '[`Depolarizing`][fatqat.noise.Depolarizing] describes uniform mixing with the maximally mixed state. Choose `p` for a simulator channel or `rate` for Lindblad operators on a compatible pulse emulator. Backends do not convert between the two forms.'
+  zh: '[`Depolarizing`][fatqat.noise.Depolarizing] 描述与最大混合态的均匀混合。对模拟器信道选择 `p`，对兼容脉冲仿真器上的 Lindblad 算符选择 `rate`。后端不会在两种形式之间转换。'
+  status: machine
+- id: 4cec78aeabd921f3
+  en: Choose a form
+  zh: 选择一种形式
+  status: machine
+- id: c000071dce8e8eb5
+  en: '**Parameterizations**'
+  zh: '**参数化形式**'
+  status: machine
+- id: 815bc3233f439f7f
+  en: Exactly one form is required. A rate is measured in the inverse of the selected backend's time unit. For example, a backend whose durations are in microseconds interprets the rate in inverse microseconds.
+  zh: 必须恰好提供一种形式。速率以所选后端时间单位的倒数计量。例如，持续时间以微秒计的后端会把速率解释为每微秒的速率。
+  status: machine
+- id: b04f86b11602aaa0
+  en: For selected operands with combined dimension $d$, probability mode is
+  zh: 对于合并维度为 $d$ 的所选操作数，概率模式为
+  status: machine
+- id: 528cb063ebb3a15e
+  en: The channel acts jointly on all selected operands. Applying `Depolarizing(p=...)` to two qubits therefore uses $d=4$; it does not create two independent single-qubit channels. For independent local noise, use `target_positions` or separate registrations.
+  zh: 该信道联合作用于所有选定的操作数。因此，将 `Depolarizing(p=...)` 应用于两个量子比特时使用 $d=4$，而不会创建两个独立的单量子比特信道。若需独立的局部噪声，请使用 `target_positions` 或分开注册。
+  status: machine
+- id: c0d7ecf9de6aa514
+  en: Here `p` is the weight of complete depolarization, not the probability of choosing a nonidentity error. For one qubit, the total probability assigned to the nonidentity branches is $3p/4$.
+  zh: 这里的 `p` 是完全退极化的权重，而非选中非恒等错误的概率。对于单个量子比特，分配给非恒等分支的总概率为 $3p/4$。
+  status: machine
+- id: 86541c02b48b80ae
+  en: On supported methods, `statevector` samples one Kraus branch per application, `density_matrix` applies the exact Kraus sum, and `superop` constructs the complete channel. See [Simulators](backend-support.md#noise-simulator-support) for restrictions.
+  zh: 在受支持的方法上，`statevector` 每次应用采样一个 Kraus 分支，`density_matrix` 应用精确的 Kraus 求和，`superop` 则构造完整的信道。相关限制参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine
+- id: fc40518cd4828cf4
+  en: For local dimension $d$, rate mode is normalized so its Lindblad generator is
+  zh: 对于局部维度 $d$，速率模式经过归一化，使其 Lindblad 生成元为
+  status: machine
+- id: bf25995c618223cb
+  en: Over duration $t$, the corresponding probability parameter is
+  zh: 在持续时间 $t$ 内，对应的概率参数为
+  status: machine
+- id: 913941154c67837a
+  en: '[`Depolarizing.as_probability`][fatqat.noise.Depolarizing.as_probability] and [`Depolarizing.as_rate`][fatqat.noise.Depolarizing.as_rate] perform this parameter conversion when you know the duration. A duration must be finite and nonnegative. Probability 1 has no finite rate, and a nonzero probability cannot be converted at zero duration.'
+  zh: 在已知持续时间时，[`Depolarizing.as_probability`][fatqat.noise.Depolarizing.as_probability] 与 [`Depolarizing.as_rate`][fatqat.noise.Depolarizing.as_rate] 执行此参数转换。持续时间必须有限且非负。概率为 1 时不存在有限速率，且非零概率在持续时间为零时无法转换。
+  status: machine
+- id: 37387dcc8d136c6a
+  en: Rate mode requires a registered Lindblad implementation. See [Pulse emulators](backend-support.md#noise-emulator-support) for built-in and custom-map availability.
+  zh: 速率模式需要已注册的 Lindblad 实现。内置及自定义映射的可用性参见[脉冲仿真器](backend-support.md#noise-emulator-support)。
+  status: machine
+- id: e67ce2b16d55cf02
+  en: '| Form | Meaning | Applies to | Typical backend |'
+  zh: '| 形式 | 含义 | 作用对象 | 典型后端 |'
+  status: machine
+- id: 985c5974d32bd822
+  en: '| `p` | Complete-depolarization weight for one channel application, in `[0, 1]` | The selected operands | Matrix simulator |'
+  zh: '| `p` | 一次信道应用中完全退极化的权重，取值于 `[0, 1]` | 所选操作数 | 矩阵模拟器 |'
+  status: machine
+- id: 4a0cc5c07dc57769
+  en: '| `rate` | Finite, nonnegative rate scaling local depolarization Lindblad operators | One subsystem | Lindblad-capable pulse emulator |'
+  zh: '| `rate` | 缩放局部退极化 Lindblad 算符的有限非负速率 | 单个子系统 | 支持 Lindblad 的脉冲仿真器 |'
+  status: machine

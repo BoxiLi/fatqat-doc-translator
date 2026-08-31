@@ -1,0 +1,80 @@
+- id: 7740580589bf2102
+  en: AmplitudeDamping
+  zh: AmplitudeDamping
+  status: machine
+- id: 516ff65fd3a3f1cb
+  en: '[`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] describes adjacent-level decay toward the ground state. Use `p` for a simulator channel or `rate` for a local Lindblad operator on a compatible emulator, with one value for each transition $|k\rangle\rightarrow|k-1\rangle$.'
+  zh: '[`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] 描述相邻能级向基态的衰减。对模拟器信道使用 `p`，对兼容仿真器上的局部 Lindblad 算符使用 `rate`，每个跃迁 $|k\rangle\rightarrow|k-1\rangle$ 对应一个值。'
+  status: machine
+- id: ca10ac66c1c0364f
+  en: Choose probabilities or rates
+  zh: 选择概率或速率
+  status: machine
+- id: 2ba59b2c035c991b
+  en: 'Supply exactly one of `p` and `rate`. Either accepts one real number or a nonempty iterable; FATQAT stores the values as a tuple. For a $d$-level target, pass exactly $d-1$ values:'
+  zh: 在 `p` 与 `rate` 中恰好提供一个。两者均接受一个实数或一个非空可迭代对象；FATQAT 将这些值存储为元组。对于 $d$ 能级目标，需恰好传入 $d-1$ 个值：
+  status: machine
+- id: a807ff36a5df0f0d
+  en: '**Entry ordering**'
+  zh: '**条目顺序**'
+  status: machine
+- id: 7442a42ec3519ee7
+  en: A scalar therefore works only for a two-level target. FATQAT checks the number of values when the program runs and the target dimension is known.
+  zh: 因此，标量仅适用于二能级目标。当程序运行且目标维度已知时，FATQAT 会检查值的数量。
+  status: machine
+- id: 1a3000eff538f415
+  en: Simulators
+  zh: 模拟器
+  status: machine
+- id: 28cb776f8a27a95d
+  en: For probabilities $p_1,\ldots,p_{d-1}$, the simulator uses
+  zh: 对于概率 $p_1,\ldots,p_{d-1}$，模拟器使用
+  status: machine
+- id: 31e4dfedc9bc9e86
+  en: One application moves population down by at most one adjacent level. The channel acts on one selected operand; use `target_positions` to choose an operand of a multi-operand gate. See [Simulators](backend-support.md#noise-simulator-support) for built-in availability.
+  zh: 一次应用最多使布居向下移动一个相邻能级。该信道作用于一个选定的操作数；对于多操作数门，使用 `target_positions` 选择其中的操作数。内置可用性参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine
+- id: 78eacb3d0c241e1d
+  en: Pulse emulators
+  zh: 脉冲仿真器
+  status: machine
+- id: c5f0806e14cb8eab
+  en: For rates $r_k$, a compatible pulse backend uses the local Lindblad operator
+  zh: 对于速率 $r_k$，兼容的脉冲后端使用局部 Lindblad 算符
+  status: machine
+- id: 8ce020ab4b3d0d10
+  en: Rates are finite, nonnegative, and measured in the inverse of the backend's time unit. See [Pulse emulators](backend-support.md#noise-emulator-support) for each built-in emulator's local dimension, accepted scope, and implementation-map requirements.
+  zh: 速率必须有限、非负，并以后端时间单位的倒数计量。各内置仿真器的局部维度、可接受的作用范围以及实现映射要求参见[脉冲仿真器](backend-support.md#noise-emulator-support)。
+  status: machine
+- id: 3e072a550276a389
+  en: Converting between forms
+  zh: 两种形式之间的转换
+  status: machine
+- id: b94f55dc6fc37459
+  en: The conversion methods apply
+  zh: 转换方法将
+  status: machine
+- id: fe7218360f6140ca
+  en: independently to each transition. This is exact for a two-level system. For $d>2$, Lindblad evolution can make several adjacent jumps during one interval, while one simulator-channel application moves population down by at most one level. Treat the returned tuple as a parameter conversion, not as the exact multilevel evolution over that interval.
+  zh: 独立地应用于每个跃迁。对于二能级系统，这一转换是精确的。当 $d>2$ 时，Lindblad 演化可能在一个时间间隔内发生多次相邻跳变，而模拟器信道的一次应用最多使布居向下移动一个能级。应将返回的元组视为参数转换，而非该时间间隔内精确的多能级演化。
+  status: machine
+- id: 0dcb2a289b366526
+  en: Duration must be finite and nonnegative. A probability of 1 has no finite rate, and a nonzero probability cannot be converted to a finite rate at zero duration.
+  zh: 持续时间必须有限且非负。概率为 1 时不存在有限速率，且非零概率在持续时间为零时无法转换为有限速率。
+  status: machine
+- id: 52edd679dec08799
+  en: '| Entry | Transition | Constraint |'
+  zh: '| 条目 | 跃迁 | 约束 |'
+  status: machine
+- id: 8d6eea0ead34e710
+  en: '| `value[0]` | $\|1\rangle\rightarrow\|0\rangle$ | Probability in `[0, 1]` or nonnegative rate |'
+  zh: '| `value[0]` | $\ | 1\rangle\rightarrow\ | 0\rangle$ | 位于 `[0, 1]` 内的概率或非负速率 |'
+  status: machine
+- id: a8eaee13f3df3389
+  en: '| `value[1]` | $\|2\rangle\rightarrow\|1\rangle$ | Required only when $d\geq3$ |'
+  zh: '| `value[1]` | $\ | 2\rangle\rightarrow\ | 1\rangle$ | 仅当 $d\geq3$ 时需要 |'
+  status: machine
+- id: 65cfac9ba106a904
+  en: '| `value[d - 2]` | $\|d-1\rangle\rightarrow\|d-2\rangle$ | Last value for dimension $d$ |'
+  zh: '| `value[d - 2]` | $\ | d-1\rangle\rightarrow\ | d-2\rangle$ | 维度为 $d$ 时的最后一个值 |'
+  status: machine

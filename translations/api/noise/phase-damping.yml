@@ -1,0 +1,60 @@
+- id: 57e5d0fd920c4eac
+  en: PhaseDamping
+  zh: PhaseDamping
+  status: machine
+- id: 78a21a985e16368d
+  en: '[`PhaseDamping`][fatqat.noise.PhaseDamping] removes coherence without transferring population. Its `p` simulator channel and `rate`/`t_phi` emulator Lindblad operator use different multilevel conventions, so choose the form required by the target backend rather than relying on an implicit conversion.'
+  zh: '[`PhaseDamping`][fatqat.noise.PhaseDamping] 在不转移布居的情况下消除相干。其 `p` 模拟器信道与 `rate`/`t_phi` 仿真器 Lindblad 算符采用不同的多能级约定，因此应选择目标后端所需的形式，而不要依赖隐式转换。'
+  status: machine
+- id: 48224cf2d6dcdd48
+  en: 'Supply exactly one keyword:'
+  zh: 恰好提供一个关键字参数：
+  status: machine
+- id: cb2fe05620ecd5a8
+  en: '`t_phi` is a convenient way to supply a rate. The object stores `rate = 1 / t_phi` rather than keeping `t_phi` as a separate value.'
+  zh: '`t_phi` 是提供速率的便捷方式。对象存储的是 `rate = 1 / t_phi`，而不会将 `t_phi` 作为单独的值保留。'
+  status: machine
+- id: 9c845c8519872571
+  en: For a target of dimension $d$, probability mode implements
+  zh: 对于维度为 $d$ 的目标，概率模式实现
+  status: machine
+- id: d8534fe0be7d1001
+  en: All populations are unchanged, and every off-diagonal entry is multiplied by $1-p$, regardless of the separation between its two levels. The channel acts on one selected operand.
+  zh: 所有布居保持不变，每个非对角元都乘以 $1-p$，与其对应两能级之间的间隔无关。该信道作用于一个选定的操作数。
+  status: machine
+- id: 9e9e97eecb04c37f
+  en: The `rate` and `t_phi` forms use the local Lindblad operator
+  zh: '`rate` 和 `t_phi` 形式使用局部 Lindblad 算符'
+  status: machine
+- id: 71df4cda81135580
+  en: Its effect on coherence between levels j and k is
+  zh: 它对能级 j 与能级 k 之间相干的影响为
+  status: machine
+- id: 0e2adae9d9a8e947
+  en: See [Pulse emulators](backend-support.md#noise-emulator-support) for the accepted scopes and implementation-map requirements of each built-in emulator.
+  zh: 各内置仿真器可接受的作用范围及实现映射要求参见[脉冲仿真器](backend-support.md#noise-emulator-support)。
+  status: machine
+- id: ee44cea7115c42fa
+  en: '[`PhaseDamping.as_probability`][fatqat.noise.PhaseDamping.as_probability] uses $p=1-e^{-rt}$, and [`PhaseDamping.as_rate`][fatqat.noise.PhaseDamping.as_rate] uses $r=-\log(1-p)/t$. These relations match a qubit channel and adjacent-level coherence. For larger systems, the two forms differ: the simulator channel damps every coherence uniformly, while Lindblad evolution scales the decay with $(j-k)^2$.'
+  zh: '[`PhaseDamping.as_probability`][fatqat.noise.PhaseDamping.as_probability] 使用 $p=1-e^{-rt}$，[`PhaseDamping.as_rate`][fatqat.noise.PhaseDamping.as_rate] 使用 $r=-\log(1-p)/t$。这些关系对应量子比特信道和相邻能级相干。对于更大的系统，两种形式并不相同：模拟器信道对每个相干均匀阻尼，而 Lindblad 演化的衰减按 $(j-k)^2$ 缩放。'
+  status: machine
+- id: 7d8a79dda8226c57
+  en: Duration must be finite and nonnegative. Probability 1 has no finite rate, and a nonzero probability cannot be converted at zero duration.
+  zh: 持续时间必须有限且非负。概率为 1 时不存在有限速率，且非零概率在持续时间为零时无法转换。
+  status: machine
+- id: fff0af92ade1d617
+  en: '| Argument | Meaning | Constraint |'
+  zh: '| 参数 | 含义 | 约束 |'
+  status: machine
+- id: 96be8a681edb3080
+  en: '| `p` | Full-dephasing weight for one simulator channel application | Finite real in `[0, 1]` |'
+  zh: '| `p` | 一次模拟器信道应用中完全退相位的权重 | 位于 `[0, 1]` 内的有限实数 |'
+  status: machine
+- id: 03da9307cd531c87
+  en: '| `rate` | Rate scaling the local dephasing Lindblad operator | Finite nonnegative real in inverse time |'
+  zh: '| `rate` | 缩放局部退相位 Lindblad 算符的速率 | 以时间倒数为单位的有限非负实数 |'
+  status: machine
+- id: d096f4115e763b42
+  en: '| `t_phi` | Pure-dephasing time, normalized to `rate = 1 / t_phi` | Finite positive real in the backend''s time unit |'
+  zh: '| `t_phi` | 纯退相位时间，按 `rate = 1 / t_phi` 归一化 | 以后端时间单位计的有限正实数 |'
+  status: machine

@@ -1,0 +1,40 @@
+# Fixed Chinese renderings for FatQat domain terms. `translate.py check`
+# warns when a translated segment mentions an English term but contains
+# neither the listed Chinese rendering nor the English term itself.
+terms:
+  qubit: 量子比特
+  register: 寄存器
+  circuit: 电路
+  measurement: 测量
+  noise model: 噪声模型
+  noise: 噪声
+  channel: 信道
+  simulator: 模拟器
+  emulator: 仿真器
+  simulation: 模拟
+  emulation: 仿真
+  entanglement: 纠缠
+  statevector: 态矢量
+  density matrix: 密度矩阵
+  amplitude damping: 振幅阻尼
+  phase damping: 相位阻尼
+  depolarizing: 退极化
+  thermal relaxation: 热弛豫
+  readout: 读出
+  coherence: 相干
+  leakage: 泄漏
+  pulse: 脉冲
+  waveform: 波形
+  Hamiltonian: 哈密顿量
+  backend: 后端
+  estimator: 估计器
+  observable: 可观测量
+  expectation value: 期望值
+  neutral atom: 中性原子
+  neutral-atom: 中性原子
+  Rydberg: 里德堡
+  superconducting: 超导
+  feedforward: 前馈
+  parameter: 参数
+  sweep: 扫描
+  fusion: 融合

@@ -1,0 +1,124 @@
+- id: 205c03aeb73e361a
+  en: Recognize handwritten digits with a quantum neural network
+  zh: 用量子神经网络识别手写数字
+  status: machine
+- id: f9afa8402798aeb5
+  en: Train a data-reuploading circuit to distinguish handwritten 3s and 6s while evaluating a whole parameter batch with one sweep.
+  zh: 训练一个数据重上传电路来区分手写数字 3 和 6，并用一次扫描评估整批参数。
+  status: machine
+- id: dc23d7d1d2c68a7b
+  en: Average-pooled handwritten digit inputs
+  zh: 平均池化后的手写数字输入
+  status: machine
+- id: eac3eefc8b361a80
+  en: COBYLA training-loss trace
+  zh: COBYLA 训练损失曲线
+  status: machine
+- id: ec2fe80e8e7b8f8e
+  en: Held-out handwritten digit predictions after training
+  zh: 训练后在保留测试集上的手写数字预测
+  status: machine
+- id: a87da96845755370
+  en: A quantum neural network (QNN) classifier is an ordinary parameterized function $f(x;\theta)$ — the twist is that the function is evaluated by a quantum circuit. The input features $x$ and the trainable weights $\theta$ both enter the circuit as rotation angles, and the class scores are read off the final state as expectation values.
+  zh: 量子神经网络（QNN）分类器是一个普通的参数化函数 $f(x;\theta)$——特别之处在于这个函数由量子电路来求值。输入特征 $x$ 和可训练权重 $\theta$ 都以旋转角度的形式进入电路，而类别得分则以期望值的形式从最终态读出。
+  status: machine
+- id: eaf0fccde7501325
+  en: 'This tutorial trains such a classifier to tell the handwritten digits 3 and 6 apart, and it showcases the piece fatqat contributes beyond a plain "build one circuit per sample" workflow: **the circuit is built once as a parameterized template, and a whole batch of inputs is evaluated with a single** `run_sweep` **call**.'
+  zh: 本教程训练这样一个分类器来区分手写数字 3 和 6，并展示 fatqat 在朴素的“逐样本构建电路”工作流之外贡献的部分：**电路作为参数化模板只构建一次，整批输入通过单个** `run_sweep` **调用完成评估**。
+  status: machine
+- id: 1ba70b3e6cfc2bb1
+  en: The model
+  zh: 模型
+  status: machine
+- id: 3b50b023f8232acc
+  en: Each qubit alternates an *encoding* gate $R_Y(x)$ with a *trainable* gate $R_Z(\theta)$ over several rounds, entangled by a CX ring — the *data re-uploading* pattern of Pérez-Salinas et al. ([arXiv:1907.02085](https://arxiv.org/abs/1907.02085)). With four qubits and four rounds,
+  zh: 每个量子比特在若干轮中交替应用一个*编码*门 $R_Y(x)$ 与一个*可训练*门 $R_Z(\theta)$，并通过 CX 环实现纠缠——这就是 Pérez-Salinas 等人的*数据重上传*模式（[arXiv:1907.02085](https://arxiv.org/abs/1907.02085)）。在四个量子比特、四轮的设置下，
+  status: machine
+- id: 02227a745fdc83b8
+  en: so the 16 features and 16 weights are consumed one per qubit per round. Re-uploading the same features in every round lets a small circuit fit a nonlinear decision boundary.
+  zh: 因此 16 个特征和 16 个权重按每轮每个量子比特一个的方式被消耗。在每一轮中重复上传相同的特征，使一个小电路也能拟合非线性决策边界。
+  status: machine
+- id: 07facfe486b5561d
+  en: 'The readout follows Farhi & Neven ([arXiv:1802.06002](https://arxiv.org/abs/1802.06002)): measure the four single-qubit expectations $\langle Z_q\rangle$ and fold them into two class logits,'
+  zh: 读出方式沿用 Farhi 与 Neven（[arXiv:1802.06002](https://arxiv.org/abs/1802.06002)）：测量四个单量子比特期望值 $\langle Z_q\rangle$，并把它们折叠成两个类别 logits，
+  status: machine
+- id: 0e5a5ca1098c1a06
+  en: Training minimizes the mean cross-entropy $-\frac{1}{N}\sum_i \log p_i(\text{label}_i)$ with the gradient-free COBYLA optimizer — the loss is a black box, so no circuit differentiation is needed.
+  zh: 训练使用无梯度的 COBYLA 优化器最小化平均交叉熵 $-\frac{1}{N}\sum_i \log p_i(\text{label}_i)$——损失是一个黑盒，因此不需要对电路求导。
+  status: machine
+- id: 1cd7775fc5b6834a
+  en: 'The data are the 8x8 handwritten digits bundled with scikit-learn: real scans, but bundled locally, so this page is fully reproducible with no download. Every source of randomness is seeded.'
+  zh: 数据是 scikit-learn 自带的 8x8 手写数字：真实的扫描图像，但随包本地提供，因此本页面无需任何下载即可完全复现。所有随机源都设定了种子。
+  status: machine
+- id: 84e07c3a1f11aca5
+  en: 'Data: two classes of small digits'
+  zh: 数据：两类小尺寸数字
+  status: machine
+- id: 8e0a781d13808d8a
+  en: The 3-vs-6 subset is shuffled with a seeded generator and each 8x8 image is average-pooled to 4x4 — one feature per qubit per round. Pixel values (0–16) are scaled to angles in $[0, \pi]$, so a blank pixel encodes as the identity rotation $R_Y(0) = I$ and brightness order survives the $\cos$ in $\langle Z\rangle = \cos x$ of a lone $R_Y(x)$.
+  zh: 3 与 6 的子集用设定种子的生成器打乱，每张 8x8 图像被平均池化为 4x4——每轮每个量子比特一个特征。像素值（0–16）被缩放为 $[0, \pi]$ 范围内的角度，因此空白像素编码为恒等旋转 $R_Y(0) = I$，而亮度顺序在单个 $R_Y(x)$ 的 $\langle Z\rangle = \cos x$ 中经过 $\cos$ 后仍得以保留。
+  status: machine
+- id: caa982bc367bdc6b
+  en: This 4x4 pooling — not the original 8x8 scan — is what the circuit sees.
+  zh: 电路看到的是这个 4x4 池化结果，而不是原始的 8x8 扫描图像。
+  status: machine
+- id: bfc6e7e1af3e2bf2
+  en: 'The ansatz: one parameterized template'
+  zh: 拟设：一个参数化模板
+  status: machine
+- id: 9bb95be967de903f
+  en: 'A [`ParameterVector`][fatqat.ParameterVector] is a group of named placeholders. Gates added with placeholders instead of numbers produce a *template*: a program whose structure is fixed but whose angles are bound later. Binding always returns a new program and never mutates the template, so one template serves every sample and every optimizer step.'
+  zh: '[`ParameterVector`][fatqat.ParameterVector] 是一组具名占位符。用占位符而非数值添加的门会产生一个*模板*：其结构固定、角度稍后再绑定的程序。绑定总是返回一个新程序，绝不修改模板本身，因此一个模板即可服务每个样本和每个优化器步骤。'
+  status: machine
+- id: 27c8a8efa25472e1
+  en: 'The template draws like any other program: each round applies `RY(x)` then `RZ(θ)` on every wire and closes with the CX ring, repeated four times.'
+  zh: 该模板的绘制方式与其他程序无异：每一轮在每条线路上先应用 `RY(x)` 再应用 `RZ(θ)`，并以 CX 环收尾，如此重复四轮。
+  status: machine
+- id: 73479e1a1924690f
+  en: Evaluate a whole batch with one `run_sweep`
+  zh: 用一次 `run_sweep` 评估整批数据
+  status: machine
+- id: 8e2732f05840050d
+  en: 'Within one optimizer step the weights are fixed, so they are bound once with `assign_parameters`. The batch then sweeps only the features: `run_sweep` takes the entire `(N, 16)` feature array as one binding and returns an ordered list of results — one ordinary `Result` per sample. The parameters have become *data*: plain NumPy arrays flowing through one call, instead of circuit structure rebuilt per sample.'
+  zh: 在一个优化器步骤内权重是固定的，因此先用 `assign_parameters` 一次性绑定权重。随后批处理只扫描特征：`run_sweep` 把整个 `(N, 16)` 特征数组作为一次绑定接收，并返回一个有序的结果列表——每个样本对应一个普通的 `Result`。参数变成了*数据*：普通的 NumPy 数组通过一次调用流动，而不是为每个样本重建电路结构。
+  status: machine
+- id: 8558caaf550ae037
+  en: (In this fatqat version `run_sweep` still lowers and executes row by row; the win today is the single-template workflow and one-call batch interface, which is also where fused batched execution will land. For observable-centric workflows, [`fatqat.Estimator`][fatqat.Estimator] offers the same batching as `Estimator.run_sweep`; see [the simulation guide](../guide/simulation.md).)
+  zh: （在当前 fatqat 版本中，`run_sweep` 仍然逐行降低并执行；目前的收益在于单模板工作流和一次调用的批处理接口，而这也是将来融合批量执行落地的地方。对于以可观测量为中心的工作流，[`fatqat.Estimator`][fatqat.Estimator] 以 `Estimator.run_sweep` 提供相同的批处理能力；参见[模拟指南](../guide/simulation.md)。）
+  status: machine
+- id: 3ad062f431e84703
+  en: 'A small check with random initial weights: the logits start near zero, as expected for an untrained circuit.'
+  zh: 用随机初始权重做一个小检查：logits 起始接近零，这正是未训练电路的预期表现。
+  status: machine
+- id: 36a798e3f39239cc
+  en: Training
+  zh: 训练
+  status: machine
+- id: e52d6289664d733c
+  en: The loss is the mean softmax cross-entropy over the training batch. One loss evaluation is one `run_sweep` call over all 120 training images.
+  zh: 损失是训练批次上的平均 softmax 交叉熵。一次损失求值就是对全部 120 张训练图像的一次 `run_sweep` 调用。
+  status: machine
+- id: 163e44b102626149
+  en: Evaluation
+  zh: 评估
+  status: machine
+- id: af42f483a97e143e
+  en: The trained weights are evaluated on the held-out test split — again with a single sweep over the whole batch.
+  zh: 训练好的权重在保留的测试集上评估——同样是对整批数据的一次扫描。
+  status: machine
+- id: 51578c9d1d451798
+  en: A sample of test predictions; wrong calls are marked in red.
+  zh: 部分测试预测样例；错误的判定以红色标出。
+  status: machine
+- id: 92f76a1011323fc3
+  en: Where to go from here
+  zh: 后续方向
+  status: machine
+- id: b1379d16daa3d413
+  en: '[the Program guide](../guide/program.md) introduces parameter binding; [the simulation guide](../guide/simulation.md) covers sweeps, and [interpreting results](../guide/interpret-results.md) covers exact and sampled expectation values.'
+  zh: '[Program 指南](../guide/program.md)介绍参数绑定；[模拟指南](../guide/simulation.md)涵盖扫描，[结果解读](../guide/interpret-results.md)涵盖精确与采样的期望值。'
+  status: machine
+- id: fd88e61ef11029fd
+  en: 'Natural extensions: more rounds or qubits, a noise model passed to the simulator, or sampled (`shots > 0`) expectations to study shot noise on the training curve.'
+  zh: 自然的扩展方向：更多轮数或量子比特、向模拟器传入噪声模型，或使用采样（`shots > 0`）期望值来研究采样噪声对训练曲线的影响。
+  status: machine

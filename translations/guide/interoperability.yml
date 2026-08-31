@@ -1,0 +1,92 @@
+- id: 30de0d9498c56017
+  en: Bring Programs to and from OpenQASM and Qiskit
+  zh: 在 OpenQASM 和 Qiskit 之间导入与导出 Program
+  status: machine
+- id: e893ee2f823e7631
+  en: Already have a circuit? FatQat can import OpenQASM 3, convert a Qiskit `QuantumCircuit` into a [`Program`][fatqat.Program], or appear inside Qiskit as a backend.
+  zh: 已经有电路了？FatQat 可以导入 OpenQASM 3，把 Qiskit 的 `QuantumCircuit` 转换为 [`Program`][fatqat.Program]，或者作为后端出现在 Qiskit 中。
+  status: machine
+- id: 7cd29b853caa061c
+  en: Pick an integration path
+  zh: 选择集成路径
+  status: machine
+- id: acf7cc09cf0c9b93
+  en: Use OpenQASM when the exchange artifact should be portable source text.
+  zh: 当交换产物应当是可移植的源文本时，使用 OpenQASM。
+  status: machine
+- id: e4e42bb51352300b
+  en: Convert a Qiskit circuit when FatQat should own execution and interpretation.
+  zh: 当应由 FatQat 掌控执行和结果解读时，转换 Qiskit 电路。
+  status: machine
+- id: ba49c497d0eda34f
+  en: Use `FatqatBackend` when Qiskit should continue to own the surrounding job and result workflow.
+  zh: 当应由 Qiskit 继续掌控外围的作业与结果工作流时，使用 `FatqatBackend`。
+  status: machine
+- id: eb310ca6fc79842c
+  en: Import, run, and export OpenQASM
+  zh: 导入、运行和导出 OpenQASM
+  status: machine
+- id: b617f665a7a567d5
+  en: 'The OpenQASM translator is built into FatQat and does not require Qiskit. This OpenQASM 3 source describes the same measured Bell circuit used in the quickstart:'
+  zh: OpenQASM 翻译器内置于 FatQat，不需要 Qiskit。下面的 OpenQASM 3 源码描述的正是快速入门中使用的同一个带测量的 Bell 电路：
+  status: machine
+- id: 8827540bb04fabea
+  en: 'The imported value is an ordinary Program. Choose a backend, run it, and read the normal FatQat result:'
+  zh: 导入得到的值是一个普通的 Program。选择后端、运行它，并读取常规的 FatQat 结果：
+  status: machine
+- id: d9c1b1281fc4beb7
+  en: 'Export a supported Program to OpenQASM 3 with `to_qasm`:'
+  zh: 使用 `to_qasm` 把受支持的 Program 导出为 OpenQASM 3：
+  status: machine
+- id: 5af85d0e06c192ae
+  en: An export is a normalized representation, not a promise to reproduce the original text byte for byte. Register names may be made safe or unique, whole register operations may be expanded, and Program metadata is not part of OpenQASM.
+  zh: 导出是规范化的表示，并不承诺逐字节复现原始文本。寄存器名可能被改为安全或唯一的名称，整寄存器操作可能被展开，而且 Program 元数据不属于 OpenQASM。
+  status: machine
+- id: 536bb8972d8bc6a9
+  en: OpenQASM exchange currently represents bound, dimension-two circuit Programs. Unsupported language constructs or Program features fail explicitly instead of being approximated. See the [OpenQASM API reference](../api/interoperability/openqasm.md) for supported statements, version-specific conditions, file input, and conversion errors.
+  zh: OpenQASM 交换目前表示已绑定、维度为二的电路 Program。不受支持的语言构造或 Program 特性会显式失败，而不是被近似处理。有关受支持的语句、特定版本的条件、文件输入和转换错误，请参阅 [OpenQASM API 参考](../api/interoperability/openqasm.md)。
+  status: machine
+- id: c51d92ac3cde07c1
+  en: Convert a Qiskit circuit into a Program
+  zh: 把 Qiskit 电路转换为 Program
+  status: machine
+- id: fbd421351fbe3ae8
+  en: 'Qiskit integration is optional. Install Qiskit in the same environment as FatQat; Qiskit Aer is not required:'
+  zh: Qiskit 集成是可选的。在与 FatQat 相同的环境中安装 Qiskit；不需要 Qiskit Aer：
+  status: machine
+- id: 80a6608d4decb790
+  en: 'Use [`circuit_to_program`][fatqat.qiskit.circuit_to_program] when you want to cross the boundary into FatQat and then use its backends and result model:'
+  zh: 当你想跨过边界进入 FatQat，进而使用它的后端和结果模型时，使用 [`circuit_to_program`][fatqat.qiskit.circuit_to_program]：
+  status: machine
+- id: 3537a8d8a33cf0ca
+  en: From `program` onward this is the same workflow as a Program authored directly in Python. In particular, you can choose a FatQat execution model and work with FatQat's `Result` accessors.
+  zh: 从 `program` 开始，这与直接用 Python 编写的 Program 是同一套工作流。特别地，你可以选择 FatQat 执行模型，并使用 FatQat 的 `Result` 访问器。
+  status: machine
+- id: 58fbcdab13d00091
+  en: Use FatQat as a Qiskit backend
+  zh: 把 FatQat 用作 Qiskit 后端
+  status: machine
+- id: 1f7ee955c7aff144
+  en: 'Use [`FatqatBackend`][fatqat.qiskit.FatqatBackend] instead when the surrounding application should remain a Qiskit workflow. Transpile to the backend''s target before submitting the circuit:'
+  zh: 当外围应用应保持为 Qiskit 工作流时，请改用 [`FatqatBackend`][fatqat.qiskit.FatqatBackend]。在提交电路之前，先转译到该后端的目标：
+  status: machine
+- id: d0114d9ebe5661cc
+  en: This path returns Qiskit's job and result types, with Qiskit-formatted counts. Use direct conversion when you need FatQat state, map, or observable results; the Qiskit backend adapter is intentionally counts-oriented.
+  zh: 这条路径返回 Qiskit 的作业和结果类型，以及 Qiskit 格式的计数。当你需要 FatQat 的态、映射或可观测量结果时，请使用直接转换；Qiskit 后端适配器有意以计数为中心。
+  status: machine
+- id: 5e4d434920c04c46
+  en: '!!! note'
+  zh: '!!! note'
+  status: machine
+- id: 5ce922ba1fe8d980
+  en: The adapter accepts bound, static circuits in its advertised target basis. Transpilation handles other supported Qiskit gate forms; unsupported dynamic control flow is rejected. A `FatqatBackend` accepts a FatQat `NoiseModel`, not a Qiskit Aer noise model.
+  zh: 适配器接受其公布目标基中的已绑定静态电路。转译可以处理其他受支持的 Qiskit 门形式；不受支持的动态控制流会被拒绝。`FatqatBackend` 接受的是 FatQat 的 `NoiseModel`，而不是 Qiskit Aer 噪声模型。
+  status: machine
+- id: f6ebd256cb21be8b
+  en: The [Qiskit API reference](../api/interoperability/qiskit.md) documents the exact target, conversion behavior, run options, batches, memory output, and error types.
+  zh: '[Qiskit API 参考](../api/interoperability/qiskit.md)记录了精确的目标、转换行为、运行选项、批处理、memory 输出和错误类型。'
+  status: machine
+- id: 862e68a9788f96a1
+  en: When an input cannot be represented by the supported Program subset, the converter reports an error rather than guessing at its meaning.
+  zh: 当输入无法用受支持的 Program 子集表示时，转换器会报告错误，而不是猜测其含义。
+  status: machine

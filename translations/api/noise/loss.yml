@@ -1,0 +1,68 @@
+- id: df292782b26eef5b
+  en: Loss
+  zh: Loss
+  status: machine
+- id: dc241ea4dca13af1
+  en: '[`Loss`][fatqat.noise.Loss] removes physical carriers from an occupancy-aware simulation. It is not amplitude damping: amplitude damping keeps the subsystem in the modeled Hilbert space, while loss marks the carrier absent and discards its quantum correlations.'
+  zh: '[`Loss`][fatqat.noise.Loss] 从占据感知的模拟中移除物理载体。它不是振幅阻尼：振幅阻尼使子系统保持在所建模的 Hilbert 空间内，而丢失则将载体标记为缺失并丢弃其量子关联。'
+  status: machine
+- id: e14bb4ecf9b048e9
+  en: Where loss applies
+  zh: 丢失的适用范围
+  status: machine
+- id: d5bc735ad4b7a07a
+  en: '`p` is the loss probability for each selected carrier that is currently present. FATQAT samples each carrier independently after a matched operation. An operation-wide registration uses the same probability for every operand; use `target_positions` to limit loss to particular operands.'
+  zh: '`p` 是每个当前在位的选定载体的丢失概率。FATQAT 在匹配的操作之后对每个载体独立采样。作用于整个操作的注册对每个操作数使用相同的概率；使用 `target_positions` 可将丢失限制在特定操作数上。'
+  status: machine
+- id: bdabb7a225fe1ccd
+  en: '[`Loss`][fatqat.noise.Loss] can be attached only to matching operations; it cannot be registered as background noise. A condition on the matching operation also controls its loss: if the operation is skipped, its attached loss is skipped.'
+  zh: '[`Loss`][fatqat.noise.Loss] 只能附加到匹配的操作上，不能注册为背景噪声。匹配操作上的条件同样控制其丢失：若操作被跳过，其附加的丢失也随之跳过。'
+  status: machine
+- id: 0eeb85caa49a77e7
+  en: Occupancy-aware simulators
+  zh: 占据感知模拟器
+  status: machine
+- id: f693b4f5e0d460c8
+  en: 'On an occupancy-aware simulator, any matching loss registration turns on the atom lifecycle:'
+  zh: 在占据感知模拟器上，任何匹配的丢失注册都会开启原子生命周期：
+  status: machine
+- id: 36e6f0bb57a8fc28
+  en: every site starts empty;
+  zh: 每个位点初始为空；
+  status: machine
+- id: 1f22e297156e148e
+  en: '`Put` loads a fresh `|0>` atom into an empty site;'
+  zh: '`Put` 将一个新的 `|0>` 原子装载到空位点中；'
+  status: machine
+- id: 5179107bc7b6b065
+  en: a loss hit removes a present atom and its correlations;
+  zh: 一次丢失事件会移除在位原子及其关联；
+  status: machine
+- id: 96feb8a5ef42ba1d
+  en: later gates requiring that atom are per-shot no-ops;
+  zh: 后续需要该原子的门在该 shot 内成为空操作；
+  status: machine
+- id: 41a0571b8964e9f9
+  en: a later `Put` can refill the site;
+  zh: 之后的 `Put` 可以重新填充该位点；
+  status: machine
+- id: 39c8e120217ade86
+  en: measurement of an empty site reports erasure digit `2`.
+  zh: 测量空位点会报告擦除数字 `2`。
+  status: machine
+- id: 7a6abb06c1a0a829
+  en: Erasure bypasses [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] because no occupied qubit produced a physical readout digit. Attaching loss to `Put` samples after loading, which models loading failure or immediate post-load loss. `Put` accepts no other noise type.
+  zh: 擦除会绕过 [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion]，因为没有在位的量子比特产生物理读出数字。将丢失附加到 `Put` 上会在装载后采样，用于建模装载失败或装载后立即发生的丢失。`Put` 不接受其他噪声类型。
+  status: machine
+- id: fc3618f88123c100
+  en: The lifecycle is enabled by the registration itself, not by a sampled loss event. A matching `Loss(p=0)` therefore still makes all sites start empty and requires explicit `Put` operations.
+  zh: 生命周期由注册本身启用，而非由采样到的丢失事件启用。因此，匹配的 `Loss(p=0)` 仍会使所有位点初始为空，并要求显式的 `Put` 操作。
+  status: machine
+- id: 5610caff370a51a5
+  en: Each shot has its own occupancy state. `statevector` and `density_matrix` support this lifecycle; `unitary` and `superop` do not. Because a final state depends on the sampled loss history, requesting one requires a single shot.
+  zh: 每个 shot 都有自己的占据状态。`statevector` 和 `density_matrix` 支持此生命周期；`unitary` 和 `superop` 不支持。由于最终状态取决于采样到的丢失历史，请求最终状态时只能使用单个 shot。
+  status: machine
+- id: 57736ae08141969e
+  en: See [Simulators](backend-support.md#noise-simulator-support) for the built-in occupancy-aware backend and its method restrictions.
+  zh: 内置的占据感知后端及其方法限制参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine

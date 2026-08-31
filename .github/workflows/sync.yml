@@ -1,0 +1,108 @@
+name: sync-and-translate
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      # codex (default) | claude | api - set the TRANSLATE_ENGINE repository
+      # variable to switch. Each engine degrades gracefully when its
+      # credential is absent: the sync PR still opens, untranslated segments
+      # stay pending and render as English on the site until translated.
+      ENGINE: ${{ vars.TRANSLATE_ENGINE || 'codex' }}
+      CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      TRANSLATE_API_BASE: ${{ vars.TRANSLATE_API_BASE }}
+      TRANSLATE_API_KEY: ${{ secrets.TRANSLATE_API_KEY }}
+      TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python -m pip install pyyaml
+
+      - name: Sync upstream documentation
+        id: sync
+        run: |
+          python tools/sync_upstream.py | tee sync.log
+          if grep -q '^changed=true$' sync.log; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Register new segments
+        if: steps.sync.outputs.changed == 'true'
+        id: extract
+        run: |
+          python tools/translate.py extract
+          python tools/translate.py check | tee check.log || true
+          pending=$(grep -oP 'pending=\K[0-9]+' check.log | head -1)
+          echo "pending=${pending:-0}" >> "$GITHUB_OUTPUT"
+
+      # --- engine: codex (owner's Codex/ChatGPT plan) --------------------
+      - name: Restore Codex credentials
+        if: steps.sync.outputs.changed == 'true' && steps.extract.outputs.pending != '0' && env.ENGINE == 'codex' && env.CODEX_AUTH_JSON != ''
+        uses: actions/cache@v4
+        with:
+          path: ~/.codex
+          key: codex-auth-${{ github.run_id }}
+          restore-keys: codex-auth-
+
+      - name: Translate pending segments (Codex)
+        if: steps.sync.outputs.changed == 'true' && steps.extract.outputs.pending != '0' && env.ENGINE == 'codex' && env.CODEX_AUTH_JSON != ''
+        run: |
+          mkdir -p ~/.codex
+          # Seed only when missing: overwriting would discard the refreshed
+          # tokens Codex wrote on the previous run.
+          if [ ! -f ~/.codex/auth.json ]; then
+            printf '%s' "$CODEX_AUTH_JSON" > ~/.codex/auth.json
+          fi
+          npm install -g @openai/codex
+          codex exec --full-auto "$(cat tools/TRANSLATE_PROMPT.md)"
+
+      # --- engine: claude (a Claude Pro/Max subscription token) ----------
+      - name: Translate pending segments (Claude)
+        if: steps.sync.outputs.changed == 'true' && steps.extract.outputs.pending != '0' && env.ENGINE == 'claude' && env.CLAUDE_CODE_OAUTH_TOKEN != ''
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude -p "$(cat tools/TRANSLATE_PROMPT.md)" --permission-mode acceptEdits
+
+      # --- engine: api (any OpenAI-compatible endpoint) ------------------
+      - name: Translate pending segments (API)
+        if: steps.sync.outputs.changed == 'true' && steps.extract.outputs.pending != '0' && env.ENGINE == 'api' && env.TRANSLATE_API_KEY != ''
+        run: python tools/api_translate.py
+
+      - name: Validate the database
+        if: steps.sync.outputs.changed == 'true'
+        run: python tools/translate.py check
+
+      - name: Open a review pull request
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="sync/$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -A
+          git commit -m "Sync upstream documentation and translate new segments"
+          git push origin "$branch"
+          pending=$(python tools/translate.py check | grep -oP 'pending=\K[0-9]+' | head -1)
+          body="Automated sync from upstream $(cat UPSTREAM_COMMIT | cut -c1-12)."
+          if [ "${pending:-0}" != "0" ]; then
+            body="$body Note: $pending segments are still pending (no translation credential was available); they render as English until translated."
+          fi
+          gh pr create --title "Sync upstream docs $(date -u +%Y-%m-%d)" --body "$body"

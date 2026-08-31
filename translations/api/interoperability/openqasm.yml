@@ -1,0 +1,52 @@
+- id: 4d7868a4ad8fd849
+  en: OpenQASM
+  zh: OpenQASM
+  status: machine
+- id: 5a5e09e2a0c13fd7
+  en: <a id="fatqat.qasm"></a>
+  zh: <a id="fatqat.qasm"></a>
+  status: machine
+- id: 46ef3e3a6c0586e4
+  en: Use [`from_qasm`][fatqat.qasm.from_qasm] or [`from_qasm_file`][fatqat.qasm.from_qasm_file] to import OpenQASM 2 or 3 into a [`Program`][fatqat.Program], and [`to_qasm`][fatqat.qasm.to_qasm] to export a program. These functions do not require Qiskit. Existing code can continue to use `qasm_to_program` and `program_to_qasm`.
+  zh: 使用 [`from_qasm`][fatqat.qasm.from_qasm] 或 [`from_qasm_file`][fatqat.qasm.from_qasm_file] 可将 OpenQASM 2 或 3 导入为 [`Program`][fatqat.Program]，使用 [`to_qasm`][fatqat.qasm.to_qasm] 可导出程序。这些函数不需要 Qiskit。现有代码可以继续使用 `qasm_to_program` 和 `program_to_qasm`。
+  status: machine
+- id: 2b24a87e9dc724d0
+  en: Import support
+  zh: 导入支持
+  status: machine
+- id: 0bdb3c61b6f57775
+  en: Imported quantum and classical registers have dimension 2. FATQAT supports scalar operands, equal-sized whole-register operations, measurement, reset, local `gate` definitions, and the built-ins listed by [`from_qasm`][fatqat.qasm.from_qasm]. Barriers are ignored. A condition can guard a gate or reset using whole-register equality or an AND of bit comparisons.
+  zh: 导入的量子寄存器和经典寄存器的维度均为 2。FATQAT 支持标量操作数、大小相等的整寄存器操作、测量、重置、局部 `gate` 定义，以及 [`from_qasm`][fatqat.qasm.from_qasm] 列出的内置门。Barrier 会被忽略。条件可以通过整寄存器相等比较，或多个比特比较的 AND 组合，来控制门或重置。
+  status: machine
+- id: 82bdc9e3a8040ab6
+  en: '`include` statements do not load files. A gate normally supplied by an include must already be built in or defined in a local `gate` block. Other control flow, gate modifiers, declarations, and classical conditions raise [`QASMTranspileError`][fatqat.qasm.QASMTranspileError].'
+  zh: '`include` 语句不会加载文件。通常由 include 提供的门必须已经是内置门，或已在局部 `gate` 块中定义。其他控制流、门修饰符、声明和经典条件会引发 [`QASMTranspileError`][fatqat.qasm.QASMTranspileError]。'
+  status: machine
+- id: f993246f036af449
+  en: Export support
+  zh: 导出支持
+  status: machine
+- id: 09b46c2323e4aede
+  en: '[`to_qasm`][fatqat.qasm.to_qasm] emits OpenQASM 3 by default. The program must be fully bound. Use `version=2` only when each condition compares every bit in a single classical register.'
+  zh: '[`to_qasm`][fatqat.qasm.to_qasm] 默认输出 OpenQASM 3。程序必须完全绑定。仅当每个条件都比较单个经典寄存器中的全部比特时，才使用 `version=2`。'
+  status: machine
+- id: d0b994a41a019a6a
+  en: Export requires `dim == 2` for every register and scalar operation targets. Supported gates and dimension-2 reductions are listed by [`to_qasm`][fatqat.qasm.to_qasm]. Register names may change to avoid conflicts, and program metadata is omitted.
+  zh: 导出要求每个寄存器满足 `dim == 2`，并要求操作目标为标量。受支持的门以及维度为 2 的归约由 [`to_qasm`][fatqat.qasm.to_qasm] 列出。寄存器名称可能会被更改以避免冲突，程序元数据会被省略。
+  status: machine
+- id: c9d43ad372df1a50
+  en: Barrier, direct pulse controls, [`RegisterView`](../registers.md#fatqat.RegisterView) targets, and operations without a QASM representation raise [`QasmExportError`][fatqat.qasm.QasmExportError].
+  zh: Barrier、直接脉冲控制、[`RegisterView`](../registers.md#fatqat.RegisterView) 目标，以及没有 QASM 表示的操作，会引发 [`QasmExportError`][fatqat.qasm.QasmExportError]。
+  status: machine
+- id: cb702378f31507ef
+  en: Errors
+  zh: 错误
+  status: machine
+- id: b3772ff5f56d4097
+  en: Catch [`fatqat.errors.FatqatError`][fatqat.errors.FatqatError] to handle either conversion error. Catch [`QASMTranspileError`][fatqat.qasm.QASMTranspileError] to handle translator rejection separately from [`QasmExportError`][fatqat.qasm.QasmExportError], which reports a program that cannot be represented. For compatibility, [`QASMTranspileError`][fatqat.qasm.QASMTranspileError] is also a [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError).
+  zh: 捕获 [`fatqat.errors.FatqatError`][fatqat.errors.FatqatError] 可处理任一转换错误。捕获 [`QASMTranspileError`][fatqat.qasm.QASMTranspileError] 可将翻译器的拒绝与 [`QasmExportError`][fatqat.qasm.QasmExportError] 分开处理，后者报告无法表示的程序。出于兼容性考虑，[`QASMTranspileError`][fatqat.qasm.QASMTranspileError] 同时也是 [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError)。
+  status: machine
+- id: 716184e5f6a64e93
+  en: File I/O and text-decoding failures from [`from_qasm_file`][fatqat.qasm.from_qasm_file] use the underlying Python exceptions.
+  zh: '[`from_qasm_file`][fatqat.qasm.from_qasm_file] 的文件 I/O 和文本解码失败使用底层的 Python 异常。'
+  status: machine

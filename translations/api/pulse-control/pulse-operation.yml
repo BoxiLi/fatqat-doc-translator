@@ -1,0 +1,28 @@
+- id: b9a4acdb887c45ff
+  en: PulseOperation
+  zh: PulseOperation
+  status: machine
+- id: b29fa6ba8f162832
+  en: '[`PulseOperation`][fatqat.operations.PulseOperation] adds an explicit pulse block to a program. Import it from `fatqat.operations`, normally as `ops.PulseOperation`.'
+  zh: '[`PulseOperation`][fatqat.operations.PulseOperation] 向程序中添加一个显式脉冲块。请从 `fatqat.operations` 导入它，通常以 `ops.PulseOperation` 的形式使用。'
+  status: machine
+- id: 12bfe14668e6bf66
+  en: 'An ordinary gate is added by passing logical targets to `Program.add`. For a `PulseOperation`, do not pass targets: every [`PulseControl`][fatqat.emulator.PulseControl] already names the physical channel to drive. Add it with `program.add(operation)`. A [`ResourceLayout`][fatqat.ResourceLayout] does not remap its channels.'
+  zh: 添加普通门时要向 `Program.add` 传递逻辑目标。而对于 `PulseOperation`，请不要传递目标：每个 [`PulseControl`][fatqat.emulator.PulseControl] 已经指明了要驱动的物理信道。使用 `program.add(operation)` 添加它。[`ResourceLayout`][fatqat.ResourceLayout] 不会重新映射其信道。
+  status: machine
+- id: f2ac3265eee2f5c8
+  en: Conditions and noise
+  zh: 条件与噪声
+  status: machine
+- id: 4fb9067c07fb39a4
+  en: '`TransmonEmulator` allows `program.add(operation, condition=...)`. If the condition is false, the controls are skipped but the block still takes its full duration. Model drift and background Lindblad noise continue during that time. `Atom2LevelEmulator` does not support conditions.'
+  zh: '`TransmonEmulator` 允许 `program.add(operation, condition=...)`。如果条件为假，控制会被跳过，但该块仍占用其完整时长，期间模型漂移与背景 Lindblad 噪声继续作用。`Atom2LevelEmulator` 不支持条件。'
+  status: machine
+- id: 1202290d63b86101
+  en: Operation-scoped noise cannot be attached to a direct pulse block, so `noise.add(..., operation=ops.PulseOperation)` raises `ValueError`. Background noise selected by target or device label still applies.
+  zh: 操作范围的噪声无法附加到直接脉冲块上，因此 `noise.add(..., operation=ops.PulseOperation)` 会引发 `ValueError`。按目标或设备标签选择的背景噪声仍然适用。
+  status: machine
+- id: fc21f5527abb8990
+  en: The three pulse emulators listed in [Pulse control](index.md) support `PulseOperation`. [Matrix simulators and their device profiles](../simulators/index.md) do not; neither do circuit drawing or OpenQASM export.
+  zh: '[脉冲控制](index.md)中列出的三个脉冲仿真器支持 `PulseOperation`。[矩阵模拟器及其设备配置](../simulators/index.md)不支持；电路绘制和 OpenQASM 导出也不支持。'
+  status: machine

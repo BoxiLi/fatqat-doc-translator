@@ -1,0 +1,92 @@
+- id: a99af30b2b10aedb
+  en: Build, draw, and run one Program
+  zh: 构建、绘制并运行一个 Program
+  status: machine
+- id: 916ffa564cb77c2f
+  en: In about ten minutes, you will create a Bell pair, draw its circuit, run 1,000 shots, and see why only `00` and `11` appear. The computation will live in a [`Program`][fatqat.Program] from start to finish.
+  zh: 大约十分钟内，你将创建一个贝尔对，绘制其电路，运行 1,000 次 shot，并理解为什么只会出现 `00` 和 `11`。整个计算从头到尾都存放在一个 [`Program`][fatqat.Program] 中。
+  status: machine
+- id: 159ffec9434cfc72
+  en: Install FatQat from source
+  zh: 从源码安装 FatQat
+  status: machine
+- id: 1577b7bdaad2769b
+  en: 'FatQat is not yet published on PyPI. Clone the repository, create an isolated environment, and install the checkout:'
+  zh: FatQat 尚未发布到 PyPI。克隆仓库，创建一个隔离的环境，然后安装检出的代码：
+  status: machine
+- id: e60dedadf5475ff7
+  en: 'Activate the environment with the command for your platform:'
+  zh: 使用适合你所在平台的命令激活环境：
+  status: machine
+- id: 6b5b5551a61babc6
+  en: 'Then install FatQat:'
+  zh: 然后安装 FatQat：
+  status: machine
+- id: 44d89952b3679d6b
+  en: Write a Bell-state Program
+  zh: 编写一个贝尔态 Program
+  status: machine
+- id: a3243d85fd63e586
+  en: 'A `Program` records the logical resources and instructions in execution order. This one prepares two qubits in a Bell state and measures both of them:'
+  zh: '`Program` 按执行顺序记录逻辑资源和指令。下面这个 Program 将两个量子比特制备到贝尔态并对它们都进行测量：'
+  status: machine
+- id: 11ae954fe050c4db
+  en: '`Program(2, 2)` creates two qubits and two classical bits. `H` puts qubit 0 into a superposition, and `CX` uses qubit 0 as its control and qubit 1 as its target. The final instruction writes both quantum outcomes to the classical bits.'
+  zh: '`Program(2, 2)` 创建两个量子比特和两个经典比特。`H` 使量子比特 0 进入叠加态，`CX` 以量子比特 0 为控制位、量子比特 1 为目标位。最后一条指令把两个量子测量结果写入经典比特。'
+  status: machine
+- id: 916a763bda1d87e2
+  en: The Program describes *what* should happen. It has not selected a simulator or performed any evolution yet.
+  zh: Program 描述的是应当发生*什么*。此时它尚未选择模拟器，也没有进行任何演化。
+  status: machine
+- id: 9662224d143b753f
+  en: Inspect the Program
+  zh: 检查 Program
+  status: machine
+- id: 5f2d9b02bd0f2b41
+  en: 'Drawing is a native Program capability built on QuTiP-QIP''s circuit drawing tools. FatQat translates the Program''s instructions for that renderer. The default renderer returns a Matplotlib figure that you can display or save:'
+  zh: 绘图是 Program 的原生能力，基于 QuTiP-QIP 的电路绘制工具构建。FatQat 会把 Program 的指令翻译给该渲染器。默认渲染器返回一个可供显示或保存的 Matplotlib 图形：
+  status: machine
+- id: cbdab5ef33e7b372
+  en: '![Bell-state Program with H, controlled-X, and two measurements](../assets/generated/guide/quickstart-circuit.png)'
+  zh: '![包含 H、受控 X 和两次测量的贝尔态 Program](../assets/generated/guide/quickstart-circuit.png)'
+  status: machine
+- id: 569c18b563070e8e
+  en: For a terminal-friendly version, `program.draw("text")` returns a string instead of printing it. Drawing is a view of the recorded instruction structure; it does not run the Program.
+  zh: 若需要适合终端的版本，`program.draw("text")` 会返回字符串而不是直接打印。绘图只是所记录指令结构的一种视图，并不会运行 Program。
+  status: machine
+- id: 958ca26c6a61f02f
+  en: Run it
+  zh: 运行
+  status: machine
+- id: deb619d64ef11c96
+  en: 'The general-purpose simulator follows the Program''s logical circuit evolution. `run()` submits the Program and returns a [`job`][fatqat.Job]. Calling `job.result()` waits for completion and gives you a [`Result`][fatqat.Result] containing the requested outputs:'
+  zh: 通用模拟器遵循 Program 的逻辑电路演化。`run()` 提交 Program 并返回一个 [`job`][fatqat.Job]。调用 `job.result()` 会等待运行完成，并给出一个包含所请求输出的 [`Result`][fatqat.Result]：
+  status: machine
+- id: 5759a5c833a17f4e
+  en: 'Each shot ends as either `00` or `11`: the two measured bits agree because the qubits are entangled. Their counts are close rather than exactly equal because measurement samples the state. The fixed seed makes this particular run reproducible.'
+  zh: 每次 shot 的结果不是 `00` 就是 `11`：两个测得的比特之所以一致，是因为这两个量子比特处于纠缠态。两者的计数接近但不完全相等，因为测量是对状态的采样。固定的随机种子使这次特定的运行可以复现。
+  status: machine
+- id: 5f64aef3b878e87f
+  en: '![Bar chart containing only 00 and 11 Bell-state outcomes](../assets/generated/guide/quickstart-counts.png)'
+  zh: '![仅包含 00 和 11 两种贝尔态结果的柱状图](../assets/generated/guide/quickstart-counts.png)'
+  status: machine
+- id: 187cf45c9824f9fb
+  en: 'Keep this `Program`: the next chapters change the backend to explore logical behavior, hardware constraints, and physical dynamics.'
+  zh: 保留这个 `Program`：接下来的章节会更换后端，以探索逻辑行为、硬件约束和物理动力学。
+  status: machine
+- id: 31fbef162594de01
+  en: Continue
+  zh: 继续
+  status: machine
+- id: 918deb61eb6164f5
+  en: '[Write quantum computations with Program](program.md) to use explicit registers, measurements, conditions, parameters, and qudits.'
+  zh: '[用 Program 编写量子计算](program.md)，使用显式寄存器、测量、条件、参数和 qudit。'
+  status: machine
+- id: 39ae5d6787845c3a
+  en: '[Choose how much physics to model](execution-models.md) to compare FatQat''s execution paths.'
+  zh: '[选择建模多少物理细节](execution-models.md)，比较 FatQat 的各条执行路径。'
+  status: machine
+- id: 92c7cab94192cc95
+  en: '[Bring Programs to and from OpenQASM and Qiskit](interoperability.md) to connect an existing circuit workflow.'
+  zh: '[在 OpenQASM 和 Qiskit 之间双向转换 Program](interoperability.md)，连接现有的电路工作流。'
+  status: machine

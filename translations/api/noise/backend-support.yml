@@ -1,0 +1,108 @@
+- id: d0e248b10a8c7d2f
+  en: Backend support
+  zh: 后端支持
+  status: machine
+- id: 177dd5eae12329b6
+  en: <a id="noise-backend-support"></a>
+  zh: <a id="noise-backend-support"></a>
+  status: machine
+- id: 7354235e0d0b9af3
+  en: Use these tables to see which built-in backends accept each noise type and form. **Built in** means the standard backend accepts it. **Unsupported** means the backend family rejects it.
+  zh: 通过这些表格可以查看各内置后端接受哪些噪声类型与形式。**内置**表示标准后端接受它。**不支持**表示该后端家族拒绝它。
+  status: machine
+- id: b5b07a3a53fdcaaf
+  en: For one configured backend, use [`validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] on a simulator or [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] on a pulse emulator. These methods validate a model without a program. FATQAT checks references, device labels, operation matches, dimensions, and execution-method limits when it runs a concrete program.
+  zh: 对于某个已配置的后端，在模拟器上使用 [`validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model]，在脉冲仿真器上使用 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model]。这些方法无需程序即可验证模型。FATQAT 在运行具体程序时检查引用、设备标签、操作匹配、维度以及执行方法的限制。
+  status: machine
+- id: 90cf92cf1c59d920
+  en: <a id="noise-simulator-support"></a>
+  zh: <a id="noise-simulator-support"></a>
+  status: machine
+- id: 0d3b34f11ebce4c5
+  en: '[`Simulator`][fatqat.simulator.Simulator], the two superconducting profiles, and [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] share these channel rules. The profiles may impose additional operation, placement, and dimension limits.'
+  zh: '[`Simulator`][fatqat.simulator.Simulator]、两个超导配置以及 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 共享这些信道规则。这些配置可能施加额外的操作、放置与维度限制。'
+  status: machine
+- id: e420516e225ad18e
+  en: '**Built-in simulator channels**'
+  zh: '**内置模拟器信道**'
+  status: machine
+- id: be91940b79f46910
+  en: Support
+  zh: 支持情况
+  status: machine
+- id: 4dd466b0de6c7a47
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] additionally supports [`Loss`][fatqat.noise.Loss] after matching operations. It samples each selected present carrier independently. A matching registration, even with `p=0`, enables explicit occupancy; loss after `Put` can model a loading failure. Other simulators reject `Loss`. Empty-site erasure outcome `2` bypasses readout confusion because no physical digit was measured.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 还额外支持在匹配操作之后应用 [`Loss`][fatqat.noise.Loss]。它对每个被选中且仍在位的载体独立采样。匹配的注册（即使 `p=0`）会启用显式占据跟踪；`Put` 之后的损失可用于建模装载失败。其他模拟器拒绝 `Loss`。空位擦除结果 `2` 不经过读出混淆，因为没有测量到物理数位。'
+  status: machine
+- id: cc1dd54634d640c0
+  en: Attach every supported probability-form channel above to an operation; matrix backends reject background channels. A custom [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] can add a finite channel type or replace the rule for an existing one. It cannot override the rejection of built-in rate forms, background channels, or `ThermalRelaxation`. A custom type's parameter names are interpreted by its rule, whose result still represents one finite channel application. A supplied map replaces the default map and is copied when the backend is constructed.
+  zh: 上述所有受支持的概率形式信道都要附加到操作上；矩阵后端拒绝背景信道。自定义的 [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] 可以添加有限信道类型，或替换已有类型的规则，但不能推翻对内置速率形式、背景信道或 `ThermalRelaxation` 的拒绝。自定义类型的参数名由其规则解释，该规则的结果仍表示一次有限信道作用。提供的映射会替换默认映射，并在后端构造时被复制。
+  status: machine
+- id: ed8073b6663c451e
+  en: Execution method also matters. `statevector` samples one Kraus trajectory per noisy shot, while `density_matrix` and `superop` apply probability-form channels exactly. `unitary` rejects any channel that matches the program. Only `statevector` and `density_matrix` support the AtomArray occupancy lifecycle; requesting a final state with loss requires `shots == 1`.
+  zh: 执行方法同样重要。`statevector` 对每个含噪 shot 采样一条 Kraus 轨迹，而 `density_matrix` 与 `superop` 精确应用概率形式的信道。`unitary` 拒绝任何与程序匹配的信道。只有 `statevector` 与 `density_matrix` 支持 AtomArray 的占据生命周期；在存在损失的情况下请求最终状态要求 `shots == 1`。
+  status: machine
+- id: a8fb7d389dad1bf5
+  en: <a id="noise-emulator-support"></a>
+  zh: <a id="noise-emulator-support"></a>
+  status: machine
+- id: ac7d35b392ad9f96
+  en: Pulse emulators use local Lindblad operators built from supported rates and times. They do not infer a rate from a probability. Built-in probability forms, [`PauliChannel`][fatqat.noise.PauliChannel], and [`Loss`][fatqat.noise.Loss] are unsupported. Each emulator family owns its continuous-noise realizations.
+  zh: 脉冲仿真器使用由受支持的速率与时间构建的局部 Lindblad 算符。它们不会从概率推断速率。内置概率形式、[`PauliChannel`][fatqat.noise.PauliChannel] 与 [`Loss`][fatqat.noise.Loss] 均不受支持。每个仿真器家族拥有各自的连续噪声实现。
+  status: machine
+- id: a97a21f3c246baba
+  en: '**Emulator support**'
+  zh: '**仿真器支持**'
+  status: machine
+- id: b8ff4b37fe98062f
+  en: Each supported background declaration selects one site. Transmon operation-scoped noise is active only during matching pulse windows. Readout confusion may apply to every measurement or one operand; correlated multi-operand readout is not supported.
+  zh: 每条受支持的背景声明选择一个位点。Transmon 的操作作用域噪声只在匹配的脉冲窗口内生效。读出混淆可以应用于每次测量或一个操作数；不支持多操作数的关联读出。
+  status: machine
+- id: 524b4705936b5a54
+  en: Rates use the inverse of the model's time unit. `t_phi`, `t1`, and `t2` use that unit directly. The reference [`time_unit`][fatqat.emulator.TransmonModel.time_unit] is nanoseconds, while [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] is microseconds. Read the chosen model's `time_unit` rather than guessing from a value's magnitude.
+  zh: 速率使用模型时间单位的倒数。`t_phi`、`t1` 与 `t2` 直接使用该单位。参考模型的 [`time_unit`][fatqat.emulator.TransmonModel.time_unit] 为纳秒，而 [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] 为微秒。请读取所选模型的 `time_unit`，不要根据数值大小猜测。
+  status: machine
+- id: cd658d9c89abdf58
+  en: Unsupported continuous declarations cannot be enabled through emulator construction. Use `NoiseModel` for the declarations listed above and call the family's `validate_noise_model()` method for an eager support check.
+  zh: 不受支持的连续噪声声明无法通过仿真器构造启用。请使用 `NoiseModel` 进行上面列出的声明，并调用相应家族的 `validate_noise_model()` 方法进行及早的支持检查。
+  status: machine
+- id: f69cc19c296f6fca
+  en: '| Noise type and form | Support |'
+  zh: '| 噪声类型与形式 | 支持情况 |'
+  status: machine
+- id: 49afff269f2988a5
+  en: '| [`Depolarizing`][fatqat.noise.Depolarizing] `(p)` | **Built in.** Applies jointly to the selected operands after a matching operation. |'
+  zh: '| [`Depolarizing`][fatqat.noise.Depolarizing] `(p)` | **内置。**在匹配的操作之后联合作用于所选操作数。 |'
+  status: machine
+- id: 1f35ce85fedbe122
+  en: '| [`PauliChannel`][fatqat.noise.PauliChannel] | **Built in.** The string width must equal the number of selected qubit operands. |'
+  zh: '| [`PauliChannel`][fatqat.noise.PauliChannel] | **内置。**字符串宽度必须等于所选量子比特操作数的数量。 |'
+  status: machine
+- id: a25c019e85537bb1
+  en: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(p)` | **Built in.** Applies to one selected operand; dimension $d$ requires $d-1$ adjacent-transition probabilities. |'
+  zh: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(p)` | **内置。**作用于一个所选操作数；维度 $d$ 需要 $d-1$ 个相邻跃迁概率。 |'
+  status: machine
+- id: eb01d30aedabc801
+  en: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] `(p)` | **Built in.** Applies to one selected operand of any finite local dimension. |'
+  zh: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] `(p)` | **内置。**作用于一个所选操作数，局部维度可为任意有限值。 |'
+  status: machine
+- id: cb4a2799ffb2b8c1
+  en: '| Built-in rate forms and [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | **Unsupported.** Simulators have no physical timeline and do not convert rates or times into a channel application. |'
+  zh: '| 内置速率形式与 [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | **不支持。**模拟器没有物理时间线，不会把速率或时间转换为信道作用。 |'
+  status: machine
+- id: 53687c485439c166
+  en: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | **Built in.** Applies universally or to one measured operand. The matrix size must equal the reported digit dimension; the superconducting profiles therefore require `2 x 2`. |'
+  zh: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | **内置。**全局应用，或作用于一个被测量的操作数。矩阵尺寸必须等于报告数位的维度；因此超导配置要求 `2 x 2`。 |'
+  status: machine
+- id: ec8caf51af802596
+  en: '| Backend | Built-in Lindblad-operator behavior | Readout and limits |'
+  zh: '| 后端 | 内置 Lindblad 算符行为 | 读出与限制 |'
+  status: machine
+- id: 309e1b6187985dbc
+  en: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | Background or operation scope: [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)` with two rates for the three-level model, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation], and [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)` over the full qutrit. | Readout confusion is built in and binary. Construction and [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] require a `2 x 2` matrix. |'
+  zh: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | 背景或操作作用域：三能级模型下带两个速率的 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)`、[`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`、[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]，以及作用于完整 qutrit 的 [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`。 | 读出混淆为内置且是二值的。构造时以及 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] 都要求 `2 x 2` 矩阵。 |'
+  status: machine
+- id: 87a9dc8aeb09dcfd
+  en: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | Background scope: [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`, [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)` with one rate, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, and [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]. | Operation-scoped continuous noise is unsupported. Readout confusion is built in and `2 x 2` only. |'
+  zh: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | 背景作用域：[`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`、带一个速率的 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)`、[`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`，以及 [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]。 | 不支持操作作用域的连续噪声。读出混淆为内置且仅支持 `2 x 2`。 |'
+  status: machine

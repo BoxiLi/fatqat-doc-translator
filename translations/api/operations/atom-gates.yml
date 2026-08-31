@@ -1,0 +1,40 @@
+- id: b24995e9873170dd
+  en: Atom-array operations
+  zh: 原子阵列操作
+  status: machine
+- id: 56351782c3074b17
+  en: '`Put` manages atom occupancy; `Pair` and `Unpair` manage connectivity. They are not unitary matrix gates. Add them with [`fatqat.Program.add`][fatqat.Program.add]. [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] is the only built-in backend that implements them. Other matrix and pulse backends raise [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError].'
+  zh: '`Put` 管理原子占据；`Pair` 和 `Unpair` 管理连通性。它们不是酉矩阵门。请使用 [`fatqat.Program.add`][fatqat.Program.add] 添加它们。[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 是唯一实现这些操作的内置后端，其他矩阵和脉冲后端会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。'
+  status: machine
+- id: 12510ccb29102296
+  en: '**Atom-array operations**'
+  zh: '**原子阵列操作**'
+  status: machine
+- id: 97d4be8960698f97
+  en: Conditions
+  zh: 条件
+  status: machine
+- id: 16ec8f97e2f2265f
+  en: If a program contains `Put`, every declared site starts empty for every shot. Sites are populated only when `Put` runs, and a later `Put` can reload a lost atom. A [`Loss`][fatqat.noise.Loss] declaration attached to `Put` shares the operation's condition and runs after every matching `Put` operation whose condition passes, even when the site was already occupied and the `Put` itself did nothing.
+  zh: 如果程序包含 `Put`，则在每个 shot 中，每个已声明的位点都从空状态开始。位点只有在 `Put` 运行时才会被填充，之后的 `Put` 可以重新装载丢失的原子。附加到 `Put` 的 [`Loss`][fatqat.noise.Loss] 声明与该操作共享条件，并在每个条件通过的匹配 `Put` 操作之后运行，即使位点已被占据、该 `Put` 本身未产生任何效果也是如此。
+  status: machine
+- id: 40ef0cbd7b3555ae
+  en: '`Pair` and `Unpair` update the connectivity used by later supported gates; they do not change the quantum state or make an unsupported gate available. In the built-in atom-array profile, [`CZ`][fatqat.operations.CZ] is native and requires a current pairing. The atom backend rejects a condition on either instruction with [`BackendValidationError`][fatqat.errors.BackendValidationError] when the program runs.'
+  zh: '`Pair` 和 `Unpair` 更新供后续受支持的门使用的连通性；它们不改变量子态，也不会使不受支持的门变为可用。在内置的原子阵列配置文件中，[`CZ`][fatqat.operations.CZ] 是原生门，且要求当前存在配对。程序运行时，原子后端会以 [`BackendValidationError`][fatqat.errors.BackendValidationError] 拒绝这两条指令上的条件。'
+  status: machine
+- id: 54df53c6613582e9
+  en: '| Value | Scalar targets | Effect | Conditions | Attached noise |'
+  zh: '| 值 | 标量目标 | 效果 | 条件 | 附加噪声 |'
+  status: machine
+- id: 2db2839257a2b8a9
+  en: '| [`Put`][fatqat.operations.Put] | One or more | Loads `\|0>` into each empty site; leaves occupied sites unchanged. | Allowed. | [`Loss`][fatqat.noise.Loss] only, after each enabled `Put` operation. |'
+  zh: '| [`Put`][fatqat.operations.Put] | 一个或多个 | 将 `\ | 0>` 装载到每个空位点；已占据的位点保持不变 | 允许 | 仅限 [`Loss`][fatqat.noise.Loss]，在每次生效的 `Put` 操作之后运行 |'
+  status: machine
+- id: d4e49ddcd958f0e8
+  en: '| [`Pair`][fatqat.operations.Pair] | Exactly two | Adds their undirected connectivity edge; repeated pairing is a no-op. | Rejected. | [`Loss`][fatqat.noise.Loss] or a supported finite channel. |'
+  zh: '| [`Pair`][fatqat.operations.Pair] | 恰好两个 | 添加二者之间的无向连通边；重复配对为空操作 | 拒绝 | [`Loss`][fatqat.noise.Loss] 或受支持的有限信道 |'
+  status: machine
+- id: 2fb22e6889a16949
+  en: '| [`Unpair`][fatqat.operations.Unpair] | Exactly two | Removes their edge; removing an absent edge is a no-op. | Rejected. | [`Loss`][fatqat.noise.Loss] or a supported finite channel. |'
+  zh: '| [`Unpair`][fatqat.operations.Unpair] | 恰好两个 | 移除二者之间的边；移除不存在的边为空操作 | 拒绝 | [`Loss`][fatqat.noise.Loss] 或受支持的有限信道 |'
+  status: machine

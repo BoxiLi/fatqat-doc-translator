@@ -1,0 +1,80 @@
+- id: 484ee9bb6e51e328
+  en: API reference
+  zh: API 参考
+  status: machine
+- id: ca37bacacdd660c6
+  en: Use this reference to look up FATQAT's public classes, functions, and exceptions. Start with the [Build, draw, and run one Program](../guide/quickstart.md) for an end-to-end workflow.
+  zh: 使用本参考查阅 FATQAT 的公开类、函数与异常。要了解端到端工作流，请从[构建、绘制并运行一个 Program](../guide/quickstart.md)开始。
+  status: machine
+- id: 6fe91b0d0b79509a
+  en: Build programs
+  zh: 构建程序
+  status: machine
+- id: eb7cb9071f67eaa1
+  en: '[Program](program.md)'
+  zh: '[Program](program.md)'
+  status: machine
+- id: 489dbbed9e6c77ba
+  en: '[Registers](registers.md)'
+  zh: '[寄存器](registers.md)'
+  status: machine
+- id: 4ee85b525ffd0ec1
+  en: '[Operations](operations.md)'
+  zh: '[操作](operations.md)'
+  status: machine
+- id: a32cb77d2fe1e4ac
+  en: '[Pulse control](pulse-control/index.md)'
+  zh: '[脉冲控制](pulse-control/index.md)'
+  status: machine
+- id: c464edd7f559fd16
+  en: Run and inspect
+  zh: 运行与检查
+  status: machine
+- id: ace0363d8aa1505f
+  en: '[Simulators](simulators/index.md)'
+  zh: '[模拟器](simulators/index.md)'
+  status: machine
+- id: 1d0abbf1a8b0c75e
+  en: '[Emulators](emulators/index.md)'
+  zh: '[仿真器](emulators/index.md)'
+  status: machine
+- id: ebca03fb9c57fd70
+  en: '[Noise](noise.md)'
+  zh: '[噪声](noise.md)'
+  status: machine
+- id: 99f87dc5da4b1949
+  en: '[Observables and estimation](estimator.md)'
+  zh: '[可观测量与估计](estimator.md)'
+  status: machine
+- id: cdd1f57e618ef827
+  en: '[Job](job.md)'
+  zh: '[Job](job.md)'
+  status: machine
+- id: 19f99f677fcc50f4
+  en: '[Result](result.md)'
+  zh: '[Result](result.md)'
+  status: machine
+- id: 0ff359fbd68eb0e5
+  en: Integrate and extend
+  zh: 集成与扩展
+  status: machine
+- id: 04846f2e25dba217
+  en: '[Interoperability](interoperability/index.md)'
+  zh: '[互操作性](interoperability/index.md)'
+  status: machine
+- id: 712e144b920e9d96
+  en: '[Matrix implementations](implementation.md)'
+  zh: '[矩阵实现](implementation.md)'
+  status: machine
+- id: 95bdcfcf91be2ef1
+  en: Errors and stability
+  zh: 错误与稳定性
+  status: machine
+- id: f2aa541766a50851
+  en: '[Exceptions](exceptions.md)'
+  zh: '[异常](exceptions.md)'
+  status: machine
+- id: 3de54e16e845b179
+  en: '[Experimental APIs](experimental.md)'
+  zh: '[实验性 API](experimental.md)'
+  status: machine
