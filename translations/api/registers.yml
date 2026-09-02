@@ -25,11 +25,11 @@
 - id: 20a9d5ee7a384f20
   en: Grid selections
   zh: 网格选择
-  status: machine
+  status: retired
 - id: 0de76fc8e44d283f
   en: A [`GridRegister`][fatqat.GridRegister] arranges logical targets in row-major order; it does not assign physical coordinates. The flat index of `(row, col)` is `row * cols + col`, and its selection helpers return [`RegisterView`](#fatqat.RegisterView) objects rather than tuples of refs.
   zh: '[`GridRegister`][fatqat.GridRegister] 按行主序排列逻辑目标；它不分配物理坐标。`(row, col)` 的扁平索引为 `row * cols + col`，其选择辅助方法返回 [`RegisterView`](#fatqat.RegisterView) 对象而非引用元组。'
-  status: machine
+  status: retired
 - id: 25cb5e21e070233e
   en: 'For a `GridRegister(2, 3)`, the helpers select these flat indices:'
   zh: 对于 `GridRegister(2, 3)`，这些辅助方法选择的扁平索引如下：
@@ -41,7 +41,7 @@
 - id: bc1ac37887531db1
   en: Pass views to [`add`][fatqat.Program.add]. Every built-in unitary gate accepts them. Unary gates act independently on each selected member; multi-target gates zip corresponding members from one view per operand. All views must use the same kind of grid selection and cardinality, and selections on the same grid cannot overlap. Measurements and QASM export require scalar targets. The backend validates physical placement and connectivity. See [Write quantum computations with Program](../guide/program.md) for the ordinary Program workflow and [Test a Program against a hardware profile](../guide/hardware-profile-simulation.md) for physical placement.
   zh: 将视图传给 [`add`][fatqat.Program.add]。每个内置的酉门都接受它们。一元门在每个选中成员上独立作用；多目标门为每个操作数取一个视图，并将其中对应的成员按序配对。所有视图必须使用相同种类和相同基数的网格选择，并且同一网格上的选择不能重叠。测量和 QASM 导出要求标量目标。物理放置和连通性由后端验证。有关常规 Program 工作流，参见[使用 Program 编写量子计算](../guide/program.md)；有关物理放置，参见[基于硬件配置文件测试 Program](../guide/hardware-profile-simulation.md)。
-  status: machine
+  status: retired
 - id: 775a1ac456c4b3c7
   en: <a id="fatqat.registers.RegisterView"></a>
   zh: <a id="fatqat.registers.RegisterView"></a>
@@ -53,7 +53,7 @@
 - id: 5f396ce3998d16ab
   en: Immutable, hashable target returned by the grid selection helpers. Its [`register`](#fatqat.RegisterView.register) attribute identifies the selected grid. Obtain views from the grid helpers; direct construction is unsupported.
   zh: 由网格选择辅助方法返回的不可变、可哈希的目标。其 [`register`](#fatqat.RegisterView.register) 属性标识所选网格。请通过网格辅助方法获取视图；不支持直接构造。
-  status: machine
+  status: retired
 - id: 20e5db736594be82
   en: <a id="fatqat.registers.RegisterView.register"></a>
   zh: <a id="fatqat.registers.RegisterView.register"></a>
@@ -65,11 +65,11 @@
 - id: 9867ddfb7edf4918
   en: '**Type:** `fatqat.GridRegister`'
   zh: '**类型：** `fatqat.GridRegister`'
-  status: machine
+  status: retired
 - id: d1584dd030bf27ac
   en: Grid register containing the selected members.
   zh: 包含所选成员的网格寄存器。
-  status: machine
+  status: retired
 - id: c0705ed34246696b
   en: Resource layouts
   zh: 资源布局
@@ -109,4 +109,32 @@
 - id: 90f909f89abded69
   en: '| Expression | Selected indices, in order |'
   zh: '| 表达式 | 按顺序选中的索引 |'
+  status: machine
+- id: c0c6fd131762d197
+  en: 'Call [`quantum_register.all()`][fatqat.QuantumRegister.all] to select every member in increasing index order. It returns a [`RegisterView`](#fatqat.RegisterView), which can be passed to view-capable operations:'
+  zh: '调用 [`quantum_register.all()`][fatqat.QuantumRegister.all] 可按索引递增顺序选择所有成员。它返回一个 [`RegisterView`](#fatqat.RegisterView)，可以传给支持视图的操作：'
+  status: machine
+- id: c44a7a9a6fff9cd2
+  en: Register selections
+  zh: 寄存器选择
+  status: machine
+- id: bb73b2c0933df865
+  en: Every [`QuantumRegister`][fatqat.QuantumRegister] provides `all()`. A [`GridRegister`][fatqat.GridRegister] additionally arranges logical targets in row-major order and provides `row()`, `column()`, and `block()` selections. It does not assign physical coordinates. The flat index of `(row, col)` is `row * cols + col`, and all selection helpers return [`RegisterView`](#fatqat.RegisterView) objects rather than tuples of refs.
+  zh: 每个 [`QuantumRegister`][fatqat.QuantumRegister] 都提供 `all()`。[`GridRegister`][fatqat.GridRegister] 还按行主序排列逻辑目标，并提供 `row()`、`column()` 和 `block()` 选择。它不分配物理坐标。`(row, col)` 的扁平索引为 `row * cols + col`，所有选择辅助方法都返回 [`RegisterView`](#fatqat.RegisterView) 对象而非引用元组。
+  status: machine
+- id: ae00437427703276
+  en: Pass views to [`add`][fatqat.Program.add]. Every built-in unitary gate accepts them. Unary gates act independently on each selected member; multi-target gates zip corresponding members from one view per operand. All views must use the same selector kind and cardinality, and selections on the same register cannot overlap. [`Put`][fatqat.operations.Put] accepts one view as its complete target collection and records one variadic operation. Measurements and QASM export require scalar targets. The backend validates physical placement and connectivity. See [Write quantum computations with Program](../guide/program.md) for the ordinary Program workflow and [Test a Program against a hardware profile](../guide/hardware-profile-simulation.md) for physical placement.
+  zh: 将视图传给 [`add`][fatqat.Program.add]。每个内置的酉门都接受它们。一元门在每个选中成员上独立作用；多目标门为每个操作数取一个视图，并将其中对应的成员按序配对。所有视图必须使用相同种类和相同基数的选择器，并且同一寄存器上的选择不能重叠。[`Put`][fatqat.operations.Put] 接受一个视图作为其完整目标集合，并记录为一次可变参数操作。测量和 QASM 导出要求标量目标。物理放置和连通性由后端验证。有关常规 Program 工作流，参见[使用 Program 编写量子计算](../guide/program.md)；有关物理放置，参见[基于硬件配置文件测试 Program](../guide/hardware-profile-simulation.md)。
+  status: machine
+- id: 59e5c30d3b63d81c
+  en: Immutable, hashable target returned by quantum-register selection helpers. Its [`register`](#fatqat.RegisterView.register) attribute identifies the selected quantum register. Obtain views from register helpers; direct construction is unsupported.
+  zh: 由量子寄存器选择辅助方法返回的不可变、可哈希的目标。其 [`register`](#fatqat.RegisterView.register) 属性标识所选量子寄存器。请通过寄存器辅助方法获取视图；不支持直接构造。
+  status: machine
+- id: 39c0d0a7c2fb5584
+  en: '**Type:** `fatqat.QuantumRegister`'
+  zh: '**类型：** `fatqat.QuantumRegister`'
+  status: machine
+- id: 79940bf3787ca7fb
+  en: Quantum register containing the selected members.
+  zh: 包含所选成员的量子寄存器。
   status: machine

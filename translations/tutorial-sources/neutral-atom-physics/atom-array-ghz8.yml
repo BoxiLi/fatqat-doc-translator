@@ -73,7 +73,7 @@
 - id: 14e55ecad568b0f9
   en: We run the measured program on [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator], sized to eight trap sites. A fixed seed keeps this page's numbers stable across repeated tutorial runs; drop it for independent experimental samples. Because the circuit is noiseless, every one of the 2000 shots lands on one of the two GHZ branches -- no other bitstring appears.
   zh: 我们在配置为八个阱位的 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 上运行带测量的程序。固定的种子使本页面的数字在多次教程运行之间保持稳定；如需独立的实验样本可以去掉它。由于电路无噪声，2000 次测量中的每一次都落在两个 GHZ 分支之一上——不会出现其他比特串。
-  status: machine
+  status: retired
 - id: 404426e0944e91ee
   en: Only `00000000` and `11111111` occur, each in roughly half the shots. The bars below show the observed frequencies against the ideal $1/2$; finite-shot sampling nudges each bar slightly off that line, while every intermediate bitstring stays empty.
   zh: 只出现 `00000000` 和 `11111111`，各约占一半的测量次数。下方柱状图把观测频率与理想的 $1/2$ 对比；有限次采样使每个柱条略微偏离该线，而所有中间比特串都保持为空。
@@ -117,4 +117,8 @@
 - id: 417daac31f855361
   en: 'From here, try widening the tree to sixteen atoms by adding a fourth layer, raising the loss probability to watch erasures grow, or intentionally dropping the `Pair` / `Unpair` calls from one layer to see [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] reject the first unpaired `CZ` with [`BackendValidationError`][fatqat.errors.BackendValidationError]. Restore the pairing before exploring physical loss: an unpaired gate is a program error, while a gate skipped after atom loss is a per-shot physical effect. The downloadable Python is generated from these Markdown cells, so the variations can be made directly in runnable code.'
   zh: 接下来，可以尝试增加第四层把树扩展到十六个原子、提高丢失概率来观察擦除结果的增多，或者有意去掉某一层的 `Pair` / `Unpair` 调用，看看 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 如何以 [`BackendValidationError`][fatqat.errors.BackendValidationError] 拒绝第一个未配对的 `CZ`。在探究物理丢失之前请先恢复配对：未配对的门是程序错误，而原子丢失后被跳过的门是逐次测量的物理效应。可下载的 Python 代码由这些 Markdown 单元生成，因此这些变体都可以直接在可运行的代码中实现。
+  status: machine
+- id: 480ed78355df5857
+  en: We run the measured program on [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator]; its eight quantum resources also determine the array size. A fixed seed keeps the numbers stable across tutorial runs, while omitting it produces independent samples. Because the circuit is noiseless, all 2000 shots land on one of the two GHZ branches and no other bitstring appears.
+  zh: 我们在 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 上运行带测量的程序；它的八个量子资源也决定了阵列规模。固定的种子使数字在多次教程运行之间保持稳定，而省略它则会产生相互独立的样本。由于电路无噪声，全部 2000 次测量都落在两个 GHZ 分支之一上，不会出现其他比特串。
   status: machine

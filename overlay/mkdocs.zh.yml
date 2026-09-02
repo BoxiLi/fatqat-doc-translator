@@ -1,10 +1,19 @@
-INHERIT: mkdocs.base.yml
+# Chinese build configuration. inject_build.py copies this file to the root
+# of the upstream clone (beside upstream's mkdocs.yml) so INHERIT resolves.
+# The zh page tree, tutorial pages, and assets are produced beforehand by
+# translate.py render and build_zh_assets.py, so upstream's en-wired lifecycle
+# hooks are disabled here.
+INHERIT: mkdocs.yml
 
-site_url: !ENV [FATQAT_MKDOCS_ZH_SITE_URL, "http://127.0.0.1:8000/zh/"]
-# No edit_uri: this locale's pages are rendered from translations/ and are
-# not tracked in the repository. Edit the translation database instead.
-docs_dir: zh
-site_dir: site/zh
+site_url: !ENV [FATQAT_ZH_SITE_URL, "http://127.0.0.1:8000/zh/"]
+# No edit link: zh pages are rendered from the translation database in
+# heeeelium/fatqat-doc-translator, not editable files in the upstream repo.
+edit_uri: ""
+
+docs_dir: docs/mkdocs/zh
+site_dir: docs/mkdocs/site-zh
+
+hooks: []
 
 theme:
   language: zh
@@ -30,6 +39,15 @@ plugins:
   mkdocstrings:
     locale: zh
 
+extra:
+  alternate:
+    - name: English
+      link: !ENV [FATQAT_EN_LINK, "/en/"]
+      lang: en
+    - name: 简体中文
+      link: !ENV [FATQAT_ZH_LINK, "/zh/"]
+      lang: zh
+
 nav:
   - 主页: index.md
   - 用户指南:
@@ -41,6 +59,7 @@ nav:
       - 研究算法行为:
           - 模拟: guide/simulation.md
           - 解读结果: guide/interpret-results.md
+          - 可视化: guide/visualization.md
           - 理想与含噪运行: guide/ideal-and-noisy.md
           - 性能: guide/performance.md
       - 建模硬件与物理:

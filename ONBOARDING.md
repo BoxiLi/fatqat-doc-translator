@@ -70,7 +70,7 @@ Actions → Variables),默认 `codex`。**凭据必须由订阅持有者本人�
 
 1. 用 GitHub 账号登录 https://readthedocs.org ,Import a Project,选择本仓库。
 2. 仓库根的 `.readthedocs.yaml` 已包含全部构建配置(克隆上游到
-   `UPSTREAM_COMMIT` → 注入翻译层 → 跑上游自己的 `manage.py build`),无需
+   `UPSTREAM_COMMIT` → 注入翻译层 → 用上游自己的根级 `mkdocs.yml` 构建英文站,再复用其教程构建器生成中文站),无需
    在 RTD 网页上做额外设置。
 3. 建议开启:Admin → Settings → "Build pull requests for this project",
    这样每个 sync PR 都有渲染预览。

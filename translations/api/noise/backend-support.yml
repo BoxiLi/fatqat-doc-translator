@@ -33,7 +33,7 @@
 - id: 4dd466b0de6c7a47
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] additionally supports [`Loss`][fatqat.noise.Loss] after matching operations. It samples each selected present carrier independently. A matching registration, even with `p=0`, enables explicit occupancy; loss after `Put` can model a loading failure. Other simulators reject `Loss`. Empty-site erasure outcome `2` bypasses readout confusion because no physical digit was measured.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 还额外支持在匹配操作之后应用 [`Loss`][fatqat.noise.Loss]。它对每个被选中且仍在位的载体独立采样。匹配的注册（即使 `p=0`）会启用显式占据跟踪；`Put` 之后的损失可用于建模装载失败。其他模拟器拒绝 `Loss`。空位擦除结果 `2` 不经过读出混淆，因为没有测量到物理数位。'
-  status: machine
+  status: retired
 - id: cc1dd54634d640c0
   en: Attach every supported probability-form channel above to an operation; matrix backends reject background channels. A custom [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] can add a finite channel type or replace the rule for an existing one. It cannot override the rejection of built-in rate forms, background channels, or `ThermalRelaxation`. A custom type's parameter names are interpreted by its rule, whose result still represents one finite channel application. A supplied map replaces the default map and is copied when the backend is constructed.
   zh: 上述所有受支持的概率形式信道都要附加到操作上；矩阵后端拒绝背景信道。自定义的 [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] 可以添加有限信道类型，或替换已有类型的规则，但不能推翻对内置速率形式、背景信道或 `ThermalRelaxation` 的拒绝。自定义类型的参数名由其规则解释，该规则的结果仍表示一次有限信道作用。提供的映射会替换默认映射，并在后端构造时被复制。
@@ -105,4 +105,8 @@
 - id: 87a9dc8aeb09dcfd
   en: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | Background scope: [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`, [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)` with one rate, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, and [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]. | Operation-scoped continuous noise is unsupported. Readout confusion is built in and `2 x 2` only. |'
   zh: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | 背景作用域：[`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`、带一个速率的 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)`、[`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`，以及 [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]。 | 不支持操作作用域的连续噪声。读出混淆为内置且仅支持 `2 x 2`。 |'
+  status: machine
+- id: 9763a43883f27197
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] also supports [`Loss`][fatqat.noise.Loss], sampling each selected carrier that is present after a matching operation. Sites begin empty and [`Put`][fatqat.operations.Put] loads them, so loss attached to `Put` can model a loading failure. Other simulators reject `Loss`. Because an empty site produces no physical readout digit, its erasure value `2` bypasses readout confusion.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 还支持 [`Loss`][fatqat.noise.Loss]，在匹配的操作之后对每个被选中且仍在位的载体进行采样。位点从空状态开始，由 [`Put`][fatqat.operations.Put] 装载，因此附加到 `Put` 的丢失可用于建模装载失败。其他模拟器拒绝 `Loss`。由于空位点不产生物理读出数字，其擦除值 `2` 会绕过读出混淆。'
   status: machine

@@ -13,7 +13,7 @@
 - id: 8c5e34363d674dcb
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] has no fixed connectivity. `Pair` and `Unpair` change which atoms can interact, while `Put` and `Loss` control occupancy.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 没有固定的连接性。`Pair` 和 `Unpair` 改变哪些原子可以相互作用，而 `Put` 和 `Loss` 控制占据情况。'
-  status: machine
+  status: retired
 - id: f1b9253556594d02
   en: 'The profiles validate the program as written: they do not transpile or route it, and they do not reproduce a named processor. Use the [pulse emulators](../emulators/index.md) when timing or Hamiltonian evolution matters.'
   zh: 硬件配置按程序原样进行验证：它们不做转译或布线，也不复现任何具名处理器。当时序或哈密顿量演化重要时，请使用[脉冲仿真器](../emulators/index.md)。
@@ -57,4 +57,8 @@
 - id: d9451617863d6cb6
   en: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | Neutral-atom occupancy, loss, and dynamic connectivity | `RX`, `RY`, `RZ`, and paired `CZ` |'
   zh: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | 中性原子占据、丢失与动态连接性 | `RX`、`RY`、`RZ`，以及配对后的 `CZ` |'
+  status: machine
+- id: 7ce4b36314516f41
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] has no fixed connectivity. Every program site starts empty: `Put` loads atoms, `Loss` removes them, and `Pair` and `Unpair` change which atoms can interact.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 没有固定的连接性。每个程序位点都从空状态开始：`Put` 装载原子，`Loss` 移除原子，而 `Pair` 和 `Unpair` 改变哪些原子可以相互作用。'
   status: machine

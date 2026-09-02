@@ -21,7 +21,7 @@ BoxiLi/fatqat ──(daily sync of docs only)──▶ upstream-docs/ snapshot +
                                                   │  pending segments auto-translated,
                                                   │  PR opened for human review
                                                   ▼ merge
-Read the Docs build: clone upstream @ pin ── inject translations ── upstream manage.py build ──▶ /en/ + /zh/
+Read the Docs build: clone upstream @ pin ── build en (upstream mkdocs + hooks) ── render zh + retarget upstream tutorial builder ── build zh ──▶ /en/ + /zh/
 ```
 
 | Path | Role |
@@ -31,7 +31,7 @@ Read the Docs build: clone upstream @ pin ── inject translations ── upst
 | `translations/` | The translation database: one YAML file per English page, one entry per prose segment (`id` = hash of the English text, `en`, `zh`, `status: pending → machine → reviewed`). Plus `glossary.yml` (fixed terminology) and `STYLE.md` (binding style contract). |
 | `tools/translate.py` | Core tool: `extract` registers new/changed English segments, `render` splices translations into byte-copies of the English sources, `check` validates everything, `find` locates an entry by text. Runs standalone here and injected inside an upstream clone. |
 | `tools/sync_upstream.py` | Refreshes the snapshot; reports `changed=true/false`. |
-| `tools/inject_build.py` | Clones upstream at the pin, injects the translation layer, runs upstream's own `manage.py build`. Used by `.readthedocs.yaml`. |
+| `tools/inject_build.py` | Clones upstream at the pin, builds English with upstream's own root `mkdocs.yml` + hooks, renders the zh trees, drives `build_zh_assets.py`, builds Chinese from `overlay/mkdocs.zh.yml`, and assembles the bilingual site. Used by `.readthedocs.yaml`. |
 | `tools/api_translate.py` | Fallback translation engine for any OpenAI-compatible endpoint. |
 | `overlay/` | `mkdocs.zh.yml` (the zh MkDocs config, translated nav) and `gallery.zh.yml` (zh gallery strings), injected at build time. |
 | `.github/workflows/sync.yml` | Daily: sync docs → extract → auto-translate pending → open a review PR. Exits immediately when the docs did not change. |

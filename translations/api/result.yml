@@ -66,3 +66,15 @@
   en: '| Backend extension name | [`get_data`][fatqat.Result.get_data] | A backend extension |'
   zh: '| 后端扩展名称 | [`get_data`][fatqat.Result.get_data] | 后端扩展 |'
   status: machine
+- id: 77e311af3bb766d4
+  en: Draw counts
+  zh: 绘制计数
+  status: machine
+- id: b070bdd93a992e6c
+  en: 'A result containing counts can draw them directly:'
+  zh: 包含计数的结果可以直接绘制这些计数：
+  status: machine
+- id: a661d5f248e04fcd
+  en: The default `stat="counts"` plots raw occurrences. `stat="frequencies"` divides each value by the total number of shots. Colors inherit Matplotlib's active style and `rcParams`. `number_to_keep` retains the most frequent outcomes and combines the remainder into an `other` bar.
+  zh: 默认的 `stat="counts"` 绘制原始出现次数。`stat="frequencies"` 将每个值除以总 shot 数。颜色继承 Matplotlib 当前的样式和 `rcParams`。`number_to_keep` 保留出现最频繁的结果，并将其余结果合并为一个 `other` 柱。
+  status: machine

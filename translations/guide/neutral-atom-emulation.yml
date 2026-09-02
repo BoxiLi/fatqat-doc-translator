@@ -53,7 +53,7 @@
 - id: 6368d4bf664cbbb9
   en: Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts; `interaction_cutoff` can remove terms beyond a distance, but it is a Hamiltonian truncation rather than a blockade radius.
   zh: 两个控制都作用于每个位点。排布提供距离，模型提供带符号的相互作用强度，因此改变间距可以在不改变 Program 的情况下改变动力学。默认情况下所有位点对都相互作用；`interaction_cutoff` 可以去掉超过某个距离的项，但它是哈密顿量截断，而不是阻塞半径。
-  status: machine
+  status: retired
 - id: 7a17ea0b2d9ff5e7
   en: For this short pulse, about 5.4% of the final probability lies outside the all-ground state. That number is a physical consequence of the waveform, detuning, spacing, interaction model, and duration—not a gate label.
   zh: 对这个短脉冲而言，最终概率中约有 5.4% 位于全基态之外。这个数字是波形、失谐、间距、相互作用模型和时长共同作用的物理结果——而不是一个门标签。
@@ -69,4 +69,8 @@
 - id: 5478bf9c31bd904b
   en: Continue with the tutorials for a [PXP revival](../tutorials/pxp-z2-revival.md), [antiferromagnetic chain](../tutorials/antiferromagnetic-chain.md), or [gate-level GHZ preparation](../tutorials/atom-array-ghz8.md). For model schemas, units, channel limits, and noise support, use the [neutral-atom emulator API](../api/atom-emulators.md).
   zh: 接下来可以学习 [PXP 回复](../tutorials/pxp-z2-revival.md)、[反铁磁链](../tutorials/antiferromagnetic-chain.md)或[门级 GHZ 态制备](../tutorials/atom-array-ghz8.md)教程。有关模型模式、单位、信道限制和噪声支持，请使用[中性原子仿真器 API](../api/atom-emulators.md)。
+  status: machine
+- id: 5823ac31dd84d4b3
+  en: 'Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts. Set `simulation_config={"interaction_cutoff": distance}` on a particular `run()` to remove terms beyond that distance; this is a numerical Hamiltonian truncation rather than a blockade radius.'
+  zh: '两个控制都作用于每个位点。排布提供距离，模型提供带符号的相互作用强度，因此改变间距可以在不改变 Program 的情况下改变动力学。默认情况下所有位点对都相互作用。在某次特定的 `run()` 上设置 `simulation_config={"interaction_cutoff": distance}` 可以去掉超过该距离的项；这是数值上的哈密顿量截断，而不是阻塞半径。'
   status: machine

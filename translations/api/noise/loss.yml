@@ -25,7 +25,7 @@
 - id: f693b4f5e0d460c8
   en: 'On an occupancy-aware simulator, any matching loss registration turns on the atom lifecycle:'
   zh: 在占据感知模拟器上，任何匹配的丢失注册都会开启原子生命周期：
-  status: machine
+  status: retired
 - id: 36e6f0bb57a8fc28
   en: every site starts empty;
   zh: 每个位点初始为空；
@@ -57,12 +57,24 @@
 - id: fc3618f88123c100
   en: The lifecycle is enabled by the registration itself, not by a sampled loss event. A matching `Loss(p=0)` therefore still makes all sites start empty and requires explicit `Put` operations.
   zh: 生命周期由注册本身启用，而非由采样到的丢失事件启用。因此，匹配的 `Loss(p=0)` 仍会使所有位点初始为空，并要求显式的 `Put` 操作。
-  status: machine
+  status: retired
 - id: 5610caff370a51a5
   en: Each shot has its own occupancy state. `statevector` and `density_matrix` support this lifecycle; `unitary` and `superop` do not. Because a final state depends on the sampled loss history, requesting one requires a single shot.
   zh: 每个 shot 都有自己的占据状态。`statevector` 和 `density_matrix` 支持此生命周期；`unitary` 和 `superop` 不支持。由于最终状态取决于采样到的丢失历史，请求最终状态时只能使用单个 shot。
-  status: machine
+  status: retired
 - id: 57736ae08141969e
   en: See [Simulators](backend-support.md#noise-simulator-support) for the built-in occupancy-aware backend and its method restrictions.
   zh: 内置的占据感知后端及其方法限制参见[模拟器](backend-support.md#noise-simulator-support)。
+  status: machine
+- id: 17bb2e13a0a46e92
+  en: 'On an occupancy-aware simulator, the atom lifecycle is always active:'
+  zh: 在占据感知模拟器上，原子生命周期始终处于激活状态：
+  status: machine
+- id: d78dabd02c051ce0
+  en: 'Explicit loading is independent of loss: sites begin empty even when no loss source is registered, while a matching `Loss(p=0)` simply removes nothing.'
+  zh: 显式装载与丢失无关：即使没有注册丢失噪声源，位点也从空状态开始；而匹配的 `Loss(p=0)` 只是不会移除任何原子。
+  status: machine
+- id: 25ca009fb95cf2a0
+  en: Each shot has its own occupancy state. `statevector` and `density_matrix` support this lifecycle, but their exported states do not encode [atom occupancy](../simulators/atom-array.md#occupancy-and-loss). `unitary` and `superop` do not support it. Because a final state depends on sampled loss history, requesting one requires a single shot.
+  zh: 每个 shot 都有自己的占据状态。`statevector` 和 `density_matrix` 支持此生命周期，但它们导出的状态并不编码[原子占据](../simulators/atom-array.md#occupancy-and-loss)。`unitary` 和 `superop` 不支持此生命周期。由于最终状态取决于采样到的丢失历史，请求最终状态时只能使用单个 shot。
   status: machine

@@ -17,7 +17,7 @@
 - id: df3738808df6dca8
   en: The backend requires a regular [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Coordinates are row-major, `(column * spacing, row * spacing, 0)`, and the atom model interprets spacing in micrometres. A program must declare exactly one dimension-two quantum resource per site; declaration order binds resources to coordinates. The arrangement describes fixed geometry; it does not track atom loading or loss. `arrangement.num_sites` and `len(arrangement)` both return the site count, which must exactly match the number of quantum resources declared by a pulse program. By contrast, `AtomArraySimulator(num_sites=6)` declares a maximum gate-level device capacity and accepts programs with at most six resources; omitting its `num_sites` argument leaves that simulator unbounded.
   zh: 该后端需要一个规则的 [`AtomArrangement`][fatqat.emulator.AtomArrangement]。坐标按行主序排列，即 `(column * spacing, row * spacing, 0)`，原子模型将间距解释为微米。程序必须为每个位点恰好声明一个维度为 2 的量子资源；声明顺序将资源绑定到坐标。排布描述的是固定的几何结构，不跟踪原子的装载或丢失。`arrangement.num_sites` 和 `len(arrangement)` 都返回位点数量，该数量必须与脉冲程序声明的量子资源数量完全一致。相比之下，`AtomArraySimulator(num_sites=6)` 声明的是门级设备的最大容量，接受至多包含六个资源的程序；省略其 `num_sites` 参数则该模拟器不设上限。
-  status: machine
+  status: retired
 - id: 067d25d0bd554893
   en: Run configuration and results
   zh: 运行配置与结果
@@ -29,7 +29,7 @@
 - id: '8259028330497640'
   en: '`simulation_config` accepts only `seed` and `schedule_mode`:'
   zh: '`simulation_config` 仅接受 `seed` 和 `schedule_mode`：'
-  status: machine
+  status: retired
 - id: 6b2cab5dcf5316ee
   en: '**Simulation configuration**'
   zh: '**模拟配置**'
@@ -101,7 +101,7 @@
 - id: 5ac5e0c77d34d31e
   en: The default `interaction_cutoff=None` keeps every pair and preserves the complete `C6/R^6` Hamiltonian. A finite nonnegative cutoff keeps pairs whose Euclidean distance is at or below that value in `arrangement.distance_unit` (currently micrometres); `0.0` disables pair interactions. For a rectangular arrangement, `interaction_cutoff=arrangement.spacing` keeps only horizontal and vertical nearest pairs. This is a numerical Hamiltonian truncation, not a physical blockade radius.
   zh: 默认的 `interaction_cutoff=None` 保留所有原子对，并保持完整的 `C6/R^6` 哈密顿量。有限的非负截断值保留欧几里得距离不超过该值（以 `arrangement.distance_unit` 计，目前为微米）的原子对；`0.0` 禁用原子对相互作用。对于矩形排布，`interaction_cutoff=arrangement.spacing` 仅保留水平和竖直方向的最近邻原子对。这是对哈密顿量的数值截断，而非物理上的阻塞半径。
-  status: machine
+  status: retired
 - id: 5558f6ca0291ac31
   en: Lindblad noise
   zh: Lindblad 噪声
@@ -161,4 +161,20 @@
 - id: 94250457af91b009
   en: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(d**N, d**N)` | The complete coherent operator in the canonical terminal frame. |'
   zh: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(d**N, d**N)` | 规范终止参考系中的完整相干算符。 |'
+  status: machine
+- id: a597d6350acebd4c
+  en: The backend requires a regular [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Coordinates are row-major, `(column * spacing, row * spacing, 0)`, and the atom model interprets spacing in micrometres. A program must declare exactly one dimension-two quantum resource per site; declaration order binds resources to coordinates. The arrangement describes fixed geometry; it does not track atom loading or loss. `arrangement.num_sites` and `len(arrangement)` both return the site count, which must exactly match the number of quantum resources declared by a pulse program. At the gate level, [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] instead derives its site count from each [`Program`][fatqat.Program] and needs no separate capacity setting.
+  zh: 该后端需要一个规则的 [`AtomArrangement`][fatqat.emulator.AtomArrangement]。坐标按行主序排列，即 `(column * spacing, row * spacing, 0)`，原子模型将间距解释为微米。程序必须为每个位点恰好声明一个维度为 2 的量子资源；声明顺序将资源绑定到坐标。排布描述的是固定的几何结构，不跟踪原子的装载或丢失。`arrangement.num_sites` 和 `len(arrangement)` 都返回位点数量，该数量必须与脉冲程序声明的量子资源数量完全一致。在门级层面，[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 则从每个 [`Program`][fatqat.Program] 推导其位点数量，不需要单独的容量设置。
+  status: machine
+- id: 717899110983b6ec
+  en: '`simulation_config` accepts the shared pulse controls plus an Atom2-specific Hamiltonian cutoff:'
+  zh: '`simulation_config` 接受共享的脉冲控制项，外加一个 Atom2 特有的哈密顿量截断：'
+  status: machine
+- id: 3037cfd329cdd8ee
+  en: '| `interaction_cutoff` | finite nonnegative `Real` or `None`; not `bool` | `None` | For this run, retain interaction pairs at or below this distance in the arrangement''s distance unit. `None` keeps all pairs; `0.0` disables pair interactions. |'
+  zh: '| `interaction_cutoff` | 有限的非负 `Real` 或 `None`；不接受 `bool` | `None` | 在本次运行中，保留距离不超过该值（以排布的距离单位计）的相互作用原子对。`None` 保留所有原子对；`0.0` 禁用原子对相互作用。 |'
+  status: machine
+- id: 36a4d466182fe2fe
+  en: 'Set `interaction_cutoff` per run through `simulation_config`. The default `None` keeps every pair and preserves the complete `C6/R^6` Hamiltonian. A finite nonnegative cutoff keeps pairs whose Euclidean distance is at or below that value in `arrangement.distance_unit` (currently micrometres); `0.0` disables pair interactions. For a rectangular arrangement, `simulation_config={"interaction_cutoff": arrangement.spacing}` keeps only horizontal and vertical nearest pairs. This is a numerical Hamiltonian truncation, not a physical blockade radius. One emulator can therefore be reused to compare several truncations without rebuilding its model or arrangement.'
+  zh: '通过 `simulation_config` 为每次运行设置 `interaction_cutoff`。默认的 `None` 保留所有原子对，并保持完整的 `C6/R^6` 哈密顿量。有限的非负截断值保留欧几里得距离不超过该值（以 `arrangement.distance_unit` 计，目前为微米）的原子对；`0.0` 禁用原子对相互作用。对于矩形排布，`simulation_config={"interaction_cutoff": arrangement.spacing}` 仅保留水平和竖直方向的最近邻原子对。这是对哈密顿量的数值截断，而非物理上的阻塞半径。因此同一个仿真器可以重复使用来比较多种截断，而无需重建其模型或排布。'
   status: machine

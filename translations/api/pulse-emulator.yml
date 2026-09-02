@@ -61,7 +61,7 @@
 - id: a7a09e961f4a18dc
   en: All three representations cover the complete physical qutrit model, not just the logical resources declared by the program. Pulse emulators do not expose `superop` or internal solver names as methods.
   zh: 三种表示都覆盖完整的物理 qutrit 模型，而不仅是程序声明的逻辑资源。脉冲仿真器不会将 `superop` 或内部求解器名称作为方法公开。
-  status: machine
+  status: retired
 - id: 44504ff05040d8bd
   en: 'An unmeasured statevector run with potentially active Lindblad noise is stochastic, so the default result request retains metadata only. Request one reproducible trajectory with `result_config={"final_state": True}`, `shots=1`, and a non-negative `simulation_config["seed"]`. Choose `method="density_matrix"` for the exact ensemble instead.'
   zh: '在 Lindblad 噪声可能起作用时，未测量的态矢量运行是随机的，因此默认的结果请求仅保留元数据。要请求一条可复现的轨迹，请设置 `result_config={"final_state": True}`、`shots=1` 以及非负的 `simulation_config["seed"]`。若需要精确的系综结果，请改用 `method="density_matrix"`。'
@@ -93,7 +93,7 @@
 - id: f7b5b5f788502380
   en: These are the only two keys. Pulse emulators reject the matrix backend's `shot_parallelism`, `kernel_parallelism`, `max_workers`, and `fusion` settings.
   zh: 仅有这两个键。脉冲仿真器拒绝矩阵后端的 `shot_parallelism`、`kernel_parallelism`、`max_workers` 和 `fusion` 设置。
-  status: machine
+  status: retired
 - id: 453ce466b4c8e0b2
   en: '**`result_config` keys**'
   zh: '**`result_config` 键**'
@@ -197,7 +197,7 @@
 - id: 80643f1d7cda31a8
   en: The same model channels can be used without a gate-realization rule. Drive and detuning resolve one declared transmon; exchange resolves two transmons and their declared coupling. Drive accepts a complex envelope for the two quadratures, while detuning and exchange require real values. Pulse times use the model units described above. The current transmon model does not add amplitude or duration limits beyond requiring finite values.
   zh: 同样的模型信道可以在没有门实现规则的情况下使用。drive 和 detuning 解析一个已声明的 transmon；exchange 解析两个 transmon 及其已声明的耦合。drive 接受表示两个正交分量的复数包络，而 detuning 和 exchange 要求实数值。脉冲时间使用上文所述的模型单位。当前的 transmon 模型除要求取值有限外，不施加额外的振幅或时长限制。
-  status: machine
+  status: retired
 - id: ef89ea33fcdde777
   en: See [PulseOperation](pulse-control/pulse-operation.md), [PulseControl](pulse-control/pulse-control.md), and [SampledWaveform](pulse-control/sampled-waveform.md) for construction and timing. `iSwap` is a gate whose built-in realization uses exchange; `iSwap` is not a channel name.
   zh: 有关构造与时序，参见 [PulseOperation](pulse-control/pulse-operation.md)、[PulseControl](pulse-control/pulse-control.md) 和 [SampledWaveform](pulse-control/sampled-waveform.md)。`iSwap` 是一个门，其内置实现使用 exchange；`iSwap` 不是信道名称。
@@ -253,7 +253,7 @@
 - id: 1a8496972b19dfa6
   en: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(3**m, 3**m)` | The complete coherent operator, including the canonical terminal virtual-frame transformation. |'
   zh: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(3**m, 3**m)` | 完整的相干算符，包括规范的终端虚拟帧变换。 |'
-  status: machine
+  status: retired
 - id: 06b48a7722ce9495
   en: '| `seed` | `int` or `None`; not `bool` | `None` | Seed stochastic sampling for measurement, reset, readout, and statevector trajectories. Use a non-negative integer; `None` uses fresh entropy. |'
   zh: '| `seed` | `int` 或 `None`；不接受 `bool` | `None` | 为测量、复位、读出和态矢量轨迹的随机采样设置种子。请使用非负整数；`None` 表示使用新的随机熵。 |'
@@ -265,4 +265,68 @@
 - id: b720daa9ea717e31
   en: '| `counts` | `bool` or `None` | `None` | `True` requests sampled classical counts, `False` suppresses them, and `None` enables them when measurement exists. Counts require a positive integer `shots` value. |'
   zh: '| `counts` | `bool` 或 `None` | `None` | `True` 请求采样的经典计数，`False` 抑制计数，`None` 表示在存在测量时启用计数。计数要求 `shots` 为正整数。 |'
+  status: machine
+- id: c375621ec09ba9c7
+  en: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(3**m, 3**m)` | The complete coherent operator. |'
+  zh: '| `"unitary"` | [`get_unitary`][fatqat.Result.get_unitary] | `(3**m, 3**m)` | 完整的相干算符。 |'
+  status: machine
+- id: 241dbd771c8b957e
+  en: 'All three representations cover the complete physical qutrit model, not just the resources declared by the program. They use the same canonical model basis: terminal virtual-frame changes are composed into every returned state or operator. This does not convert the effective RWA model to a laboratory frame. `result_config` controls whether the method-native value is returned; it does not expose the solver''s internal rotating-frame coordinates. Pulse emulators do not expose `superop` or internal solver names as methods.'
+  zh: '三种表示都覆盖完整的物理 qutrit 模型，而不仅是程序声明的资源。它们使用相同的规范模型基：终端虚拟帧变换会被合成到每个返回的态或算符中。这并不会将有效的 RWA 模型转换到实验室参考系。`result_config` 控制是否返回方法原生的值；它不公开求解器内部的旋转帧坐标。脉冲仿真器不会将 `superop` 或内部求解器名称作为方法公开。'
+  status: machine
+- id: 44d668b49fe2b6bc
+  en: These are the only two keys for `TransmonEmulator`. Pulse emulators reject the matrix backend's `shot_parallelism`, `kernel_parallelism`, `max_workers`, and `fusion` settings.
+  zh: 对 `TransmonEmulator` 而言，仅有这两个键。脉冲仿真器拒绝矩阵后端的 `shot_parallelism`、`kernel_parallelism`、`max_workers` 和 `fusion` 设置。
+  status: machine
+- id: fc66932cb6b42a25
+  en: Generate transmon grid documents
+  zh: 生成 transmon 网格文档
+  status: machine
+- id: f0668168fe4ae9ec
+  en: '[`generate_transmon_grid_documents`][fatqat.emulator.generate_transmon_grid_documents] is a shortcut for setting up a rectangular nearest-neighbor grid. It returns a model document and a matching calibration document, so you can start a simulation without writing either document by hand:'
+  zh: '[`generate_transmon_grid_documents`][fatqat.emulator.generate_transmon_grid_documents] 是搭建矩形最近邻网格的快捷方式。它返回一个模型文档和与之匹配的校准文档，因此无需手工编写任何文档即可开始模拟：'
+  status: machine
+- id: 20ba76fe6cb8bde8
+  en: Both values are ordinary JSON-compatible dictionaries. You can edit them or save them with the standard `json` module.
+  zh: 两个返回值都是普通的 JSON 兼容字典。你可以编辑它们，或使用标准 `json` 模块保存它们。
+  status: machine
+- id: e78c5de64694f54d
+  en: '| `shape` | Grid dimensions as `(rows, columns)`. The grid must contain at least two transmons. |'
+  zh: '| `shape` | 以 `(rows, columns)` 表示的网格尺寸。网格必须至少包含两个 transmon。 |'
+  status: machine
+- id: 88a4dd6b379184ba
+  en: '| `frequency_groups_ghz` | The two idle-frequency centers in GHz. The generator assigns them in a checkerboard pattern. |'
+  zh: '| `frequency_groups_ghz` | 以 GHz 表示的两个闲置频率中心。生成器按棋盘格模式分配它们。 |'
+  status: machine
+- id: 0fef3ef43898451e
+  en: '| `frequency_std_ghz` | Standard deviation of the normally distributed frequency variation in GHz. The default is `0.010`. |'
+  zh: '| `frequency_std_ghz` | 以 GHz 表示的正态分布频率涨落的标准差。默认值为 `0.010`。 |'
+  status: machine
+- id: 3bb55a3e55765bf2
+  en: '| `anharmonicity_ghz` | Anharmonicity used for every transmon. The default is `-0.22`. |'
+  zh: '| `anharmonicity_ghz` | 每个 transmon 使用的非谐性。默认值为 `-0.22`。 |'
+  status: machine
+- id: 461493375fe2d58a
+  en: '| `seed` | Seed for reproducible frequency values. The default is `0`. |'
+  zh: '| `seed` | 用于复现频率值的种子。默认值为 `0`。 |'
+  status: machine
+- id: 602cc2b10e4ae204
+  en: The generator warns when the requested spread may make the two frequency groups overlap. It also warns if the generated values overlap or reverse the expected ordering on a neighboring pair. These warnings do not stop generation or change the values.
+  zh: 当请求的分散程度可能使两个频率组重叠时，生成器会发出警告。若生成的值在某个相邻 transmon 对上重叠或颠倒了预期顺序，它也会发出警告。这些警告不会中止生成，也不会改变生成的值。
+  status: machine
+- id: 5edf9b9513ac3a74
+  en: The calibration contains fixed analytic starting values. The helper does not run numerical calibration or optimization, start a simulation, or calculate fidelity or leakage. See [Start with a transmon grid](../guide/transmon-emulation.md#start-with-a-transmon-grid) for the complete workflow.
+  zh: 该校准包含固定的解析初始值。此辅助函数不会执行数值校准或优化，不会启动模拟，也不会计算保真度或泄漏。完整工作流参见[从 transmon 网格开始](../guide/transmon-emulation.md#start-with-a-transmon-grid)。
+  status: machine
+- id: c2e55aa63538b696
+  en: Transmon drive samples are the full complex Rabi rate \(\Omega(t)\). The Hamiltonian uses \(\operatorname{Re}\Omega/2\) on the X quadrature and \(\operatorname{Im}\Omega/2\) on the Y quadrature. Detuning and exchange samples are their direct Hamiltonian coefficients.
+  zh: Transmon 驱动样本是完整的复数 Rabi 速率 \(\Omega(t)\)。哈密顿量在 X 正交分量上使用 \(\operatorname{Re}\Omega/2\)，在 Y 正交分量上使用 \(\operatorname{Im}\Omega/2\)。失谐与交换样本则是各自直接的哈密顿量系数。
+  status: machine
+- id: c4c9c31ccbac9d64
+  en: A map built by `default_transmon_gate_implementation_map` is tied to the model's subsystem labels, anharmonicities, coupling topology, and selected CZ endpoints. Build a new map after changing any of these values. Model identity, revision, idle frequencies, declaration order, and edge IDs do not require a new map. This compatibility check does not apply to maps written by users.
+  zh: 由 `default_transmon_gate_implementation_map` 构建的映射与模型的子系统标签、非谐性、耦合拓扑以及所选的 CZ 端点绑定。修改其中任一值之后，请构建新的映射。模型标识、修订号、闲置频率、声明顺序和边 ID 不需要新的映射。此兼容性检查不适用于用户自行编写的映射。
+  status: machine
+- id: b950a45613790ba0
+  en: The same model channels can be used without a gate-realization rule. Drive and detuning resolve one declared transmon; exchange resolves two transmons and their declared coupling. Drive accepts a full complex Rabi-rate envelope for the two quadratures, while detuning and exchange require real values. Pulse times use the model units described above. The current transmon model does not add amplitude or duration limits beyond requiring finite values.
+  zh: 同样的模型信道可以在没有门实现规则的情况下使用。drive 和 detuning 解析一个已声明的 transmon；exchange 解析两个 transmon 及其已声明的耦合。drive 接受表示两个正交分量的完整复数 Rabi 速率包络，而 detuning 和 exchange 要求实数值。脉冲时间使用上文所述的模型单位。当前的 transmon 模型除要求取值有限外，不施加额外的振幅或时长限制。
   status: machine

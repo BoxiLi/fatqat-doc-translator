@@ -109,7 +109,7 @@
 - id: 1e18fef17b9ff86e
   en: Use [`fatqat.draw.to_qubit_circuit`][fatqat.draw.to_qubit_circuit] only for low-level integration with QuTiP-QIP's drawing tools. The returned circuit is a rendering adapter, not an execution object.
   zh: 仅在需要与 QuTiP-QIP 绘制工具进行底层集成时使用 [`fatqat.draw.to_qubit_circuit`][fatqat.draw.to_qubit_circuit]。返回的电路是一个渲染适配器，而不是执行对象。
-  status: machine
+  status: retired
 - id: 0abf836f6bf1fd90
   en: Parameter values
   zh: 参数值
@@ -141,7 +141,7 @@
 - id: 1f0002b0cff707b2
   en: '| [`RegisterView`](registers.md#fatqat.RegisterView) | [`add`][fatqat.Program.add] only | Every built-in unitary gate accepts views. Unary gates map over one view; multi-target gates zip one compatible view per operand. Measurement does not accept views. |'
   zh: '| [`RegisterView`](registers.md#fatqat.RegisterView) | 仅限 [`add`][fatqat.Program.add] | 每个内置的酉门都接受视图。一元门对单个视图逐成员作用；多目标门为每个操作数取一个兼容视图并将其成员按序配对。测量不接受视图 |'
-  status: machine
+  status: retired
 - id: a9ce84de08d9d3c9
   en: '| Mapping key | Accepted value | Constraint |'
   zh: '| 映射键 | 接受的值 | 约束 |'
@@ -169,4 +169,28 @@
 - id: af060222edca2c1b
   en: '| Another QuTiP-QIP renderer name | Renderer-defined | The name and keyword arguments are forwarded unchanged. |'
   zh: '| 其他 QuTiP-QIP 渲染器名称 | 由渲染器定义 | 名称和关键字参数会原样转发 |'
+  status: machine
+- id: 17afad4436a88be4
+  en: '| [`RegisterView`](registers.md#fatqat.RegisterView) | [`add`][fatqat.Program.add] only | Every built-in unitary gate accepts views. Unary gates map over one view; multi-target gates zip one compatible view per operand. `Put` accepts one view as its complete target collection. Measurement does not accept views. |'
+  zh: '| [`RegisterView`](registers.md#fatqat.RegisterView) | 仅限 [`add`][fatqat.Program.add] | 每个内置的酉门都接受视图。一元门对单个视图逐成员作用；多目标门为每个操作数取一个兼容视图并将其成员按序配对。`Put` 接受一个视图作为其完整目标集合。测量不接受视图 |'
+  status: machine
+- id: 43325a1cc86ecc94
+  en: 'Use [`fatqat.visualization.to_qubit_circuit`][fatqat.visualization.to_qubit_circuit] only for low-level integration with QuTiP-QIP''s drawing tools:'
+  zh: '仅在需要与 QuTiP-QIP 绘制工具进行底层集成时使用 [`fatqat.visualization.to_qubit_circuit`][fatqat.visualization.to_qubit_circuit]：'
+  status: machine
+- id: 8d59a62113806b7f
+  en: The returned circuit is a rendering adapter, not an execution object. The old `fatqat.draw` import path has been removed.
+  zh: 返回的电路是一个渲染适配器，而不是执行对象。旧的 `fatqat.draw` 导入路径已被移除。
+  status: machine
+- id: 4dc2afb5ff23fdda
+  en: Logical interaction frequency
+  zh: 逻辑相互作用频次
+  status: machine
+- id: feae1b19428464ae
+  en: 'Logical interaction frequency is derived separately from circuit drawing:'
+  zh: 逻辑相互作用频次的推导与电路绘制相互独立：
+  status: machine
+- id: ad8fc7f8a833c49f
+  en: The graph counts source-level two-target logical operations across the complete program. It is not a device connectivity graph and does not include `Put`, `Pair`, or `Unpair` directives. See [Visualization](../guide/visualization.md) for drawing, styling, embedding, and saving examples.
+  zh: 该图统计整个程序中源代码级的双目标逻辑操作。它不是设备连接性图，也不包含 `Put`、`Pair` 或 `Unpair` 指令。有关绘制、样式、嵌入和保存的示例，参见[可视化](../guide/visualization.md)。
   status: machine

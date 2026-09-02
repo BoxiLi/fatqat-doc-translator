@@ -197,7 +197,7 @@
 - id: c32ca67e52d63729
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] brings occupancy and changing connectivity into the same `Program` model. `Put` establishes which sites are occupied, `Pair` makes native `CZ` legal, and `Unpair` removes that eligibility. Optional movement noise can attach to those operations explicitly.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 将占据情况与可变的连接性纳入同一 `Program` 模型。`Put` 确定哪些位点被占据，`Pair` 使原生 `CZ` 成为合法操作，`Unpair` 则取消这一资格。可选的移动噪声可以显式附加到这些操作上。'
-  status: machine
+  status: retired
 - id: 7a8db953a972dfce
   en: '![Two occupied atoms begin separated, pair so that CZ becomes legal, and unpair while optional depolarizing noise follows the pairing operations.](assets/generated/guide/atom-pairing-lifecycle.svg){ loading=lazy width=960 height=306 }'
   zh: '![两个被占据的原子起初彼此分离，配对后 CZ 变为合法，随后解除配对，可选的退极化噪声伴随配对操作。](assets/generated/guide/atom-pairing-lifecycle.svg){ loading=lazy width=960 height=306 }'
@@ -265,4 +265,8 @@
 - id: b242595bbda9459f
   en: '[:octicons-arrow-right-24: Look up an API](api/index.md)'
   zh: '[:octicons-arrow-right-24: 查阅 API](api/index.md)'
+  status: machine
+- id: 60db5c2f54798bca
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] brings explicit loading and reconfigurable connectivity into the `Program` model. Sites begin empty, so `Put` loads the atoms; `Pair` then makes native `CZ` available, and `Unpair` closes that connection again. Optional movement noise can follow the pairing operations.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 将显式装载与可重构的连接性纳入 `Program` 模型。位点起初为空，因此 `Put` 装载原子；随后 `Pair` 使原生 `CZ` 可用，而 `Unpair` 再次关闭这一连接。可选的移动噪声可以伴随配对操作。'
   status: machine

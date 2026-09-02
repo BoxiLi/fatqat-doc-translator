@@ -37,7 +37,7 @@
 - id: c40efbe94fb5d350
   en: '`runtime` is chosen when the backend is created. `"numba"` is the default for [`Simulator`][fatqat.simulator.Simulator] and the superconducting profiles; it compiles kernels on first use and supports threaded kernels. `"numpy"` runs directly without compilation and is the default for [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator]. Both runtimes support all four methods, but need not produce bit-identical floating-point or sampled results.'
   zh: '`runtime` 在创建后端时选定。`"numba"` 是 [`Simulator`][fatqat.simulator.Simulator] 和各超导硬件配置的默认值；它在首次使用时编译内核，并支持多线程内核。`"numpy"` 无需编译直接运行，是 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 的默认值。两种运行时都支持全部四种方法，但不保证产生逐位一致的浮点或采样结果。'
-  status: machine
+  status: retired
 - id: 08eacd9ef7ec9459
   en: '`simulation_config` changes one call to [`Simulator.run`][fatqat.simulator.Simulator.run]. Its string values are case-sensitive.'
   zh: '`simulation_config` 仅作用于对 [`Simulator.run`][fatqat.simulator.Simulator.run] 的一次调用。其字符串值区分大小写。'
@@ -197,4 +197,8 @@
 - id: c9cd3cd0581a597f
   en: '| `final_state` | Enabled when the method-native state or map is deterministic | A requested stochastic final state requires `shots == 1` |'
   zh: '| `final_state` | 当方法原生的状态或映射为确定性时启用 | 请求随机最终态时要求 `shots == 1` |'
+  status: machine
+- id: e21a4ad23236a543
+  en: '`runtime` is chosen when the backend is created. `"numba"` is the default for [`Simulator`][fatqat.simulator.Simulator] and all three hardware profiles, including [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator]. It compiles kernels on first use and supports threaded kernels. `"numpy"` runs directly without compilation. Both runtimes support the methods offered by each backend, but need not produce bit-identical floating-point or sampled results.'
+  zh: '`runtime` 在创建后端时选定。`"numba"` 是 [`Simulator`][fatqat.simulator.Simulator] 以及包括 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 在内的全部三种硬件配置的默认值。它在首次使用时编译内核，并支持多线程内核。`"numpy"` 无需编译直接运行。两种运行时都支持各后端提供的方法，但不保证产生逐位一致的浮点或采样结果。'
   status: machine

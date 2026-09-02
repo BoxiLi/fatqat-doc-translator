@@ -40,7 +40,6 @@ _DEFAULT_ROOT = (
     else HERE.parent
 )
 MKDOCS_ROOT = Path(os.environ.get("FATQAT_MKDOCS_ROOT", _DEFAULT_ROOT))
-LOCALE_REGISTRY = MKDOCS_ROOT / "locales.yml"
 TRANSLATIONS_ROOT = Path(
     os.environ.get("FATQAT_TRANSLATIONS_ROOT", "")
     or (
@@ -51,7 +50,6 @@ TRANSLATIONS_ROOT = Path(
 )
 GLOSSARY = TRANSLATIONS_ROOT / "glossary.yml"
 TUTORIAL_SOURCE_ROOT = MKDOCS_ROOT / "tutorial-sources"
-CODE_CELL_PLACEHOLDER = "<!-- tutorial-code-cell -->"
 
 FRONT_MATTER = re.compile(r"\A---\r?\n(?P<yaml>.*?)\r?\n---(?:\r?\n|\Z)", re.DOTALL)
 HEADING = re.compile(r"^(?P<prefix>#{1,6} +)(?P<text>.*?)(?P<suffix> *\{[^}]*\})?$")
@@ -87,14 +85,11 @@ FRONT_MATTER_PROSE_MAPPINGS = {"hero"}
 FRONT_MATTER_PROSE_LISTS = {"figure_alts"}
 
 
-def _load_registry() -> tuple[str, dict[str, dict]]:
-    # Standalone mode has no locale registry: only the canonical English
-    # sources exist here, which is all extract/check/find need. render is
-    # meaningful only in the injected context, where the registry exists.
-    if not LOCALE_REGISTRY.is_file():
-        return "en", {"en": {"label": "English"}}
-    payload = yaml.safe_load(LOCALE_REGISTRY.read_text(encoding="utf-8"))
-    return payload["canonical"], payload["locales"]
+# Upstream retired its multi-locale registry (locales.yml) when it moved to a
+# single root mkdocs.yml, so the locale pair is now this repository's own
+# contract: English canonical sources, one generated Chinese locale.
+CANONICAL_LOCALE = "en"
+TARGET_LOCALE = "zh"
 
 
 def normalize(text: str) -> str:
@@ -479,8 +474,7 @@ def global_map(database: Mapping[Path, list[Entry]]) -> dict[str, Entry]:
 
 
 def run_extract(*, dry_run: bool) -> int:
-    canonical, _ = _load_registry()
-    pages = discover_sources(canonical)
+    pages = discover_sources(CANONICAL_LOCALE)
     database = load_database()
     merged = global_map(database)
 
@@ -560,10 +554,14 @@ def _lookup(merged: Mapping[str, Entry], text: str) -> str | None:
     return None
 
 
-def render_page(
-    page: SourcePage, merged: Mapping[str, Entry], *, as_tutorial_source: bool
-) -> tuple[str, int]:
-    """Return the rendered locale file and its English-fallback count."""
+def render_page(page: SourcePage, merged: Mapping[str, Entry]) -> tuple[str, int]:
+    """Return the rendered locale file and its English-fallback count.
+
+    Executable tutorial code fences pass through verbatim: upstream's
+    single-locale tutorial builder parses real ```python cells from whichever
+    source tree it is pointed at, so the placeholder convention of the old
+    multi-locale toolchain is gone.
+    """
 
     fallbacks = 0
     for _, text in page.front_matter_segments:
@@ -571,7 +569,6 @@ def render_page(
             fallbacks += 1
 
     replacements: dict[int, tuple[int, list[str]]] = {}
-    code_cell_bounds = dict(page.code_cell_spans)
     for span in page.spans:
         if not is_translatable(span.text):
             continue
@@ -588,10 +585,6 @@ def render_page(
     index = 0
     lines = page.body_lines
     while index < len(lines):
-        if as_tutorial_source and index in code_cell_bounds:
-            output.append(CODE_CELL_PLACEHOLDER)
-            index = code_cell_bounds[index]
-            continue
         if index in replacements:
             end, rendered = replacements[index]
             output.extend(rendered)
@@ -602,37 +595,27 @@ def render_page(
     return _render_front_matter(page, merged) + "\n".join(output), fallbacks
 
 
-def run_render(*, strict: bool) -> int:
-    canonical, locales = _load_registry()
-    targets = [
-        code
-        for code, config in locales.items()
-        if code != canonical and config.get("generated")
-    ]
-    if not targets:
-        print("render: no generated locales are active")
-        return 0
+def run_render(*, out_root: Path, strict: bool) -> int:
+    """Write the generated zh page and tutorial-source trees under out_root."""
 
-    pages = discover_sources(canonical)
+    pages = discover_sources(CANONICAL_LOCALE)
     merged = global_map(load_database())
     total_fallbacks = 0
-    for locale in targets:
-        for page in pages:
-            rendered, fallbacks = render_page(
-                page, merged, as_tutorial_source=page.is_tutorial
+    for page in pages:
+        rendered, fallbacks = render_page(page, merged)
+        total_fallbacks += fallbacks
+        if page.is_tutorial:
+            destination = (
+                out_root
+                / "tutorial-sources"
+                / TARGET_LOCALE
+                / Path(*page.relative.parts[1:])
             )
-            total_fallbacks += fallbacks
-            if page.is_tutorial:
-                destination = (
-                    TUTORIAL_SOURCE_ROOT
-                    / locale
-                    / Path(*page.relative.parts[1:])
-                )
-            else:
-                destination = MKDOCS_ROOT / locale / page.relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_text(rendered, encoding="utf-8", newline="\n")
-        print(f"render: wrote locale {locale!r} ({len(pages)} files)")
+        else:
+            destination = out_root / TARGET_LOCALE / page.relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(rendered, encoding="utf-8", newline="\n")
+    print(f"render: wrote locale {TARGET_LOCALE!r} ({len(pages)} files)")
     if total_fallbacks:
         message = f"render: {total_fallbacks} segments fell back to English"
         if strict:
@@ -658,8 +641,7 @@ def _destinations(text: str) -> list[str]:
 
 
 def run_check() -> int:
-    canonical, _ = _load_registry()
-    pages = discover_sources(canonical)
+    pages = discover_sources(CANONICAL_LOCALE)
     database = load_database()
     errors: list[str] = []
     warnings: list[str] = []
@@ -668,7 +650,7 @@ def run_check() -> int:
     # must reproduce its English source byte-for-byte (code placeholders
     # aside for tutorials). This pins the segmentation itself.
     for page in pages:
-        rendered, _ = render_page(page, {}, as_tutorial_source=False)
+        rendered, _ = render_page(page, {})
         original = page.front_matter_raw + "\n".join(page.body_lines)
         if rendered != original:
             errors.append(f"{page.relative}: identity round-trip differs")
@@ -775,6 +757,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         "render", help="write generated locale trees from the database"
     )
     render_parser.add_argument(
+        "--out-root",
+        required=True,
+        help="directory receiving zh/ and tutorial-sources/zh/ "
+        "(an upstream clone's docs/mkdocs directory when building)",
+    )
+    render_parser.add_argument(
         "--strict",
         action="store_true",
         help="fail when any segment falls back to English",
@@ -791,7 +779,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "extract":
         return run_extract(dry_run=args.dry_run)
     if args.command == "render":
-        return run_render(strict=args.strict)
+        return run_render(out_root=Path(args.out_root).resolve(), strict=args.strict)
     if args.command == "check":
         return run_check()
     return run_find(args.snippet)

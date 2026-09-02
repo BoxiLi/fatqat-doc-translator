@@ -49,7 +49,7 @@
 - id: c38c572b72b88980
   en: 'The string width determines the number of targets, and every target must be a qubit. The first character describes the first target and forms the most-significant tensor factor. For targets `(q0, q1)`:'
   zh: 字符串宽度决定目标数量，且每个目标都必须是量子比特。第一个字符描述第一个目标，并构成最高位的张量因子。对于目标 `(q0, q1)`：
-  status: machine
+  status: retired
 - id: be659940ef48e72a
   en: '**Two-qubit ordering**'
   zh: '**双量子比特顺序**'
@@ -57,8 +57,16 @@
 - id: 70476e17e763b335
   en: This left-to-right convention is the reverse of Qiskit's displayed Pauli strings. FATQAT checks the target count and qubit dimensions when the program runs.
   zh: 这种从左到右的约定与 Qiskit 显示 Pauli 串的顺序相反。程序运行时，FATQAT 会检查目标数量和量子比特维度。
-  status: machine
+  status: retired
 - id: 7c907406f6b8a059
   en: '| String | First target `q0` | Second target `q1` |'
   zh: '| 字符串 | 第一个目标 `q0` | 第二个目标 `q1` |'
+  status: machine
+- id: fdee45cae9f155c3
+  en: 'The string width determines the number of targets, and every target must be a qubit. Strings follow Qiskit''s displayed Pauli-string convention, the same reading as [`Observable`][fatqat.Observable] labels: the rightmost character describes the first target. For targets `(q0, q1)`:'
+  zh: '字符串宽度决定目标数量，且每个目标都必须是量子比特。字符串遵循 Qiskit 显示 Pauli 串的约定，与 [`Observable`][fatqat.Observable] 标签的读法相同：最右侧的字符描述第一个目标。对于目标 `(q0, q1)`：'
+  status: machine
+- id: d563afb7a62d0928
+  en: FATQAT checks the target count and qubit dimensions when the program runs.
+  zh: 程序运行时，FATQAT 会检查目标数量和量子比特维度。
   status: machine

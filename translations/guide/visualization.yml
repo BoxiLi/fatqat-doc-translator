@@ -1,0 +1,88 @@
+- id: f6ec7f0c995bee5f
+  en: Visualization
+  zh: 可视化
+  status: machine
+- id: 0d273ab1177f604c
+  en: Visualize programs and results
+  zh: 可视化程序与结果
+  status: machine
+- id: 7f15acf255570f6a
+  en: FATQAT provides drawing methods on the object that owns the data. A [`Program`][fatqat.Program] draws its circuit or derives a logical interaction summary, while a [`Result`][fatqat.Result] draws the measurement outcomes from one run.
+  zh: FATQAT 在拥有数据的对象上提供绘图方法。[`Program`][fatqat.Program] 可以绘制其电路或导出逻辑相互作用摘要，而 [`Result`][fatqat.Result] 绘制一次运行的测量结果。
+  status: machine
+- id: dd47988b226ad49c
+  en: Draw a circuit
+  zh: 绘制电路
+  status: machine
+- id: dd7b86c63ad6175a
+  en: 'Use [`Program.draw`][fatqat.Program.draw] for a circuit diagram:'
+  zh: 使用 [`Program.draw`][fatqat.Program.draw] 绘制电路图：
+  status: machine
+- id: e17d8f654653d20a
+  en: The default Matplotlib renderer returns a `Figure`. The text renderer returns a string and does not print it. Circuit drawings use one wire per register slot; they do not depict register dimension or hardware connectivity.
+  zh: 默认的 Matplotlib 渲染器返回一个 `Figure`。文本渲染器返回一个字符串，并不会把它打印出来。电路图为每个寄存器槽位使用一条线；它们不描绘寄存器维度或硬件连通性。
+  status: machine
+- id: 82b7b851abc37586
+  en: '![Three-qubit circuit containing H, controlled-X, controlled-Z, and measurement operations.](../assets/generated/guide/visualization-circuit.png)'
+  zh: '![包含 H、受控 X、受控 Z 和测量操作的三量子比特电路。](../assets/generated/guide/visualization-circuit.png)'
+  status: machine
+- id: 3d2314df491fef4c
+  en: Passing `ax=` embeds the circuit in a Matplotlib layout owned by the caller.
+  zh: 传入 `ax=` 会把电路嵌入由调用方拥有的 Matplotlib 布局中。
+  status: machine
+- id: 214c482f6b8fdaad
+  en: The same composition pattern works for the FATQAT-owned Matplotlib visualizations below.
+  zh: 同样的组合模式也适用于下面由 FATQAT 拥有的 Matplotlib 可视化。
+  status: machine
+- id: b41a7567e8b288a6
+  en: Draw logical interaction frequency
+  zh: 绘制逻辑相互作用频次
+  status: machine
+- id: 8b68046abb818d40
+  en: 'First derive the program''s logical interaction summary, then draw it:'
+  zh: 先导出程序的逻辑相互作用摘要，再绘制它：
+  status: machine
+- id: 969080f4af347f3e
+  en: Each node represents one logical quantum slot. An edge connects two slots used by a source-level two-target operation, and its label is the number of such operations in the whole program. This is a hardware-independent aggregate. It does not represent atom pairing, physical connectivity, or connectivity at a particular instruction layer.
+  zh: 每个节点代表一个逻辑量子槽位。一条边连接被某个源级双目标操作使用的两个槽位，其标签是整个程序中此类操作的数量。这是一个与硬件无关的汇总。它不代表原子配对、物理连通性，也不代表某个特定指令层的连通性。
+  status: machine
+- id: 5505ce458432c4f7
+  en: '![Five logical quantum slots connected by edges whose labels and widths show interaction frequency.](../assets/generated/guide/visualization-interactions.png)'
+  zh: '![五个逻辑量子槽位由边相连，边的标签和宽度显示相互作用频次。](../assets/generated/guide/visualization-interactions.png)'
+  status: machine
+- id: 665344faaed82860
+  en: The repeated interaction between slots 0 and 1 produces the thicker edge labeled `2`; every other edge is labeled `1`.
+  zh: 槽位 0 与 1 之间重复的相互作用产生了标注为 `2` 的较粗的边；其余每条边都标注为 `1`。
+  status: machine
+- id: 0866c16e06101ea6
+  en: Draw measurement outcomes
+  zh: 绘制测量结果
+  status: machine
+- id: beb47580243e067e
+  en: 'A result containing counts can draw raw counts or relative frequencies:'
+  zh: 包含计数的结果可以绘制原始计数或相对频率：
+  status: machine
+- id: 25045ed989ce293b
+  en: '`number_to_keep` retains the most frequent outcomes and combines the remainder into an `other` bar. See [Result](../api/result.md#draw-counts) for the complete option reference.'
+  zh: '`number_to_keep` 保留出现最频繁的结果，并把其余结果合并为一个 `other` 柱条。完整的选项参考请参见 [Result](../api/result.md#draw-counts)。'
+  status: machine
+- id: f77c41b4e8b91770
+  en: '![Bell-state measurement frequencies with bars for the zero-zero and one-one outcomes.](../assets/generated/guide/visualization-counts.png)'
+  zh: '![Bell 态的测量频率，柱条对应 00 与 11 两种结果。](../assets/generated/guide/visualization-counts.png)'
+  status: machine
+- id: 1978a84f230517b5
+  en: '`stat="frequencies"` divides each count by the total number of shots; omit it to show raw counts.'
+  zh: '`stat="frequencies"` 把每个计数除以总测量次数；省略它则显示原始计数。'
+  status: machine
+- id: 192e25bbe72a59ae
+  en: Embed, style, and save figures
+  zh: 嵌入、设置样式与保存图像
+  status: machine
+- id: b01afcba7e5e6209
+  en: 'Pass `ax=` to draw into an existing Matplotlib axis:'
+  zh: 传入 `ax=` 以绘制到已有的 Matplotlib 坐标轴中：
+  status: machine
+- id: 266134f62868adcd
+  en: 'Visualizations inherit Matplotlib''s active style and `rcParams`; FATQAT does not apply a separate palette. A returned figure can be saved with ordinary Matplotlib APIs:'
+  zh: 可视化继承 Matplotlib 当前生效的样式和 `rcParams`；FATQAT 不会应用单独的调色板。返回的图像可以用普通的 Matplotlib API 保存：
+  status: machine

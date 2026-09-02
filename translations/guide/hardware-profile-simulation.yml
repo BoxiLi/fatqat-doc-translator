@@ -69,7 +69,7 @@
 - id: ae5fbe43086dd1d7
   en: 'The atom-array profile asks a different hardware question. It has no fixed geometry. Instead, `Put` establishes occupancy and `Pair`/`Unpair` change the connectivity on which `CZ` is legal:'
   zh: 原子阵列配置文件问的是另一类硬件问题。它没有固定的几何结构。取而代之的是，`Put` 建立占据状态，而 `Pair`/`Unpair` 改变决定 `CZ` 是否合法的连通性：
-  status: machine
+  status: retired
 - id: f667081a005d4a8a
   en: '![Two occupied atoms begin separated, move together when Pair applies with depolarizing noise, remain paired for CZ, and separate again when Unpair applies with depolarizing noise.](../assets/generated/guide/atom-pairing-lifecycle.svg)'
   zh: '![两个被占据的原子起初彼此分离，在 Pair 施加退极化噪声时相互靠近，在执行 CZ 期间保持配对，并在 Unpair 施加退极化噪声时再次分开。](../assets/generated/guide/atom-pairing-lifecycle.svg)'
@@ -89,8 +89,20 @@
 - id: e401b0a862cced80
   en: 'Omitting `Pair` before `CZ` is a Program error; FatQat does not transport or pair atoms automatically. A missing atom is different: an empty site reports the erasure digit `2`, while supported gates simply have no atom to act on.'
   zh: 在 `CZ` 之前遗漏 `Pair` 是 Program 错误；FatQat 不会自动搬运或配对原子。原子缺失则是另一回事：空位点会报告擦除数字 `2`，而受支持的门只是没有原子可作用。
-  status: machine
+  status: retired
 - id: e400f655a4d1ed4d
   en: For native sets, capacities, and method support, use the [hardware-profile API](../api/simulators/index.md). Continue to [Hamiltonian emulation](hamiltonian-emulation.md) when pulse duration, physical levels, drift, or continuous-time noise becomes relevant.
   zh: 有关原生操作集、容量和方法支持，请使用[硬件配置文件 API](../api/simulators/index.md)。当脉冲时长、物理能级、漂移或连续时间噪声变得重要时，请继续阅读[哈密顿量仿真](hamiltonian-emulation.md)。
+  status: retired
+- id: d2724fba1a521260
+  en: 'Unlike the superconducting profiles, the atom array has no fixed geometry. Program resources define sites that begin empty. `Put` loads the atoms, while `Pair` and `Unpair` reshape the connectivity on which `CZ` is legal:'
+  zh: 与超导配置文件不同，原子阵列没有固定的几何结构。Program 资源定义的位点起初为空。`Put` 装载原子，而 `Pair` 和 `Unpair` 重塑决定 `CZ` 是否合法的连通性：
+  status: machine
+- id: c0f48b6c6ad0f481
+  en: 'Omitting `Pair` before `CZ` is a program error; FatQat does not transport or pair atoms automatically. A missing atom is different: supported gates find nothing to act on, and measurement reports the erasure digit `2`.'
+  zh: 在 `CZ` 之前遗漏 `Pair` 是程序错误；FatQat 不会自动搬运或配对原子。原子缺失则是另一回事：受支持的门找不到可作用的原子，而测量会报告擦除数字 `2`。
+  status: machine
+- id: 13c4cee676147a90
+  en: For native gates, program sizing, and method support, use the [hardware-profile API](../api/simulators/index.md). Continue to [Hamiltonian emulation](hamiltonian-emulation.md) when pulse duration, physical levels, drift, or continuous-time noise becomes relevant.
+  zh: 有关原生门、程序规模和方法支持，请使用[硬件配置文件 API](../api/simulators/index.md)。当脉冲时长、物理能级、漂移或连续时间噪声变得重要时，请继续阅读[哈密顿量仿真](hamiltonian-emulation.md)。
   status: machine

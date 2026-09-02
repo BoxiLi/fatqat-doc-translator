@@ -137,7 +137,7 @@
 - id: f5fdc712d4ea2987
   en: The first emulator uses the default `interaction_cutoff=None` and retains every unordered pair. The second deletes terms beyond one lattice spacing. That cutoff is a numerical Hamiltonian truncation, not a blockade radius.
   zh: 第一个仿真器使用默认的 `interaction_cutoff=None`，保留每一个无序对。第二个删除超出一个晶格间距的项。该截断是数值上的哈密顿量截断，而不是阻塞半径。
-  status: machine
+  status: retired
 - id: 77f96283941ce429
   en: In a uniform chain, the next-nearest interaction is only $U/(2^6)=U/64$. This suggests that nearest-pair physics should be a good explanation, but the comparison below checks the evolved state rather than assuming that a small Hamiltonian term is always irrelevant.
   zh: 在均匀链中，次近邻相互作用只有 $U/(2^6)=U/64$。这提示最近邻物理应该能给出很好的解释，但下面的比较检验的是演化后的态，而不是假定哈密顿量中的小项总是无关紧要。
@@ -153,4 +153,8 @@
 - id: 201231e5d3f5c3ee
   en: 'The one-site profile is reflection symmetric and visibly influenced by the open edges; it does not pretend that the finite chain selected one perfect bit string. The connected-correlation matrix carries the clearer many-body signature: its signs alternate with separation, while neighbouring double excitations are strongly suppressed. Retaining all $C_6/R^6$ pairs and keeping only nearest pairs lead to the same qualitative state; their small quantitative difference comes from the long-range tails and the associated site-dependent Z shifts. The all-pair result is the physical default. The truncated result is useful because it exposes the familiar nearest-neighbour Ising interpretation.'
   zh: 单格点分布具有反射对称性，并明显受到开放边缘的影响；它并不假装有限链选出了某一个完美比特串。连通关联矩阵携带更清晰的多体特征：其符号随间距交替，而相邻双激发被强烈抑制。保留全部 $C_6/R^6$ 对与只保留最近邻对得到的态在定性上相同；它们之间微小的定量差异来自长程尾部以及相应的随格点变化的 Z 偏移。全对结果是物理上的默认选择。截断结果的价值在于揭示出人们熟悉的最近邻 Ising 图像。
+  status: machine
+- id: 513df175ff6eeefb
+  en: The first run uses the default `interaction_cutoff=None` and retains every unordered pair. The second run on the same emulator deletes terms beyond one lattice spacing. That cutoff is a numerical Hamiltonian truncation, not a blockade radius.
+  zh: 第一次运行使用默认的 `interaction_cutoff=None`，保留每一个无序对。第二次在同一仿真器上的运行删除超出一个晶格间距的项。该截断是数值上的哈密顿量截断，而不是阻塞半径。
   status: machine

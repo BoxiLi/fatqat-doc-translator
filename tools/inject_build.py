@@ -1,25 +1,28 @@
 """Build the bilingual documentation site from an upstream clone.
 
-The upstream repository owns the entire documentation toolchain (manage.py,
-figure sources, executable tutorials, validators). This repository owns only
-the translations. Building therefore means: clone upstream at the pinned
-commit, inject the translation layer, render the Chinese trees, and run
-upstream's own build untouched. If upstream restructures its toolchain, this
-script fails loudly instead of publishing a broken site.
+Upstream owns the entire documentation toolchain (root mkdocs.yml, lifecycle
+hooks, figure sources, executable tutorials, validators) and is single-locale
+English. This repository owns the translations. Building therefore means:
 
-Injection steps:
-1. translations/ and tools/translate.py -> docs/mkdocs/ inside the clone
-2. overlay/mkdocs.zh.yml -> docs/mkdocs/mkdocs.zh.yml
-3. overlay/gallery.zh.yml merged into docs/mkdocs/tutorial-sources/gallery.yml
-4. zh registered in docs/mkdocs/locales.yml
-5. a language switcher (extra.alternate) appended to mkdocs.base.yml
-6. translate.py render creates zh/ and tutorial-sources/zh/
-7. upstream manage.py build produces site/en + site/zh + the root chooser
+1. clone upstream at the pinned commit and verify it matches upstream-docs/
+2. append the language switcher to upstream's mkdocs.yml
+3. build English exactly as upstream does (hooks generate and validate)
+4. translate.py render writes docs/mkdocs/zh/ and tutorial-sources/zh/
+5. build_zh_assets.py retargets upstream's tutorial builder at the zh trees
+   and copies the language-neutral figures
+6. build Chinese with overlay/mkdocs.zh.yml (INHERITs upstream's config)
+7. assemble site/: en/ + zh/ + a root language-chooser page
+
+If upstream restructures its toolchain, the guards here and in
+build_zh_assets.py fail loudly instead of publishing a broken site.
 """
 
 from __future__ import annotations
 
 import argparse
+import filecmp
+import html
+import json
 import os
 from pathlib import Path
 import shutil
@@ -27,21 +30,20 @@ import stat
 import subprocess
 import sys
 
-import yaml
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PIN = REPO_ROOT / "UPSTREAM_COMMIT"
 
+LOCALES = (("en", "English"), ("zh", "简体中文"))
+
 ALTERNATE_BLOCK = """
-# Injected by fatqat-doc-translator: header language selector. manage.py
-# exports one FATQAT_MKDOCS_<LOCALE>_LINK per active locale.
+# Injected by fatqat-doc-translator: header language selector.
 extra:
   alternate:
     - name: English
-      link: !ENV [FATQAT_MKDOCS_EN_LINK, "/en/"]
+      link: !ENV [FATQAT_EN_LINK, "/en/"]
       lang: en
     - name: 简体中文
-      link: !ENV [FATQAT_MKDOCS_ZH_LINK, "/zh/"]
+      link: !ENV [FATQAT_ZH_LINK, "/zh/"]
       lang: zh
 """
 
@@ -71,63 +73,95 @@ def _clone_upstream(url: str, workdir: Path, commit: str) -> Path:
     return clone
 
 
-def _inject(clone: Path) -> None:
-    mkdocs = clone / "docs" / "mkdocs"
-    if not (mkdocs / "manage.py").is_file():
-        raise RuntimeError("upstream layout changed: docs/mkdocs/manage.py missing")
-
-    destination = mkdocs / "translations"
-    if destination.exists():
-        raise RuntimeError("upstream now ships docs/mkdocs/translations; resolve the overlap")
-    shutil.copytree(REPO_ROOT / "translations", destination)
-    shutil.copy2(REPO_ROOT / "tools" / "translate.py", mkdocs / "tools" / "translate.py")
-    shutil.copy2(REPO_ROOT / "overlay" / "mkdocs.zh.yml", mkdocs / "mkdocs.zh.yml")
-
-    # Merge the zh gallery strings beside upstream's English ones.
-    gallery_path = mkdocs / "tutorial-sources" / "gallery.yml"
-    gallery = yaml.safe_load(gallery_path.read_text(encoding="utf-8"))
-    overlay = yaml.safe_load(
-        (REPO_ROOT / "overlay" / "gallery.zh.yml").read_text(encoding="utf-8")
+def _assert_layout(clone: Path) -> None:
+    expected = (
+        clone / "mkdocs.yml",
+        clone / "docs" / "mkdocs" / "hooks.py",
+        clone / "docs" / "mkdocs" / "tools" / "build_tutorials.py",
     )
-    gallery["ui"]["zh"] = overlay["ui"]["zh"]
-    gallery["index"]["zh"] = overlay["index"]["zh"]
-    for category, content in overlay["categories"].items():
-        if category not in gallery["categories"]:
+    for path in expected:
+        if not path.is_file():
             raise RuntimeError(
-                f"gallery overlay names unknown category {category!r}; update overlay/gallery.zh.yml"
+                f"upstream layout changed: {path.relative_to(clone)} missing; "
+                "adapt inject_build.py"
             )
-        gallery["categories"][category]["zh"] = content["zh"]
-    gallery_path.write_text(
-        yaml.safe_dump(gallery, allow_unicode=True, sort_keys=False, width=100000),
-        encoding="utf-8",
-        newline="\n",
-    )
 
-    # Register the generated locale. Upstream's loader requires the page tree
-    # to exist, so translate.py render runs before manage.py imports it.
-    registry_path = mkdocs / "locales.yml"
-    registry = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
-    if "zh" in registry["locales"]:
-        raise RuntimeError("upstream already registers a zh locale; resolve the overlap")
-    registry["locales"]["zh"] = {
-        "label": "简体中文",
-        "config": "mkdocs.zh.yml",
-        "generated": True,
-    }
-    registry_path.write_text(
-        yaml.safe_dump(registry, allow_unicode=True, sort_keys=False, width=100000),
-        encoding="utf-8",
-        newline="\n",
-    )
 
-    # The base config uses YAML tags safe_load cannot round-trip, so the
-    # switcher is appended textually. Fail if upstream ever adds its own
-    # extra: mapping - the two must then be merged by hand.
-    base_path = mkdocs / "mkdocs.base.yml"
-    base_text = base_path.read_text(encoding="utf-8")
-    if "\nextra:" in base_text or base_text.startswith("extra:"):
-        raise RuntimeError("upstream mkdocs.base.yml now defines extra:; merge the language switcher manually")
-    base_path.write_text(base_text.rstrip() + "\n" + ALTERNATE_BLOCK, encoding="utf-8", newline="\n")
+def _assert_snapshot_current(clone: Path) -> None:
+    """The database was extracted against upstream-docs/; the clone must match."""
+
+    pairs = (
+        (REPO_ROOT / "upstream-docs" / "en", clone / "docs" / "mkdocs" / "en"),
+        (
+            REPO_ROOT / "upstream-docs" / "tutorial-sources" / "en",
+            clone / "docs" / "mkdocs" / "tutorial-sources" / "en",
+        ),
+    )
+    for snapshot, upstream in pairs:
+        comparison = filecmp.dircmp(snapshot, upstream)
+        stack = [comparison]
+        while stack:
+            node = stack.pop()
+            if node.left_only or node.right_only or node.diff_files:
+                raise RuntimeError(
+                    "upstream-docs/ does not match the pinned upstream commit "
+                    f"(first difference under {node.left}); run "
+                    "tools/sync_upstream.py and re-extract before building"
+                )
+            stack.extend(node.subdirs.values())
+
+
+def _append_alternate(clone: Path) -> None:
+    config = clone / "mkdocs.yml"
+    text = config.read_text(encoding="utf-8")
+    if "\nextra:" in text or text.startswith("extra:"):
+        raise RuntimeError(
+            "upstream mkdocs.yml now defines extra:; merge the language "
+            "switcher manually in inject_build.py"
+        )
+    config.write_text(text.rstrip() + "\n" + ALTERNATE_BLOCK, encoding="utf-8", newline="\n")
+
+
+def _chooser_page() -> str:
+    supported = json.dumps([code for code, _ in LOCALES])
+    links = "\n".join(
+        f'        <a href="{code}/" hreflang="{code}">{html.escape(label)}</a>'
+        for code, label in LOCALES
+    )
+    return f"""<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FatQat documentation</title>
+    <script>
+      const supported = {supported};
+      const preferred = (navigator.languages?.[0] || navigator.language || "en")
+        .toLowerCase();
+      const target = supported.find(
+        locale => preferred === locale || preferred.startsWith(`${{locale}}-`)
+      ) || "en";
+      window.location.replace(new URL(`${{target}}/`, window.location.href));
+    </script>
+    <style>
+      :root {{ color-scheme: light dark; font-family: system-ui, sans-serif; }}
+      body {{ display: grid; min-height: 100vh; margin: 0; place-items: center; }}
+      main {{ max-width: 36rem; padding: 2rem; text-align: center; }}
+      nav {{ display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }}
+      a {{ border: 1px solid currentColor; border-radius: .5rem; padding: .7rem 1rem; }}
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>FatQat documentation</h1>
+      <p>Select a language if automatic redirection does not start.</p>
+      <nav aria-label="Language selection">
+{links}
+      </nav>
+    </main>
+  </body>
+</html>
+"""
 
 
 def main() -> int:
@@ -153,23 +187,65 @@ def main() -> int:
 
     commit = PIN.read_text(encoding="utf-8").strip()
     clone = _clone_upstream(args.upstream_url, Path(args.workdir), commit)
-    _inject(clone)
+    _assert_layout(clone)
+    _assert_snapshot_current(clone)
+    _append_alternate(clone)
+    shutil.copy2(REPO_ROOT / "overlay" / "mkdocs.zh.yml", clone / "mkdocs.zh.yml")
 
     python = sys.executable
     if not args.skip_install:
         _run([python, "-m", "pip", "install", str(clone)])
-        _run([python, "-m", "pip", "install", "-r", str(clone / "docs" / "mkdocs" / "requirements.txt"), "jieba"])
+        _run(
+            [python, "-m", "pip", "install", "-r",
+             str(clone / "docs" / "mkdocs" / "requirements.txt"), "jieba"]
+        )
 
-    # Render zh trees first: upstream's locale loader and tutorial builder
-    # both require them to exist.
-    _run([python, str(clone / "docs" / "mkdocs" / "tools" / "translate.py"), "render"], cwd=clone)
+    output = Path(args.output).resolve()
+    if output.exists():
+        shutil.rmtree(output, onexc=_remove_readonly)
+    output.mkdir(parents=True)
 
-    build = [python, str(clone / "docs" / "mkdocs" / "manage.py"), "build", "--site-dir", str(Path(args.output).resolve())]
-    if args.site_url:
-        build.extend(["--site-url", args.site_url])
+    base_url = args.site_url.rstrip("/")
     environment = os.environ.copy()
-    _run(build, cwd=clone, env=environment)
-    print("inject_build: site written to", args.output)
+    if base_url:
+        environment["READTHEDOCS_CANONICAL_URL"] = f"{base_url}/en/"
+        environment["FATQAT_ZH_SITE_URL"] = f"{base_url}/zh/"
+        environment["FATQAT_EN_LINK"] = f"{base_url}/en/"
+        environment["FATQAT_ZH_LINK"] = f"{base_url}/zh/"
+
+    # English first: upstream's hooks generate figures and tutorials, fill the
+    # execution caches, and validate the canonical content.
+    _run(
+        [python, "-m", "mkdocs", "build", "-f", "mkdocs.yml", "--strict",
+         "-d", str(output / "en")],
+        cwd=clone,
+        env=environment,
+    )
+
+    render_env = environment.copy()
+    render_env["FATQAT_MKDOCS_ROOT"] = str(clone / "docs" / "mkdocs")
+    render_env["FATQAT_TRANSLATIONS_ROOT"] = str(REPO_ROOT / "translations")
+    _run(
+        [python, str(REPO_ROOT / "tools" / "translate.py"), "render",
+         "--out-root", str(clone / "docs" / "mkdocs")],
+        cwd=REPO_ROOT,
+        env=render_env,
+    )
+    _run(
+        [python, str(REPO_ROOT / "tools" / "build_zh_assets.py"), "--clone", str(clone)],
+        cwd=clone,
+        env=environment,
+    )
+    _run(
+        [python, "-m", "mkdocs", "build", "-f", "mkdocs.zh.yml", "--strict",
+         "-d", str(output / "zh")],
+        cwd=clone,
+        env=environment,
+    )
+
+    (output / "index.html").write_text(_chooser_page(), encoding="utf-8", newline="\n")
+    (output / ".nojekyll").touch()
+    print("inject_build: site written to", output)
     return 0
 
 

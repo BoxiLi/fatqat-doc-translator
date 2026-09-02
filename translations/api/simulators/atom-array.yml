@@ -5,7 +5,7 @@
 - id: 49c70ed3bcda19fb
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] adds neutral-atom occupancy, loss, and dynamic pairing to the [`Simulator`][fatqat.simulator.Simulator] execution model. Use it to check a program against those constraints. It is not a Hamiltonian or transport model; use the [neutral-atom emulator](../atom-emulators.md) when pulse timing and physical interactions matter.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 在 [`Simulator`][fatqat.simulator.Simulator] 执行模型的基础上增加了中性原子占据、丢失和动态配对。用它来检查程序是否满足这些约束。它不是哈密顿量模型或输运模型；当脉冲时序和物理相互作用重要时，请使用[中性原子仿真器](../atom-emulators.md)。'
-  status: machine
+  status: retired
 - id: f4ada25b182909a0
   en: '**Hardware profile**'
   zh: '**硬件配置**'
@@ -13,19 +13,19 @@
 - id: 7fb9681ce592bd60
   en: Capacity, mapping, and native operations
   zh: 容量、映射与原生操作
-  status: machine
+  status: retired
 - id: 3265188c7022dafe
   en: '`num_sites=None` places no capacity limit. A positive value rejects programs that declare more quantum subsystems than available sites. Registers map to integer device labels in declaration order; a [`GridRegister`][fatqat.GridRegister] is flattened and its coordinates have no physical meaning on this backend.'
   zh: '`num_sites=None` 不设容量限制。正值会拒绝声明的量子子系统数量超过可用位点数的程序。寄存器按声明顺序映射到整数设备标签；[`GridRegister`][fatqat.GridRegister] 会被展平，其坐标在该后端上没有物理意义。'
-  status: machine
+  status: retired
 - id: 6ccf7a0bf74ef18f
   en: The native operations are `RX`, `RY`, `RZ`, and `CZ`. The simulator does not decompose other gates, so `CX` is rejected even when the atoms are paired. [`AtomArraySimulator.implementation_map`][fatqat.simulator.AtomArraySimulator.implementation_map] lists the native gate set; the program's current `Pair` state determines whether a particular `CZ` is allowed.
   zh: 原生操作是 `RX`、`RY`、`RZ` 和 `CZ`。模拟器不会分解其他门，因此即使原子已配对，`CX` 也会被拒绝。[`AtomArraySimulator.implementation_map`][fatqat.simulator.AtomArraySimulator.implementation_map] 列出了原生门集；某个 `CZ` 是否被允许由程序当前的 `Pair` 状态决定。
-  status: machine
+  status: retired
 - id: d2b40e04cd084044
   en: Pairing changes as the program runs. An unconditional [`fatqat.operations.Pair`][fatqat.operations.Pair] connects two sites and [`fatqat.operations.Unpair`][fatqat.operations.Unpair] disconnects them. A `CZ` on an unpaired pair is rejected. Pairing operations do not change the quantum state, though noise attached to them still applies. Conditional `Pair` and `Unpair` are not supported.
   zh: 配对状态随程序运行而变化。无条件的 [`fatqat.operations.Pair`][fatqat.operations.Pair] 连接两个位点，[`fatqat.operations.Unpair`][fatqat.operations.Unpair] 断开它们。作用于未配对原子对的 `CZ` 会被拒绝。配对操作不改变量子态，但附加在其上的噪声仍会生效。不支持带条件的 `Pair` 和 `Unpair`。
-  status: machine
+  status: retired
 - id: eb4ff8c75cb7ea4a
   en: Occupancy and loss
   zh: 占据与丢失
@@ -33,23 +33,23 @@
 - id: 877edc05a034a14c
   en: 'Occupancy is tracked separately for every shot. Its initial value depends on whether the program uses the atom lifecycle:'
   zh: 每次 shot 都单独跟踪占据情况。其初始值取决于程序是否使用原子生命周期：
-  status: machine
+  status: retired
 - id: cfa460c2cc14fc89
   en: '**Occupancy rules**'
   zh: '**占据规则**'
-  status: machine
+  status: retired
 - id: 30bb978e96390694
   en: '`Put` on an occupied site has no effect. A gate or reset on an empty or previously lost site likewise has no effect for that shot. Measurement still reports an erasure, pairing still changes connectivity, and a later `Put` can refill a lost site.'
   zh: '`Put` 作用于已占据的位点时没有效果。同样，作用于空位点或此前已丢失原子位点的门或复位，在该次 shot 中也没有效果。测量仍会报告擦除，配对仍会改变连接性，之后的 `Put` 可以重新填充已丢失原子的位点。'
-  status: machine
+  status: retired
 - id: c7af920f2c924fa3
   en: '[`fatqat.noise.Loss`][fatqat.noise.Loss] can eject gate targets, make `Put` fail, or model loss during `Pair` and `Unpair`. It affects a run only when its selector matches an operation; a matching source with `p=0` still activates explicit occupancy. This is the only gate-level simulator that accepts `Loss`. A missing atom makes an otherwise valid paired `CZ` do nothing for that shot; an unpaired `CZ` is rejected before execution.'
   zh: '[`fatqat.noise.Loss`][fatqat.noise.Loss] 可以弹出门操作的目标原子、使 `Put` 失败，或对 `Pair` 和 `Unpair` 期间的丢失进行建模。只有当其选择器匹配某个操作时它才影响运行；即使 `p=0`，匹配的噪声源也会激活显式占据跟踪。这是唯一接受 `Loss` 的门级模拟器。原子缺失会使本来有效的已配对 `CZ` 在该次 shot 中不产生任何作用；未配对的 `CZ` 则在执行前就被拒绝。'
-  status: machine
+  status: retired
 - id: 08c1722e8f57c182
   en: Measurement of an empty site reports the erasure digit `2`. Erasure bypasses readout-confusion noise because there is no occupied qubit to read. Atom loss makes the final state stochastic, so `final_state=True` requires `shots == 1`. A measured lossy run returns counts by default but not an arbitrary trajectory's final state.
   zh: 测量空位点会报告擦除数字 `2`。由于没有已占据的量子比特可读，擦除会绕过读出混淆噪声。原子丢失使最终态成为随机的，因此 `final_state=True` 要求 `shots == 1`。带测量且有丢失的运行默认返回计数，而不返回任意一条轨迹的最终态。
-  status: machine
+  status: retired
 - id: d029f87e3d80f8fd
   en: Example
   zh: 示例
@@ -57,7 +57,7 @@
 - id: d5b358ecffa0afc2
   en: 'The atom lifecycle cannot be represented by `unitary` or `superop` because occupancy is state outside the quantum matrix. Pairing alone is allowed by operator methods: it changes which native two-qubit operations are legal but does not create occupancy state.'
   zh: 原子生命周期无法用 `unitary` 或 `superop` 表示，因为占据情况是量子矩阵之外的状态。算符类方法允许只使用配对：配对会改变哪些原生双量子比特操作合法，但不会产生占据状态。
-  status: machine
+  status: retired
 - id: caf1ec495f39bbff
   en: '[`Simulator.method`][fatqat.simulator.Simulator.method], [`AtomArraySimulator.implementation_map`][fatqat.simulator.AtomArraySimulator.implementation_map], [`Simulator.run`][fatqat.simulator.Simulator.run], [`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep], and [`Simulator.validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] follow the general Simulator API and are included below for a complete class reference.'
   zh: '[`Simulator.method`][fatqat.simulator.Simulator.method]、[`AtomArraySimulator.implementation_map`][fatqat.simulator.AtomArraySimulator.implementation_map]、[`Simulator.run`][fatqat.simulator.Simulator.run]、[`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep] 和 [`Simulator.validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] 遵循通用的 Simulator API，为提供完整的类参考，一并列在下方。'
@@ -69,7 +69,7 @@
 - id: bb2548e75f56aa32
   en: '| Capacity | Unbounded by default; `num_sites` sets a positive fixed limit |'
   zh: '| 容量 | 默认无上限；`num_sites` 设置一个正的固定上限 |'
-  status: machine
+  status: retired
 - id: 9068235bed981f27
   en: '| Native gates | [`fatqat.operations.RX`][fatqat.operations.RX], [`fatqat.operations.RY`][fatqat.operations.RY], [`fatqat.operations.RZ`][fatqat.operations.RZ], and [`fatqat.operations.CZ`][fatqat.operations.CZ] |'
   zh: '| 原生门 | [`fatqat.operations.RX`][fatqat.operations.RX]、[`fatqat.operations.RY`][fatqat.operations.RY]、[`fatqat.operations.RZ`][fatqat.operations.RZ] 和 [`fatqat.operations.CZ`][fatqat.operations.CZ] |'
@@ -85,11 +85,11 @@
 - id: 229902f1bbbf65a0
   en: '| Methods | All [`Simulator`][fatqat.simulator.Simulator] methods for programs without `Put` or loss; the atom lifecycle requires `statevector` or `density_matrix` |'
   zh: '| 方法 | 不含 `Put` 和丢失的程序支持所有 [`Simulator`][fatqat.simulator.Simulator] 方法；原子生命周期要求 `statevector` 或 `density_matrix` |'
-  status: machine
+  status: retired
 - id: 854f9608c8deeedd
   en: '| Runtime | `numpy` by default; `numba` is also supported |'
   zh: '| 运行时 | 默认为 `numpy`；也支持 `numba` |'
-  status: machine
+  status: retired
 - id: 2628b170b68468d3
   en: '| Noise | Ideal by default; no built-in reference model |'
   zh: '| 噪声 | 默认理想（无噪声）；没有内置参考模型 |'
@@ -97,12 +97,64 @@
 - id: 2c8466b947dfaa4d
   en: '| Program | Initial occupancy and behavior |'
   zh: '| Program | 初始占据与行为 |'
-  status: machine
+  status: retired
 - id: a38f18f2b41591bb
   en: '| No `Put` and no matching [`fatqat.noise.Loss`][fatqat.noise.Loss] source | Every declared site is present. The program behaves like the general simulator, apart from the native gate and pairing rules. |'
   zh: '| 没有 `Put`，也没有匹配的 [`fatqat.noise.Loss`][fatqat.noise.Loss] 噪声源 | 每个已声明的位点都有原子。除原生门规则和配对规则外，程序的行为与通用模拟器相同。 |'
-  status: machine
+  status: retired
 - id: 978c807b092e840a
   en: '| Contains `Put`, or an operation matches a [`fatqat.noise.Loss`][fatqat.noise.Loss] source, even when `p=0` | Every site starts empty. [`fatqat.operations.Put`][fatqat.operations.Put] loads a fresh `\|0>` atom at its targets. |'
   zh: '| 包含 `Put`，或有操作匹配某个 [`fatqat.noise.Loss`][fatqat.noise.Loss] 噪声源（即使 `p=0`） | 每个位点初始为空。[`fatqat.operations.Put`][fatqat.operations.Put] 会在其目标位点装载一个全新的 `\ | 0>` 原子。 |'
+  status: retired
+- id: 26630112df5240a9
+  en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] layers neutral-atom occupancy, loss, and dynamic pairing onto the [`Simulator`][fatqat.simulator.Simulator] execution model. It is useful for checking whether a gate-level program respects those constraints. For pulse timing, transport, or physical interactions, use the [neutral-atom emulator](../atom-emulators.md) instead.'
+  zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 在 [`Simulator`][fatqat.simulator.Simulator] 执行模型的基础上叠加了中性原子占据、丢失和动态配对。它适合用来检查门级程序是否满足这些约束。若涉及脉冲时序、输运或物理相互作用，请改用[中性原子仿真器](../atom-emulators.md)。'
+  status: machine
+- id: e31905868adcee45
+  en: '| Site count | Taken from the quantum resources declared by the `Program` |'
+  zh: '| 位点数量 | 取自 `Program` 声明的量子资源 |'
+  status: machine
+- id: 5d885bde1b3206ee
+  en: '| Methods | `statevector` and `density_matrix` |'
+  zh: '| 方法 | `statevector` 和 `density_matrix` |'
+  status: machine
+- id: f58814884b104747
+  en: Program size, mapping, and native operations
+  zh: 程序规模、映射与原生操作
+  status: machine
+- id: 1d9e37fc50bf9906
+  en: The quantum resources in each program define the array size, so the backend needs no separate site-count or capacity setting. Registers map to integer device labels in declaration order. A [`GridRegister`][fatqat.GridRegister] is flattened because its coordinates have no physical meaning on this backend.
+  zh: 每个程序中的量子资源决定阵列规模，因此该后端不需要单独的位点数量或容量设置。寄存器按声明顺序映射到整数设备标签。[`GridRegister`][fatqat.GridRegister] 会被展平，因为其坐标在该后端上没有物理意义。
+  status: machine
+- id: 23a856c583cc3151
+  en: Only `RX`, `RY`, `RZ`, and `CZ` are native. The simulator does not decompose other gates, so it rejects `CX` even when the atoms are paired. [`AtomArraySimulator.implementation_map`][fatqat.simulator.AtomArraySimulator.implementation_map] exposes this gate set, while the current `Pair` graph determines where `CZ` is legal.
+  zh: 只有 `RX`、`RY`、`RZ` 和 `CZ` 是原生的。模拟器不会分解其他门，因此即使原子已配对，它也会拒绝 `CX`。[`AtomArraySimulator.implementation_map`][fatqat.simulator.AtomArraySimulator.implementation_map] 公开该门集，而当前的 `Pair` 图决定 `CZ` 在何处合法。
+  status: machine
+- id: 6ccef22709adbb01
+  en: Native-gate support and `CZ` pairing are checked before occupancy is considered. An unsupported gate or unpaired `CZ` is therefore rejected even when one of its sites is empty; only a supported, correctly-paired gate can become an empty-site no-op.
+  zh: 原生门支持和 `CZ` 配对会先于占据情况检查。因此，即使某个位点为空，不受支持的门或未配对的 `CZ` 也会被拒绝；只有受支持且正确配对的门才可能因位点为空而成为空操作。
+  status: machine
+- id: fb487adac6ee1747
+  en: Connectivity evolves as the program runs. An unconditional [`fatqat.operations.Pair`][fatqat.operations.Pair] connects two sites and [`fatqat.operations.Unpair`][fatqat.operations.Unpair] disconnects them. Neither operation changes the quantum state, although attached noise still applies. Both must be unconditional.
+  zh: 连接性随程序运行而演变。无条件的 [`fatqat.operations.Pair`][fatqat.operations.Pair] 连接两个位点，[`fatqat.operations.Unpair`][fatqat.operations.Unpair] 断开它们。两种操作都不改变量子态，但附加在其上的噪声仍会生效。二者都必须是无条件的。
+  status: machine
+- id: f1392bff6ae85b7a
+  en: Occupancy is tracked independently for each shot, and every declared site starts empty whether or not the program contains `Put` or has a matching loss source. [`fatqat.operations.Put`][fatqat.operations.Put] loads a fresh `\|0>` atom into an empty target and leaves an occupied target unchanged. Until a site is loaded—or after it is lost—supported gates and reset have no effect there, while measurement reports erasure digit `2`. A later `Put` can refill the site, and pairing instructions continue to update connectivity throughout.
+  zh: 每次 shot 都独立跟踪占据情况，并且无论程序是否包含 `Put` 或存在匹配的丢失噪声源，每个已声明的位点都从空状态开始。[`fatqat.operations.Put`][fatqat.operations.Put] 会向空的目标位点装载一个全新的 `\|0>` 原子，已占据的目标保持不变。在位点被装载之前——或其原子丢失之后——受支持的门和复位在该位点没有效果，而测量会报告擦除数字 `2`。之后的 `Put` 可以重新填充该位点，配对指令则始终持续更新连接性。
+  status: machine
+- id: da463fa39ea8fedb
+  en: 'Occupancy is tracked outside the quantum-state representation. Final statevectors, density matrices, and [`Estimator`][fatqat.Estimator] calculations still include one qubit subsystem per declared site, whether or not an atom is present. With the default initial state, a never-loaded site is represented by `|0>`: measuring it returns `2`, while evaluating `Z` returns `+1`. These quantum-state exports cannot reveal whether a site is occupied; use measurements and counts for that distinction.'
+  zh: '占据情况在量子态表示之外跟踪。最终的态矢量、密度矩阵以及 [`Estimator`][fatqat.Estimator] 计算仍为每个已声明的位点包含一个量子比特子系统，无论该处是否有原子。在默认初态下，从未装载过的位点表示为 `|0>`：对其测量返回 `2`，而对其求 `Z` 的值返回 `+1`。这些量子态导出无法体现位点是否被占据；要区分这一点，请使用测量和计数。'
+  status: machine
+- id: 064143da84c6e2e0
+  en: '[`fatqat.noise.Loss`][fatqat.noise.Loss] can eject gate targets, make `Put` fail, or model loss during `Pair` and `Unpair`. Its selector runs only after a matching operation; `p=0` removes nothing and leaves the loading rule unchanged. No other gate-level simulator accepts `Loss`. If an otherwise-valid paired `CZ` finds a missing atom, it does nothing for that shot; an unpaired `CZ` still fails before execution.'
+  zh: '[`fatqat.noise.Loss`][fatqat.noise.Loss] 可以弹出门操作的目标原子、使 `Put` 失败，或对 `Pair` 和 `Unpair` 期间的丢失进行建模。其选择器仅在匹配的操作之后运行；`p=0` 不会移除任何原子，也不改变装载规则。没有其他门级模拟器接受 `Loss`。如果本来有效的已配对 `CZ` 发现原子缺失，它在该次 shot 中不产生任何作用；未配对的 `CZ` 仍会在执行前失败。'
+  status: machine
+- id: 58f00dfe93ad8d60
+  en: Because an empty site produces no physical readout digit, its erasure value `2` bypasses readout-confusion noise. Atom loss also makes the final state stochastic, so `final_state=True` requires `shots == 1`. A measured lossy run returns counts by default rather than one arbitrary trajectory's final state.
+  zh: 由于空位点不产生物理读出数字，其擦除值 `2` 会绕过读出混淆噪声。原子丢失还会使最终态成为随机的，因此 `final_state=True` 要求 `shots == 1`。带测量且有丢失的运行默认返回计数，而不返回任意一条轨迹的最终态。
+  status: machine
+- id: a56b273102780095
+  en: Because occupancy sits outside the quantum matrix, `unitary` and `superop` cannot represent this lifecycle. `AtomArraySimulator` accepts only `statevector` and `density_matrix`, rejecting either operator method when the backend is constructed—even for a program with no `Put` or loss.
+  zh: 由于占据情况位于量子矩阵之外，`unitary` 和 `superop` 无法表示这一生命周期。`AtomArraySimulator` 只接受 `statevector` 和 `density_matrix`，并在构造后端时就拒绝这两种算符类方法——即使程序不含 `Put` 或丢失也是如此。
   status: machine
