@@ -29,13 +29,15 @@ Read the Docs build: clone upstream @ pin ── build en (upstream mkdocs + hoo
 | `upstream-docs/` | Committed snapshot of upstream's English sources (`en/`, `tutorial-sources/en/`, `gallery.yml`). Updated only when the docs actually change. |
 | `UPSTREAM_COMMIT` | The upstream commit the snapshot (and every build) is pinned to — the last commit that changed the docs. |
 | `translations/` | The translation database: one YAML file per English page, one entry per prose segment (`id` = hash of the English text, `en`, `zh`, `status: pending → machine → reviewed`). Plus `glossary.yml` (fixed terminology) and `STYLE.md` (binding style contract). |
-| `tools/translate.py` | Core tool: `extract` registers new/changed English segments, `render` splices translations into byte-copies of the English sources, `check` validates everything, `find` locates an entry by text. Runs standalone here and injected inside an upstream clone. |
+| `tools/translate.py` | Core tool: `extract` registers new/changed English segments, `render --out-root` splices translations into byte-copies of the English sources, `check` validates everything, `find` locates an entry by text. Reads `upstream-docs/` standalone, or an upstream clone via `FATQAT_MKDOCS_ROOT`. |
 | `tools/sync_upstream.py` | Refreshes the snapshot; reports `changed=true/false`. |
+| `tools/build_zh_assets.py` | Retargets upstream's single-locale tutorial builder at the rendered zh trees (paths + gallery strings) and copies the language-neutral figures. Runs between the English and Chinese builds. |
 | `tools/inject_build.py` | Clones upstream at the pin, builds English with upstream's own root `mkdocs.yml` + hooks, renders the zh trees, drives `build_zh_assets.py`, builds Chinese from `overlay/mkdocs.zh.yml`, and assembles the bilingual site. Used by `.readthedocs.yaml`. |
 | `tools/api_translate.py` | Fallback translation engine for any OpenAI-compatible endpoint. |
 | `overlay/` | `mkdocs.zh.yml` (the zh MkDocs config, translated nav) and `gallery.zh.yml` (zh gallery strings), injected at build time. |
 | `.github/workflows/sync.yml` | Daily: sync docs → extract → auto-translate pending → open a review PR. Exits immediately when the docs did not change. |
 | `.github/workflows/checks.yml` | PR/main validation of the database. |
+| `AGENTS.md` | Standing instructions for coding agents (Codex, Claude Code): the update loop, the hard rules, and what an agent must never touch. Auto-loaded by Codex when connected to this repo. |
 
 ## Key properties
 

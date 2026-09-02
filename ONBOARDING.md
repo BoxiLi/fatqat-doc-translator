@@ -46,6 +46,8 @@ Actions → Variables),默认 `codex`。**凭据必须由订阅持有者本人�
    - 消耗的是你订阅的额度(与你自己交互使用共享)。日常每天只有零到几个
      segment,占用可忽略;
    - 官方文档:https://developers.openai.com/codex/auth/ci-cd-auth
+4. 如果你把 Codex 直接接到本仓库(Codex cloud / GitHub 集成),它会自动读取
+   仓库根的 `AGENTS.md`——翻译循环、硬约束、验证命令都写在那里,无需额外配置。
 
 ### 方案 B:Claude(Claude Pro/Max 订阅额度)
 
@@ -80,8 +82,8 @@ Actions → Variables),默认 `codex`。**凭据必须由订阅持有者本人�
 
 ## 4. 可选:上游英文站指回中文站
 
-上游英文站的 header 加语言切换只需在 `BoxiLi/fatqat` 的
-`docs/mkdocs/mkdocs.base.yml` 里加一段(把 URL 换成本仓库 RTD 站点的地址):
+上游英文站的 header 加语言切换只需在 `BoxiLi/fatqat` 根目录的
+`mkdocs.yml` 里加一段(把 URL 换成本仓库 RTD 站点的地址):
 
 ```yaml
 extra:
@@ -103,6 +105,6 @@ extra:
 | sync 每天开的 PR | 审一眼机器翻译(`status: machine` 的条目),顺手改措辞,合并。合并即触发 RTD 构建。 |
 | 想润色某句翻译 | `python tools/translate.py find "英文或中文片段"` 定位条目,改 `zh:`,状态改 `reviewed`,提交。 |
 | sync 变红:凭据过期 | 重新 `codex login`(或重新 `claude setup-token`),更新 secret。 |
-| build 变红:上游重构了文档工具链 | `tools/inject_build.py` 的注入假设失效(报错信息会指明是哪条),小修该脚本即可;设计上宁可显式失败也不静默发布坏站点。 |
+| build 变红:上游重构了文档工具链 | `tools/inject_build.py` 或 `tools/build_zh_assets.py` 的假设失效(报错信息会指明是哪条),小修对应脚本即可;设计上宁可显式失败也不静默发布坏站点。2026-08-31 上游从多语言 registry 改为根级 `mkdocs.yml` + hooks 时已经历过一次这种适配,可参考当时的 commit。 |
 | 上游新增教程/页面 | 全自动:sync 发现新 segment → 翻译 → PR;合并后新页面出现在 zh 站。 |
 | 翻译额度担忧 | `TRANSLATE_MAX_SEGMENTS`(api 引擎)或直接暂停 workflow;pending 段落回退英文,不会坏站。 |
