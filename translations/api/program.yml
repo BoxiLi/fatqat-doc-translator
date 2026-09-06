@@ -176,7 +176,7 @@
   status: machine
 - id: 43325a1cc86ecc94
   en: 'Use [`fatqat.visualization.to_qubit_circuit`][fatqat.visualization.to_qubit_circuit] only for low-level integration with QuTiP-QIP''s drawing tools:'
-  zh: '仅在需要与 QuTiP-QIP 绘制工具进行底层集成时使用 [`fatqat.visualization.to_qubit_circuit`][fatqat.visualization.to_qubit_circuit]：'
+  zh: 仅在需要与 QuTiP-QIP 绘制工具进行底层集成时使用 [`fatqat.visualization.to_qubit_circuit`][fatqat.visualization.to_qubit_circuit]：
   status: machine
 - id: 8d59a62113806b7f
   en: The returned circuit is a rendering adapter, not an execution object. The old `fatqat.draw` import path has been removed.
