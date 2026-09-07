@@ -112,7 +112,7 @@
   status: machine
 - id: c0c6fd131762d197
   en: 'Call [`quantum_register.all()`][fatqat.QuantumRegister.all] to select every member in increasing index order. It returns a [`RegisterView`](#fatqat.RegisterView), which can be passed to view-capable operations:'
-  zh: '调用 [`quantum_register.all()`][fatqat.QuantumRegister.all] 可按索引递增顺序选择所有成员。它返回一个 [`RegisterView`](#fatqat.RegisterView)，可以传给支持视图的操作：'
+  zh: 调用 [`quantum_register.all()`][fatqat.QuantumRegister.all] 可按索引递增顺序选择所有成员。它返回一个 [`RegisterView`](#fatqat.RegisterView)，可以传给支持视图的操作：
   status: machine
 - id: c44a7a9a6fff9cd2
   en: Register selections

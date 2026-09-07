@@ -61,7 +61,7 @@
 - id: d68b9661a0912461
   en: Here `d=2` for [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]. Its results use FATQAT and NumPy types; the public API does not expose QuTiP objects, `superop`, or internal solver names.
   zh: 对 [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 而言，此处 `d=2`。其结果使用 FATQAT 和 NumPy 类型；公共 API 不暴露 QuTiP 对象、`superop` 或内部求解器名称。
-  status: machine
+  status: retired
 - id: fbcd864ea91aae3d
   en: 'Measurement and potentially active Lindblad noise make a retained final state stochastic. In those cases, the default request returns counts when the program contains measurement and otherwise returns metadata only. Request a single seeded final state explicitly with `result_config={"final_state": True}`, `shots=1`, and `simulation_config={"seed": ...}`. Select `method="density_matrix"` for an exact supported Lindblad ensemble.'
   zh: '测量以及可能处于活动状态的 Lindblad 噪声会使保留的最终状态成为随机的。在这些情况下，默认请求会在程序包含测量时返回计数，否则仅返回元数据。要显式请求单个带种子的最终状态，请使用 `result_config={"final_state": True}`、`shots=1` 和 `simulation_config={"seed": ...}`。选择 `method="density_matrix"` 可获得受支持 Lindblad 演化的精确系综。'
@@ -113,7 +113,7 @@
 - id: 968997f8d5f71e75
   en: The emulator provides built-in amplitude damping, phase damping, thermal relaxation, and depolarizing noise. These forms accept background declarations only; operation-scoped continuous noise is unsupported.
   zh: 该仿真器提供内置的振幅阻尼、相位阻尼、热弛豫和退极化噪声。这些形式仅接受背景声明；不支持操作范围的连续噪声。
-  status: machine
+  status: retired
 - id: b082941e5d4a4016
   en: With `method="statevector"`, resolved Lindblad noise that can act during a nonzero-duration block uses seeded trajectories. Because the atom emulator accepts background declarations only, a declaration is conservatively considered active whenever a nonzero-duration block exists. Zero-rate declarations are still considered active. Use `method="density_matrix"` for the exact ensemble. A zero-duration measured program samples the initial state without time evolution.
   zh: 使用 `method="statevector"` 时，能够在非零时长块期间起作用的已解析 Lindblad 噪声会使用带种子的轨迹。由于原子仿真器仅接受背景声明，只要存在非零时长的块，声明就会被保守地视为活动的。零速率声明同样被视为活动的。要获得精确系综，请使用 `method="density_matrix"`。零时长的含测量程序会在不进行时间演化的情况下对初态进行采样。
@@ -178,3 +178,15 @@
   en: 'Set `interaction_cutoff` per run through `simulation_config`. The default `None` keeps every pair and preserves the complete `C6/R^6` Hamiltonian. A finite nonnegative cutoff keeps pairs whose Euclidean distance is at or below that value in `arrangement.distance_unit` (currently micrometres); `0.0` disables pair interactions. For a rectangular arrangement, `simulation_config={"interaction_cutoff": arrangement.spacing}` keeps only horizontal and vertical nearest pairs. This is a numerical Hamiltonian truncation, not a physical blockade radius. One emulator can therefore be reused to compare several truncations without rebuilding its model or arrangement.'
   zh: '通过 `simulation_config` 为每次运行设置 `interaction_cutoff`。默认的 `None` 保留所有原子对，并保持完整的 `C6/R^6` 哈密顿量。有限的非负截断值保留欧几里得距离不超过该值（以 `arrangement.distance_unit` 计，目前为微米）的原子对；`0.0` 禁用原子对相互作用。对于矩形排布，`simulation_config={"interaction_cutoff": arrangement.spacing}` 仅保留水平和竖直方向的最近邻原子对。这是对哈密顿量的数值截断，而非物理上的阻塞半径。因此同一个仿真器可以重复使用来比较多种截断，而无需重建其模型或排布。'
   status: machine
+- id: dc3e82eff6515f0b
+  en: Here `d=2` for [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]. Its results use FATQAT and NumPy types; the public API does not expose QuTiP objects or `superop`. Informational QuTiP solver names and options appear only in result `runtime_details`.
+  zh: ''
+  status: pending
+- id: e9ff8069672e7c83
+  en: Results follow arrangement order, with site 0 as the most-significant factor. State and unitary results may still use different documented terminal frames.
+  zh: ''
+  status: pending
+- id: 8bf1d31f69757adc
+  en: The emulator provides built-in qubit amplitude damping, explicit transition relaxation, phase damping, qubit thermal relaxation, and depolarizing noise. These forms accept background declarations only; operation-scoped continuous noise is unsupported.
+  zh: ''
+  status: pending
