@@ -90,3 +90,11 @@
   en: '[Bring Programs to and from OpenQASM and Qiskit](interoperability.md) to connect an existing circuit workflow.'
   zh: '[在 OpenQASM 和 Qiskit 之间双向转换 Program](interoperability.md)，连接现有的电路工作流。'
   status: machine
+- id: 7669978ca0e9f0ee
+  en: Read basis indices
+  zh: ''
+  status: pending
+- id: 5eb1d82357e6870a
+  en: 'Public subsystem 0 is the most-significant factor. The two-qubit basis is `|00>`, `|01>`, `|10>`, `|11>` at flat indices 0 through 3. Consequently, `X(q0)|00>` has its nonzero amplitude at index 2, while `X(q1)|00>` uses index 1. Count strings use the same left-to-right public slot order: measuring those states into `(c0, c1)` produces `"10"` and `"01"`, respectively.'
+  zh: ''
+  status: pending

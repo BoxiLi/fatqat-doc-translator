@@ -45,7 +45,7 @@
 - id: 0e86cef014b59788
   en: in fatqat's little-endian subsystem convention. The controlled-X then flips qubit one exactly when qubit zero is one, producing $|\Phi^+\rangle$. This first program has no classical register and no measurements because we want the exact final state.
   zh: 这里采用 fatqat 的小端序子系统约定。随后受控 X 门恰好在量子比特 0 为 1 时翻转量子比特 1，从而产生 $|\Phi^+\rangle$。这第一个程序没有经典寄存器也没有测量，因为我们想要精确的最终态。
-  status: machine
+  status: retired
 - id: 70199ffe99b0bbac
   en: Inspect the exact statevector
   zh: 查看精确态矢量
@@ -65,7 +65,7 @@
 - id: c1f95c3865b3258f
   en: A sampled program needs two classical bits. We rebuild the short program so its quantum instructions are unchanged, then measure quantum slots zero and one into classical slots zero and one. Count strings are displayed with the highest classical index on the left, so the correlated results appear as `"00"` and `"11"`.
   zh: 采样程序需要两个经典比特。我们重建这个短程序，保持其量子指令不变，然后把量子槽位 0 和 1 测量到经典槽位 0 和 1。计数字符串按最高经典索引在最左侧的方式显示，因此相关的结果显示为 `"00"` 和 `"11"`。
-  status: machine
+  status: retired
 - id: d03062c96c66bd73
   en: Sample a reproducible experiment
   zh: 采样一个可复现的实验
@@ -94,3 +94,11 @@
   en: From here, try changing the Hadamard to `X`, removing the controlled-X, or using the noise tools from the user guide. The downloadable Python is generated from these Markdown cells, so each variation can be explored directly.
   zh: 接下来，可以尝试把 Hadamard 换成 `X`、去掉受控 X 门，或使用用户指南中的噪声工具。可下载的 Python 代码由这些 Markdown 单元生成，因此每种变体都可以直接探索。
   status: machine
+- id: d4ad8d41d31c6a9f
+  en: in FATQAT's public most-significant-first subsystem convention. The controlled-X then flips qubit one exactly when qubit zero is one, producing $|\Phi^+\rangle$. This first program has no classical register and no measurements because we want the exact final state.
+  zh: ''
+  status: pending
+- id: e99de0bdf6967497
+  en: A sampled program needs two classical bits. We rebuild the short program so its quantum instructions are unchanged, then measure quantum slots zero and one into classical slots zero and one. Count strings are displayed with classical slot zero on the left, so the correlated results appear as `"00"` and `"11"`.
+  zh: ''
+  status: pending

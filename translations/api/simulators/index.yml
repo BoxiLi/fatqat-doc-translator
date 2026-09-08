@@ -1,7 +1,7 @@
 - id: 3006366a3c77233b
   en: FatQat provides a general circuit simulator and three hardware profiles. They use the same run and result API. Choose [`Simulator`][fatqat.simulator.Simulator] for unrestricted gate-level work, or a profile when the program must obey a native gate set, layout, or connectivity rule.
   zh: FatQat 提供一个通用电路模拟器和三种硬件配置。它们使用相同的运行与结果 API。进行不受限制的门级工作时选择 [`Simulator`][fatqat.simulator.Simulator]；当程序必须遵守原生门集、布局或连接性规则时选择硬件配置。
-  status: machine
+  status: retired
 - id: 9bf34699612b6c6b
   en: Start with [Choose how much physics to model](../../guide/execution-models.md) to choose an execution level, or follow [Test a Program against a hardware profile](../../guide/hardware-profile-simulation.md) for the profile workflow.
   zh: 请先阅读[选择建模的物理程度](../../guide/execution-models.md)来选定执行层级，或按照[用硬件配置测试 Program](../../guide/hardware-profile-simulation.md)了解硬件配置的工作流程。
@@ -9,7 +9,7 @@
 - id: 08872929bcfdb369
   en: The superconducting profiles use a fixed rectangular grid. [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] accepts IBM-style native gates and nearest-neighbour `CZ`. [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] accepts native rotations and nearest-neighbour `iSwap` and `CZ`. Both offer an optional reference noise model.
   zh: 超导硬件配置使用固定的矩形网格。[`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] 接受 IBM 风格的原生门和最近邻 `CZ`。[`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] 接受原生旋转门以及最近邻 `iSwap` 和 `CZ`。两者都提供可选的参考噪声模型。
-  status: machine
+  status: retired
 - id: 8c5e34363d674dcb
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] has no fixed connectivity. `Pair` and `Unpair` change which atoms can interact, while `Put` and `Loss` control occupancy.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 没有固定的连接性。`Pair` 和 `Unpair` 改变哪些原子可以相互作用，而 `Put` 和 `Loss` 控制占据情况。'
@@ -29,11 +29,11 @@
 - id: 257cf06132c647fb
   en: '[SCQubitIBMSimulator](sc-qubit-ibm.md)'
   zh: '[SCQubitIBMSimulator](sc-qubit-ibm.md)'
-  status: machine
+  status: retired
 - id: f88a978ddf8166e7
   en: '[SCQubitGoogleSimulator](sc-qubit-google.md)'
   zh: '[SCQubitGoogleSimulator](sc-qubit-google.md)'
-  status: machine
+  status: retired
 - id: 425f36f4b00a0954
   en: '[AtomArraySimulator](atom-array.md)'
   zh: '[AtomArraySimulator](atom-array.md)'
@@ -49,11 +49,11 @@
 - id: 557c0071ac36bd81
   en: '| [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] | IBM-style native-gate and grid experiments | `X`, `SX`, `RZ`; nearest-neighbour `CZ` |'
   zh: '| [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] | IBM 风格的原生门与网格实验 | `X`、`SX`、`RZ`；最近邻 `CZ` |'
-  status: machine
+  status: retired
 - id: 795dde998cbc3ad7
   en: '| [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] | Google-style native-gate and grid experiments | `RX`, `RY`, `RZ`; nearest-neighbour `iSwap` and `CZ` |'
   zh: '| [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] | Google 风格的原生门与网格实验 | `RX`、`RY`、`RZ`；最近邻 `iSwap` 和 `CZ` |'
-  status: machine
+  status: retired
 - id: d9451617863d6cb6
   en: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | Neutral-atom occupancy, loss, and dynamic connectivity | `RX`, `RY`, `RZ`, and paired `CZ` |'
   zh: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | 中性原子占据、丢失与动态连接性 | `RX`、`RY`、`RZ`，以及配对后的 `CZ` |'
@@ -62,3 +62,19 @@
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] has no fixed connectivity. Every program site starts empty: `Put` loads atoms, `Loss` removes them, and `Pair` and `Unpair` change which atoms can interact.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 没有固定的连接性。每个程序位点都从空状态开始：`Put` 装载原子，`Loss` 移除原子，而 `Pair` 和 `Unpair` 改变哪些原子可以相互作用。'
   status: machine
+- id: 933c61ba7f9876bb
+  en: FatQat provides a general circuit simulator and two hardware profiles. They use the same run and result API. Choose [`Simulator`][fatqat.simulator.Simulator] for unrestricted gate-level work, or a profile when the program must obey a native gate set, layout, or connectivity rule.
+  zh: ''
+  status: pending
+- id: e5bbaff4b52ca744
+  en: '[`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] uses a configurable superconducting coupling graph and accepts `X`, `SX`, virtual `RZ`, and coupled `CZ`. It offers an optional reference noise model.'
+  zh: ''
+  status: pending
+- id: b541fb30f09be048
+  en: '| [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] | Constrained superconducting native-gate experiments | `X`, `SX`, `RZ`; `CZ` on configured couplings |'
+  zh: ''
+  status: pending
+- id: c46e1af5bbfcf962
+  en: '[SCQubitSimulator](sc-qubit.md)'
+  zh: ''
+  status: pending

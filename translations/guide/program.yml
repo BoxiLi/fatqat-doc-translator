@@ -97,7 +97,7 @@
 - id: ea95cbaf8322b2d7
   en: Tuple keys put the flattened classical slots in declaration order, making the qubit value `1` and qutrit value `2` explicit. Operations decide which local dimensions they accept, so use the [qudit operation reference](../api/operations/qudit-gates.md) when you move beyond `Shift`.
   zh: 元组键按声明顺序排列展平后的经典槽位，使量子比特的值 `1` 和 qutrit 的值 `2` 一目了然。各操作自行决定接受哪些局部维度，因此当你超出 `Shift` 的范围时，请查阅 [qudit 操作参考](../api/operations/qudit-gates.md)。
-  status: machine
+  status: retired
 - id: 9a1e0e613e6aa447
   en: Inspect what was written
   zh: 检查所写的内容
@@ -134,3 +134,7 @@
   en: Continue with [Choose how much physics to model](execution-models.md) to see how one authoring interface leads to FatQat's different execution paths. Use the [Program API](../api/program.md) when you need exact accepted forms or validation behavior.
   zh: 继续阅读[选择建模多少物理细节](execution-models.md)，了解同一个编写接口如何通向 FatQat 的不同执行路径。当你需要确切的可接受形式或验证行为时，请使用 [Program API](../api/program.md)。
   status: machine
+- id: 6218dcaa8a42f71d
+  en: Tuple keys put the flattened classical slots in declaration order, making the qubit value `1` and qutrit value `2` explicit. Native strings use the same left-to-right slot order. Operations decide which local dimensions they accept, so use the [qudit operation reference](../api/operations/qudit-gates.md) when you move beyond `Shift`.
+  zh: ''
+  status: pending
