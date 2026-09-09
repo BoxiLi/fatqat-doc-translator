@@ -10,7 +10,7 @@ FatQat is not yet published on PyPI. Clone the repository, create an isolated
 environment, and install the checkout:
 
 ```bash
-git clone https://github.com/BoxiLi/fatqat.git
+git clone https://github.com/spaceqat/fatqat.git
 cd fatqat
 python -m venv .venv
 ```
@@ -168,6 +168,14 @@ run reproducible.
     ax.set_ylim(0, max(counts.values()) * 1.15)
     fig.tight_layout()
     ```
+
+## Read basis indices
+
+Public subsystem 0 is the most-significant factor. The two-qubit basis is
+`|00>`, `|01>`, `|10>`, `|11>` at flat indices 0 through 3. Consequently,
+`X(q0)|00>` has its nonzero amplitude at index 2, while `X(q1)|00>` uses
+index 1. Count strings use the same left-to-right public slot order: measuring
+those states into `(c0, c1)` produces `"10"` and `"01"`, respectively.
 
 Keep this `Program`: the next chapters change the backend to explore logical
 behavior, hardware constraints, and physical dynamics.
