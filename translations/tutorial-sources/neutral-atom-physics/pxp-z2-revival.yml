@@ -61,7 +61,7 @@
 - id: 33cf0123e8576e63
   en: 'Ten sites, working in rad/us and us units, and the familiar drive scale $\Omega=2\pi$ rad/us, so the PXP coefficient is $g=\pi$ rad/us. One convention to keep straight: fatqat stores the amplitude of $|b_0\ldots b_9\rangle$ at index $\sum_i b_i 2^i$ (site 0 is the least significant bit), so each Neel state is a single basis vector -- just two index numbers to remember.'
   zh: 十个格点，使用 rad/us 与 us 单位，以及熟悉的驱动尺度 $\Omega=2\pi$ rad/us，因此 PXP 系数为 $g=\pi$ rad/us。有一个约定需要理清：fatqat 把 $|b_0\ldots b_9\rangle$ 的振幅存放在索引 $\sum_i b_i 2^i$ 处（格点 0 是最低有效位），因此每个 Neel 态都是单个基矢——只需要记住两个索引数字。
-  status: machine
+  status: retired
 - id: 358c7c83cbe273ed
   en: 3. Trotterizing PXP into a fatqat program
   zh: 3. 把 PXP Trotter 分解为 fatqat 程序
@@ -134,3 +134,7 @@
   en: 'The left panel is the money plot: three revivals around $t\approx 1.5, 3.0, 4.5$ us, each a little weaker than the last -- the fingerprint of PXP scars. The middle panel shows why these dynamics are not thermal: the half-chain entropy grows, but it *dips* at every revival, as if the state briefly remembered how to be a product state again. The right panel tells the same story in real space, with the Neel stripes melting during the quench and partially reassembling each time the fidelity peaks.'
   zh: 左图是最关键的一张：三次回复出现在 $t\approx 1.5, 3.0, 4.5$ us 附近，一次比一次略弱——这是 PXP 疤痕的指纹。中图说明了这些动力学为何不是热化的：半链熵在增长，但在每次回复处都会*下探*，仿佛态短暂地想起了如何再次成为直积态。右图在实空间讲述同一个故事：Neel 条纹在猝灭中熔化，并在每次保真度达到峰值时部分重组。
   status: machine
+- id: 735ebb315bf89414
+  en: 'Ten sites, working in rad/us and us units, and the familiar drive scale $\Omega=2\pi$ rad/us, so the PXP coefficient is $g=\pi$ rad/us. One convention to keep straight: FATQAT stores the amplitude of $|b_0\ldots b_9\rangle$ at index $\sum_i b_i 2^{N-1-i}$ (site 0 is the most significant bit), so each Neel state is a single basis vector -- just two index numbers to remember.'
+  zh: ''
+  status: pending
