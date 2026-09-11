@@ -29,11 +29,11 @@
 - id: e97ac3de82641518
   en: 'Only the correlated Bell outcomes occur. Count strings display the highest classical slot on the left and slot 0 on the right. A deliberately asymmetric example makes that order visible:'
   zh: 只会出现相互关联的贝尔结果。计数字符串把最高的经典槽位显示在左边、槽位 0 显示在右边。一个刻意不对称的示例能让这一顺序清晰可见：
-  status: machine
+  status: retired
 - id: 16f4c5119cb588e5
   en: Qubit 0 is `1`, so classical slot 0 appears as the rightmost digit. Use [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples] when code benefits from slot 0 being first rather than from display strings.
   zh: 量子比特 0 是 `1`，因此经典槽位 0 显示为最右边的数字。当代码更需要槽位 0 排在最前而不是显示字符串时，使用 [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples]。
-  status: machine
+  status: retired
 - id: 0ae8e0ab8329b413
   en: What state did the run reach?
   zh: 这次运行到达了什么状态？
@@ -69,7 +69,7 @@
 - id: 699e98543f54406d
   en: The Bell pair is perfectly correlated, so `<ZZ> = 1`. Either individual qubit is balanced between zero and one, so `<Z_0> = 0`. Observable labels place qubit 0 at the right, matching count-string order.
   zh: 贝尔对是完全关联的，因此 `<ZZ> = 1`。任一单个量子比特在零和一之间均衡分布，因此 `<Z_0> = 0`。可观测量标签把量子比特 0 放在右边，与计数字符串的顺序一致。
-  status: machine
+  status: retired
 - id: cd00ec896271f370
   en: 'By default, Estimator calculates an exact value from the final state. A positive shot count instead shows the statistical precision of a finite-shot request:'
   zh: 默认情况下，Estimator 从最终状态计算精确值。给定正的 shot 数则会转而展示有限 shot 请求的统计精度：
@@ -77,7 +77,7 @@
 - id: 94522ff0c66b904f
   en: The estimate fluctuates around zero, and `get_std()` reports its standard error. Increase the shots when statistical precision—not state evolution—is the limiting factor.
   zh: 估计值在零附近波动，`get_std()` 报告其标准误差。当限制因素是统计精度——而非状态演化——时，增加 shot 数。
-  status: machine
+  status: retired
 - id: c39ced49852e32fa
   en: For formal state-axis, operator-vectorization, and observable-shape contracts, use the [Result](../api/result.md), [Simulator](../api/simulator.md), and [Estimator](../api/estimator.md) references.
   zh: 关于状态轴、算符向量化和可观测量形状的正式契约，请查阅 [Result](../api/result.md)、[Simulator](../api/simulator.md) 和 [Estimator](../api/estimator.md) 参考。
@@ -86,3 +86,23 @@
   en: The next question is often whether that answer survives realistic errors. [Compare the same Program ideally and noisily](ideal-and-noisy.md) changes the execution model while leaving the Bell Program untouched.
   zh: 接下来的问题往往是：这个答案在真实误差下是否仍然成立。[在理想与含噪条件下比较同一个 Program](ideal-and-noisy.md)改变的是执行模型，而贝尔 Program 保持原样。
   status: machine
+- id: 0bbd3ea6ab6c1771
+  en: 'Only the correlated Bell outcomes occur. Count strings display classical slot 0 on the left, matching tuple position 0. A deliberately asymmetric example makes that order visible:'
+  zh: ''
+  status: pending
+- id: 804371fb630e9ebd
+  en: Qubit 0 is `1`, so classical slot 0 appears as the leftmost digit. Tuple counts use the same slot order; they avoid string-token parsing for mixed dimensions.
+  zh: ''
+  status: pending
+- id: 64c094981e6702ab
+  en: Flat basis indices use `state_result.metadata["state_axes"]` from most to least significant. With public dimensions `(d0, ..., d_last)`, ordinary `state.reshape(d0, ..., d_last)` uses C order. For two qubits, `|10>` is flat index 2 and `|01>` is index 1.
+  zh: ''
+  status: pending
+- id: 30d028bfbee1ccfc
+  en: 'The Bell pair is perfectly correlated, so `<ZZ> = 1`. Either individual qubit is balanced between zero and one, so `<Z_0> = 0`. Observable labels run in public qubit order: the leftmost character acts on qubit 0.'
+  zh: ''
+  status: pending
+- id: dae1900496abaae5
+  en: The estimate fluctuates around zero, and `get_standard_error()` reports its standard error. Increase the shots when statistical precision—not state evolution—is the limiting factor.
+  zh: ''
+  status: pending
