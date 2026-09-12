@@ -61,7 +61,7 @@
 - id: 524b4705936b5a54
   en: Rates use the inverse of the model's time unit. `t_phi`, `t1`, and `t2` use that unit directly. The reference [`time_unit`][fatqat.emulator.TransmonModel.time_unit] is nanoseconds, while [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] is microseconds. Read the chosen model's `time_unit` rather than guessing from a value's magnitude.
   zh: 速率使用模型时间单位的倒数。`t_phi`、`t1` 与 `t2` 直接使用该单位。参考模型的 [`time_unit`][fatqat.emulator.TransmonModel.time_unit] 为纳秒，而 [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] 为微秒。请读取所选模型的 `time_unit`，不要根据数值大小猜测。
-  status: machine
+  status: retired
 - id: cd658d9c89abdf58
   en: Unsupported continuous declarations cannot be enabled through emulator construction. Use `NoiseModel` for the declarations listed above and call the family's `validate_noise_model()` method for an eager support check.
   zh: 不受支持的连续噪声声明无法通过仿真器构造启用。请使用 `NoiseModel` 进行上面列出的声明，并调用相应家族的 `validate_noise_model()` 方法进行及早的支持检查。
@@ -81,7 +81,7 @@
 - id: a25c019e85537bb1
   en: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(p)` | **Built in.** Applies to one selected operand; dimension $d$ requires $d-1$ adjacent-transition probabilities. |'
   zh: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(p)` | **内置。**作用于一个所选操作数；维度 $d$ 需要 $d-1$ 个相邻跃迁概率。 |'
-  status: machine
+  status: retired
 - id: eb01d30aedabc801
   en: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] `(p)` | **Built in.** Applies to one selected operand of any finite local dimension. |'
   zh: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] `(p)` | **内置。**作用于一个所选操作数，局部维度可为任意有限值。 |'
@@ -101,12 +101,32 @@
 - id: 309e1b6187985dbc
   en: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | Background or operation scope: [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)` with two rates for the three-level model, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation], and [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)` over the full qutrit. | Readout confusion is built in and binary. Construction and [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] require a `2 x 2` matrix. |'
   zh: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | 背景或操作作用域：三能级模型下带两个速率的 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)`、[`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`、[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]，以及作用于完整 qutrit 的 [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`。 | 读出混淆为内置且是二值的。构造时以及 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] 都要求 `2 x 2` 矩阵。 |'
-  status: machine
+  status: retired
 - id: 87a9dc8aeb09dcfd
   en: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | Background scope: [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`, [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)` with one rate, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, and [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]. | Operation-scoped continuous noise is unsupported. Readout confusion is built in and `2 x 2` only. |'
   zh: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | 背景作用域：[`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`、带一个速率的 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)`、[`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`，以及 [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation]。 | 不支持操作作用域的连续噪声。读出混淆为内置且仅支持 `2 x 2`。 |'
-  status: machine
+  status: retired
 - id: 9763a43883f27197
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] also supports [`Loss`][fatqat.noise.Loss], sampling each selected carrier that is present after a matching operation. Sites begin empty and [`Put`][fatqat.operations.Put] loads them, so loss attached to `Put` can model a loading failure. Other simulators reject `Loss`. Because an empty site produces no physical readout digit, its erasure value `2` bypasses readout confusion.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 还支持 [`Loss`][fatqat.noise.Loss]，在匹配的操作之后对每个被选中且仍在位的载体进行采样。位点从空状态开始，由 [`Put`][fatqat.operations.Put] 装载，因此附加到 `Put` 的丢失可用于建模装载失败。其他模拟器拒绝 `Loss`。由于空位点不产生物理读出数字，其擦除值 `2` 会绕过读出混淆。'
   status: machine
+- id: 0fdcea30a08f4c2b
+  en: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(p)` | **Built in for qubits.** Applies the conventional finite amplitude-damping channel to one selected operand. |'
+  zh: ''
+  status: pending
+- id: 4e76ff521b5e3e66
+  en: '| [`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] `(p)` | **Built in.** Applies one explicit local jump; matching declarations are applied sequentially in registration order. |'
+  zh: ''
+  status: pending
+- id: aacf85527d823f77
+  en: '| [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] | Background or operation scope: [`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] `(rate)` with explicit coefficients, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, and [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)` over the full qutrit. | Readout confusion is built in and binary. Construction and [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] require a `2 x 2` matrix. |'
+  zh: ''
+  status: pending
+- id: de86eab7ed62de42
+  en: '| [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] | Background scope: qubit [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] `(rate)`, explicit [`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] `(rate)`, [`PhaseDamping`][fatqat.noise.PhaseDamping] `(rate or t_phi)`, qubit [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation], and [`Depolarizing`][fatqat.noise.Depolarizing] `(rate)`. | Operation-scoped continuous noise is unsupported. Readout confusion is built in and `2 x 2` only. |'
+  zh: ''
+  status: pending
+- id: 84d7bbbb460f5231
+  en: Rates use the inverse of the model's time unit. `t_phi`, `t1`, and `t2` use that unit directly on families that accept them. The reference [`time_unit`][fatqat.emulator.TransmonModel.time_unit] is nanoseconds, while [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] is microseconds. Read the chosen model's `time_unit` rather than guessing from a value's magnitude.
+  zh: ''
+  status: pending

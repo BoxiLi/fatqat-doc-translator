@@ -117,7 +117,7 @@
 - id: c83ccb93cc7936a5
   en: 'The same energy, estimated the way hardware would deliver it: every expectation comes from 1024 measurement shots. `shots` is a per-run option, not an estimator property, so the same estimator serves exact and sampled evaluations. An explicit `simulation_config={"seed": ...}` reuses the same randomness at every evaluation, keeping the optimizer''s landscape deterministic. `sampled_std` propagates the per-observable standard errors (`get_std()`) through the weights in quadrature — $\sigma_E = \sqrt{\sum_i c_i^2 \sigma_i^2}$ — the scale of the error bar on the noisy objective.'
   zh: '同样的能量，按硬件交付的方式估计：每个期望值来自 1024 次测量。`shots` 是每次运行的选项，而非估计器的属性，因此同一个估计器既能做精确求值也能做采样求值。显式的 `simulation_config={"seed": ...}` 让每次求值复用相同的随机性，使优化器面对的能量地形保持确定性。`sampled_std` 把各可观测量的标准误差（`get_std()`）按权重以平方和开方的方式传播——$\sigma_E = \sqrt{\sum_i c_i^2 \sigma_i^2}$——这就是含噪目标函数误差棒的尺度。'
-  status: machine
+  status: retired
 - id: add004053ba85637
   en: The same COBYLA run, now optimizing the noisy objective. Note that what matters at the end is the *exact* energy of the point found — the shot noise only steers the search.
   zh: 同样的 COBYLA 运行，这次优化的是含噪目标。注意最终重要的是所找到的点的*精确*能量——采样噪声只是影响搜索的走向。
@@ -142,3 +142,7 @@
   en: On larger systems, the bitstrings sampled from the optimized state can be post-processed classically (sample-based quantum diagonalization) — overkill at two qubits, where the sampled subspace is the whole space.
   zh: 在更大的系统上，从优化后的态采样得到的比特串可以在经典侧后处理（基于采样的量子对角化）——在两个量子比特上这属于大材小用，因为采样到的子空间就是整个空间。
   status: machine
+- id: de9016c742c9be7d
+  en: 'The same energy, estimated the way hardware would deliver it: every expectation comes from 1024 measurement shots. `shots` is a per-run option, not an estimator property, so the same estimator serves exact and sampled evaluations. An explicit `simulation_config={"seed": ...}` reuses the same randomness at every evaluation, keeping the optimizer''s landscape deterministic. `sampled_std` propagates the per-observable standard errors (`get_standard_error()`) through the weights in quadrature — $\sigma_E = \sqrt{\sum_i c_i^2 \sigma_i^2}$ — the scale of the error bar on the noisy objective.'
+  zh: ''
+  status: pending
