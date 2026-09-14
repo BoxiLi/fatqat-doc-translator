@@ -144,7 +144,7 @@
   status: machine
 - id: da463fa39ea8fedb
   en: 'Occupancy is tracked outside the quantum-state representation. Final statevectors, density matrices, and [`Estimator`][fatqat.Estimator] calculations still include one qubit subsystem per declared site, whether or not an atom is present. With the default initial state, a never-loaded site is represented by `|0>`: measuring it returns `2`, while evaluating `Z` returns `+1`. These quantum-state exports cannot reveal whether a site is occupied; use measurements and counts for that distinction.'
-  zh: '占据情况在量子态表示之外跟踪。最终的态矢量、密度矩阵以及 [`Estimator`][fatqat.Estimator] 计算仍为每个已声明的位点包含一个量子比特子系统，无论该处是否有原子。在默认初态下，从未装载过的位点表示为 `|0>`：对其测量返回 `2`，而对其求 `Z` 的值返回 `+1`。这些量子态导出无法体现位点是否被占据；要区分这一点，请使用测量和计数。'
+  zh: 占据情况在量子态表示之外跟踪。最终的态矢量、密度矩阵以及 [`Estimator`][fatqat.Estimator] 计算仍为每个已声明的位点包含一个量子比特子系统，无论该处是否有原子。在默认初态下，从未装载过的位点表示为 `|0>`：对其测量返回 `2`，而对其求 `Z` 的值返回 `+1`。这些量子态导出无法体现位点是否被占据；要区分这一点，请使用测量和计数。
   status: machine
 - id: 064143da84c6e2e0
   en: '[`fatqat.noise.Loss`][fatqat.noise.Loss] can eject gate targets, make `Put` fail, or model loss during `Pair` and `Unpair`. Its selector runs only after a matching operation; `p=0` removes nothing and leaves the loading rule unchanged. No other gate-level simulator accepts `Loss`. If an otherwise-valid paired `CZ` finds a missing atom, it does nothing for that shot; an unpaired `CZ` still fails before execution.'
