@@ -41,7 +41,7 @@
 - id: 64e973b5c323810d
   en: For two qubits, targets `(q0, q1)` therefore use the local basis `|00>`, `|01>`, `|10>`, `|11>`. Controlled operations list controls before targets. This local convention is independent of the full-system display and result bit order.
   zh: 因此对于两个量子比特，目标 `(q0, q1)` 使用局部基 `|00>`、`|01>`、`|10>`、`|11>`。受控操作将控制位列在目标之前。这一局部约定与全系统显示顺序及结果比特顺序无关。
-  status: machine
+  status: retired
 - id: 92ed903d39713644
   en: Target-specific rules
   zh: 特定目标规则
@@ -98,3 +98,7 @@
   en: '| [`MatrixImplementation`][fatqat.implementation.MatrixImplementation] | A configured or stateful rule object | Override `__call__(op, *, targets)`. |'
   zh: '| [`MatrixImplementation`][fatqat.implementation.MatrixImplementation] | 带配置或有状态的规则对象 | 重写 `__call__(op, *, targets)`。 |'
   status: machine
+- id: 5d5b2445efafc346
+  en: For two qubits, targets `(q0, q1)` therefore use the local basis `|00>`, `|01>`, `|10>`, `|11>`. Controlled operations list controls before targets. When the tuple lists every subsystem in public order, this is also the basis used by returned states and operators. A local matrix on a smaller or differently ordered target tuple must be embedded before direct use with a full returned state; the simulator performs that embedding during execution.
+  zh: ''
+  status: pending

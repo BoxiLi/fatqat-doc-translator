@@ -9,7 +9,7 @@
 - id: e2579d602777c721
   en: 'The distinction is easiest to see when the `Program` does not change. This single-qubit rotation is understood by all three examples below:'
   zh: 当 `Program` 保持不变时，这种区别最容易看清。下面三个示例都能理解这个单量子比特旋转：
-  status: machine
+  status: retired
 - id: ead641e7cf16d073
   en: General simulator
   zh: 通用模拟器
@@ -29,7 +29,7 @@
 - id: 9367753b7945f1d0
   en: 'A hardware-profile simulator still evolves gates at circuit level, but first checks that the program is native and physically placeable. `RX` is native to the Google-style profile used here:'
   zh: 硬件配置文件模拟器仍在电路层面演化门操作，但会先检查程序是否原生、能否在物理上放置。`RX` 是此处所用的 Google 风格配置文件的原生门：
-  status: machine
+  status: retired
 - id: b25004bfc9facab9
   en: 'The numerical answer matches, but the claim is stronger: this particular instruction also belongs to the selected native gate set and fits its resource model.'
   zh: 数值结果相同，但结论更强：这条特定指令还属于所选的原生门集合，并符合其资源模型。
@@ -61,7 +61,7 @@
 - id: 8f002e78fdfb150d
   en: All three paths accept a `Program`, return a `Job`, and expose data through a `Result`, but they do not accept the same instruction set.
   zh: 三条路径都接受 `Program`、返回 `Job`，并通过 `Result` 暴露数据，但它们接受的指令集并不相同。
-  status: machine
+  status: retired
 - id: da16a5a278e5ab4d
   en: For example, the general simulator supports logical qudits and registers with mixed local dimensions. Current hardware profiles and pulse emulators accept dimension-two logical resources. A transmon emulator may return a physical qutrit state because it retains a leakage level; that is different from declaring a logical qutrit in the Program.
   zh: 例如，通用模拟器支持逻辑 qudit 以及具有混合局部维度的寄存器。目前的硬件配置文件和脉冲仿真器只接受维度为二的逻辑资源。transmon 仿真器可能返回物理上的 qutrit 状态，因为它保留了一个泄漏能级；这与在 Program 中声明逻辑 qutrit 不是一回事。
@@ -90,3 +90,15 @@
   en: '| how gates or controls behave as timed physical dynamics | an emulator | levels, drift, coupling, pulses, Hamiltonians, and compatible open-system noise |'
   zh: '| 门或控制作为定时物理动力学时的行为 | 仿真器 | 能级、漂移、耦合、脉冲、哈密顿量，以及兼容的开放系统噪声 |'
   status: machine
+- id: dbc546651b41c1fa
+  en: 'The distinction is easiest to see with equivalent single-qubit rotations. Each execution level uses the representation appropriate to its target:'
+  zh: ''
+  status: pending
+- id: c40ef62f8f7123d7
+  en: 'A hardware-profile simulator still evolves gates at circuit level, but first checks that the program is native and physically placeable. The canonical superconducting profile expresses this half rotation as `SX`:'
+  zh: ''
+  status: pending
+- id: 24d263abbed8b5c5
+  en: All three paths accept a `Program`, return a `Job`, and expose data through a `Result`, but equivalent algorithms may require target-appropriate Programs because they do not accept the same instruction set.
+  zh: ''
+  status: pending
