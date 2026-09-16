@@ -87,7 +87,11 @@ and its corresponding Result accessor, not an internal solver:
 
 Here `d=2` for [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]. Its
 results use FATQAT and NumPy types; the public API does not expose QuTiP
-objects, `superop`, or internal solver names.
+objects or `superop`. Informational QuTiP solver names and options appear
+only in result `runtime_details`.
+
+Results follow arrangement order, with site 0 as the most-significant factor.
+State and unitary results may still use different documented terminal frames.
 
 Measurement and potentially active Lindblad noise make a retained final state
 stochastic. In those cases, the default request returns counts when the
@@ -159,9 +163,10 @@ Binary [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] is a classical report
 applied only to the reported digit after physical collapse, not a Lindblad
 operator.
 
-The emulator provides built-in amplitude damping, phase damping, thermal
-relaxation, and depolarizing noise. These forms accept background declarations
-only; operation-scoped continuous noise is unsupported.
+The emulator provides built-in qubit amplitude damping, explicit transition
+relaxation, phase damping, qubit thermal relaxation, and depolarizing noise.
+These forms accept background declarations only; operation-scoped continuous
+noise is unsupported.
 
 With `method="statevector"`, resolved Lindblad noise that can act during a
 nonzero-duration block uses seeded trajectories. Because the atom emulator

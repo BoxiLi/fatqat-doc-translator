@@ -145,11 +145,11 @@
 - id: 9633a55eb5f7e523
   en: Count strings appear reversed
   zh: 计数字符串看起来是反的
-  status: machine
+  status: retired
 - id: b5d4ed01ebadd3cc
   en: Displayed count strings put classical slot 0 on the right. When local dimensions differ—or when you simply want an unambiguous program-order representation—use `result.get_counts_as_tuples()` instead. Tuple position 0 is classical slot 0.
   zh: 显示的计数字符串把经典槽位 0 放在右侧。当局部维度不同时——或者你只是想要一个按程序顺序、无歧义的表示——请改用 `result.get_counts_as_tuples()`。元组位置 0 对应经典槽位 0。
-  status: machine
+  status: retired
 - id: d3cff453d8563cde
   en: Reduce the problem without losing the clue
   zh: 在不丢失线索的前提下缩小问题
@@ -182,3 +182,11 @@
   en: The step where it changes tells you which boundary to inspect. Preserve the small reproducer—it is also the most useful starting point for a bug report.
   zh: 发生变化的那一步会告诉你应检查哪个边界。请保留这个小型复现示例——它也是提交缺陷报告时最有用的起点。
   status: machine
+- id: f4550463aa53c38e
+  en: How are count strings ordered?
+  zh: ''
+  status: pending
+- id: b7919bcf68888606
+  en: Displayed count strings and tuple keys both put classical slot 0 first, on the left or at tuple position 0. When local dimensions differ, tuple keys avoid string-token parsing; native strings use commas if any classical dimension is at least 10.
+  zh: ''
+  status: pending

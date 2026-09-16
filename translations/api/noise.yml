@@ -109,7 +109,7 @@
 - id: 6cbdd4700b1ba810
   en: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] | Exactly one of `p` or `rate`, with one value per adjacent transition | One subsystem | Ladder decay from level `k` to `k - 1` |'
   zh: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] | `p` 与 `rate` 中恰好其一，每个相邻跃迁对应一个值 | 单个子系统 | 从能级 `k` 到 `k - 1` 的阶梯式衰减 |'
-  status: machine
+  status: retired
 - id: efa905c053cdb71f
   en: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] | Exactly one of `p`, `rate`, or `t_phi` | One subsystem | Coherence decay without population transfer |'
   zh: '| [`PhaseDamping`][fatqat.noise.PhaseDamping] | `p`、`rate` 与 `t_phi` 中恰好其一 | 单个子系统 | 无布居转移的相干衰减 |'
@@ -117,7 +117,7 @@
 - id: 2d73e3d318c879fe
   en: '| [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | `t1` and `t2` | One subsystem | Combined energy relaxation and residual pure dephasing |'
   zh: '| [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | `t1` 与 `t2` | 单个子系统 | 能量弛豫与剩余纯退相位的组合 |'
-  status: machine
+  status: retired
 - id: eebe1848a578f638
   en: '| [`Loss`][fatqat.noise.Loss] | Per-carrier probability `p` | Every selected carrier in a matched operation | Persistent carrier removal on an occupancy-aware backend |'
   zh: '| [`Loss`][fatqat.noise.Loss] | 每个载体各自的概率 `p` | 匹配操作中每个被选中的载体 | 在感知占据状态的后端上持久移除载体 |'
@@ -126,3 +126,19 @@
   en: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | Column-stochastic report matrix | Each measured subsystem independently, or one selected subsystem | Classical resampling of the reported digit after physical collapse |'
   zh: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | 列随机的报告矩阵 | 每个被测量的子系统各自独立，或一个选定的子系统 | 物理坍缩后对报告数位的经典重采样 |'
   status: machine
+- id: 0ee5d8b7052aa775
+  en: '| [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] | Exactly one scalar `p` or `rate` | One qubit | Conventional finite channel or continuous qubit energy relaxation |'
+  zh: ''
+  status: pending
+- id: 62b111ac1123a957
+  en: '| [`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] | Exactly one scalar `p` or `rate`, plus explicit transition coefficients | One subsystem | One explicitly authored finite or continuous jump operator |'
+  zh: ''
+  status: pending
+- id: 827b3d1eab64fc91
+  en: '| [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] | `t1` and `t2` | One qubit | Combined energy relaxation and residual pure dephasing |'
+  zh: ''
+  status: pending
+- id: cb50d52d143477c2
+  en: '[TransitionRelaxation](noise/transition-relaxation.md)'
+  zh: ''
+  status: pending
