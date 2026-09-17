@@ -5,7 +5,7 @@
 - id: da8b5ab9a8c92a58
   en: '[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] models zero-temperature T1 and T2 relaxation on an emulator. It combines downward population decay with the additional pure dephasing needed to reproduce T2. It is a continuous-time emulator declaration, not a finite simulator channel. Matrix simulators instead use operation-bound probability-form [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] and [`PhaseDamping`][fatqat.noise.PhaseDamping] descriptors.'
   zh: '[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] 在仿真器上建模零温 T1 和 T2 弛豫。它将向下的布居衰减与再现 T2 所需的额外纯退相位相结合。它是连续时间的仿真器声明，而非有限的模拟器信道。矩阵模拟器应改用绑定到操作的概率形式 [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] 和 [`PhaseDamping`][fatqat.noise.PhaseDamping] 描述符。'
-  status: machine
+  status: retired
 - id: aa7fb16e3a4b4b82
   en: Times and rates
   zh: 时间与速率
@@ -25,11 +25,11 @@
 - id: dd2c4c227241fba9
   en: For a $d$-level pulse model, the emulator uses the local Lindblad operators
   zh: 对于 $d$ 能级脉冲模型，仿真器使用局部 Lindblad 算符
-  status: machine
+  status: retired
 - id: 4c5aab31ef4cf4bc
   en: 'The second operator is omitted when $\gamma_\phi=0$. This is a local, zero-temperature model: it includes downward relaxation but no thermal excitation or equilibrium-population parameter.'
   zh: 当 $\gamma_\phi=0$ 时省略第二个算符。这是一个局部零温模型：它包含向下弛豫，但不包含热激发或平衡布居参数。
-  status: machine
+  status: retired
 - id: 37bd756f29254a0a
   en: Matrix simulators
   zh: 矩阵模拟器
@@ -49,4 +49,20 @@
 - id: 52e8d3c4ba1874e5
   en: This construction is for qubits. A higher-dimensional amplitude-damping channel needs $d-1$ values, and the elementwise probability conversion does not reproduce full multilevel Lindblad evolution. See [Simulators](backend-support.md#noise-simulator-support) for simulator support.
   zh: 此构造仅适用于量子比特。更高维的振幅阻尼信道需要 $d-1$ 个值，而逐元素的概率转换无法再现完整的多能级 Lindblad 演化。模拟器支持情况参见[模拟器](backend-support.md#noise-simulator-support)。
-  status: machine
+  status: retired
+- id: bbac5210fe29a8d6
+  en: '[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation] models zero-temperature qubit T1 and T2 relaxation on an emulator. It combines downward population decay with the additional pure dephasing needed to reproduce T2. It is a continuous-time emulator declaration, not a finite simulator channel. Matrix simulators instead use operation-bound probability-form [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping] and [`PhaseDamping`][fatqat.noise.PhaseDamping] descriptors.'
+  zh: ''
+  status: pending
+- id: 125b15086e078d78
+  en: For a qubit pulse model, the emulator uses the local Lindblad operators
+  zh: ''
+  status: pending
+- id: c7761915bf8cba35
+  en: 'The second operator is omitted when $\gamma_\phi=0$. This is a local, zero-temperature model: it includes downward relaxation but no thermal excitation or equilibrium-population parameter. Built-in support is limited to background noise on [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator].'
+  zh: ''
+  status: pending
+- id: 58832dd3cf437848
+  en: For multilevel relaxation, author the physical jump operators explicitly with [`TransitionRelaxation`](transition-relaxation.md) and add any required dephasing separately. See [Simulators](backend-support.md#noise-simulator-support) for simulator support.
+  zh: ''
+  status: pending
