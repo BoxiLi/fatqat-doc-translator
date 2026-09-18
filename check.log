@@ -1,0 +1,9 @@
+check: machine=1465, pending=125, retired=163, reviewed=1
+warning: api/noise/custom-implementations.yml: e4305affe773ab71 mentions 'register' without '寄存器'
+warning: api/noise/thermal-relaxation.yml: a995478a353306e9 mentions 'register' without '寄存器'
+warning: api/operations.yml: 83a7dfd2e4379f90 mentions 'register' without '寄存器'
+warning: api/pulse-control/index.yml: b3f98df09d60e20c mentions 'register' without '寄存器'
+warning: tutorial-sources/neutral-atom-physics/antiferromagnetic-chain.yml: 5ba35375996662b5 mentions 'parameter' without '参数'
+warning: tutorial-sources/neutral-atom-physics/antiferromagnetic-chain.yml: 792cf650b72d4e6e mentions 'sweep' without '扫描'
+warning: tutorial-sources/neutral-atom-physics/antiferromagnetic-chain.yml: 4250964de8fd1318 mentions 'sweep' without '扫描'
+warning: tutorial-sources/neutral-atom-physics/pxp-z2-revival.yml: 8bb547b29d7342b9 mentions 'sweep' without '扫描'

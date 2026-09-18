@@ -49,7 +49,7 @@
 - id: 36fa144938ef9619
   en: '[`run_sweep`][fatqat.simulator.Simulator.run_sweep] binds each row of values to the same Program structure. Here the state itself is the useful answer, so no measurement or sampling is needed:'
   zh: '[`run_sweep`][fatqat.simulator.Simulator.run_sweep] 将每一行取值绑定到同一个 Program 结构上。这里状态本身就是有用的答案，因此不需要测量或采样：'
-  status: machine
+  status: retired
 - id: ee43aa7d5634a045
   en: 'The complete response curve makes the reuse visible:'
   zh: 完整的响应曲线让这种复用一目了然：
@@ -82,3 +82,7 @@
   en: '| The complete channel implemented by a small Program | `method="superop"` |'
   zh: '| 小型 Program 实现的完整信道 | `method="superop"` |'
   status: machine
+- id: 31d7259a019383c7
+  en: '[`run_sweep`][fatqat.simulator.Simulator.run_sweep] binds each row of values to the same Program structure. The program is validated and lowered once; each row then only rebuilds the matrices of the gates that hold parameters. Here the state itself is the useful answer, so no measurement or sampling is needed:'
+  zh: ''
+  status: pending
