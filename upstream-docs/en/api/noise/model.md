@@ -15,9 +15,9 @@ rules it can implement.
 
 
 This example adds phase damping after every `RX`, amplitude damping to the
-second operand of every `CZ`, and readout confusion on `q[0]`. Logical
-targets use references from the program; device-label targets use labels from
-the run's [`ResourceLayout`][fatqat.ResourceLayout].
+second operand of every `CZ`, and readout confusion on `q[0]`. Logical targets
+use references from the program; device-label targets use physical labels
+defined by the backend.
 
 ```python
 import fatqat as fq
@@ -107,7 +107,18 @@ matching pulse.
 
 
 `targets` may use logical [`RegisterRef`][fatqat.RegisterRef] values from the
-program or hashable device labels from the resource layout.
+program or hashable device labels accepted by the backend. The run's
+[`ResourceLayout`][fatqat.ResourceLayout] maps program references into that
+device-label space.
+
+The legal device-label set is backend-specific:
+
+| Built-in backend | Legal device labels |
+| --- | --- |
+| Generic [`Simulator`][fatqat.simulator.Simulator] | Labels in the effective resource layout |
+| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | Labels in the effective resource layout; the program defines the sites |
+| [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] | Every configured device label |
+| Pulse emulators | Every label in the configured model or atom arrangement |
 
 **Accepted `targets` forms**
 
@@ -167,14 +178,23 @@ Different noise types may act on the same operation. The same type may also be
 used on disjoint targets or operand positions. Background and operation noise
 are independent, so the same type can appear in both scopes.
 
-FATQAT rejects overlapping rules of the same type for the same operation or
-background scope. A rule for every matching operation overlaps an exact target
-selector, and selecting every operand overlaps a positional selection.
+FATQAT normally rejects overlapping rules of the same type for the same
+operation or background scope. A rule for every matching operation overlaps
+an exact target selector, and selecting every operand overlaps a positional
+selection.
+
+[`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] is the one
+built-in exception because each registration is an additional authored
+channel. On a matrix simulator, matching `p` declarations on the same
+resolved extent are applied sequentially in registration order. On a pulse
+emulator, matching `rate` declarations become separate collapse operators.
 
 Logical and device-label selectors cannot be compared until a resource layout
-is available. They may therefore both be added, but execution raises
+is available. They may therefore both be added, but execution normally raises
 [`BackendValidationError`][fatqat.errors.BackendValidationError] if the layout makes both
-select the same noise type and operands for an actual operation.
+select the same noise type and operands for an actual operation. The
+`TransitionRelaxation` exception above also applies when logical and device
+selectors resolve to the same extent.
 
 Readout is unique per measured operand. Duplicate universal or duplicate exact
 selectors fail during `add`; universal and targeted registrations cannot be
@@ -191,11 +211,10 @@ measured operand are rejected when the program runs.
 | Creating a noise value | Probabilities, rates, matrices, finite values, and type-specific parameter relationships | `TypeError` or `ValueError` from the noise type |
 | [`add`][fatqat.NoiseModel.add] | Noise type, operation boundary, target form, known width, position ordering/range, and immediately visible conflicts | `TypeError` or `ValueError`; the failed addition changes nothing |
 | Creating the backend | Whether the configured backend accepts every noise form and scope | [`BackendValidationError`][fatqat.errors.BackendValidationError] |
-| Running a program | Whether references belong to the program, device labels belong to the layout, selectors resolve without conflicts, and dimensions and the chosen execution method are compatible | Usually [`BackendValidationError`][fatqat.errors.BackendValidationError] or [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |
+| Running a program | Whether references belong to the program, device labels belong to the backend's legal device universe, selectors resolve without conflicts, and dimensions and the chosen execution method are compatible | Usually [`BackendValidationError`][fatqat.errors.BackendValidationError] or [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |
 
-A valid selector with no matching operation or measurement is a no-op, not an
-error. Some checks require a concrete program, resource layout, and execution
-method.
+A legal selector can still match nothing in a run; in that case, it is a no-op.
+Some checks require a concrete program, resource layout, and execution method.
 
 ## Validate backend support
 

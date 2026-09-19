@@ -5,7 +5,7 @@
 - id: 83e1683eeb0aa52e
   en: Use [`Estimator`][fatqat.Estimator] to evaluate one or more [`Observable`][fatqat.Observable] values from a backend's final state. The program must be unmeasured, fully bound, and qubit-only; the backend must return a statevector or density matrix in the program's logical qubit space.
   zh: 使用 [`Estimator`][fatqat.Estimator] 基于后端的末态求取一个或多个 [`Observable`][fatqat.Observable] 的值。程序必须未经测量、完全绑定且仅含量子比特；后端必须在程序的逻辑量子比特空间中返回态矢量或密度矩阵。
-  status: machine
+  status: retired
 - id: 021ea6651f894374
   en: Estimate an observable
   zh: 估计可观测量
@@ -21,7 +21,7 @@
 - id: 4d0a14ca8557f291
   en: 'Dense labels put qubit 0 at the right and accept `I`, `X`, `Y`, and `Z`. These forms are equivalent:'
   zh: 稠密标签将量子比特 0 放在最右侧，并接受 `I`、`X`、`Y` 和 `Z`。以下形式等价：
-  status: machine
+  status: retired
 - id: 865d4ff9ecf23007
   en: '[`from_sparse`][fatqat.Observable.from_sparse] names each non-identity factor and its qubit explicitly. It also supports `ZERO` and `ONE` projectors:'
   zh: '[`from_sparse`][fatqat.Observable.from_sparse] 显式指明每个非恒等因子及其量子比特。它还支持 `ZERO` 和 `ONE` 投影算符：'
@@ -41,7 +41,7 @@
 - id: cb6a6c49e63c571c
   en: '`shots=0` computes an exact value. A positive `shots` value samples each observable term, and [`get_std`][fatqat.Result.get_std] reports the resulting standard error. Set `simulation_config["seed"]` to reproduce a sampled run.'
   zh: '`shots=0` 计算精确值。正的 `shots` 值会对每个可观测量项进行采样，[`get_std`][fatqat.Result.get_std] 报告由此产生的标准误差。设置 `simulation_config["seed"]` 可重现一次采样运行。'
-  status: machine
+  status: retired
 - id: 7a5010a7c2a3e305
   en: Configure the simulation method, runtime, and noise on the backend. Invalid programs, observable widths, and shot values raise [`BackendValidationError`][fatqat.errors.BackendValidationError] before a job is returned; unsupported observable types raise `TypeError`. Later failures are raised by [`result`][fatqat.Job.result].
   zh: 在后端上配置模拟方法、运行时与噪声。无效的程序、可观测量宽度和 shots 值会在作业返回之前抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]；不支持的可观测量类型抛出 `TypeError`。之后的失败由 [`result`][fatqat.Job.result] 抛出。
@@ -49,15 +49,15 @@
 - id: 0ce51498bfb25291
   en: Use a density-matrix backend when the program resets qubits or channel noise applies.
   zh: 当程序重置量子比特或存在信道噪声时，使用密度矩阵后端。
-  status: machine
+  status: retired
 - id: f871dbe410139984
   en: For a program with `N` qubits, the returned statevector must have shape `(2**N,)` or the density matrix must have shape `(2**N, 2**N)`. A backend state with another shape raises [`BackendValidationError`][fatqat.errors.BackendValidationError] before any Pauli expectation kernel runs. In particular, a full physical qutrit state returned by a Transmon emulator is not implicitly projected into the logical subspace. Inspect that physical state directly with the backend [`Result`][fatqat.Result] until explicit leakage-aware observable semantics are available.
   zh: 对于含 `N` 个量子比特的程序，返回的态矢量形状必须为 `(2**N,)`，或密度矩阵形状必须为 `(2**N, 2**N)`。形状不符的后端态会在任何 Pauli 期望值计算内核运行之前抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]。特别地，Transmon 仿真器返回的完整物理 qutrit 态不会被隐式投影到逻辑子空间。在提供显式的泄漏感知可观测量语义之前，请直接通过后端 [`Result`][fatqat.Result] 检查该物理态。
-  status: machine
+  status: retired
 - id: 4eaf664b5a905052
   en: Read estimator results with [`get_expectation`][fatqat.Result.get_expectation] and [`get_std`][fatqat.Result.get_std]. Run the backend separately if you also need its final state.
   zh: 使用 [`get_expectation`][fatqat.Result.get_expectation] 和 [`get_std`][fatqat.Result.get_std] 读取估计器结果。如果还需要后端的末态，请单独运行该后端。
-  status: machine
+  status: retired
 - id: 72a7d5d9dd560aef
   en: Parameter sweeps
   zh: 参数扫描
@@ -70,3 +70,39 @@
   en: Detailed reference
   zh: 详细参考
   status: machine
+- id: ac76151705ad5ea9
+  en: Use [`Estimator`][fatqat.Estimator] to evaluate one or more [`Observable`][fatqat.Observable] values through a backend's native execution path. The program must be unmeasured, fully bound, and qubit-only. Built-in matrix simulators and the two-level atom pulse emulator implement this interface; physical models with higher local dimensions have no implicit qubit-observable embedding.
+  zh: ''
+  status: pending
+- id: 0dddeb7c8feda0f2
+  en: 'Dense labels run left to right in public qubit order: the character at position `q` acts on qubit `q`. They accept `I`, `X`, `Y`, and `Z`. These forms are equivalent:'
+  zh: ''
+  status: pending
+- id: 353d37a6ec5c5ba5
+  en: For example, `"XI"` means `X(q0) tensor I(q1)`. On public state `|10>`, `<ZI> = -1` and `<IZ> = +1`. Dense labels therefore match an explicit left-to-right Kronecker product; sparse labels retain the qubit associations written in their `qubits` tuple.
+  zh: ''
+  status: pending
+- id: 03657579962a19be
+  en: '`shots=0` computes an exact value. A positive `shots` value samples each nonconstant term occurrence independently through the backend''s normal measurement path, and [`get_standard_error`][fatqat.Result.get_standard_error] reports the resulting sample standard error. Constant terms need no execution and contribute zero standard error; one sample of a nonconstant term has undefined standard error and therefore reports `nan`. Set `simulation_config["seed"]` to reproduce a sampled run.'
+  zh: ''
+  status: pending
+- id: 04cdf7841dd22b95
+  en: The Estimator forwards `simulation_config` to the backend and accepts the same keys as its normal `run()` path. See the canonical tables for [matrix simulators](simulator.md#runtime-and-execution) and [the two-level atom emulator](atom-emulators.md#run-configuration-and-results). `result_config` is not an Estimator input because the backend chooses the internal states or measurements required by the requested observables.
+  zh: ''
+  status: pending
+- id: 5ac754033c3aa107
+  en: Matrix simulators support all observable factors for exact and sampled runs with statevector or density-matrix methods. Unitary and superoperator methods are rejected with [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] before a job is returned because they produce maps rather than states. Use a density-matrix method for an exact expectation when reset or an applicable stochastic channel is present; a statevector method can execute those programs with positive shots. Carrier-loss programs are rejected because the current observable contract does not define expectations across changing occupancy.
+  zh: ''
+  status: pending
+- id: 7516d2cbd1589b1d
+  en: The two-level atom pulse emulator supports exact qubit observables with statevector or density-matrix methods. Exact statevector evaluation rejects potentially active Lindblad evolution; use density-matrix exact execution or a positive-shot trajectory run instead. Positive-shot pulse evaluation currently supports diagonal `Z`, `ZERO`, and `ONE` factors. Pulse reset is unsupported. Transmon and three-level atom emulators are rejected because their physical local dimensions exceed the qubit observable space.
+  zh: ''
+  status: pending
+- id: 13007507beaab070
+  en: Exact evaluation rejects applicable readout-confusion noise because exact readout-noise semantics are not defined. Positive-shot evaluation applies readout confusion through the backend's normal measurement routing. On matrix simulators, sampled `X` and `Y` factors use ideal Estimator-owned basis changes before that routed measurement; those synthetic changes are not user-program operations and do not receive operation-scoped noise.
+  zh: ''
+  status: pending
+- id: 0e151e0dd50ee7d2
+  en: 'Read estimator results with [`get_expectation`][fatqat.Result.get_expectation] and [`get_standard_error`][fatqat.Result.get_standard_error]. Run the backend separately if you also need its final state. Estimator metadata is intentionally compact: backend name, method, runtime, and shots, plus the pulse solver when an actual pulse execution reports one.'
+  zh: ''
+  status: pending

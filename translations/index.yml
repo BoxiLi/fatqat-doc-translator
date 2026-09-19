@@ -129,11 +129,11 @@
 - id: 62f1fcc11e911c4b
   en: One Grover Program, three execution models
   zh: 一个 Grover Program，三种执行模型
-  status: machine
+  status: retired
 - id: d73c25a9c24c3110
   en: This three-qubit Grover `Program` begins with all eight bit strings equally likely. Two iterations mark `101` and amplify it. Its fused `RX` / `RY` / `RZ` / `CZ` realization runs unchanged on all three targets below. The two physical models share the same `T1 = T2 = 200 µs` coherence assumption.
   zh: 这个三量子比特 Grover `Program` 从八个比特串等概率的状态开始。两次迭代标记并放大 `101`。其融合后的 `RX` / `RY` / `RZ` / `CZ` 实现可在下面三个目标上原样运行。两个物理模型采用相同的 `T1 = T2 = 200 µs` 相干假设。
-  status: machine
+  status: retired
 - id: a9bbf98dcd92ce40
   en: '![A compact three-qubit Grover search uses fused RY and RZ rotations with four logical Toffoli gates to amplify 101.](assets/generated/home/grover-circuit.png){ loading=lazy width=1100 height=318 }'
   zh: '![一个紧凑的三量子比特 Grover 搜索使用融合的 RY 与 RZ 旋转以及四个逻辑 Toffoli 门来放大 101。](assets/generated/home/grover-circuit.png){ loading=lazy width=1100 height=318 }'
@@ -141,7 +141,7 @@
 - id: 47b913e7577cba7d
   en: Adjacent single-qubit gates are fused into rotations; Toffoli stays logical. All three backends execute the same fused native Program.
   zh: 相邻的单量子比特门被融合为旋转门；Toffoli 保持逻辑形式。三个后端执行的都是同一个融合后的原生 Program。
-  status: machine
+  status: retired
 - id: e55b1f00b665bfa1
   en: :material-chart-box-outline:{ .lg .middle } **General `Simulator`**
   zh: :material-chart-box-outline:{ .lg .middle } **通用 `Simulator`**
@@ -157,27 +157,27 @@
 - id: deec88164d23dd4b
   en: '![The SCQubitGoogleSimulator result gives the target outcome 101 a probability of 86.36 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-google-profile.png){ loading=lazy width=714 height=515 }'
   zh: '![在 200 微秒相干时间并在两条边上附加 0.003 的 CZ 退极化噪声时，SCQubitGoogleSimulator 的结果中目标输出 101 的概率为 86.36%。](assets/generated/home/grover-google-profile.png){ loading=lazy width=714 height=515 }'
-  status: machine
+  status: retired
 - id: 6dc01e7b1be69f7c
   en: With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003` on both q0–q1 and q1–q2. Native-gate simulation then returns `101` with **86.36%** probability.
   zh: 在 `T1 = T2 = 200 µs` 的条件下，我们在 q0–q1 与 q1–q2 两条边上都加入 `p = 0.003` 的 CZ 退极化噪声。原生门模拟随后以 **86.36%** 的概率返回 `101`。
-  status: machine
+  status: retired
 - id: 8ebab726273ca292
   en: '![The three-level TransmonEmulator result gives the target outcome 101 a probability of 68.59 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
   zh: '![在相同相干时间下，三能级 TransmonEmulator 的结果中目标输出 101 的概率为 68.59%。](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
-  status: machine
+  status: retired
 - id: 3adb93a8091543f6
   en: Calibrated pulses, three physical levels, and the same coherence times return `101` with **68.59%** probability; physical leakage is **0.0446%**.
   zh: 校准脉冲、三个物理能级和相同的相干时间以 **68.59%** 的概率返回 `101`；物理泄漏为 **0.0446%**。
-  status: machine
+  status: retired
 - id: 8fb281d9adc6ebde
   en: Shared `Program` — `home_grover_program.py`
   zh: 共享的 `Program` — `home_grover_program.py`
-  status: machine
+  status: retired
 - id: 6add198f8427f13b
   en: The compact logical view and the exact fused native Program live in this one visible source. Every execution script below imports it unchanged.
   zh: 紧凑的逻辑视图与精确的融合原生 Program 都位于这一个可见的源文件中。下面的每个执行脚本都原样导入它。
-  status: machine
+  status: retired
 - id: 3c5e118fd497f10a
   en: Run each execution model independently
   zh: 独立运行每种执行模型
@@ -185,7 +185,7 @@
 - id: 02574f5e9f17cb3c
   en: Each tab is a top-to-bottom script. It imports the shared Program above, while private plotting details stay out of the execution flow.
   zh: 每个标签页都是一份自上而下的脚本。它导入上面共享的 Program，而私有的绘图细节不进入执行流程。
-  status: machine
+  status: retired
 - id: 960c98ad9d1c39bc
   en: General `Simulator`
   zh: 通用 `Simulator`
@@ -270,3 +270,43 @@
   en: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] brings explicit loading and reconfigurable connectivity into the `Program` model. Sites begin empty, so `Put` loads the atoms; `Pair` then makes native `CZ` available, and `Unpair` closes that connection again. Optional movement noise can follow the pairing operations.'
   zh: '[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 将显式装载与可重构的连接性纳入 `Program` 模型。位点起初为空，因此 `Put` 装载原子；随后 `Pair` 使原生 `CZ` 可用，而 `Unpair` 再次关闭这一连接。可选的移动噪声可以伴随配对操作。'
   status: machine
+- id: 49f8dda00a81c7f8
+  en: One Grover algorithm, three execution models
+  zh: ''
+  status: pending
+- id: b32e102b333214af
+  en: This three-qubit Grover algorithm begins with all eight bit strings equally likely. Two iterations mark `101` and amplify it. The general simulator and Transmon emulator share its fused `RX` / `RY` / `RZ` / `CZ` Program. The superconducting profile compiles equivalent QASM into its `X` / `SX` / `RZ` / `CZ` basis. The two noisy paths share the same `T1 = T2 = 200 µs` coherence assumption.
+  zh: ''
+  status: pending
+- id: 06d6578f65a76fd9
+  en: Adjacent single-qubit gates are fused into rotations; Toffoli stays logical. Each execution path uses a Program appropriate to its target.
+  zh: ''
+  status: pending
+- id: 3a6b9acf6c2eb324
+  en: '![The SCQubitSimulator result gives the target outcome 101 a probability of 86.15 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
+  zh: ''
+  status: pending
+- id: 6d6e70506dd3defc
+  en: With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003` on both q0–q1 and q1–q2. Compiled native-gate simulation then returns `101` with **86.15%** probability.
+  zh: ''
+  status: pending
+- id: aedf1c2731ef7946
+  en: '![The three-level TransmonEmulator result gives the target outcome 101 a probability of about 68.5 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
+  zh: ''
+  status: pending
+- id: 71263d025d9522a0
+  en: Calibrated pulses, three physical levels, and the same coherence times return `101` with about **68.5%** probability; physical leakage is **0.0446%**.
+  zh: ''
+  status: pending
+- id: 51ffc6eebdfdbcd9
+  en: Shared algorithm source — `home_grover_program.py`
+  zh: ''
+  status: pending
+- id: 07758bae76ee8fd3
+  en: The compact logical view and fused rotation data live in this visible source. The general and Transmon scripts share the rotation Program; the SC script builds equivalent QASM and compiles it to the canonical native basis.
+  zh: ''
+  status: pending
+- id: 06e9ab2e991ba0dc
+  en: Each tab is a top-to-bottom script. It uses the algorithm representation appropriate to its target, while private plotting details stay out of the execution flow.
+  zh: ''
+  status: pending

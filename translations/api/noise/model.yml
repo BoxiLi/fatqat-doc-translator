@@ -13,7 +13,7 @@
 - id: 1c53902058915ae8
   en: This example adds phase damping after every `RX`, amplitude damping to the second operand of every `CZ`, and readout confusion on `q[0]`. Logical targets use references from the program; device-label targets use labels from the run's [`ResourceLayout`][fatqat.ResourceLayout].
   zh: 本示例在每个 `RX` 之后添加相位阻尼，对每个 `CZ` 的第二个操作数添加振幅阻尼，并对 `q[0]` 添加读出混淆。逻辑目标使用来自程序的引用；设备标签目标使用来自本次运行的 [`ResourceLayout`][fatqat.ResourceLayout] 的标签。
-  status: machine
+  status: retired
 - id: c51f9e545eaeaef5
   en: Where noise applies
   zh: 噪声的作用位置
@@ -57,7 +57,7 @@
 - id: 99ff0c2cd6a8334a
   en: '`targets` may use logical [`RegisterRef`][fatqat.RegisterRef] values from the program or hashable device labels from the resource layout.'
   zh: '`targets` 可使用来自程序的逻辑 [`RegisterRef`][fatqat.RegisterRef] 值，或来自资源布局的可哈希设备标签。'
-  status: machine
+  status: retired
 - id: 8b2517c4f6da818e
   en: '**Accepted `targets` forms**'
   zh: '**接受的 `targets` 形式**'
@@ -93,11 +93,11 @@
 - id: 918bae1152b61488
   en: FATQAT rejects overlapping rules of the same type for the same operation or background scope. A rule for every matching operation overlaps an exact target selector, and selecting every operand overlaps a positional selection.
   zh: FATQAT 会拒绝同一操作或同一背景作用域中同一类型的重叠规则。匹配所有操作的规则与精确目标选择器重叠，选择全部操作数也与按位置的选择重叠。
-  status: machine
+  status: retired
 - id: 5a96458d6967b0fe
   en: Logical and device-label selectors cannot be compared until a resource layout is available. They may therefore both be added, but execution raises [`BackendValidationError`][fatqat.errors.BackendValidationError] if the layout makes both select the same noise type and operands for an actual operation.
   zh: 在资源布局可用之前，逻辑选择器与设备标签选择器无法比较。因此两者都可以被添加，但如果布局使二者对某个实际操作选中了相同的噪声类型与操作数，执行时会抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]。
-  status: machine
+  status: retired
 - id: 2e1183801d3ccc5d
   en: Readout is unique per measured operand. Duplicate universal or duplicate exact selectors fail during `add`; universal and targeted registrations cannot be mixed. A logical selector and a device-label selector that name the same measured operand are rejected when the program runs.
   zh: 读出对每个被测量的操作数是唯一的。重复的全局选择器或重复的精确选择器会在 `add` 时失败；全局注册与定向注册不能混用。指向同一被测量操作数的逻辑选择器与设备标签选择器会在程序运行时被拒绝。
@@ -113,7 +113,7 @@
 - id: efbcae6bf062db62
   en: A valid selector with no matching operation or measurement is a no-op, not an error. Some checks require a concrete program, resource layout, and execution method.
   zh: 没有匹配到任何操作或测量的有效选择器是空操作，而不是错误。有些检查需要具体的程序、资源布局与执行方法。
-  status: machine
+  status: retired
 - id: b65f6e28167e564a
   en: Validate backend support
   zh: 验证后端支持
@@ -193,4 +193,56 @@
 - id: a7b03e8c30b729bb
   en: '| Running a program | Whether references belong to the program, device labels belong to the layout, selectors resolve without conflicts, and dimensions and the chosen execution method are compatible | Usually [`BackendValidationError`][fatqat.errors.BackendValidationError] or [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
   zh: '| 运行程序时 | 引用是否属于该程序、设备标签是否属于该布局、选择器能否无冲突地解析，以及维度与所选执行方法是否兼容 | 通常为 [`BackendValidationError`][fatqat.errors.BackendValidationError] 或 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
-  status: machine
+  status: retired
+- id: 44c7a0e81e29131a
+  en: This example adds phase damping after every `RX`, amplitude damping to the second operand of every `CZ`, and readout confusion on `q[0]`. Logical targets use references from the program; device-label targets use physical labels defined by the backend.
+  zh: ''
+  status: pending
+- id: 1cd2fdfbceb2de3d
+  en: '`targets` may use logical [`RegisterRef`][fatqat.RegisterRef] values from the program or hashable device labels accepted by the backend. The run''s [`ResourceLayout`][fatqat.ResourceLayout] maps program references into that device-label space.'
+  zh: ''
+  status: pending
+- id: 9c13180094b60f1d
+  en: 'The legal device-label set is backend-specific:'
+  zh: ''
+  status: pending
+- id: d27ecda61b4fb6f8
+  en: '| Built-in backend | Legal device labels |'
+  zh: ''
+  status: pending
+- id: 238d82acd6c1b687
+  en: '| Generic [`Simulator`][fatqat.simulator.Simulator] | Labels in the effective resource layout |'
+  zh: ''
+  status: pending
+- id: b6c97cfca99a7abb
+  en: '| [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] | Labels in the effective resource layout; the program defines the sites |'
+  zh: ''
+  status: pending
+- id: 7498f4e30278bd86
+  en: '| [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] | Every configured device label |'
+  zh: ''
+  status: pending
+- id: 32e380da49eb0915
+  en: '| Pulse emulators | Every label in the configured model or atom arrangement |'
+  zh: ''
+  status: pending
+- id: 1e728bdc107c4a52
+  en: FATQAT normally rejects overlapping rules of the same type for the same operation or background scope. A rule for every matching operation overlaps an exact target selector, and selecting every operand overlaps a positional selection.
+  zh: ''
+  status: pending
+- id: 3dec5af2b96f792a
+  en: '[`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] is the one built-in exception because each registration is an additional authored channel. On a matrix simulator, matching `p` declarations on the same resolved extent are applied sequentially in registration order. On a pulse emulator, matching `rate` declarations become separate collapse operators.'
+  zh: ''
+  status: pending
+- id: 7fee339206646ed3
+  en: Logical and device-label selectors cannot be compared until a resource layout is available. They may therefore both be added, but execution normally raises [`BackendValidationError`][fatqat.errors.BackendValidationError] if the layout makes both select the same noise type and operands for an actual operation. The `TransitionRelaxation` exception above also applies when logical and device selectors resolve to the same extent.
+  zh: ''
+  status: pending
+- id: db46ed8513071d05
+  en: '| Running a program | Whether references belong to the program, device labels belong to the backend''s legal device universe, selectors resolve without conflicts, and dimensions and the chosen execution method are compatible | Usually [`BackendValidationError`][fatqat.errors.BackendValidationError] or [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
+  zh: ''
+  status: pending
+- id: 61f5011983f1ebd5
+  en: A legal selector can still match nothing in a run; in that case, it is a no-op. Some checks require a concrete program, resource layout, and execution method.
+  zh: ''
+  status: pending
