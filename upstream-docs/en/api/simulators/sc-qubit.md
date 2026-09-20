@@ -1,23 +1,22 @@
 ---
-title: "SCQubitIBMSimulator"
+title: "SCQubitSimulator"
 ---
 
-# SCQubitIBMSimulator
+# SCQubitSimulator
 
 
-[`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] applies the [`Simulator`][fatqat.simulator.Simulator] execution model to
-a configurable IBM-style superconducting grid. Use it when native gates,
-capacity, and nearest-neighbour connectivity matter. It is not a model of an
-IBM device and does not transpile, route, schedule, or reproduce a named
-processor.
+[`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] applies the [`Simulator`][fatqat.simulator.Simulator] execution model to
+a configurable synthetic superconducting coupling graph. Use it when native
+gates, capacity, and target connectivity matter. It does not transpile, route,
+schedule, or reproduce a named processor.
 
 **Hardware profile**
 
 | Property | Value |
 | --- | --- |
-| Default device | `grid_size=(4, 4)`; 16 row-major qubits |
+| Default device | `num_qubits=16`; a 4×4 reference coupling graph |
 | Uniform native gates | [`fatqat.operations.X`][fatqat.operations.X], [`fatqat.operations.SX`][fatqat.operations.SX], [`fatqat.operations.RZ`][fatqat.operations.RZ] |
-| Connected native gate | [`fatqat.operations.CZ`][fatqat.operations.CZ] on horizontal or vertical neighbours |
+| Connected native gate | [`fatqat.operations.CZ`][fatqat.operations.CZ] on the supplied couplings |
 | Other built-in operations | Measurement and [`fatqat.operations.Reset`][fatqat.operations.Reset] follow the method rules described by [`Simulator`][fatqat.simulator.Simulator] |
 | Methods | All methods supported by [`Simulator`][fatqat.simulator.Simulator]; default `statevector` |
 | Runtime | `numba` by default; `numpy` is also supported |
@@ -35,34 +34,36 @@ The default row-major numbering is:
 12  13  14  15
 ```
 
-Both operand orders of every grid edge are legal, so `CZ` is accepted on
-device labels `(0, 1)` and `(1, 0)`, but not `(0, 5)`. Any positive
-`grid_size=(rows, columns)` uses the same neighbour rule.
+Both operand orders of every coupling are legal, so `CZ` is accepted on
+device labels `(0, 1)` and `(1, 0)`, but not `(0, 5)` in the default data.
+The grid is only the default test topology; callers may provide any valid
+undirected coupling graph.
 
-With the automatic layout, an ordinary program maps its qubits to device labels
-`0, 1, ...` in declaration order. A program containing one
-[`GridRegister`][fatqat.GridRegister] maps that register into the device's top-left
-corner while preserving its row and column coordinates. In this automatic
-mode, the grid register must be the program's only quantum register and must
-fit along both device axes. An explicit, complete
+With the automatic layout, a program maps all quantum registers to device labels
+`0, 1, ...` in declaration order. A [`GridRegister`][fatqat.GridRegister] is
+flattened in the same order as any other register; frontend geometry does not
+define hardware placement. An explicit, complete
 [`ResourceLayout`][fatqat.ResourceLayout] can place program references differently.
 Capacity and the qubit-only restriction still apply.
 
 The backend executes only programs already written in its native gate set.
 For example, [`fatqat.operations.CX`][fatqat.operations.CX] is rejected even on neighbouring
-qubits. Inspect [`SCQubitIBMSimulator.implementation_map`][fatqat.simulator.SCQubitIBMSimulator.implementation_map] instead of
+qubits. Inspect [`SCQubitSimulator.implementation_map`][fatqat.simulator.SCQubitSimulator.implementation_map] instead of
 hard-coding these rules:
 
 ```python
 import fatqat as fq
 import fatqat.operations as ops
 
-backend = fq.simulator.SCQubitIBMSimulator(grid_size=(2, 3))
+backend = fq.simulator.SCQubitSimulator(
+    num_qubits=5,
+    couplings=((0, 1), (1, 2), (1, 3), (3, 4)),
+)
 native = backend.implementation_map
 
 assert native.supports(ops.SX)
 assert native.supports(ops.CZ, device_operands=(0, 1))
-assert not native.supports(ops.CZ, device_operands=(0, 4))
+assert not native.supports(ops.CZ, device_operands=(0, 3))
 ```
 
 `device_operands_for(operation)` returns an empty set for a gate available
@@ -77,7 +78,7 @@ built-in profile, request it explicitly:
 ```python
 import fatqat as fq
 
-Sim = fq.simulator.SCQubitIBMSimulator
+Sim = fq.simulator.SCQubitSimulator
 backend = Sim(noise=Sim.default_noise_model())
 ```
 
@@ -99,12 +100,12 @@ See [Noise](../noise.md) for how the selected simulation method applies this mod
 ## API
 
 
-[`Simulator.method`][fatqat.simulator.Simulator.method], [`SCQubitIBMSimulator.implementation_map`][fatqat.simulator.SCQubitIBMSimulator.implementation_map],
+[`Simulator.method`][fatqat.simulator.Simulator.method], [`SCQubitSimulator.implementation_map`][fatqat.simulator.SCQubitSimulator.implementation_map],
 [`Simulator.run`][fatqat.simulator.Simulator.run], [`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep], and
 [`Simulator.validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] follow the general Simulator API and are
 included below for a complete class reference.
 
-::: fatqat.simulator.SCQubitIBMSimulator
+::: fatqat.simulator.SCQubitSimulator
     options:
       inherited_members: true
       show_bases: false
