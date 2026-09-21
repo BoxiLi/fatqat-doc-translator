@@ -85,10 +85,7 @@ PAULI = {
     "Z": np.array([[1, 0], [0, -1]]),
 }
 
-# np.kron places the first factor on the high tensor factor, so this matrix
-# is big-endian (qubit 0 = high bit) — the opposite of fatqat's statevector
-# order. Only its eigenvalues are used below, and those are unaffected by
-# the qubit-ordering convention.
+# np.kron's first factor matches FATQAT public qubit 0.
 H_MATRIX = sum(
     coeff * np.kron(PAULI[pauli[0]], PAULI[pauli[1]]) for pauli, coeff in H2_TERMS
 )
@@ -236,7 +233,7 @@ option, not an estimator property, so the same estimator serves exact
 and sampled evaluations. An explicit `simulation_config={"seed": ...}`
 reuses the same randomness at every evaluation, keeping the optimizer's
 landscape deterministic. `sampled_std` propagates the per-observable
-standard errors (`get_std()`) through the weights in quadrature —
+standard errors (`get_standard_error()`) through the weights in quadrature —
 $\sigma_E = \sqrt{\sum_i c_i^2 \sigma_i^2}$ — the scale of the
 error bar on the noisy objective.
 
@@ -262,7 +259,7 @@ def sampled_std(theta):
             bound, OBSERVABLES, shots=1024, simulation_config={"seed": 7}
         )
         .result()
-        .get_std()
+        .get_standard_error()
     )
     return float(np.sqrt(COEFFS**2 @ std**2))
 ```
