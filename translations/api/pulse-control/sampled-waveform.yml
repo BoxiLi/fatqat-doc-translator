@@ -4,7 +4,7 @@
   status: machine
 - id: 8dc6eae65ae75c28
   en: '[`SampledWaveform`][fatqat.emulator.SampledWaveform] describes a signal on a local time grid. Times use the model''s time unit, while the channel determines the sample unit and whether values may be complex.'
-  zh: '[`SampledWaveform`][fatqat.emulator.SampledWaveform] 在局部时间网格上描述一个信号。时间使用模型的时间单位，而采样单位以及取值是否可以为复数由信道决定。'
+  zh: "[`SampledWaveform`][fatqat.emulator.SampledWaveform] 在局部时间网格上描述一个信号。时间使用模型的时间单位，而采样单位以及取值是否可以为复数由通道决定。"
   status: machine
 - id: 10a8eec8b07a4d49
   en: Interpolation

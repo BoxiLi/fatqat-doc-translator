@@ -80,7 +80,7 @@
   status: machine
 - id: 918deb61eb6164f5
   en: '[Write quantum computations with Program](program.md) to use explicit registers, measurements, conditions, parameters, and qudits.'
-  zh: '[用 Program 编写量子计算](program.md)，使用显式寄存器、测量、条件、参数和 qudit。'
+  zh: "[用 Program 编写量子计算](program.md)，使用显式 Register、测量、条件、参数和 qudit。"
   status: machine
 - id: 39ae5d6787845c3a
   en: '[Choose how much physics to model](execution-models.md) to compare FatQat''s execution paths.'

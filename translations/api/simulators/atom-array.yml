@@ -120,7 +120,7 @@
   status: machine
 - id: f58814884b104747
   en: Program size, mapping, and native operations
-  zh: 程序规模、映射与原生操作
+  zh: "Program 规模、映射与原生操作"
   status: machine
 - id: 1d9e37fc50bf9906
   en: The quantum resources in each program define the array size, so the backend needs no separate site-count or capacity setting. Registers map to integer device labels in declaration order. A [`GridRegister`][fatqat.GridRegister] is flattened because its coordinates have no physical meaning on this backend.

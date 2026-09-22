@@ -48,7 +48,7 @@
   status: machine
 - id: ec7297494dfafc6b
   en: 'The two-level model uses global drive and detuning channels. Its default gate map is empty, so a Program normally contains direct pulse blocks:'
-  zh: 二能级模型使用全局的驱动信道和失谐信道。它的默认门映射为空，因此 Program 通常包含直接脉冲块：
+  zh: "二能级模型使用全局的驱动通道和失谐通道。它的默认门映射为空，因此 Program 通常包含直接脉冲块："
   status: machine
 - id: 6368d4bf664cbbb9
   en: Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts; `interaction_cutoff` can remove terms beyond a distance, but it is a Hamiltonian truncation rather than a blockade radius.

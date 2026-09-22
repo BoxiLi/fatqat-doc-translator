@@ -96,7 +96,7 @@
   status: machine
 - id: a013c4a700936969
   en: 'The examples below use the general-purpose `Simulator` and two Bell states. Adding a `Z` operation to the Bell circuit changes its relative phase while leaving its computational-basis probabilities unchanged:'
-  zh: 下面的示例使用通用 `Simulator` 和两个 Bell 态。在 Bell 电路中添加 `Z` 操作会改变相对相位，但保持计算基概率不变：
+  zh: "下面的示例使用通用 `Simulator` 和两个 Bell 态。在 Bell 电路中添加 `Z` 门会改变相对相位，但保持计算基概率不变："
   status: machine
 - id: 9641ba0b9862ff14
   en: Both states give `00` or `11` with equal probability. Their state vectors are \((|00\rangle + |11\rangle)/\sqrt{2}\) and \((|00\rangle - |11\rangle)/\sqrt{2}\). To distinguish them, we need to measure in another basis.
@@ -124,7 +124,7 @@
   status: machine
 - id: 09ab7c95017ed787
   en: By default, `Estimator.run` uses `shots=0` to calculate the expectation directly from the state. The Program must be unmeasured; the estimator adds the required measurements when you request sampling.
-  zh: 默认情况下，`Estimator.run` 使用 `shots=0` 直接从态计算期望值。Program 必须不含测量；请求采样时，估计器会添加所需的测量。
+  zh: "默认情况下，`Estimator.run` 使用 `shots=0` 直接从态计算期望值。Program 必须不含测量；请求采样时，Estimator 会添加所需的测量。"
   status: machine
 - id: afaffc9442ea7089
   en: Estimate from samples
@@ -152,9 +152,9 @@
   status: machine
 - id: 0b0418d8a9138516
   en: Circuit noise can change the expectation itself. Configure noise on the estimator's backend as described in [Ideal and noisy runs](ideal-and-noisy.md). A density-matrix backend can calculate the expectation with noise channels directly; increasing the shot count improves the precision of a sampled estimate of that noisy expectation.
-  zh: 电路噪声可以改变期望值本身。按照[理想运行与含噪运行](ideal-and-noisy.md)中的说明，在估计器后端上配置噪声。密度矩阵后端可以直接计算包含噪声信道的期望值；增加采样次数则能提高对该含噪期望值的采样估计精度。
+  zh: "电路噪声可以改变期望值本身。按照[理想运行与含噪运行](ideal-and-noisy.md)中的说明，在 Estimator 的后端上配置噪声。密度矩阵后端可以直接计算包含噪声信道的期望值；增加采样次数则能提高对该含噪期望值的采样估计精度。"
   status: machine
 - id: 040de4c07b00d573
   en: See the [Estimator API](../api/estimator.md) for supported backends, observable construction, and run options.
-  zh: 支持的后端、可观测量构造方式和运行选项见[估计器 API](../api/estimator.md)。
+  zh: "支持的后端、可观测量构造方式和运行选项见[Estimator API](../api/estimator.md)。"
   status: machine

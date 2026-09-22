@@ -148,5 +148,5 @@
   status: machine
 - id: c3bb5e8439260fd8
   en: For more sweep options, see the [Simulator API](../api/simulator.md). Continue with [Estimate observables](interpret-results.md) to calculate correlations and understand the uncertainty of sampled estimates.
-  zh: 更多扫描选项见[模拟器 API](../api/simulator.md)。继续阅读[估计可观测量](interpret-results.md)，学习计算关联并理解采样估计的不确定度。
+  zh: "更多扫描选项见[Simulator API](../api/simulator.md)。继续阅读[估计可观测量](interpret-results.md)，学习计算关联并理解采样估计的不确定度。"
   status: machine

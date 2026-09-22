@@ -12,7 +12,7 @@
   status: machine
 - id: d71f409e900eb6ed
   en: Programs and registers
-  zh: 程序与寄存器
+  zh: "Program 与 Register"
   status: machine
 - id: 435e7cb6fa6d898c
   en: Execution models
@@ -68,7 +68,7 @@
   status: machine
 - id: f2b98fa03b5e7013
   en: Pulse operation
-  zh: 脉冲操作
+  zh: "PulseOperation"
   status: machine
 - id: aba195e5a25033a0
   en: Sampled waveform
@@ -120,7 +120,7 @@
   status: machine
 - id: cd1f1dbdda8a0624
   en: Estimator
-  zh: 估计器
+  zh: "Estimator"
   status: machine
 - id: 191121b5415625c5
   en: Implementation maps

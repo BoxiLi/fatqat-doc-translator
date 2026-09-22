@@ -14,10 +14,27 @@ check` enforces the structural ones; reviewers enforce the rest.
 3. **Code identifiers stay English.** Class, function, parameter, gate, and
    file names (`Program`, `run()`, `shots`, `CZ`) remain verbatim, including
    inside prose. Product names (FatQat, Qiskit, OpenQASM, QuTiP, PyPI,
-   GitHub, NumPy, Matplotlib) are not translated.
-4. **Terminology follows `glossary.yml`.** One English term, one Chinese
-   rendering, everywhere. Note the deliberate pair: simulator/simulation →
-   模拟器/模拟, emulator/emulation → 仿真器/仿真.
+   GitHub, NumPy, Matplotlib) are not translated. Named algorithms and their
+   abbreviations (Grover, QAOA, VQE) also stay English. Preserve source spelling
+   and case; a code name such as `Estimator` takes precedence over the generic
+   glossary term estimator → 估计器. Keep ordinary descriptions in Chinese.
+4. **Terminology follows `glossary.yml`.** Use established Chinese terms for
+   concepts such as 量子态、密度矩阵、哈密顿量、可观测量 and 期望值. For an
+   ambiguous term, give Chinese and English together at its first substantive
+   mention on a page, then use the Chinese term consistently. In particular,
+   quantum channel → 量子信道 and control channel → 控制通道 are different
+   concepts; do not translate every occurrence of channel the same way.
+   Generic simulator/simulation → 模拟器/模拟 and emulator/emulation →
+   仿真器/仿真, while the `Simulator` class keeps its name. API titles and
+   navigation labels naming a class keep the identifier; a short Chinese
+   description may follow, for example Estimator：计算期望值.
+   Use Registers and Operations for their API page titles; keep Register and
+   Operation when referring to API objects or types. In user-guide prose, use
+   the specific meaning when clear: 量子门, 旋转, 测量, or 脉冲块. Do not turn
+   every Operation into a gate: reset, atom placement, and pulses also belong
+   to this API. Generic quantum/classical registers may remain 量子/经典寄存器;
+   explain their role as grouped program resources when first introduced.
+   Do not change unrelated words such as 操作数, 操作系统, or 注册.
 5. **Punctuation.** Chinese prose uses full-width punctuation（，。：；？！）；
    half-width stays inside code spans, paths, and numbers. No space between
    CJK text and full-width punctuation; keep a normal half-width space

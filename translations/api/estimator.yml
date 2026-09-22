@@ -1,6 +1,6 @@
 - id: a566e72b5d4b124c
   en: Observables and estimation
-  zh: 可观测量与估计
+  zh: "Estimator：计算期望值"
   status: machine
 - id: 83e1683eeb0aa52e
   en: Use [`Estimator`][fatqat.Estimator] to evaluate one or more [`Observable`][fatqat.Observable] values from a backend's final state. The program must be unmeasured, fully bound, and qubit-only; the backend must return a statevector or density matrix in the program's logical qubit space.
@@ -92,7 +92,7 @@
   status: machine
 - id: 04cdf7841dd22b95
   en: The Estimator forwards `simulation_config` to the backend and accepts the same keys as its normal `run()` path. See the canonical tables for [matrix simulators](simulator.md#runtime-and-execution) and [the two-level atom emulator](atom-emulators.md#run-configuration-and-results). `result_config` is not an Estimator input because the backend chooses the internal states or measurements required by the requested observables.
-  zh: 估计器将 `simulation_config` 转发给后端，接受与其常规 `run()` 路径相同的键。完整列表见[矩阵模拟器](simulator.md#runtime-and-execution)和[二能级原子仿真器](atom-emulators.md#run-configuration-and-results)的配置表。`result_config` 不是估计器的输入，因为后端会根据请求的可观测量选择所需的内部态或测量。
+  zh: "Estimator 将 `simulation_config` 转发给后端，接受与其常规 `run()` 路径相同的键。完整列表见[矩阵模拟器](simulator.md#runtime-and-execution)和[二能级原子仿真器](atom-emulators.md#run-configuration-and-results)的配置表。`result_config` 不是 Estimator 的输入，因为后端会根据请求的可观测量选择所需的内部态或测量。"
   status: machine
 - id: 5ac754033c3aa107
   en: Matrix simulators support all observable factors for exact and sampled runs with statevector or density-matrix methods. Unitary and superoperator methods are rejected with [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] before a job is returned because they produce maps rather than states. Use a density-matrix method for an exact expectation when reset or an applicable stochastic channel is present; a statevector method can execute those programs with positive shots. Carrier-loss programs are rejected because the current observable contract does not define expectations across changing occupancy.
@@ -104,9 +104,9 @@
   status: machine
 - id: 13007507beaab070
   en: Exact evaluation rejects applicable readout-confusion noise because exact readout-noise semantics are not defined. Positive-shot evaluation applies readout confusion through the backend's normal measurement routing. On matrix simulators, sampled `X` and `Y` factors use ideal Estimator-owned basis changes before that routed measurement; those synthetic changes are not user-program operations and do not receive operation-scoped noise.
-  zh: 精确计算不接受适用的读出混淆噪声，因为尚未定义精确读出噪声的语义。正采样次数的计算通过后端常规测量路由施加读出混淆。在矩阵模拟器上，采样 `X` 和 `Y` 因子时，估计器会先施加其自身管理的理想基变换，再进行路由后的测量；这些合成变换不是用户程序中的操作，不会受到限定于操作的噪声影响。
+  zh: "精确计算不接受适用的读出混淆噪声，因为尚未定义精确读出噪声的语义。正采样次数的计算通过后端常规测量路由施加读出混淆。在矩阵模拟器上，采样 `X` 和 `Y` 因子时，Estimator 会先施加其自身管理的理想基变换，再进行路由后的测量；这些合成变换不是用户程序中的操作，不会受到限定于操作的噪声影响。"
   status: machine
 - id: 0e151e0dd50ee7d2
   en: 'Read estimator results with [`get_expectation`][fatqat.Result.get_expectation] and [`get_standard_error`][fatqat.Result.get_standard_error]. Run the backend separately if you also need its final state. Estimator metadata is intentionally compact: backend name, method, runtime, and shots, plus the pulse solver when an actual pulse execution reports one.'
-  zh: 使用 [`get_expectation`][fatqat.Result.get_expectation] 和 [`get_standard_error`][fatqat.Result.get_standard_error] 读取估计器结果。如果还需要最终态，请单独运行后端。估计器元数据保持精简：包含后端名称、方法、运行时和采样次数，以及实际脉冲执行所报告的脉冲求解器。
+  zh: "使用 [`get_expectation`][fatqat.Result.get_expectation] 和 [`get_standard_error`][fatqat.Result.get_standard_error] 读取 Estimator 的结果。如果还需要最终态，请单独运行后端。Estimator 元数据保持精简：包含后端名称、方法、运行时和采样次数，以及实际脉冲执行所报告的脉冲求解器。"
   status: machine

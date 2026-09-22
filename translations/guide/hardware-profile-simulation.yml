@@ -24,7 +24,7 @@
   status: retired
 - id: 9e4c8419e4254a3c
   en: Submitting `bell` would therefore raise [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. FatQat does not silently decompose `H` or `CX` into this profile's native operations.
-  zh: 因此，提交 `bell` 会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。FatQat 不会悄悄地把 `H` 或 `CX` 分解为该配置文件的原生操作。
+  zh: "因此，提交 `bell` 会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。FatQat 不会悄悄地把 `H` 或 `CX` 分解为该配置文件的原生门。"
   status: machine
 - id: 99e35bd7fe9ea137
   en: Make placement explicit
@@ -32,7 +32,7 @@
   status: machine
 - id: 7c4114505c751fc6
   en: 'Native operations are only half the question. On this 2 x 3 profile, integer device labels are arranged row by row:'
-  zh: 原生操作只是问题的一半。在这个 2 x 3 配置文件上，整数设备标号按行排列：
+  zh: "除了原生门，还需要检查量子比特的放置。在这个 2 x 3 配置文件上，整数设备标号按行排列："
   status: machine
 - id: 7011c7a69c8943a3
   en: 'The next Program is native, but placing its two qubits at `0` and `4` asks for a diagonal `CZ` that the grid does not provide:'
@@ -128,7 +128,7 @@
   status: machine
 - id: da756325639ec210
   en: This confirms that the operation set and placement are valid. The profile can also apply noise channels, as the next example shows. Use a physical emulator when the question depends on pulse shapes or how the state evolves during a control.
-  zh: 这确认了操作集与放置均有效。硬件配置也能施加噪声信道，下一个示例将展示这一点。如果问题依赖脉冲形状或控制期间态的演化，请使用物理仿真器。
+  zh: "这确认了门集与放置均有效。硬件配置也能施加噪声信道，下一个示例将展示这一点。如果问题依赖脉冲形状或控制期间态的演化，请使用物理仿真器。"
   status: machine
 - id: a05cef06273fc9cb
   en: 'The superconducting profile is ideal unless a noise model is passed. Its packaged model is a useful comparison baseline, not a current hardware characterization:'
@@ -140,7 +140,7 @@
   status: machine
 - id: fb1f69303ed5d66a
   en: 'Unlike the superconducting profile, the atom array has no fixed geometry. Program resources define sites that begin empty. `Put` loads the atoms, while `Pair` and `Unpair` reshape the connectivity on which `CZ` is legal:'
-  zh: 与超导配置不同，原子阵列没有固定几何结构。程序资源定义初始为空的位置。`Put` 加载原子，`Pair` 和 `Unpair` 则改变允许施加 `CZ` 的连接关系：
+  zh: "与超导配置不同，原子阵列没有固定几何结构。Program 资源定义初始为空的位置。`Put` 加载原子，`Pair` 和 `Unpair` 则改变允许施加 `CZ` 的连接关系："
   status: machine
 - id: 9a47173f4a88d627
   en: '![An occupied atom undergoes a matched operation, after which Loss either leaves it present with probability one minus p or removes it with probability p; measurement of the empty site returns 2.](../assets/generated/guide/atom-loss-lifecycle.svg)'

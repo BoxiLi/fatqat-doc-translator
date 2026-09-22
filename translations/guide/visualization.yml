@@ -20,7 +20,7 @@
   status: machine
 - id: e17d8f654653d20a
   en: The default Matplotlib renderer returns a `Figure`. The text renderer returns a string and does not print it. Circuit drawings use one wire per register slot; they do not depict register dimension or hardware connectivity.
-  zh: 默认的 Matplotlib 渲染器返回一个 `Figure`。文本渲染器返回一个字符串，并不会把它打印出来。电路图为每个寄存器槽位使用一条线；它们不描绘寄存器维度或硬件连通性。
+  zh: "默认的 Matplotlib 渲染器返回一个 `Figure`。文本渲染器返回一个字符串，并不会把它打印出来。电路图为每个 Register 槽位使用一条线；它们不描绘 Register 维度或硬件连通性。"
   status: machine
 - id: 82b7b851abc37586
   en: '![Three-qubit circuit containing H, controlled-X, controlled-Z, and measurement operations.](../assets/generated/guide/visualization-circuit.png)'

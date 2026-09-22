@@ -104,7 +104,7 @@
   status: machine
 - id: 5e6b46ba4d76696f
   en: '[Build, draw, and run a Bell program](quickstart.md), then learn how to [write Programs and registers](program.md). When you are ready to compare backends, [choose how much physics to model](execution-models.md).'
-  zh: 先[构建、绘制并运行 Bell 程序](quickstart.md)，再学习[编写 Program 和寄存器](program.md)。准备好比较后端时，可[选择需要建模的物理细节](execution-models.md)。
+  zh: "先[构建、绘制并运行 Bell 程序](quickstart.md)，再学习[编写 Program 和 Register](program.md)。准备好比较后端时，可[选择需要建模的物理细节](execution-models.md)。"
   status: machine
 - id: e47b6c18d04de867
   en: Choose an execution path

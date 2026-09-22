@@ -16,11 +16,11 @@
   status: machine
 - id: 489dbbed9e6c77ba
   en: '[Registers](registers.md)'
-  zh: '[寄存器](registers.md)'
+  zh: "[Registers](registers.md)"
   status: machine
 - id: 4ee85b525ffd0ec1
   en: '[Operations](operations.md)'
-  zh: '[操作](operations.md)'
+  zh: "[Operations](operations.md)"
   status: machine
 - id: a32cb77d2fe1e4ac
   en: '[Pulse control](pulse-control/index.md)'
@@ -44,7 +44,7 @@
   status: machine
 - id: 99f87dc5da4b1949
   en: '[Observables and estimation](estimator.md)'
-  zh: '[可观测量与估计](estimator.md)'
+  zh: "[Estimator：计算期望值](estimator.md)"
   status: machine
 - id: cdd1f57e618ef827
   en: '[Job](job.md)'

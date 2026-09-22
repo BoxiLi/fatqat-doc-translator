@@ -1,6 +1,6 @@
 - id: 358cc201f87d9dc9
   en: Operations
-  zh: 操作
+  zh: "Operations"
   status: machine
 - id: f00b1754cae1425e
   en: 'Import `fatqat.operations` as `ops`, then add operations to a program with [`fatqat.Program.add`][fatqat.Program.add]:'
@@ -16,7 +16,7 @@
   status: machine
 - id: 9f95e58876b4417e
   en: '**Operation families**'
-  zh: '**操作族**'
+  zh: "**Operation 分类**"
   status: machine
 - id: 8217d3b80f18392d
   en: '[Qubit gates](operations/qubit-gates.md)'
@@ -40,19 +40,19 @@
   status: machine
 - id: c6c4846e2d6ecd30
   en: For target-based operations, [`add`][fatqat.Program.add] resolves target references, checks arity, and rejects repeated scalar targets. The selected backend checks operation and device support when you submit the program; an unsupported family raises [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. A direct [`PulseOperation`][fatqat.operations.PulseOperation] follows the channel-addressing rules on [PulseOperation](pulse-control/pulse-operation.md) and is added without targets.
-  zh: 对于基于目标的操作，[`add`][fatqat.Program.add] 会解析目标引用、检查操作数个数，并拒绝重复的标量目标。所选后端在你提交程序时检查操作与设备支持；不受支持的操作族会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。直接添加的 [`PulseOperation`][fatqat.operations.PulseOperation] 遵循 [PulseOperation](pulse-control/pulse-operation.md) 中的信道寻址规则，添加时不带目标。
+  zh: "对于基于目标的操作，[`add`][fatqat.Program.add] 会解析目标引用、检查操作数个数，并拒绝重复的标量目标。所选后端在你提交程序时检查操作与设备支持；不受支持的操作族会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。直接添加的 [`PulseOperation`][fatqat.operations.PulseOperation] 遵循 [PulseOperation](pulse-control/pulse-operation.md) 中的通道寻址规则，添加时不带目标。"
   status: machine
 - id: e112586e4acd1531
   en: Most targets are a scalar [`RegisterRef`][fatqat.RegisterRef] or an integer. Use an integer when the program has one quantum register; with multiple registers, index the register you want. Controlled gates use control-first order, and the first local operand is the most-significant digit in the matrices and basis actions on the family pages.
-  zh: 大多数目标是标量 [`RegisterRef`][fatqat.RegisterRef] 或整数。程序只有一个量子寄存器时可以使用整数；存在多个寄存器时，请索引所需的寄存器。受控门采用控制位在前的顺序，并且在各操作族页面的矩阵和基作用中，第一个局部操作数是最高有效数位。
+  zh: "大多数目标是标量 [`RegisterRef`][fatqat.RegisterRef] 或整数。程序只有一个量子 Register 时可以使用整数；存在多个 Register 时，请索引所需的 Register。受控门采用控制位在前的顺序，并且在各操作族页面的矩阵和基作用中，第一个局部操作数是最高有效数位。"
   status: machine
 - id: f7b72fa50fc6eb9f
   en: Every built-in unitary gate accepts [`RegisterView`](registers.md#fatqat.RegisterView) targets. A unary gate acts on each selected member. A multi-target gate accepts one compatible view per operand and zips their members in order. See [Registers](registers.md) for the compatibility rules and [Write quantum computations with Program](../guide/program.md) for the ordinary construction workflow.
-  zh: 每个内置的酉门都接受 [`RegisterView`](registers.md#fatqat.RegisterView) 目标。一元门作用于每个选中的成员。多目标门为每个操作数接受一个兼容视图，并将它们的成员按序配对。有关兼容性规则，参见[寄存器](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。
+  zh: "每个内置的酉门都接受 [`RegisterView`](registers.md#fatqat.RegisterView) 目标。一元门作用于每个选中的成员。多目标门为每个操作数接受一个兼容视图，并将它们的成员按序配对。有关兼容性规则，参见[Registers](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。"
   status: machine
 - id: 3ec8fc994e977af6
   en: Operation base
-  zh: 操作基类
+  zh: "Operation 基类"
   status: machine
 - id: 83a7dfd2e4379f90
   en: Subclassing [`Operation`][fatqat.operations.Operation] defines a new program-level value; it does not register a matrix or pulse realization. See [Matrix implementations](implementation.md) for the custom matrix contract and [Gate realization](pulse-control/gate-realization.md) for pulse realizations.
@@ -80,5 +80,5 @@
   status: machine
 - id: cb7fa3d7674e83c2
   en: '| [PulseOperation](pulse-control/pulse-operation.md) | Channel-addressed `PulseOperation`—still imported from `fatqat.operations`—with its timing and backend support. |'
-  zh: '| [PulseOperation](pulse-control/pulse-operation.md) | 按信道寻址的 `PulseOperation`（仍从 `fatqat.operations` 导入），及其时序和后端支持 |'
+  zh: "| [PulseOperation](pulse-control/pulse-operation.md) | 按控制通道寻址的 `PulseOperation`（仍从 `fatqat.operations` 导入），及其时序和后端支持 |"
   status: machine

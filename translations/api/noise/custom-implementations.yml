@@ -8,7 +8,7 @@
   status: machine
 - id: eba3bd7e42ac6531
   en: Simulator implementation map
-  zh: 模拟器实现映射
+  zh: "Simulator 实现映射"
   status: machine
 - id: ecdec387b694378c
   en: A [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] rule receives `(channel, *, targets)`, where `targets` is the ordered tuple of program [`RegisterRef`][fatqat.RegisterRef] objects, and returns a nonempty tuple of Kraus matrices acting on the combined target space. It represents one finite channel application; it is not used as a pulse-emulator Lindblad fallback.
@@ -40,7 +40,7 @@
   status: machine
 - id: 2164f7b527ede062
   en: Simulator rules
-  zh: 模拟器规则
+  zh: "Simulator 规则"
   status: machine
 - id: 29e3c9f91b482299
   en: 'A matrix rule returns Kraus operators for the matching operation:'
@@ -64,7 +64,7 @@
   status: machine
 - id: 77839e213e980a1c
   en: Simulator types
-  zh: 模拟器类型
+  zh: "Simulator 类型"
   status: machine
 - id: 6123a79a5c2b97ef
   en: '| Method | Contract |'

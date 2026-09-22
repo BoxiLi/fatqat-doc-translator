@@ -1,26 +1,26 @@
 - id: 691d61e78e0dda95
   en: Registers give quantum and classical program slots stable identities. With `Program(quantum_count, classical_count)`, each positive count creates one default register named `"q"` or `"c"`; zero creates no register of that kind. Construct registers explicitly when you need other names, multiple registers, grids, metadata, or local dimensions greater than two.
-  zh: 寄存器为量子和经典程序槽位提供稳定的标识。使用 `Program(quantum_count, classical_count)` 时，每个为正的计数会创建一个名为 `"q"` 或 `"c"` 的默认寄存器；为零则不创建该种类的寄存器。当需要其他名称、多个寄存器、网格、元数据或大于二的局部维度时，请显式构造寄存器。
+  zh: "Register 将程序中的量子或经典资源组织为可按索引访问的资源组，为其中每个位置提供稳定的标识。使用 `Program(quantum_count, classical_count)` 时，每个正数参数会创建一个名为 `\"q\"` 或 `\"c\"` 的默认 Register；参数为零时不创建对应的 Register。如果需要指定其他名称、使用多个 Register、网格结构、元数据或大于二的局域维数，请显式创建 Register。"
   status: machine
 - id: 8cb2803a775360b2
   en: Register types
-  zh: 寄存器类型
+  zh: "Register 类型"
   status: machine
 - id: 9e3a659c7e2767c4
   en: '**Register choices**'
-  zh: '**寄存器选择**'
+  zh: "**选择 Register 类型**"
   status: machine
 - id: be1396b39ae8a1dd
   en: Names are labels and need not be unique. Keep and index the same register objects that you pass to [`Program`][fatqat.Program]; a newly constructed register with the same fields is not interchangeable. `metadata` is a mutable, string-keyed mapping for application data.
-  zh: 名称仅是标签，不必唯一。请保留并索引传给 [`Program`][fatqat.Program] 的同一批寄存器对象；字段相同的新构造寄存器不可与之互换。`metadata` 是一个可变的、以字符串为键的映射，用于存放应用数据。
+  zh: "名称仅是标签，不必唯一。请保留并索引传给 [`Program`][fatqat.Program] 的同一批 Register 对象；字段相同的新构造 Register 不可与之互换。`metadata` 是一个可变的、以字符串为键的映射，用于存放应用数据。"
   status: machine
 - id: 8a4e4bb220732b0e
   en: 'Indexing with `register[index]` creates an immutable [`RegisterRef`][fatqat.RegisterRef]. In a program with multiple registers, pass the explicit ref rather than an ambiguous integer:'
-  zh: 使用 `register[index]` 索引会创建一个不可变的 [`RegisterRef`][fatqat.RegisterRef]。在包含多个寄存器的程序中，请传入显式的引用而不是有歧义的整数：
+  zh: "使用 `register[index]` 索引会创建一个不可变的 [`RegisterRef`][fatqat.RegisterRef]。在包含多个 Register 的程序中，请传入显式的引用而不是有歧义的整数："
   status: machine
 - id: 54c33581f9022c8a
   en: '`dim=2` creates qubits or classical bits. A larger value creates qudits or d-ary classical digits; the quantum and classical dimensions of each measurement pair must match. Register construction accepts every integer dimension of at least two, but individual operations and backends may support only some dimensions. See [Write quantum computations with Program](../guide/program.md) for a mixed qubit-qutrit example.'
-  zh: '`dim=2` 创建量子比特或经典比特。更大的值创建 qudit 或 d 进制经典数位；每个测量对的量子与经典维度必须匹配。寄存器构造接受所有不小于二的整数维度，但个别操作和后端可能只支持其中部分维度。有关量子比特与 qutrit 混合使用的示例，参见[使用 Program 编写量子计算](../guide/program.md)。'
+  zh: "`dim=2` 创建量子比特或经典比特。更大的值创建 qudit 或 d 进制经典数位；每个测量对的量子与经典维度必须匹配。Register 构造接受所有不小于二的整数维度，但个别操作和后端可能只支持其中部分维度。有关量子比特与 qutrit 混合使用的示例，参见[使用 Program 编写量子计算](../guide/program.md)。"
   status: machine
 - id: 20a9d5ee7a384f20
   en: Grid selections
@@ -76,7 +76,7 @@
   status: machine
 - id: 161d9e646eaed274
   en: A [`ResourceLayout`][fatqat.ResourceLayout] associates scalar quantum [`RegisterRef`][fatqat.RegisterRef] operands with device labels. Most applications can use the backend's default layout; pass `resource_layout=` when you need a specific supported placement. Each backend defines the labels it accepts and checks coverage, uniqueness, dimensions, placement, and connectivity when the program runs. [`PulseOperation`][fatqat.operations.PulseOperation] channels address the emulator model directly and do not use this layout.
-  zh: '[`ResourceLayout`][fatqat.ResourceLayout] 将标量量子 [`RegisterRef`][fatqat.RegisterRef] 操作数与设备标签关联起来。大多数应用可以使用后端的默认布局；需要特定的受支持放置时，请传入 `resource_layout=`。每个后端定义其接受的标签，并在程序运行时检查覆盖性、唯一性、维度、放置和连通性。[`PulseOperation`][fatqat.operations.PulseOperation] 的信道直接寻址仿真器模型，不使用此布局。'
+  zh: "[`ResourceLayout`][fatqat.ResourceLayout] 将标量量子 [`RegisterRef`][fatqat.RegisterRef] 操作数与设备标签关联起来。大多数应用可以使用后端的默认布局；需要特定的受支持放置时，请传入 `resource_layout=`。每个后端定义其接受的标签，并在程序运行时检查覆盖性、唯一性、维度、放置和连通性。[`PulseOperation`][fatqat.operations.PulseOperation] 的控制通道直接寻址仿真器模型，不使用此布局。"
   status: machine
 - id: 9d16e53402d37e2a
   en: type `fatqat.DeviceOperand`
@@ -88,11 +88,11 @@
   status: machine
 - id: 8409c40de8d2be00
   en: '| Type | Program role | Size |'
-  zh: '| 类型 | 程序角色 | 大小 |'
+  zh: "| 类型 | 在 Program 中的作用 | 大小 |"
   status: machine
 - id: 083a0b64061c5c56
   en: '| [`Register`][fatqat.Register] | Common base class; not itself accepted as a quantum or classical register by [`Program`][fatqat.Program] | Explicit positive `size` |'
-  zh: '| [`Register`][fatqat.Register] | 公共基类；本身不会被 [`Program`][fatqat.Program] 作为量子或经典寄存器接受 | 显式的正 `size` |'
+  zh: "| [`Register`][fatqat.Register] | 公共基类；本身不会被 [`Program`][fatqat.Program] 作为量子或经典 Register 接受 | 显式的正 `size` |"
   status: machine
 - id: 8b5d1f2bd3ee607f
   en: '| [`QuantumRegister`][fatqat.QuantumRegister] | Quantum operation and measurement targets | Explicit positive `size` |'
@@ -116,7 +116,7 @@
   status: machine
 - id: c44a7a9a6fff9cd2
   en: Register selections
-  zh: 寄存器选择
+  zh: "选择 Register 中的成员"
   status: machine
 - id: bb73b2c0933df865
   en: Every [`QuantumRegister`][fatqat.QuantumRegister] provides `all()`. A [`GridRegister`][fatqat.GridRegister] additionally arranges logical targets in row-major order and provides `row()`, `column()`, and `block()` selections. It does not assign physical coordinates. The flat index of `(row, col)` is `row * cols + col`, and all selection helpers return [`RegisterView`](#fatqat.RegisterView) objects rather than tuples of refs.
@@ -124,11 +124,11 @@
   status: machine
 - id: ae00437427703276
   en: Pass views to [`add`][fatqat.Program.add]. Every built-in unitary gate accepts them. Unary gates act independently on each selected member; multi-target gates zip corresponding members from one view per operand. All views must use the same selector kind and cardinality, and selections on the same register cannot overlap. [`Put`][fatqat.operations.Put] accepts one view as its complete target collection and records one variadic operation. Measurements and QASM export require scalar targets. The backend validates physical placement and connectivity. See [Write quantum computations with Program](../guide/program.md) for the ordinary Program workflow and [Test a Program against a hardware profile](../guide/hardware-profile-simulation.md) for physical placement.
-  zh: 将视图传给 [`add`][fatqat.Program.add]。每个内置的酉门都接受它们。一元门在每个选中成员上独立作用；多目标门为每个操作数取一个视图，并将其中对应的成员按序配对。所有视图必须使用相同种类和相同基数的选择器，并且同一寄存器上的选择不能重叠。[`Put`][fatqat.operations.Put] 接受一个视图作为其完整目标集合，并记录为一次可变参数操作。测量和 QASM 导出要求标量目标。物理放置和连通性由后端验证。有关常规 Program 工作流，参见[使用 Program 编写量子计算](../guide/program.md)；有关物理放置，参见[基于硬件配置文件测试 Program](../guide/hardware-profile-simulation.md)。
+  zh: "将视图传给 [`add`][fatqat.Program.add]。每个内置的酉门都接受它们。一元门在每个选中成员上独立作用；多目标门为每个操作数取一个视图，并将其中对应的成员按序配对。所有视图必须使用相同种类和相同基数的选择器，并且同一 Register 上的选择不能重叠。[`Put`][fatqat.operations.Put] 接受一个视图作为其完整目标集合，并记录为一次可变参数操作。测量和 QASM 导出要求标量目标。物理放置和连通性由后端验证。有关常规 Program 工作流，参见[使用 Program 编写量子计算](../guide/program.md)；有关物理放置，参见[基于硬件配置文件测试 Program](../guide/hardware-profile-simulation.md)。"
   status: machine
 - id: 59e5c30d3b63d81c
   en: Immutable, hashable target returned by quantum-register selection helpers. Its [`register`](#fatqat.RegisterView.register) attribute identifies the selected quantum register. Obtain views from register helpers; direct construction is unsupported.
-  zh: 由量子寄存器选择辅助方法返回的不可变、可哈希的目标。其 [`register`](#fatqat.RegisterView.register) 属性标识所选量子寄存器。请通过寄存器辅助方法获取视图；不支持直接构造。
+  zh: "由 QuantumRegister 的选择辅助方法返回的不可变、可哈希的目标。其 [`register`](#fatqat.RegisterView.register) 属性标识所选的 QuantumRegister。请通过 Register 的辅助方法获取视图；不支持直接构造。"
   status: machine
 - id: 39c0d0a7c2fb5584
   en: '**Type:** `fatqat.QuantumRegister`'
@@ -136,5 +136,5 @@
   status: machine
 - id: 79940bf3787ca7fb
   en: Quantum register containing the selected members.
-  zh: 包含所选成员的量子寄存器。
+  zh: "包含所选成员的 QuantumRegister。"
   status: machine

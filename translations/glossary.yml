@@ -1,14 +1,31 @@
-# Fixed Chinese renderings for FatQat domain terms. `translate.py check`
+# Fixed renderings for unambiguous terms and names. `translate.py check`
 # warns when a translated segment mentions an English term but contains
 # neither the listed Chinese rendering nor the English term itself.
+# These mappings apply to concepts. Exact API identifiers keep their spelling
+# even when a lowercase word has a Chinese translation (Estimator vs estimator).
 terms:
+  FatQat: FatQat
+  Qiskit: Qiskit
+  OpenQASM: OpenQASM
+  QuTiP: QuTiP
+  NumPy: NumPy
+  SciPy: SciPy
+  Matplotlib: Matplotlib
+  Numba: Numba
+  PyPI: PyPI
+  GitHub: GitHub
+  Grover: Grover
+  QAOA: QAOA
+  VQE: VQE
+  Pauli: Pauli
+  Kraus: Kraus
+  Lindblad: Lindblad
   qubit: 量子比特
   register: 寄存器
   circuit: 电路
   measurement: 测量
   noise model: 噪声模型
   noise: 噪声
-  channel: 信道
   simulator: 模拟器
   emulator: 仿真器
   simulation: 模拟
@@ -38,3 +55,18 @@ terms:
   parameter: 参数
   sweep: 扫描
   fusion: 融合
+
+# Context-sensitive terms are reviewed in prose, not by the substring checker.
+# Add the English term at first mention when needed to distinguish the meaning.
+contextual_terms:
+  register:
+    api_object: Register（按名称和索引组织的程序资源）
+    general_concept: 量子寄存器或经典寄存器
+    verb: 注册
+  operation:
+    api_object: Operation
+    concrete_action: 按上下文使用量子门、旋转、测量或脉冲块，不能一律称为量子门
+  channel:
+    quantum_noise: 量子信道（quantum channel），后文可简称信道
+    classical_readout: 经典信道（classical channel），后文可简称信道
+    pulse_control: 控制通道（control channel），后文可简称通道

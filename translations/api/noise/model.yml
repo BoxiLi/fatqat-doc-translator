@@ -4,7 +4,7 @@
   status: machine
 - id: 871bfe559385ca54
   en: '[`NoiseModel`][fatqat.NoiseModel] collects noise rules and says where each one applies: on matching operations, throughout pulse time, or when reporting measurements. A model can combine simulator channels, emulator Lindblad operators, carrier loss, and readout confusion. Each backend accepts only the rules it can implement.'
-  zh: '[`NoiseModel`][fatqat.NoiseModel] 收集噪声规则，并指明每条规则的作用位置：作用于匹配的操作、贯穿脉冲时间，或在报告测量结果时。一个模型可以组合模拟器信道、仿真器 Lindblad 算符、载体损失与读出混淆。每个后端只接受它能够实现的规则。'
+  zh: "[`NoiseModel`][fatqat.NoiseModel] 收集噪声规则，并指明每条规则的作用位置：作用于匹配的操作、贯穿脉冲时间，或在报告测量结果时。一个模型可以组合模拟器的量子信道（quantum channel）、仿真器的 Lindblad 算符、载体损失与读出混淆。每个后端只接受它能够实现的规则。"
   status: machine
 - id: 0e84698742201727
   en: Build a model
@@ -124,7 +124,7 @@
   status: machine
 - id: a3f076377a0c71d6
   en: Program- and layout-dependent checks still happen when the model is used.
-  zh: 依赖程序与布局的检查仍会在模型被使用时进行。
+  zh: "依赖 Program 与布局的检查仍会在模型被使用时进行。"
   status: machine
 - id: 099be14f1ad0a8d6
   en: '| Scope | Noise type | `operation` | `targets` | `target_positions` |'
