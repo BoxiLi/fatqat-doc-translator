@@ -20,7 +20,8 @@ this setup; do not use its subscription-credential cache for this public repo.
 
 RTD supplies the canonical language/version URL. The build puts Chinese HTML
 straight in `$READTHEDOCS_OUTPUT/html`; there is no extra `/zh/` directory.
-The English language link points to the corresponding upstream version.
+Language and version switching use the RTD flyout; the theme does not add a
+separate language menu.
 A `translation-source.json` file records the upstream ref and exact commit.
 
 Official RTD references:

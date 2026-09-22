@@ -1,4 +1,4 @@
-# Navigation and language links are generated from the pinned source at build time.
+# Navigation is generated from the pinned source; RTD handles language switching.
 INHERIT: mkdocs.yml
 edit_uri: ""
 docs_dir: docs/mkdocs/zh

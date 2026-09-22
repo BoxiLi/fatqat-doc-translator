@@ -62,7 +62,6 @@ def assert_snapshot(clone):
 
 
 def generate_config(clone, canonical_url):
-    settings = upstream_config()
     merged = translate.global_map(translate.load_database())
     lookup = lambda text: translate._lookup(merged, translate.normalize(text)) or text
     config = yaml.safe_load(
@@ -70,20 +69,7 @@ def generate_config(clone, canonical_url):
     )
     config["hooks"] = [str(ROOT / "overlay/translation_notice.py")]
     config["nav"] = translate_nav(read_config(clone / "mkdocs.yml")["nav"], lookup)
-    ref_file = ROOT / "UPSTREAM_REF"
-    ref = ref_file.read_text().strip() if ref_file.exists() else "main"
-    version = "latest" if ref == settings["ref"] else ref
     config["site_url"] = canonical_url.rstrip("/") + "/"
-    config["extra"] = {
-        "alternate": [
-            {
-                "name": "English",
-                "link": settings["english_site"].rstrip("/") + "/" + version + "/",
-                "lang": "en",
-            },
-            {"name": "简体中文", "link": config["site_url"], "lang": "zh"},
-        ]
-    }
     (clone / "mkdocs.zh.yml").write_text(
         yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8"
     )

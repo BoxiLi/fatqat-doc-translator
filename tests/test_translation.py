@@ -83,7 +83,6 @@ class TranslationTests(unittest.TestCase):
             (root / "overlay/mkdocs.zh.yml").write_text(
                 "INHERIT: mkdocs.yml\n", encoding="utf-8"
             )
-            (root / "UPSTREAM_REF").write_text("v1.2.3\n", encoding="utf-8")
             clone = root / "clone"
             (clone / "docs/mkdocs/tutorial-sources").mkdir(parents=True)
             (clone / "mkdocs.yml").write_text(
@@ -94,13 +93,8 @@ class TranslationTests(unittest.TestCase):
                 encoding="utf-8",
             )
             with patch.object(inject_build, "ROOT", root), patch.object(
-                inject_build,
-                "upstream_config",
-                return_value={
-                    "ref": "main",
-                    "english_site": "https://fatqat.readthedocs.io/en/",
-                },
-            ), patch.object(translate, "load_database", return_value={}):
+                translate, "load_database", return_value={}
+            ):
                 generate_config(clone, "https://fatqat.readthedocs.io/zh_CN/v1.2.3/")
             import yaml
 
@@ -109,10 +103,6 @@ class TranslationTests(unittest.TestCase):
             )
             self.assertEqual(
                 config["site_url"], "https://fatqat.readthedocs.io/zh_CN/v1.2.3/"
-            )
-            self.assertEqual(
-                config["extra"]["alternate"][0]["link"],
-                "https://fatqat.readthedocs.io/en/v1.2.3/",
             )
 
     def test_release_listing_ignores_nonversions_and_peeled_tag_duplicates(self):
