@@ -63,6 +63,7 @@ def _swap_locale_strings(module, overlay: dict) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--clone", required=True, help="root of the upstream clone")
+    parser.add_argument("--gallery", type=Path, default=GALLERY_OVERLAY)
     args = parser.parse_args()
 
     clone = Path(args.clone).resolve()
@@ -88,7 +89,7 @@ def main() -> int:
     build_tutorials.ASSET_ROOT = (
         mkdocs_root / "zh" / "assets" / "generated" / "tutorials"
     )
-    overlay = yaml.safe_load(GALLERY_OVERLAY.read_text(encoding="utf-8"))
+    overlay = yaml.safe_load(args.gallery.read_text(encoding="utf-8"))
     _swap_locale_strings(build_tutorials, overlay)
 
     build_tutorials.build_all(execute_if_needed=True)
@@ -101,9 +102,7 @@ def main() -> int:
                 f"{source} missing; run the English build before this driver"
             )
         destination = mkdocs_root / "zh" / "assets" / "generated" / folder
-        if destination.exists():
-            shutil.rmtree(destination)
-        shutil.copytree(source, destination)
+        shutil.copytree(source, destination, dirs_exist_ok=True)
 
     print("build_zh_assets: Chinese tutorials and assets generated")
     return 0

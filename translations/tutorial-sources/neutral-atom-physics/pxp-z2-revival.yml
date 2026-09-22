@@ -61,7 +61,7 @@
 - id: 33cf0123e8576e63
   en: 'Ten sites, working in rad/us and us units, and the familiar drive scale $\Omega=2\pi$ rad/us, so the PXP coefficient is $g=\pi$ rad/us. One convention to keep straight: fatqat stores the amplitude of $|b_0\ldots b_9\rangle$ at index $\sum_i b_i 2^i$ (site 0 is the least significant bit), so each Neel state is a single basis vector -- just two index numbers to remember.'
   zh: 十个格点，使用 rad/us 与 us 单位，以及熟悉的驱动尺度 $\Omega=2\pi$ rad/us，因此 PXP 系数为 $g=\pi$ rad/us。有一个约定需要理清：fatqat 把 $|b_0\ldots b_9\rangle$ 的振幅存放在索引 $\sum_i b_i 2^i$ 处（格点 0 是最低有效位），因此每个 Neel 态都是单个基矢——只需要记住两个索引数字。
-  status: machine
+  status: retired
 - id: 358c7c83cbe273ed
   en: 3. Trotterizing PXP into a fatqat program
   zh: 3. 把 PXP Trotter 分解为 fatqat 程序
@@ -89,7 +89,7 @@
 - id: c391b4f7edfaf23c
   en: In code, the forward pass is `for site in range(NUM_SITES)` -- left edge, then the bulk terms, then the right edge -- and the backward pass is the same loop in reverse. Each half-step exponent is $h_j\,dt/2$, and $h_j$ already carries $\Omega/2$, so every registered matrix uses the one angle $\theta=\Omega\,dt/4$. Repeating this symmetric step `round(duration / dt)` times walks the quench out to any duration.
   zh: 在代码中，正向遍历是 `for site in range(NUM_SITES)`——先左边界、再体区各项、最后右边界——反向遍历则是同一循环的逆序。每个半步的指数是 $h_j\,dt/2$，而 $h_j$ 已经带有 $\Omega/2$，因此每个注册的矩阵都使用同一个角度 $\theta=\Omega\,dt/4$。把这个对称步进重复 `round(duration / dt)` 次，就能把猝灭演化到任意时长。
-  status: machine
+  status: retired
 - id: 9d1f96b180a23ce4
   en: 'A small warning from experience: when fatqat flattens a local matrix, the FIRST target is the most significant bit -- index $b_{t_0}\cdot 2^{k-1} + \cdots + b_{t_{k-1}}$. It is easy to get this backwards (we did), and the result is silently wrong dynamics rather than an error message.'
   zh: 一个来自实践的小提醒：当 fatqat 展平局部矩阵时，第一个目标是最高有效位——索引为 $b_{t_0}\cdot 2^{k-1} + \cdots + b_{t_{k-1}}$。这一点很容易弄反（我们就弄反过），后果是悄无声息的错误动力学，而不是一条错误信息。
@@ -121,7 +121,7 @@
 - id: 0230d4ce555b5150
   en: For each grid time we rebuild the Trotter program (it grows with the duration) and evolve it once from $|Z_2\rangle$; the oracle hands us the corresponding exact state. It is a bit of a brute-force way to sample a time axis, but it keeps everything on the public API -- and the ten-site chain is small enough that it finishes in seconds.
   zh: 对每个网格时间点，我们重建 Trotter 程序（它随时长增长）并从 $|Z_2\rangle$ 演化一次；对照则交给我们对应的精确态。用这种方式采样时间轴略显笨拙，但它把一切都保持在公共 API 上——而十格点的链足够小，几秒内就能完成。
-  status: machine
+  status: retired
 - id: a105df806941eff7
   en: Revival peaks are just local maxima of the fidelity after the initial decay. Notice that each peak lands on the *same* Neel branch -- the twin-branch fidelity stays negligible there, so the state really does come back to where it started.
   zh: 回复峰不过是初始衰减之后保真度的局部极大值。注意每个峰都落在*同一个* Neel 分支上——孪生分支的保真度在那里始终可以忽略，因此态确实回到了它出发的地方。
@@ -133,4 +133,16 @@
 - id: 47bf563363e4b866
   en: 'The left panel is the money plot: three revivals around $t\approx 1.5, 3.0, 4.5$ us, each a little weaker than the last -- the fingerprint of PXP scars. The middle panel shows why these dynamics are not thermal: the half-chain entropy grows, but it *dips* at every revival, as if the state briefly remembered how to be a product state again. The right panel tells the same story in real space, with the Neel stripes melting during the quench and partially reassembling each time the fidelity peaks.'
   zh: 左图是最关键的一张：三次回复出现在 $t\approx 1.5, 3.0, 4.5$ us 附近，一次比一次略弱——这是 PXP 疤痕的指纹。中图说明了这些动力学为何不是热化的：半链熵在增长，但在每次回复处都会*下探*，仿佛态短暂地想起了如何再次成为直积态。右图在实空间讲述同一个故事：Neel 条纹在猝灭中熔化，并在每次保真度达到峰值时部分重组。
+  status: machine
+- id: 735ebb315bf89414
+  en: 'Ten sites, working in rad/us and us units, and the familiar drive scale $\Omega=2\pi$ rad/us, so the PXP coefficient is $g=\pi$ rad/us. One convention to keep straight: FATQAT stores the amplitude of $|b_0\ldots b_9\rangle$ at index $\sum_i b_i 2^{N-1-i}$ (site 0 is the most significant bit), so each Neel state is a single basis vector -- just two index numbers to remember.'
+  zh: 使用十个位置，单位为 rad/us 和 us，并采用熟悉的驱动尺度 $\Omega=2\pi$ rad/us，因此 PXP 系数为 $g=\pi$ rad/us。需明确一个约定：FATQAT 将 $|b_0\ldots b_9\rangle$ 的振幅存放在索引 $\sum_i b_i 2^{N-1-i}$ 处，位置 0 为最高有效位。因此，每个 Néel 态都只是一个基向量，只需记住两个索引。
+  status: machine
+- id: 403d59f01d13d8cf
+  en: In code, the forward pass is `for site in range(NUM_SITES)` -- left edge, then the bulk terms, then the right edge -- and the backward pass is the same loop in reverse. Each half-step exponent is $h_j\,dt/2$, and $h_j$ already carries $\Omega/2$, so every registered matrix uses the one angle $\theta=\Omega\,dt/4$. Repeating this symmetric step `round(duration / dt)` times walks the quench out to durations that are integer multiples of `dt`.
+  zh: 代码中，正向遍历为 `for site in range(NUM_SITES)`，依次经过左边界、体项和右边界；反向遍历则将同一循环倒序。每个半步的指数为 $h_j\,dt/2$，而 $h_j$ 已包含 $\Omega/2$，因此每个注册矩阵都使用同一个角度 $\theta=\Omega\,dt/4$。将这一对称步骤重复 `round(duration / dt)` 次，即可将骤变演化推进到 `dt` 整数倍的时长。
+  status: machine
+- id: 54738af626f46c87
+  en: Build one Trotter program for the interval between samples. Starting from $|Z_2\rangle$, pass each final state into the next run through `initial_state`. For this noiseless, time-independent quench, a uniform, Trotter-aligned grid gives the same ordered evolution at each sample as restarting from the initial state.
+  zh: 为相邻采样点的时间间隔构建一个 Trotter 程序。从 $|Z_2\rangle$ 出发，通过 `initial_state` 将每次的最终态传给下一次运行。对于这个无噪声、与时间无关的骤变过程，均匀且与 Trotter 步长对齐的网格，在每个采样点给出的有序演化与从初态重新运行相同。
   status: machine

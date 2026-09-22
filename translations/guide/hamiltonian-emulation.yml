@@ -5,7 +5,7 @@
 - id: 64602d873716688f
   en: A FatQat emulator still accepts a [`Program`][fatqat.Program], but it changes what execution means. Instead of applying discrete gate transformations, it builds a physical schedule and integrates a time-dependent Hamiltonian (and, when requested, Lindblad evolution).
   zh: FatQat 仿真器仍然接受 [`Program`][fatqat.Program]，但它改变了执行的含义。它不再应用离散的门变换，而是构建物理调度并对时变哈密顿量进行积分（在需要时还包括 Lindblad 演化）。
-  status: machine
+  status: retired
 - id: 9e82fb5edc155f3b
   en: 'Two authoring paths meet at that same schedule:'
   zh: 两条编写路径汇聚到同一份调度：
@@ -25,7 +25,7 @@
 - id: 035fa28c8323af7f
   en: '`RX` remains an ordinary Program operation. At execution time, the emulator''s gate map obtains a pulse recipe from its calibration and binds that recipe to the model''s drive channel. The physical model has two qutrits, so the returned vector covers all $3^2$ basis states, including the unaddressed second transmon. This physical qutrit state is not a logical qutrit Program.'
   zh: '`RX` 仍然是普通的 Program 操作。执行时，仿真器的门映射从其校准中获取脉冲配方，并把该配方绑定到模型的驱动信道上。物理模型有两个 qutrit，因此返回的向量覆盖全部 $3^2$ 个基态，包括未被寻址的第二个 transmon。这个物理 qutrit 态不是逻辑 qutrit Program。'
-  status: machine
+  status: retired
 - id: c1aa9ad6278fd40e
   en: Packaged models and calibrations are reference snapshots. Supply a validated model document and implementation map when the physical system or calibration changes; do not interpret the packaged data as a live-device calibration.
   zh: 打包的模型和校准是参考快照。当物理系统或校准发生变化时，请提供经过验证的模型文档和实现映射；不要把打包数据当作在线设备的校准。
@@ -49,7 +49,7 @@
 - id: fbceb8bb98a0ff20
   en: The two waveform samples above are not two gate steps. Over the full 20-unit interval, the emulator interpolates the drive, combines it with drift and coupling terms, and integrates the physical state. That is why the result retains every level in the model, including levels that the logical Program did not declare.
   zh: 上面的两个波形样本并不是两个门步骤。在整个 20 个单位的区间内，仿真器对驱动进行插值，将其与漂移项和耦合项合并，并对物理态进行积分。这就是结果保留模型中所有能级（包括逻辑 Program 未声明的能级）的原因。
-  status: machine
+  status: retired
 - id: e428f989cfeba0ac
   en: 'The next chapter turns this mechanism into a concrete transmon experiment: it compares a calibrated rotation with a direct drive and makes the resulting leakage visible.'
   zh: 下一章将把这一机制变成具体的 transmon 实验：它比较校准旋转与直接驱动，并让由此产生的泄漏清晰可见。
@@ -61,11 +61,11 @@
 - id: ae8716179ea8ef4a
   en: All controls inside one `PulseOperation` share its interval; `start_offset` can move an individual waveform within that interval. Between operations, the lightweight scheduler preserves source order for blocks that claim the same physical resource and may overlap independent blocks. Choose `"ASAP"` or `"ALAP"` through `simulation_config` when that placement matters.
   zh: 同一个 `PulseOperation` 内的所有控制共享其时间区间；`start_offset` 可以在该区间内移动单个波形。在操作之间，轻量级调度器为占用同一物理资源的块保持源码顺序，而相互独立的块则可能重叠。当这种放置很重要时，通过 `simulation_config` 选择 `"ASAP"` 或 `"ALAP"`。
-  status: machine
+  status: retired
 - id: 5578acc9a8b282fd
   en: Drift and background continuous noise evolve throughout elapsed time. On an emulator that supports classical conditions, a false condition can skip a control block without deleting its duration, so the model still evolves during the interval. Those differences are why a Hamiltonian emulator answers a different question from a hardware-profile simulator.
   zh: 漂移和背景连续噪声在整个经过的时间内持续演化。在支持经典条件的仿真器上，条件为假可以跳过控制块但不会删除其时长，因此模型在该区间内仍然演化。这些差异正是哈密顿量仿真器与硬件配置文件模拟器回答不同问题的原因。
-  status: machine
+  status: retired
 - id: 9e73b4f96f6c735a
   en: 'The constructor''s `method` selects the mathematical representation and Result accessor: `statevector` (the default), `density_matrix`, or `unitary`. It does not select an internal differential-equation solver.'
   zh: 构造函数的 `method` 选择数学表示和 Result 访问器：`statevector`（默认）、`density_matrix` 或 `unitary`。它不选择内部的微分方程求解器。
@@ -73,4 +73,24 @@
 - id: 966d30c7aad11f15
   en: Continue with [Transmon emulation](transmon-emulation.md) or [Neutral-atom emulation](neutral-atom-emulation.md). For pulse object, schedule, execution-method, and model contracts, use the [pulse-control API](../api/pulse-control/index.md) and [emulator API](../api/emulators/index.md).
   zh: 继续阅读 [transmon 仿真](transmon-emulation.md)或[中性原子仿真](neutral-atom-emulation.md)。有关脉冲对象、调度、执行方法和模型约定，请使用[脉冲控制 API](../api/pulse-control/index.md)和[仿真器 API](../api/emulators/index.md)。
+  status: machine
+- id: c40ad61ffde9f03d
+  en: A FatQat emulator follows the physical state during timed controls. It accepts a [`Program`][fatqat.Program], builds a physical schedule, and integrates a time-dependent Hamiltonian (and, when requested, Lindblad evolution). Use it to study pulse duration, coupling, leakage, or noise acting continuously over elapsed time. Circuit simulators can include noise channels without resolving this time evolution.
+  zh: FatQat 仿真器跟踪带时序控制下的物理态。它接受 [`Program`][fatqat.Program]，构建物理调度，并对含时哈密顿量进行积分；需要时还包括 Lindblad 演化。可用它研究脉冲时长、耦合、泄漏或随时间持续作用的噪声。电路模拟器也能包含噪声信道，但不解析这种时间演化。
+  status: machine
+- id: e05bbc9366180a3e
+  en: '`RX` remains an ordinary Program operation. At execution time, the emulator''s gate map obtains a pulse recipe from its calibration and binds that recipe to the model''s drive channel. The physical model has two qutrits, so the returned vector covers all $3^2$ basis states, including the second transmon. The Program still declares one two-level qubit. Each transmon''s third physical level lets the result show leakage out of its qubit states, `|0>` and `|1>`.'
+  zh: '`RX` 仍是普通的 Program 操作。执行时，仿真器的门映射从校准中取得脉冲方案，并将其绑定到模型的驱动信道。物理模型有两个 qutrit，因此返回向量覆盖全部 $3^2$ 个基态，包括第二个 transmon。Program 仍只声明一个二能级量子比特。每个 transmon 的第三个物理能级使结果能够显示从量子比特态 `|0>` 和 `|1>` 中产生的泄漏。'
+  status: machine
+- id: 45f638a78c961d4a
+  en: The three waveform samples above specify a drive over the full 20-unit interval. The emulator interpolates between them, combines the drive with drift and coupling terms, and integrates the physical state. The state covers every level in the physical model throughout the pulse, including levels that the Program did not declare.
+  zh: 上面的三个波形采样点定义了覆盖完整 20 个时间单位区间的驱动。仿真器在采样点之间插值，将驱动与漂移、耦合项组合，并对物理态积分。在整个脉冲期间，态始终覆盖物理模型中的每个能级，包括 Program 未声明的能级。
+  status: machine
+- id: 072ebeeb3ecb0bee
+  en: All controls inside one `PulseOperation` share its interval; `start_offset` can move an individual waveform within that interval. Between operations, the schedule preserves source order for blocks that use the same physical resource and may overlap independent blocks. Choose `"ASAP"` or `"ALAP"` through `simulation_config` when that placement matters.
+  zh: 同一个 `PulseOperation` 中的所有控制共享该操作的时间区间；`start_offset` 可以在区间内平移单个波形。不同操作之间，调度保持共用物理资源的块的源程序顺序，而独立块可以重叠。如果时序安排影响结果，可通过 `simulation_config` 选择 `"ASAP"` 或 `"ALAP"`。
+  status: machine
+- id: a9369d5400c85395
+  en: Drift and background continuous noise evolve throughout elapsed time. On an emulator that supports classical conditions, a false condition can skip a control block without deleting its duration, so the model still evolves during the interval. This lets you study the effect of elapsed time even when no control is active.
+  zh: 漂移与背景连续噪声在整个经过的时间内持续演化。在支持经典条件的仿真器上，条件为假可以跳过控制块，但不会删掉其时长，因此模型仍在该区间内演化。这样即使没有激活控制，也能研究经过时间的影响。
   status: machine

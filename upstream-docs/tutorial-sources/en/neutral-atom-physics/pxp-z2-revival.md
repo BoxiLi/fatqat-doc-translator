@@ -83,9 +83,9 @@ peaks actually land.
 ## Imports, constants, and the Z2 vector
 
 Ten sites, working in rad/us and us units, and the familiar drive scale $\Omega=2\pi$ rad/us, so the PXP coefficient is
-$g=\pi$ rad/us. One convention to keep straight: fatqat stores the
+$g=\pi$ rad/us. One convention to keep straight: FATQAT stores the
 amplitude of $|b_0\ldots b_9\rangle$ at index
-$\sum_i b_i 2^i$ (site 0 is the least significant bit), so each Neel
+$\sum_i b_i 2^{N-1-i}$ (site 0 is the most significant bit), so each Neel
 state is a single basis vector -- just two index numbers to remember.
 
 ```python
@@ -105,12 +105,12 @@ DT_TROTTER = 0.01  # us, one symmetric second-order Trotter step
 TIME_GRID = np.linspace(0.0, T_MAX, 121)
 
 Z2_BITS = tuple(1 - (i % 2) for i in range(NUM_SITES))  # |r g r g ...>
-Z2_INDEX = sum(2**i for i in range(NUM_SITES) if Z2_BITS[i])
+Z2_INDEX = sum(2 ** (NUM_SITES - 1 - i) for i in range(NUM_SITES) if Z2_BITS[i])
 Z2 = np.zeros(DIM, dtype=complex)
 Z2[Z2_INDEX] = 1.0
 
 ALT_BITS = tuple(1 - bit for bit in Z2_BITS)  # the twin Neel branch
-ALT_INDEX = sum(2**i for i in range(NUM_SITES) if ALT_BITS[i])
+ALT_INDEX = sum(2 ** (NUM_SITES - 1 - i) for i in range(NUM_SITES) if ALT_BITS[i])
 ALT = np.zeros(DIM, dtype=complex)
 ALT[ALT_INDEX] = 1.0
 
@@ -172,7 +172,8 @@ then the bulk terms, then the right edge -- and the backward pass is the
 same loop in reverse. Each half-step exponent is $h_j\,dt/2$, and
 $h_j$ already carries $\Omega/2$, so every registered matrix
 uses the one angle $\theta=\Omega\,dt/4$. Repeating this symmetric
-step `round(duration / dt)` times walks the quench out to any duration.
+step `round(duration / dt)` times walks the quench out to durations that
+are integer multiples of `dt`.
 
 A small warning from experience: when fatqat flattens a local matrix, the
 FIRST target is the most significant bit -- index
@@ -238,9 +239,7 @@ implementation_map.add(PXPBulk, BULK_MATRIX)
 implementation_map.add(PXPEdgeLeft, EDGE_LEFT_MATRIX)
 implementation_map.add(PXPEdgeRight, EDGE_RIGHT_MATRIX)
 
-# NumPy runtime on purpose: the program is thousands of tiny local
-# operations, and at that size the Python loop dwarfs any matrix kernel,
-# so numba would only add compile time.
+# Use NumPy to avoid compilation startup in this small example.
 backend = fq.simulator.Simulator(
     method="SV",
     runtime="numpy",
@@ -268,18 +267,6 @@ def trotter_program(duration: float) -> fq.Program:
             else:
                 program.add(PXPBulk(), (site - 1, site, site + 1))
     return program
-
-
-def evolve_fatqat(duration: float) -> np.ndarray:
-    """Quench |Z2> for ``duration`` and return the final statevector."""
-    if duration == 0.0:
-        return Z2.copy()
-    result = backend.run(
-        trotter_program(duration),
-        initial_state=Z2,
-        result_config={"counts": False, "final_state": True},
-    ).result()
-    return result.get_statevector()
 ```
 
 ## 4. The exact oracle
@@ -312,27 +299,9 @@ ORACLE_H = sum((OMEGA / 2) * _pxp_term(site) for site in range(NUM_SITES))
 ORACLE_Z2 = qutip.tensor(*[qutip.basis(2, bit) for bit in Z2_BITS])
 ORACLE_RESULT = qutip.sesolve(ORACLE_H, ORACLE_Z2, list(TIME_GRID))
 
-# Gotcha: QuTiP's tensor() treats the FIRST factor as the most significant
-# bit, while fatqat puts site 0 at the least significant bit. Same physics,
-# differently labelled basis -- so every oracle vector is bit-reversed into
-# fatqat's convention before we compare anything.
-def _bit_reversal_permutation() -> np.ndarray:
-    permutation = np.empty(DIM, dtype=int)
-    for index in range(DIM):
-        reversed_index = 0
-        for site in range(NUM_SITES):
-            reversed_index |= ((index >> site) & 1) << (NUM_SITES - 1 - site)
-        permutation[index] = reversed_index
-    return permutation
-
-
-_ORACLE_PERMUTATION = _bit_reversal_permutation()
-
-
 def evolve_oracle(index: int) -> np.ndarray:
-    """Return the oracle statevector at grid index ``index``, fatqat-ordered."""
-    vector = np.asarray(ORACLE_RESULT.states[index].full()).reshape(-1)
-    return vector[_ORACLE_PERMUTATION]
+    """Return one QuTiP statevector."""
+    return np.asarray(ORACLE_RESULT.states[index].full()).reshape(-1)
 ```
 
 ## 5. What to measure: fidelity and half-chain entropy
@@ -372,7 +341,12 @@ def site_occupations(state: np.ndarray) -> np.ndarray:
     basis_indices = np.arange(DIM)
     return np.array(
         [
-            float(np.sum(np.abs(state) ** 2 * ((basis_indices >> site) & 1)))
+            float(
+                np.sum(
+                    np.abs(state) ** 2
+                    * ((basis_indices >> (NUM_SITES - 1 - site)) & 1)
+                )
+            )
             for site in range(NUM_SITES)
         ]
     )
@@ -380,14 +354,45 @@ def site_occupations(state: np.ndarray) -> np.ndarray:
 
 ## 6. Run the quench and collect the time series
 
-For each grid time we rebuild the Trotter program (it grows with the
-duration) and evolve it once from $|Z_2\rangle$; the oracle hands us
-the corresponding exact state. It is a bit of a brute-force way to sample
-a time axis, but it keeps everything on the public API -- and the ten-site
-chain is small enough that it finishes in seconds.
+Build one Trotter program for the interval between samples. Starting from
+$|Z_2\rangle$, pass each final state into the next run through
+`initial_state`. For this noiseless, time-independent quench, a uniform,
+Trotter-aligned grid gives the same ordered evolution at each sample as
+restarting from the initial state.
 
 ```python
-fatqat_states = [evolve_fatqat(t) for t in TIME_GRID]
+def evolve_states(
+    initial_state: np.ndarray,
+    program: fq.Program,
+    num_steps: int,
+    *,
+    backend: fq.simulator.Simulator,
+) -> list[np.ndarray]:
+    """Return the initial state and a snapshot after each program application.
+
+    Each application advances one sampling interval. The returned num_steps + 1
+    arrays are independent copies; initial_state is not modified.
+    """
+    if num_steps < 0:
+        raise ValueError("num_steps must be non-negative")
+
+    states = [initial_state.copy()]
+    for _ in range(num_steps):
+        result = backend.run(
+            program,
+            initial_state=states[-1],
+            result_config={"counts": False, "final_state": True},
+        ).result()
+        states.append(result.get_statevector().copy())
+    return states
+
+
+# The uniform grid samples every 0.05 us: five Trotter steps per interval.
+sample_dt = TIME_GRID[1] - TIME_GRID[0]
+interval_program = trotter_program(sample_dt)
+fatqat_states = evolve_states(
+    Z2, interval_program, num_steps=len(TIME_GRID) - 1, backend=backend
+)
 
 fatqat_fidelity = np.array([fidelity(s, Z2) for s in fatqat_states])
 fatqat_alt = np.array([fidelity(s, ALT) for s in fatqat_states])

@@ -1,0 +1,212 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: FatQat
+site_description: Model quantum programs across simulation, hardware constraints, and physical dynamics
+site_author: FatQat contributors
+copyright: Copyright &copy; 2026 FatQat contributors
+
+site_url: !ENV [READTHEDOCS_CANONICAL_URL, "http://127.0.0.1:8000/"]
+repo_name: spaceqat/fatqat
+repo_url: https://github.com/spaceqat/fatqat
+edit_uri: edit/main/docs/mkdocs/en/
+
+docs_dir: docs/mkdocs/en
+site_dir: docs/mkdocs/site
+use_directory_urls: true
+
+theme:
+  name: material
+  custom_dir: docs/mkdocs/overrides
+  language: en
+  font: false
+  icon:
+    logo: material/atom-variant
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.prune
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+# Keep autorefs before mkdocstrings.
+plugins:
+  search:
+    lang: en
+  autorefs: {}
+  mkdocstrings:
+    default_handler: python
+    locale: en
+    handlers:
+      python:
+        paths:
+          - src
+        options:
+          # Keep parameters, attributes, returns, and raises in the traditional
+          # vertical definition-list form instead of compressed data tables.
+          docstring_section_style: list
+          docstring_style: google
+          docstring_options:
+            warn_missing_types: false
+          extensions:
+            - docs/mkdocs/extensions/docstring_roles.py:DocstringRolesExtension
+          filters: public
+          inherited_members: true
+          members_order: source
+          merge_init_into_class: true
+          separate_signature: true
+          show_root_full_path: false
+          show_root_heading: true
+          show_signature_annotations: true
+          show_source: false
+          show_symbol_type_heading: true
+          show_symbol_type_toc: true
+          signature_crossrefs: true
+          unwrap_annotated: true
+
+markdown_extensions:
+  abbr: {}
+  admonition: {}
+  attr_list: {}
+  def_list: {}
+  footnotes: {}
+  md_in_html: {}
+  toc:
+    permalink: true
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
+  pymdownx.arithmatex:
+    generic: true
+  pymdownx.details: {}
+  pymdownx.emoji:
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+  pymdownx.highlight:
+    pygments_lang_class: true
+  pymdownx.inlinehilite: {}
+  pymdownx.snippets:
+    check_paths: true
+  pymdownx.superfences: {}
+  pymdownx.tabbed:
+    alternate_style: true
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
+
+hooks:
+  - docs/mkdocs/hooks.py
+
+watch:
+  - src/fatqat
+  - docs/mkdocs/tutorial-sources
+  - docs/mkdocs/figure-sources
+
+nav:
+  - Home: index.md
+  - User guide:
+      - guide/index.md
+      - Start with one program:
+          - Quickstart: guide/quickstart.md
+          - Programs and registers: guide/program.md
+          - Compile and run a logical circuit: guide/compiler.md
+          - Execution models: guide/execution-models.md
+      - Run and analyze programs:
+          - Simulation: guide/simulation.md
+          - Estimate observables: guide/interpret-results.md
+          - Ideal and noisy runs: guide/ideal-and-noisy.md
+          - Visualization: guide/visualization.md
+          - Performance: guide/performance.md
+      - Model hardware and physics:
+          - Hardware-profile simulation: guide/hardware-profile-simulation.md
+          - Hamiltonian emulation: guide/hamiltonian-emulation.md
+          - Transmon emulation: guide/transmon-emulation.md
+          - Neutral-atom emulation: guide/neutral-atom-emulation.md
+      - Connect and diagnose:
+          - Interoperability: guide/interoperability.md
+          - Troubleshooting: guide/troubleshooting.md
+  - Tutorials:
+      - tutorials/index.md
+  - API reference:
+      - api/index.md
+      - Build programs:
+          - Program: api/program.md
+          - LogicalProgram: api/logical-program.md
+          - Compiler: api/compiler.md
+          - Registers: api/registers.md
+          - Operations:
+              - api/operations.md
+              - Qubit gates: api/operations/qubit-gates.md
+              - Qudit gates: api/operations/qudit-gates.md
+              - Atom gates: api/operations/atom-gates.md
+              - Structural operations: api/operations/structural.md
+          - Pulse control:
+              - api/pulse-control/index.md
+              - Pulse operation: api/pulse-control/pulse-operation.md
+              - Pulse control: api/pulse-control/pulse-control.md
+              - Sampled waveform: api/pulse-control/sampled-waveform.md
+              - Gate realization: api/pulse-control/gate-realization.md
+      - Run and inspect:
+          - Simulators:
+              - api/simulators/index.md
+              - General simulator: api/simulator.md
+              - Superconducting profile: api/simulators/sc-qubit.md
+              - Atom-array profile: api/simulators/atom-array.md
+          - Emulators:
+              - api/emulators/index.md
+              - Transmon emulator: api/pulse-emulator.md
+              - Neutral-atom emulators: api/atom-emulators.md
+          - Noise:
+              - api/noise.md
+              - Noise model: api/noise/model.md
+              - Backend support: api/noise/backend-support.md
+              - Depolarizing: api/noise/depolarizing.md
+              - Pauli channel: api/noise/pauli-channel.md
+              - Amplitude damping: api/noise/amplitude-damping.md
+              - Transition relaxation: api/noise/transition-relaxation.md
+              - Phase damping: api/noise/phase-damping.md
+              - Thermal relaxation: api/noise/thermal-relaxation.md
+              - Loss: api/noise/loss.md
+              - Readout confusion: api/noise/readout-confusion.md
+              - Custom implementations: api/noise/custom-implementations.md
+          - Estimator: api/estimator.md
+          - Job: api/job.md
+          - Result: api/result.md
+      - Integrate and extend:
+          - Interoperability:
+              - api/interoperability/index.md
+              - OpenQASM: api/interoperability/openqasm.md
+              - Qiskit: api/interoperability/qiskit.md
+          - Implementation maps: api/implementation.md
+      - Errors and stability:
+          - Exceptions: api/exceptions.md
+          - Experimental APIs: api/experimental.md

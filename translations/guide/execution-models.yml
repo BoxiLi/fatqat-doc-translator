@@ -5,11 +5,11 @@
 - id: 4cd4a8d10171803c
   en: A backend is more than a place to send a program. It decides what FatQat means by “run this.” The general simulator follows logical circuit evolution; a hardware profile adds device rules; an emulator follows a physical model in time.
   zh: 后端不只是接收程序的地方。它决定了 FatQat 所说的“运行这个程序”意味着什么。通用模拟器遵循逻辑电路演化；硬件配置文件加入设备规则；仿真器则在时间中遵循物理模型。
-  status: machine
+  status: retired
 - id: e2579d602777c721
   en: 'The distinction is easiest to see when the `Program` does not change. This single-qubit rotation is understood by all three examples below:'
   zh: 当 `Program` 保持不变时，这种区别最容易看清。下面三个示例都能理解这个单量子比特旋转：
-  status: machine
+  status: retired
 - id: ead641e7cf16d073
   en: General simulator
   zh: 通用模拟器
@@ -17,11 +17,11 @@
 - id: 48ff0adc0b045a46
   en: 'The general [`Simulator`][fatqat.simulator.Simulator] applies the logical gate operation without assigning the qubit to a particular device:'
   zh: 通用的 [`Simulator`][fatqat.simulator.Simulator] 应用逻辑门操作，而不把量子比特分配到某个具体设备上：
-  status: machine
+  status: retired
 - id: c469ac32eab3b5a7
   en: 'This is the quickest answer to the algorithmic question: the rotation leaves equal probabilities for `0` and `1`.'
   zh: 这是回答算法问题的最快途径：该旋转使 `0` 和 `1` 的概率相等。
-  status: machine
+  status: retired
 - id: 8e2a7685bdbb5b7f
   en: Hardware profile
   zh: 硬件配置文件
@@ -29,11 +29,11 @@
 - id: 9367753b7945f1d0
   en: 'A hardware-profile simulator still evolves gates at circuit level, but first checks that the program is native and physically placeable. `RX` is native to the Google-style profile used here:'
   zh: 硬件配置文件模拟器仍在电路层面演化门操作，但会先检查程序是否原生、能否在物理上放置。`RX` 是此处所用的 Google 风格配置文件的原生门：
-  status: machine
+  status: retired
 - id: b25004bfc9facab9
   en: 'The numerical answer matches, but the claim is stronger: this particular instruction also belongs to the selected native gate set and fits its resource model.'
   zh: 数值结果相同，但结论更强：这条特定指令还属于所选的原生门集合，并符合其资源模型。
-  status: machine
+  status: retired
 - id: b01e4b7435a4d9fc
   en: Physical emulator
   zh: 物理仿真器
@@ -41,52 +41,140 @@
 - id: b63261371ef0b5a2
   en: 'The transmon emulator realizes `RX` through its packaged pulse calibration and integrates a three-level physical model:'
   zh: transmon 仿真器通过其打包的脉冲校准来实现 `RX`，并对三能级物理模型进行积分：
-  status: machine
+  status: retired
 - id: f187647ab0c53345
   en: The reference model contains two physical three-level transmons, so its state is larger than the two-amplitude logical state—even though the `Program` addresses only one qubit. That extra space is where unaddressed hardware and leakage live.
   zh: 参考模型包含两个物理三能级 transmon，因此其状态比只有两个振幅的逻辑状态更大——尽管 `Program` 只寻址了一个量子比特。未被寻址的硬件和泄漏就存在于这部分额外空间中。
-  status: machine
+  status: retired
 - id: 852bd16ffcd73a44
   en: What each level tells you
   zh: 每个层级能告诉你什么
-  status: machine
+  status: retired
 - id: 5bee20b3a74f0510
   en: Start with the simplest model that contains the effect you need. Add device rules or continuous-time physics only when those details affect the result.
   zh: 从包含你所需效应的最简单模型开始。只有当设备规则或连续时间物理会影响结果时，才把这些细节加进来。
-  status: machine
+  status: retired
 - id: a964dce43c51318d
   en: Expect different capability checks
   zh: 预期不同的能力检查
-  status: machine
+  status: retired
 - id: 8f002e78fdfb150d
   en: All three paths accept a `Program`, return a `Job`, and expose data through a `Result`, but they do not accept the same instruction set.
   zh: 三条路径都接受 `Program`、返回 `Job`，并通过 `Result` 暴露数据，但它们接受的指令集并不相同。
-  status: machine
+  status: retired
 - id: da16a5a278e5ab4d
   en: For example, the general simulator supports logical qudits and registers with mixed local dimensions. Current hardware profiles and pulse emulators accept dimension-two logical resources. A transmon emulator may return a physical qutrit state because it retains a leakage level; that is different from declaring a logical qutrit in the Program.
   zh: 例如，通用模拟器支持逻辑 qudit 以及具有混合局部维度的寄存器。目前的硬件配置文件和脉冲仿真器只接受维度为二的逻辑资源。transmon 仿真器可能返回物理上的 qutrit 状态，因为它保留了一个泄漏能级；这与在 Program 中声明逻辑 qutrit 不是一回事。
-  status: machine
+  status: retired
 - id: a5e0abc83e8c2a94
   en: Hardware profiles validate the Program as written; they do not transpile or route it. When logical and device labels differ, a [`ResourceLayout`][fatqat.ResourceLayout] makes the binding explicit. [Testing a hardware profile](hardware-profile-simulation.md) works through a failed placement and its correction.
   zh: 硬件配置文件按 Program 的原样进行验证；它们不会转译或路由。当逻辑标签与设备标签不同时，[`ResourceLayout`][fatqat.ResourceLayout] 让这种绑定变得显式。[测试硬件配置文件](hardware-profile-simulation.md)完整演示了一次失败的放置及其修正。
-  status: machine
+  status: retired
 - id: 495dc9e4000d1ceb
   en: Next, [simulate a quantum program](simulation.md) to explore states, sweeps, and outputs at circuit level, or jump to [Hamiltonian-level emulation](hamiltonian-emulation.md) when time and controls are already the focus.
   zh: 接下来，通过[模拟量子程序](simulation.md)在电路层面探索状态、扫描和输出；如果时间和控制已经是关注重点，可直接跳到[哈密顿量级仿真](hamiltonian-emulation.md)。
-  status: machine
+  status: retired
 - id: 890533a712ddd97b
   en: '| If you want to know… | Start with… | FatQat models… |'
   zh: '| 如果你想知道…… | 从这里开始…… | FatQat 建模的内容…… |'
-  status: machine
+  status: retired
 - id: 46df7a7a75510bbb
   en: '| whether the algorithm produces the intended logical behavior | the general simulator | circuit operations on logical subsystems |'
   zh: '| 算法是否产生预期的逻辑行为 | 通用模拟器 | 逻辑子系统上的电路操作 |'
-  status: machine
+  status: retired
 - id: a110dd32b3aa76b4
   en: '| whether the written program obeys a target''s native operations and resource rules | a hardware-profile simulator | circuit evolution plus layout, connectivity, occupancy, and optional profile noise |'
   zh: '| 所写的程序是否遵守目标的原生操作和资源规则 | 硬件配置文件模拟器 | 电路演化，加上布局、连通性、占用情况和可选的配置文件噪声 |'
-  status: machine
+  status: retired
 - id: d170bf192104acc7
   en: '| how gates or controls behave as timed physical dynamics | an emulator | levels, drift, coupling, pulses, Hamiltonians, and compatible open-system noise |'
   zh: '| 门或控制作为定时物理动力学时的行为 | 仿真器 | 能级、漂移、耦合、脉冲、哈密顿量，以及兼容的开放系统噪声 |'
+  status: retired
+- id: ff997f1d1ae66bca
+  en: Choose a backend according to the question you want to answer. A circuit simulation can test an algorithm, a hardware profile can check device rules, and a physical emulator can resolve what happens while a pulse is applied.
+  zh: 根据要回答的问题选择后端。电路模拟可以检验算法，硬件配置可以检查设备规则，物理仿真器则可以解析施加脉冲期间发生的过程。
+  status: machine
+- id: d4929820a595430f
+  en: '| If you want to know… | Use… | FatQat models… |'
+  zh: '| 想了解的问题 | 使用的工具 | FatQat 建模的内容 |'
+  status: machine
+- id: 5ab28df054323251
+  en: '| whether a circuit produces the intended result, or how noise channels change it | the general simulator | circuit operations on qubits or qudits, with optional noise channels |'
+  zh: '| 电路是否产生预期结果，或噪声信道如何改变结果 | 通用模拟器 | 量子比特或 qudit 上的电路操作，可选噪声信道 |'
+  status: machine
+- id: 5d7581d48c9830da
+  en: '| whether a Program uses a device''s supported operations and resources | a hardware-profile simulator | circuit evolution with native-operation, placement, connectivity, capacity, and occupancy checks, plus optional noise |'
+  zh: '| Program 是否使用了设备支持的操作与资源 | 硬件配置模拟器 | 电路演化，以及原生操作、放置、连接关系、容量和占据检查，可选噪声 |'
+  status: machine
+- id: 052fcfd174480246
+  en: '| how pulse shape, duration, or drift affects the state during execution | a physical emulator | time-dependent evolution of the model''s physical levels under controls, coupling, and compatible continuous noise |'
+  zh: '| 脉冲形状、时长或漂移如何影响执行中的态 | 物理仿真器 | 在控制、耦合和兼容连续噪声作用下，模型物理能级的含时演化 |'
+  status: machine
+- id: 951beefcb985cacd
+  en: 'These are choices for different questions. You can begin with any of them. In particular, studying noise does not by itself require an emulator: both circuit simulators and hardware profiles support noise channels. Use physical emulation when you need to resolve dynamics over elapsed time, such as excitation during a pulse or relaxation during an idle interval.'
+  zh: 这些选择对应不同的问题，可以从任意一种开始。特别是，研究噪声本身不要求使用仿真器：电路模拟器和硬件配置都支持噪声信道。当需要解析随时间发生的动力学，例如脉冲期间的激发或空闲期间的弛豫时，再使用物理仿真。
+  status: machine
+- id: 5353f853279f27bd
+  en: Compare a single-qubit rotation
+  zh: 比较单量子比特旋转
+  status: machine
+- id: c25cad9ff4b59211
+  en: 'An ideal `RX(pi/2)` rotation of a qubit initially in `|0>` gives equal probabilities for `0` and `1`. The three backends let you examine this operation under different assumptions:'
+  zh: 对初态为 `|0>` 的量子比特施加理想 `RX(pi/2)` 旋转，得到 `0` 和 `1` 的概率相等。三个后端可以在不同假设下考察此操作：
+  status: machine
+- id: 43a8951cb014fca3
+  en: 'The general [`Simulator`][fatqat.simulator.Simulator] applies the circuit operation without assigning the qubit to a particular device. With no noise model, this run gives the ideal probabilities:'
+  zh: 通用 [`Simulator`][fatqat.simulator.Simulator] 施加电路操作，无需将量子比特分配到特定设备。不附加噪声模型时，此次运行给出理想概率：
+  status: machine
+- id: e78d618e931b4f51
+  en: 'A hardware-profile simulator also evolves circuit operations, while checking that they belong to its native set and obey its resource rules. The superconducting profile expresses this rotation as `SX`, which has the same effect as `RX(pi/2)` up to a global phase:'
+  zh: 硬件配置模拟器同样执行电路操作，并检查这些操作是否属于原生门集、是否遵守资源规则。超导配置用 `SX` 表示该旋转；忽略全局相位，它与 `RX(pi/2)` 的效果相同：
+  status: machine
+- id: db3159aca15c5cfd
+  en: The probabilities match the general simulator's. This run also checks that `SX` is supported on the selected qubit; it does not model the pulse used to implement it.
+  zh: 概率与通用模拟器一致。此次运行还检查所选量子比特是否支持 `SX`，但不建模实现它的脉冲。
+  status: machine
+- id: 31aee7daba61b7c2
+  en: Calling `profile.run(program)` with the original `RX(pi/2)` operation would raise [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] because `RX` is not native to this profile.
+  zh: 若用原始的 `RX(pi/2)` 操作调用 `profile.run(program)`，将抛出 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]，因为 `RX` 不是此配置的原生门。
+  status: machine
+- id: 9604bc687cbe5e32
+  en: 'The [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] turns `RX` into a pulse using its packaged reference calibration, then integrates the physical state over the pulse''s duration:'
+  zh: '[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 用内置参考校准将 `RX` 转换为脉冲，再在脉冲时长内对物理态进行积分：'
+  status: machine
+- id: b5d0b180c2c28030
+  en: The Program declares one qubit with two basis states. The reference model contains two physical transmons with three levels each, so the returned state has nine amplitudes. Reshaping it gives populations indexed by the levels of `q0` and `q1`; summing over `q1` leaves the three populations on `q0` shown above.
+  zh: Program 声明一个具有两个基态的量子比特。参考模型包含两个物理 transmon，每个有三个能级，因此返回态有九个振幅。重塑后得到以 `q0` 和 `q1` 能级为索引的布居；对 `q1` 求和后，剩下的就是上面显示的 `q0` 三个能级布居。
+  status: machine
+- id: ea4c36e4a8340d3e
+  en: Level `|2>` represents leakage out of the qubit's `|0>`, `|1>` subspace. Retaining that physical level does not make the Program a qutrit program. The second transmon also remains in the state even though this Program does not address it. For this reference pulse, the final populations are close to the ideal values and the leakage rounds to zero at this precision. The packaged calibration supplies a reproducible simulation example, not a current hardware characterization.
+  zh: 能级 `|2>` 表示泄漏出了量子比特的 `|0>`、`|1>` 子空间。保留这一物理能级并不意味着 Program 变成 qutrit 程序。第二个 transmon 也仍包含在态中，即使此 Program 没有对其寻址。对于该参考脉冲，最终布居接近理想值，在当前精度下泄漏四舍五入为零。内置校准提供的是可复现的模拟示例，并非当前硬件的实测表征。
+  status: machine
+- id: 003b362bb9868027
+  en: See what happens during a pulse
+  zh: 观察脉冲期间的变化
+  status: machine
+- id: 7808e2d7bf722eae
+  en: Equal final probabilities do not show how the state changes during a drive. For a simple time-resolved example, apply a constant drive to `q0` and stop it at successively later times. This is a direct pulse, separate from the shaped reference pulse used for `RX` above. Its fixed Rabi rate is chosen so that an ideal two-level system would reach equal populations after 10 ns.
+  zh: 相等的最终概率无法体现驱动过程中态的变化。一个简单的时间分辨示例是：对 `q0` 施加恒定驱动，并在逐渐延后的时刻停止。这是直接脉冲，与上面 `RX` 使用的成形参考脉冲不同。固定 Rabi 速率的选择使理想二能级系统在 10 ns 后达到相等布居。
+  status: machine
+- id: c135078ed931e1d3
+  en: '![A constant drive transfers population from level zero to level one over 10 nanoseconds; a second panel magnifies the small population in leakage level two.](../assets/generated/guide/execution-models-pulse.png)'
+  zh: '![恒定驱动在 10 纳秒内将布居从能级零转移至能级一；第二幅图放大显示泄漏能级二中的微小布居。](../assets/generated/guide/execution-models-pulse.png)'
+  status: machine
+- id: 0837bc9b7b3982cb
+  en: The left panel shows population moving between the qubit levels. The right panel uses a smaller scale to reveal population in `|2>`. This leakage arises from the driven three-level dynamics, even though no noise model is attached. To compare shaped controls with the calibrated rotation, continue with [Transmon emulation](transmon-emulation.md#drive-the-transmon-directly).
+  zh: 左图显示量子比特能级间的布居转移。右图使用更小的纵轴范围，显示 `|2>` 中的布居。这种泄漏来自受驱动的三能级动力学，即使未附加噪声模型也会出现。若要比较成形控制与校准旋转，请继续阅读 [Transmon 仿真](transmon-emulation.md#drive-the-transmon-directly)。
+  status: machine
+- id: 675c77f83f739082
+  en: Moving between models
+  zh: 在模型之间切换
+  status: machine
+- id: 5b360a31e19d782b
+  en: You can reuse a Program when the destination backend supports its operations and resources. Otherwise, express the computation using operations it accepts, as `SX` does for the superconducting profile above. When program resources need specific device locations, a [`ResourceLayout`][fatqat.ResourceLayout] binds them to device labels. [Hardware-profile simulation](hardware-profile-simulation.md) walks through a placement error and its correction.
+  zh: 如果目标后端支持 Program 中的操作与资源，就可以复用该程序。否则，需要使用目标接受的操作重新表达计算，例如上面为超导配置使用 `SX`。当程序资源需要放置在特定设备位置时，可用 [`ResourceLayout`][fatqat.ResourceLayout] 将其绑定到设备标签。[硬件配置模拟](hardware-profile-simulation.md)演示了一个放置错误及其修正。
+  status: machine
+- id: bb4d371d405cf66b
+  en: For circuit evolution and noise channels, see [Simulation](simulation.md) and [Ideal and noisy runs](ideal-and-noisy.md). For calibrated gates and direct controls, see [Hamiltonian emulation](hamiltonian-emulation.md). The [backend noise-support table](../api/noise/backend-support.md#noise-backend-support) helps you choose compatible noise declarations when changing models.
+  zh: 电路演化与噪声信道见[模拟](simulation.md)和[理想运行与含噪运行](ideal-and-noisy.md)。校准门与直接控制见[哈密顿量仿真](hamiltonian-emulation.md)。切换模型时，可用[后端噪声支持表](../api/noise/backend-support.md#noise-backend-support)选择兼容的噪声声明。
   status: machine

@@ -9,19 +9,19 @@
 - id: 159ffec9434cfc72
   en: Install FatQat from source
   zh: 从源码安装 FatQat
-  status: machine
+  status: retired
 - id: 1577b7bdaad2769b
   en: 'FatQat is not yet published on PyPI. Clone the repository, create an isolated environment, and install the checkout:'
   zh: FatQat 尚未发布到 PyPI。克隆仓库，创建一个隔离的环境，然后安装检出的代码：
-  status: machine
+  status: retired
 - id: e60dedadf5475ff7
   en: 'Activate the environment with the command for your platform:'
   zh: 使用适合你所在平台的命令激活环境：
-  status: machine
+  status: retired
 - id: 6b5b5551a61babc6
   en: 'Then install FatQat:'
   zh: 然后安装 FatQat：
-  status: machine
+  status: retired
 - id: 44d89952b3679d6b
   en: Write a Bell-state Program
   zh: 编写一个贝尔态 Program
@@ -29,7 +29,7 @@
 - id: a3243d85fd63e586
   en: 'A `Program` records the logical resources and instructions in execution order. This one prepares two qubits in a Bell state and measures both of them:'
   zh: '`Program` 按执行顺序记录逻辑资源和指令。下面这个 Program 将两个量子比特制备到贝尔态并对它们都进行测量：'
-  status: machine
+  status: retired
 - id: 11ae954fe050c4db
   en: '`Program(2, 2)` creates two qubits and two classical bits. `H` puts qubit 0 into a superposition, and `CX` uses qubit 0 as its control and qubit 1 as its target. The final instruction writes both quantum outcomes to the classical bits.'
   zh: '`Program(2, 2)` 创建两个量子比特和两个经典比特。`H` 使量子比特 0 进入叠加态，`CX` 以量子比特 0 为控制位、量子比特 1 为目标位。最后一条指令把两个量子测量结果写入经典比特。'
@@ -37,7 +37,7 @@
 - id: 916a763bda1d87e2
   en: The Program describes *what* should happen. It has not selected a simulator or performed any evolution yet.
   zh: Program 描述的是应当发生*什么*。此时它尚未选择模拟器，也没有进行任何演化。
-  status: machine
+  status: retired
 - id: 9662224d143b753f
   en: Inspect the Program
   zh: 检查 Program
@@ -61,19 +61,19 @@
 - id: deb619d64ef11c96
   en: 'The general-purpose simulator follows the Program''s logical circuit evolution. `run()` submits the Program and returns a [`job`][fatqat.Job]. Calling `job.result()` waits for completion and gives you a [`Result`][fatqat.Result] containing the requested outputs:'
   zh: 通用模拟器遵循 Program 的逻辑电路演化。`run()` 提交 Program 并返回一个 [`job`][fatqat.Job]。调用 `job.result()` 会等待运行完成，并给出一个包含所请求输出的 [`Result`][fatqat.Result]：
-  status: machine
+  status: retired
 - id: 5759a5c833a17f4e
   en: 'Each shot ends as either `00` or `11`: the two measured bits agree because the qubits are entangled. Their counts are close rather than exactly equal because measurement samples the state. The fixed seed makes this particular run reproducible.'
   zh: 每次 shot 的结果不是 `00` 就是 `11`：两个测得的比特之所以一致，是因为这两个量子比特处于纠缠态。两者的计数接近但不完全相等，因为测量是对状态的采样。固定的随机种子使这次特定的运行可以复现。
-  status: machine
+  status: retired
 - id: 5f64aef3b878e87f
   en: '![Bar chart containing only 00 and 11 Bell-state outcomes](../assets/generated/guide/quickstart-counts.png)'
   zh: '![仅包含 00 和 11 两种贝尔态结果的柱状图](../assets/generated/guide/quickstart-counts.png)'
-  status: machine
+  status: retired
 - id: 187cf45c9824f9fb
   en: 'Keep this `Program`: the next chapters change the backend to explore logical behavior, hardware constraints, and physical dynamics.'
   zh: 保留这个 `Program`：接下来的章节会更换后端，以探索逻辑行为、硬件约束和物理动力学。
-  status: machine
+  status: retired
 - id: 31fbef162594de01
   en: Continue
   zh: 继续
@@ -89,4 +89,68 @@
 - id: 92c7cab94192cc95
   en: '[Bring Programs to and from OpenQASM and Qiskit](interoperability.md) to connect an existing circuit workflow.'
   zh: '[在 OpenQASM 和 Qiskit 之间双向转换 Program](interoperability.md)，连接现有的电路工作流。'
+  status: machine
+- id: 396f7b4884ddf446
+  en: 'FatQat requires Python 3.12 or later and is not yet published on PyPI. Clone the repository first:'
+  zh: ''
+  status: retired
+- id: 54c82c9dccbbe4e6
+  en: 'We recommend [uv](https://docs.astral.sh/uv/) for local projects because it records the selected Python minor version in `.python-version`. This keeps the interpreter choice explicit and makes the environment easier to reproduce:'
+  zh: 本地项目推荐使用 [uv](https://docs.astral.sh/uv/)，因为它将所选 Python 次版本记录在 `.python-version` 中。这样解释器选择明确，也更容易复现环境：
+  status: machine
+- id: 6327ee6a577e9676
+  en: 'Keep `.python-version` with the project so later `uv` commands select the same Python minor version. If you prefer the standard library tools, create and activate a virtual environment instead:'
+  zh: 将 `.python-version` 保留在项目中，使后续 `uv` 命令选择相同的 Python 次版本。如果更喜欢标准库工具，也可以创建并激活虚拟环境：
+  status: machine
+- id: e14ee7be00d2493f
+  en: 'Then install FatQat with `pip`:'
+  zh: 然后使用 `pip` 安装 FatQat：
+  status: machine
+- id: 18727e7f56f37dda
+  en: 'A `Program` records quantum and classical resources together with the instructions that act on them. This one prepares two qubits in a Bell state and measures both:'
+  zh: '`Program` 记录量子和经典资源，以及作用于它们的指令。下面的程序将两个量子比特制备为 Bell 态，并测量二者：'
+  status: machine
+- id: 77caa73f37fc6ca9
+  en: 'The Program describes *what* should happen. It has not selected a simulator or performed any evolution yet. FatQat is also extensible: users can define operations and provide the backend implementations that execute them. Built-in operations such as `Put`, `Pair`, and `Unpair` show how `AtomArraySimulator` can represent workflows beyond standard quantum gates.'
+  zh: Program 描述*要做什么*。它尚未选择模拟器，也未执行任何演化。FatQat 还支持扩展：用户可以定义操作，并提供执行这些操作的后端实现。`Put`、`Pair` 和 `Unpair` 等内置操作展示了 `AtomArraySimulator` 如何表达超出标准量子门范围的工作流程。
+  status: machine
+- id: d339383b48c80a58
+  en: 'The general-purpose simulator evolves the Program as a quantum circuit. `run()` executes the Program and returns a completed [`Job`][fatqat.Job]. Calling `job.result()` returns a [`Result`][fatqat.Result] containing the requested outputs, or raises the recorded execution error:'
+  zh: 通用模拟器将 Program 作为量子电路演化。`run()` 执行 Program 并返回一个已完成的 [`Job`][fatqat.Job]。调用 `job.result()` 返回包含所请求输出的 [`Result`][fatqat.Result]，或抛出记录的执行错误：
+  status: machine
+- id: d749c83be0090d5a
+  en: 'Each shot ends as either `00` or `11`: the two measured bits agree because the qubits are entangled. Their counts are close rather than exactly equal because measurement samples the state. The fixed seed makes this particular run reproducible. `Result.draw()` provides a built-in chart for these counts, so no custom Matplotlib styling is needed.'
+  zh: 每次采样最终得到 `00` 或 `11`：两个测量位一致，因为量子比特处于纠缠态。测量对态进行采样，所以计数接近但不完全相等。固定种子使这次运行可以复现。`Result.draw()` 为计数提供内置图表，无需自定义 Matplotlib 样式。
+  status: machine
+- id: 72dd22c5ff616331
+  en: '![Bell-state measurement counts with nearly equal bars for 00 and 11](../assets/generated/guide/quickstart-counts.png)'
+  zh: '![Bell 态测量计数，00 和 11 的柱高近似相等](../assets/generated/guide/quickstart-counts.png)'
+  status: machine
+- id: 7669978ca0e9f0ee
+  en: Read basis indices
+  zh: 理解基索引
+  status: machine
+- id: 5eb1d82357e6870a
+  en: 'Public subsystem 0 is the most-significant factor. The two-qubit basis is `|00>`, `|01>`, `|10>`, `|11>` at flat indices 0 through 3. Consequently, `X(q0)|00>` has its nonzero amplitude at index 2, while `X(q1)|00>` uses index 1. Count strings use the same left-to-right public slot order: measuring those states into `(c0, c1)` produces `"10"` and `"01"`, respectively.'
+  zh: 公共子系统 0 是最高有效位的张量因子。双量子比特基 `|00>`、`|01>`、`|10>`、`|11>` 对应展平索引 0 至 3。因此，`X(q0)|00>` 的非零振幅位于索引 2，`X(q1)|00>` 则位于索引 1。计数字符串采用相同的公共槽位从左到右顺序：将这些态测量到 `(c0, c1)`，分别得到 `"10"` 和 `"01"`。
+  status: machine
+- id: 214c1db17448d168
+  en: 'Keep this `Program`: the next chapters change the backend to explore circuit behavior, hardware constraints, and physical dynamics.'
+  zh: 保留这个 `Program`：后续章节会通过更换后端，探索电路行为、硬件约束与物理动力学。
+  status: machine
+- id: 703d3d17895537f7
+  en: Install FatQat
+  zh: 安装 FatQat
+  status: machine
+- id: c6085a3d4e498556
+  en: 'FatQat requires Python 3.12 or later. In a virtual environment, install FatQat:'
+  zh: FatQat 需要 Python 3.12 或更高版本。在虚拟环境中安装 FatQat：
+  status: machine
+- id: 3ddc2c50c1a04830
+  en: Install the development version from source
+  zh: 从源码安装开发版
+  status: machine
+- id: d206a4b8f396cae6
+  en: 'To work with the latest source instead, clone the repository:'
+  zh: 如果希望使用最新源码，请克隆仓库：
   status: machine

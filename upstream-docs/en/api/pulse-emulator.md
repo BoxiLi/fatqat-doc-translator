@@ -61,9 +61,11 @@ to `model.subsystem_ids`. Pass an explicit
 [`ResourceLayout`][fatqat.ResourceLayout] to `run(resource_layout=...)` to
 override that binding; its device labels must be model subsystem IDs.
 Unaddressed transmons remain part of the full physical state and still
-contribute factors of three to state and operator dimensions. The ordered
-public identities of all model transmons appear in the result's `state_axes`
-metadata.
+contribute factors of three to state and operator dimensions. The result's
+`state_axes` lists every model transmon in model order, most-significant first.
+Statevectors and both axes of density matrices and unitaries use that order.
+State and unitary
+results may still use different documented terminal frames.
 
 `TransmonEmulator(...)` accepts these optional arguments:
 
@@ -160,8 +162,16 @@ Measurement first samples a physical level, maps `0, 1, 2` to `0, 1, 1`,
 then applies any classical readout-confusion matrix. Reset prepares physical
 `|0>`.
 
-Result metadata includes the effective run and result settings, but not the
-model or calibration documents.
+Result metadata includes the effective run and result settings, identifies
+`runtime="qutip"`, and reports `solver` and `solver_options` inside
+`runtime_details`. `solver` is one solver name for a uniform run or a
+tuple of names when execution used multiple solvers. Metadata does not
+include the model or calibration documents. When a sampled-control run invokes
+a QuTiP solver, the reported `max_step` is derived separately for each program
+as half the smallest adjacent interval in its control-waveform grids. It is
+expressed in the model's native time unit (`ns` for Transmon and `us` for
+the atom emulators). This keeps narrow controls visible to QuTiP's adaptive
+solver without assuming a fixed pulse time scale.
 
 `run()` raises validation errors before returning a job. If execution fails
 after a job is returned, `job.result()` raises
@@ -341,15 +351,15 @@ See [PulseOperation](pulse-control/pulse-operation.md),
 Pass supported declarations through `noise=`. The transmon emulator provides
 the collapse-operator realizations documented in
 [Pulse emulators](noise/backend-support.md#noise-emulator-support), including
-[`AmplitudeDamping`][fatqat.noise.AmplitudeDamping],
-[`PhaseDamping`][fatqat.noise.PhaseDamping], and
-[`ThermalRelaxation`][fatqat.noise.ThermalRelaxation], plus rate-form
-[`Depolarizing`][fatqat.noise.Depolarizing]. Qutrit amplitude damping requires two
-adjacent-level rates. Depolarization acts on the full three-level space and can
-populate `|2>`. Rates use inverse nanoseconds, while `t1`, `t2`, and
-`t_phi` use nanoseconds. The emulator accepts both background declarations and
-declarations scoped to ordinary operations. Finite probability forms, `Loss`,
-and nonlocal declarations are rejected.
+[`TransitionRelaxation`][fatqat.noise.TransitionRelaxation],
+[`PhaseDamping`][fatqat.noise.PhaseDamping], and rate-form
+[`Depolarizing`][fatqat.noise.Depolarizing]. Transition relaxation takes
+explicit level-pair coefficients; FATQAT does not insert a harmonic
+`sqrt(n)` ladder. Depolarization acts on the full three-level space and can
+populate `|2>`. Rates use inverse nanoseconds and `t_phi` uses nanoseconds.
+The emulator accepts both background declarations and declarations scoped to
+ordinary operations. Finite probability forms, `AmplitudeDamping`, `Loss`,
+qubit-only `ThermalRelaxation`, and nonlocal declarations are rejected.
 
 Probability-form channels are not converted to rates. In particular,
 [`PauliChannel`][fatqat.noise.PauliChannel] remains Simulator-only. See

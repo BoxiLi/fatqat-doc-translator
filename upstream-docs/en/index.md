@@ -5,31 +5,36 @@ hide:
   - toc
 description: Build one FatQat Program and choose the physical detail each quantum study needs.
 hero:
-  eyebrow: Quantum SDK
+  eyebrow: Model and execute quantum programs
   title: One Program. Three levels of physical detail.
   summary: >-
-    Write a quantum computation once. Then study logical behavior, test device
-    constraints, or follow time-dependent physical dynamics without changing
-    authoring models.
+    Write a quantum program once.
+    Use the same Program to explore algorithm behavior,
+    test device constraints, or follow time-dependent physical dynamics.
   primary_action: Build your first Program
   secondary_action: Compare execution levels
   install_action: Install from source
-  structure_alt: One FatQat Program runs through general simulation, a hardware profile, or Hamiltonian emulation, with every path returning a Result.
+  structure_alt: One FatQat Program runs through general simulation, hardware-profile simulation, or Hamiltonian emulation, with every path returning a Result.
   choice_label: Choose one execution level
   general_title: General simulation
   general_detail: states · counts · noise
-  hardware_title: Hardware profile
-  hardware_detail: native gates · topology
+  hardware_title: Hardware-profile simulation
+  hardware_detail: native gates · connectivity
   hamiltonian_title: Hamiltonian emulation
   hamiltonian_detail: pulses · leakage · dynamics
-  visual_note: Author once, then choose the detail at run time.
+  visual_note: Start with one Program, then choose the physical detail at run time.
 ---
+
+!!! warning "Under active development"
+
+    FatQat is under active development, and its interfaces may change between
+    releases. **Pin an exact version when reproducibility matters.**
 
 <!-- Localized content stays in Markdown; the shared Material hero lives in home.html. -->
 
 <div class="grid cards" markdown>
 
--   :material-code-braces-box:{ .lg .middle } **One authoring model**
+-   :material-code-braces-box:{ .lg .middle } **One quantum program**
 
     Keep gates, measurements, conditions, parameters, qudits, and direct
     controls in a single `Program`.
@@ -41,7 +46,7 @@ hero:
 
 -   :material-transit-connection-variant:{ .lg .middle } **One execution workflow**
 
-    Every target accepts a `Program` and uses the same `Job` / `Result`
+    Every backend accepts a `Program` and uses the same `Result`
     interface, while validating what it can realize.
 
 </div>
@@ -58,7 +63,7 @@ question in front of you.
 
     ---
 
-    Inspect states, counts, and noise when logical behavior is the question.
+    Inspect states, counts, and channel noise when algorithm behavior is the question.
 
     [:octicons-arrow-right-24: Study simulation](guide/simulation.md)
 
@@ -66,7 +71,7 @@ question in front of you.
 
     ---
 
-    Add native gates and topology when device constraints matter.
+    Add native gates and connectivity when device constraints matter.
 
     [:octicons-arrow-right-24: Model a hardware profile](guide/hardware-profile-simulation.md)
 
@@ -74,24 +79,23 @@ question in front of you.
 
     ---
 
-    Follow pulses, leakage, and dynamics when physical behavior matters.
+    Follow pulse dynamics, leakage, crosstalk, and non-Markovian effects when
+    physical behavior matters.
 
     [:octicons-arrow-right-24: Follow physical dynamics](guide/hamiltonian-emulation.md)
 
 </div>
 
-## One Grover Program, three execution models
+## One Grover algorithm, three execution levels
 
-This three-qubit Grover `Program` begins with all eight bit strings equally
-likely. Two iterations mark `101` and amplify it. Its fused `RX` / `RY` / `RZ`
-/ `CZ` realization runs unchanged on all three targets below. The two physical
-models share the same `T1 = T2 = 200 µs` coherence assumption.
+This three-qubit Grover search begins with all eight bit strings equally
+likely. Two iterations mark `101` and amplify it. The results below show how
+three execution levels change the outcome as hardware constraints and physical
+dynamics are introduced.
 
 <figure markdown="span">
 
-![A compact three-qubit Grover search uses fused RY and RZ rotations with four logical Toffoli gates to amplify 101.](assets/generated/home/grover-circuit.png){ loading=lazy width=1100 height=318 }
-
-<figcaption>Adjacent single-qubit gates are fused into rotations; Toffoli stays logical. All three backends execute the same fused native Program.</figcaption>
+![A compact three-qubit Grover search uses fused RY and RZ rotations with four Toffoli gates to amplify 101.](assets/generated/home/grover-circuit.png){ loading=lazy width=1100 height=318 }
 
 </figure>
 
@@ -103,27 +107,28 @@ models share the same `T1 = T2 = 200 µs` coherence assumption.
 
     Circuit-level evolution returns `101` with **94.53%** probability.
 
--   :material-memory:{ .lg .middle } **`SCQubitGoogleSimulator`**
+-   :material-memory:{ .lg .middle } **`SCQubitSimulator`**
 
-    ![The SCQubitGoogleSimulator result gives the target outcome 101 a probability of 86.36 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-google-profile.png){ loading=lazy width=714 height=515 }
+    ![The SCQubitSimulator result gives the target outcome 101 a probability of 86.15 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }
 
-    With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003`
-    on both q0–q1 and q1–q2. Native-gate simulation then returns `101` with
-    **86.36%** probability.
+    With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003`. Compiled native-gate simulation then returns
+    `101` with **86.15%** probability.
 
 -   :material-sine-wave:{ .lg .middle } **`TransmonEmulator`**
 
-    ![The three-level TransmonEmulator result gives the target outcome 101 a probability of 68.59 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }
+    ![The three-level TransmonEmulator result gives the target outcome 101 a probability of about 68.5 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }
 
     Calibrated pulses, three physical levels, and the same coherence times
-    return `101` with **68.59%** probability; physical leakage is **0.0446%**.
+    return `101` with about **68.5%** probability; physical leakage is **0.0446%**.
+    Most of the error comes from imperfect `iSWAP` gates.
 
 </div>
 
-??? abstract "Shared `Program` — `home_grover_program.py`"
+??? abstract "Shared algorithm source — `home_grover_program.py`"
 
-    The compact logical view and the exact fused native Program live in this one
-    visible source. Every execution script below imports it unchanged.
+    The compact circuit view and fused rotation data live in this visible
+    source. The general and Transmon scripts share the rotation Program; the SC
+    script builds equivalent QASM and compiles it to the canonical native basis.
 
     ```python
     --8<-- "docs/mkdocs/figure-sources/home_grover_program.py"
@@ -131,8 +136,9 @@ models share the same `T1 = T2 = 200 µs` coherence assumption.
 
 ??? example "Run each execution model independently"
 
-    Each tab is a top-to-bottom script. It imports the shared Program above,
-    while private plotting details stay out of the execution flow.
+    Each tab is a top-to-bottom script. It uses the algorithm representation
+    appropriate to its target, while private plotting details stay out of the
+    execution flow.
 
     === "General `Simulator`"
 
@@ -140,10 +146,10 @@ models share the same `T1 = T2 = 200 µs` coherence assumption.
         --8<-- "docs/mkdocs/figure-sources/home_grover_general.py"
         ```
 
-    === "`SCQubitGoogleSimulator`"
+    === "`SCQubitSimulator`"
 
         ```python
-        --8<-- "docs/mkdocs/figure-sources/home_grover_google.py"
+        --8<-- "docs/mkdocs/figure-sources/home_grover_sc.py"
         ```
 
     === "`TransmonEmulator`"
@@ -152,13 +158,17 @@ models share the same `T1 = T2 = 200 µs` coherence assumption.
         --8<-- "docs/mkdocs/figure-sources/home_grover_transmon.py"
         ```
 
-## Program a reconfigurable atom array
+## Encode hardware behavior when needed
 
-[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] brings explicit
-loading and reconfigurable connectivity into the `Program` model. Sites begin
-empty, so `Put` loads the atoms; `Pair` then makes native `CZ` available, and
-`Unpair` closes that connection again. Optional movement noise can follow the
-pairing operations.
+Algorithm developers can stay with general simulation. When their work requires
+more detail, compiler and hardware developers can add device-specific operations
+to a `Program`. The backend validates when those operations are allowed and
+tracks their effects.
+
+[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] provides one example.
+Sites begin empty, so `Put` loads the atoms; `Pair` makes native `CZ` available,
+and `Unpair` removes that connection. Noise attached to these operations can
+perturb the state or remove an atom from the array.
 
 <figure markdown="span">
 
@@ -188,9 +198,46 @@ pairing operations.
         shots=8,
         simulation_config={"seed": 7},
     ).result().get_counts()
-    print(counts)  # {'01': 8}
+    print(counts)  # {'10': 8}
     ```
 
+[`Loss`][fatqat.noise.Loss] models the second outcome. It removes a present atom
+after a matched operation. Occupancy is tracked independently for every shot,
+and measuring an empty site returns the erasure digit `2`.
+
+<figure markdown="span">
+
+![An occupied atom undergoes a matched operation, after which Loss either leaves it present with probability one minus p or removes it with probability p; measurement of the empty site returns 2.](assets/generated/guide/atom-loss-lifecycle.svg){ loading=lazy width=960 height=306 }
+
+<figcaption>Loss is sampled after the matched operation and changes per-shot occupancy.</figcaption>
+
+</figure>
+
+??? example "Simulate atom loss"
+
+    `Loss(p=0.1)` is sampled after `RX`. Surviving atoms return `1`; lost
+    atoms return `2`.
+
+    ```python
+    import numpy as np
+    import fatqat as fq
+    import fatqat.operations as ops
+
+    loss_model = fq.NoiseModel()
+    loss_model.add(fq.noise.Loss(p=0.1), operation=ops.RX)
+
+    lossy_atoms = fq.Program(1, 1)
+    lossy_atoms.add(ops.Put, 0)
+    lossy_atoms.add(ops.RX(np.pi), 0)
+    lossy_atoms.measure_all()
+
+    lossy_counts = fq.simulator.AtomArraySimulator(noise=loss_model).run(
+        lossy_atoms,
+        shots=100,
+        simulation_config={"seed": 7},
+    ).result().get_counts()
+    print(lossy_counts)  # {'1': 86, '2': 14}
+    ```
 [:octicons-arrow-right-24: Track occupancy, pairing, and loss](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)
 
 ## Explore the documentation

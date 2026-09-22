@@ -1,9 +1,9 @@
 # Agent instructions for fatqat-doc-translator
 
 This repository maintains the Simplified-Chinese translation of the FatQat
-documentation. The English docs live upstream in BoxiLi/fatqat; this repo
+documentation. The English docs live upstream in spaceqat/fatqat; this repo
 holds a synced English snapshot, a segment-level translation database, and
-the build pipeline that publishes the bilingual site.
+the build pipeline that publishes the Chinese RTD translation.
 
 ## What is source of truth (and what is not)
 
@@ -17,8 +17,8 @@ the build pipeline that publishes the bilingual site.
 
 ## The standard update loop
 
-1. `python tools/sync_upstream.py` — refresh the English snapshot. If it
-   reports `changed=false`, stop: there is nothing to do.
+1. `python tools/sync_upstream.py` — refresh the English snapshot and source pin.
+   Even when the source is unchanged, finish any existing pending translations.
 2. `python tools/translate.py extract` — register changed segments. Entries
    whose English changed become `status: pending`; their previous versions
    stay as `status: retired` in the same file.
@@ -28,11 +28,12 @@ the build pipeline that publishes the bilingual site.
    (fixed terminology). When a retired entry's English overlaps the new
    English, reuse its `zh` phrasing — updates should read as minimal
    revisions, not fresh translations.
-4. `python tools/translate.py check` — must exit 0 with `pending=0`.
+4. `python tools/translate.py check --require-complete` — must exit 0.
    Fix every error it reports; glossary warnings deserve a look but do not
    block.
-5. Open a pull request with the snapshot + database changes. Never push to
-   `main` directly; a human reviews machine translations.
+5. Prepare the snapshot and database changes for review. Publish directly only
+   when the maintainer has explicitly authorized publication for the run.
+   Keep machine translations marked `machine`, even when publication is authorized.
 
 ## Hard rules
 
@@ -67,3 +68,12 @@ and injecting the translations (`tools/inject_build.py`). CI (`checks.yml`)
 validates the database on every PR. If a build breaks after an upstream
 toolchain change, that is a human/toolchain task — report it, do not attempt
 sweeping fixes inside a translation PR.
+
+## Versions and scheduling
+
+`upstream.yml` identifies the canonical repository. `UPSTREAM_REF` and
+`UPSTREAM_COMMIT` record the source for each translator branch. Main tracks
+upstream main; a release branch keeps its release source pin. Do not replace
+main with a release snapshot. Read ONBOARDING.md before configuring scheduling.
+Recurring execution and automatic publication have not been enabled by the
+current setup work. Never copy subscription credentials to public CI caches.

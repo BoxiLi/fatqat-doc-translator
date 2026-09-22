@@ -27,6 +27,7 @@ import sys
 from typing import Iterable, Mapping, Sequence
 
 import yaml
+from site_config import source_strings
 
 # The tool runs in two contexts. Standalone (this repository): sources live in
 # upstream-docs/ and the database in translations/, both beside tools/.
@@ -389,6 +390,11 @@ def discover_sources(canonical: str) -> list[SourcePage]:
     for path in sorted(tutorial_root.rglob("*.md")):
         relative = Path("tutorial-sources") / path.relative_to(tutorial_root)
         pages.append(parse_source(path, relative))
+    strings = source_strings(MKDOCS_ROOT)
+    if strings:
+        lines = tuple(line for text in strings for line in (text, ""))
+        spans, cells = _parse_body(lines, tutorial=False)
+        pages.append(SourcePage(MKDOCS_ROOT / "mkdocs.yml", Path("_site.md"), "", (), lines, tuple(spans), tuple(cells)))
     return pages
 
 
@@ -490,7 +496,7 @@ def run_extract(*, dry_run: bool) -> int:
                 merged[sid] = entry
                 new_by_file.setdefault(_entry_file(page.relative), []).append(entry)
             elif entry.status == "retired":
-                entry.status = "reviewed" if entry.zh else "pending"
+                entry.status = "machine" if entry.zh else "pending"
 
     retired = 0
     for entries in database.values():
@@ -502,7 +508,7 @@ def run_extract(*, dry_run: bool) -> int:
     added = sum(len(entries) for entries in new_by_file.values())
     print(f"extract: {added} new segments, {retired} newly retired")
     if dry_run:
-        return 1 if added else 0
+        return 1 if added or retired else 0
 
     for path, fresh in new_by_file.items():
         database.setdefault(path, []).extend(fresh)
@@ -563,6 +569,23 @@ def render_page(page: SourcePage, merged: Mapping[str, Entry]) -> tuple[str, int
     multi-locale toolchain is gone.
     """
 
+    anchors = {}
+    if merged:
+        import markdown
+        from pymdownx.slugs import slugify
+        from html.parser import HTMLParser
+        class Headings(HTMLParser):
+            def __init__(self):
+                super().__init__(); self.ids = []
+            def handle_starttag(self, tag, attrs):
+                if tag in {"h1", "h2", "h3", "h4", "h5", "h6"}:
+                    self.ids.append(dict(attrs).get("id"))
+        parser = Headings()
+        parser.feed(markdown.markdown("\n".join(page.body_lines), extensions=["toc", "attr_list", "fenced_code", "md_in_html"], extension_configs={"toc": {"slugify": slugify(case="lower")}}))
+        headings = [span for span in page.spans if re.match(r"^#{1,6} ", span.prefix)]
+        if len(headings) != len(parser.ids):
+            raise ValueError(f"{page.relative}: could not map source heading anchors")
+        anchors = {span.start: anchor for span, anchor in zip(headings, parser.ids)}
     fallbacks = 0
     for _, text in page.front_matter_segments:
         if _lookup(merged, text) is None:
@@ -576,9 +599,13 @@ def render_page(page: SourcePage, merged: Mapping[str, Entry]) -> tuple[str, int
         if translated is None:
             fallbacks += 1
             continue
+        suffix = span.suffix
+        if span.start in anchors and "#" not in suffix:
+            anchor = anchors[span.start]
+            suffix = (suffix[:-1] + f" #{anchor}" + "}") if suffix else f" {{ #{anchor} }}"
         replacements[span.start] = (
             span.end,
-            [span.prefix + translated + span.suffix],
+            [span.prefix + translated + suffix],
         )
 
     output: list[str] = []
@@ -602,6 +629,8 @@ def run_render(*, out_root: Path, strict: bool) -> int:
     merged = global_map(load_database())
     total_fallbacks = 0
     for page in pages:
+        if page.relative == Path("_site.md"):
+            continue
         rendered, fallbacks = render_page(page, merged)
         total_fallbacks += fallbacks
         if page.is_tutorial:
@@ -640,7 +669,7 @@ def _destinations(text: str) -> list[str]:
     return found
 
 
-def run_check() -> int:
+def run_check(*, require_complete: bool = False) -> int:
     pages = discover_sources(CANONICAL_LOCALE)
     database = load_database()
     errors: list[str] = []
@@ -714,6 +743,8 @@ def run_check() -> int:
         print(f"warning: {warning}")
     if len(warnings) > 40:
         print(f"warning: ... and {len(warnings) - 40} more glossary warnings")
+    if require_complete and counts["pending"]:
+        errors.append(f"{counts['pending']} segments need translation")
     for error in errors:
         print(f"error: {error}", file=sys.stderr)
     if errors:
@@ -768,7 +799,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="fail when any segment falls back to English",
     )
 
-    subparsers.add_parser("check", help="validate the translation database")
+    check_parser = subparsers.add_parser("check", help="validate the translation database")
+    check_parser.add_argument("--require-complete", action="store_true")
 
     find_parser = subparsers.add_parser(
         "find", help="locate database entries containing a text snippet"
@@ -781,7 +813,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "render":
         return run_render(out_root=Path(args.out_root).resolve(), strict=args.strict)
     if args.command == "check":
-        return run_check()
+        return run_check(require_complete=args.require_complete)
     return run_find(args.snippet)
 
 

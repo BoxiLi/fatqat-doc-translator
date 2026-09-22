@@ -5,23 +5,23 @@
 - id: dd5d423aa27c8b6c
   en: A hardware-profile simulator checks whether a Program can run on a selected device shape as written. Like the general [`Simulator`][fatqat.simulator.Simulator], it evolves discrete gates at circuit level; it also enforces a native operation set, placement, connectivity, capacity, and, for atom arrays, occupancy.
   zh: 硬件配置文件模拟器检查一个 Program 能否按原样在选定的设备形态上运行。与通用的 [`Simulator`][fatqat.simulator.Simulator] 一样，它在电路层面演化离散的门；此外它还强制执行原生操作集、布局、连通性和容量，对原子阵列而言还包括占据情况。
-  status: machine
+  status: retired
 - id: 79ff32bd1861d1d0
   en: 'This makes profiles useful before a physical Hamiltonian model is needed. It also sets an important boundary: a profile validates your choices; it does not make those choices for you.'
   zh: 这使得配置文件在需要物理哈密顿量模型之前就很有用。它也确立了一条重要边界：配置文件校验你的选择；它不会替你做出这些选择。
-  status: machine
+  status: retired
 - id: 357dadc44d4cb087
   en: Start from logical behavior
   zh: 从逻辑行为开始
-  status: machine
+  status: retired
 - id: be392b6c0383ce38
   en: 'First establish what the Program means with the general-purpose simulator. A Bell Program uses convenient logical gates and has no device placement yet:'
   zh: 首先用通用模拟器确定 Program 的含义。Bell Program 使用方便的逻辑门，此时还没有任何设备布局：
-  status: machine
+  status: retired
 - id: 6ddd7d4e751889ac
   en: 'Now ask a Google-style superconducting profile about the same Program. The profile can report whether it supports `H`, so you do not need to copy its gate table into application code:'
   zh: 现在向一个 Google 风格的超导配置文件询问同一个 Program。配置文件可以报告它是否支持 `H`，因此你无需把它的门表复制到应用代码中：
-  status: machine
+  status: retired
 - id: 9e4c8419e4254a3c
   en: Submitting `bell` would therefore raise [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. FatQat does not silently decompose `H` or `CX` into this profile's native operations.
   zh: 因此，提交 `bell` 会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。FatQat 不会悄悄地把 `H` 或 `CX` 分解为该配置文件的原生操作。
@@ -45,7 +45,7 @@
 - id: 835f1a3da81c7086
   en: This confirms that the gate set and placement are valid. Fidelity, timing, and pulse dynamics require a physical emulator.
   zh: 这确认了门集与布局是有效的。保真度、时序和脉冲动力学则需要物理仿真器。
-  status: machine
+  status: retired
 - id: 60aa19096ca566cb
   en: Add reference noise deliberately
   zh: 有意识地添加参考噪声
@@ -53,15 +53,15 @@
 - id: 1a2c8568f0b110f0
   en: 'The superconducting profiles are ideal unless a noise model is passed. Their packaged models are useful comparison baselines, not current hardware characterizations:'
   zh: 超导配置文件在未传入噪声模型时是理想的。它们打包的模型是有用的对比基线，而不是当前硬件的表征：
-  status: machine
+  status: retired
 - id: 586a20cb7e42abaa
   en: 'Keeping noise opt-in makes the comparison legible: first verify target compatibility, then decide whether the reference error model answers your question. `AtomArraySimulator` has no packaged reference noise model; pass a [`NoiseModel`][fatqat.NoiseModel] of your own when loading, loss, or other effects belong in the experiment.'
   zh: 让噪声保持可选使得对比清晰易读：先验证目标兼容性，再决定参考误差模型是否回答了你的问题。`AtomArraySimulator` 没有打包的参考噪声模型；当装载、丢失或其他效应属于实验的一部分时，请传入你自己的 [`NoiseModel`][fatqat.NoiseModel]。
-  status: machine
+  status: retired
 - id: 0983c80ac04ea2bb
   en: '[`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] follows the same workflow with a different native gate family. Inspect the selected profile''s implementation map, then make the Program and layout choices that it requires.'
   zh: '[`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] 遵循同样的工作流，只是原生门族不同。检查所选配置文件的实现映射，然后做出它所要求的 Program 和布局选择。'
-  status: machine
+  status: retired
 - id: c63e0e1a690961bc
   en: Track atom occupancy and pairing
   zh: 跟踪原子占据与配对
@@ -97,7 +97,7 @@
 - id: d2724fba1a521260
   en: 'Unlike the superconducting profiles, the atom array has no fixed geometry. Program resources define sites that begin empty. `Put` loads the atoms, while `Pair` and `Unpair` reshape the connectivity on which `CZ` is legal:'
   zh: 与超导配置文件不同，原子阵列没有固定的几何结构。Program 资源定义的位点起初为空。`Put` 装载原子，而 `Pair` 和 `Unpair` 重塑决定 `CZ` 是否合法的连通性：
-  status: machine
+  status: retired
 - id: c0f48b6c6ad0f481
   en: 'Omitting `Pair` before `CZ` is a program error; FatQat does not transport or pair atoms automatically. A missing atom is different: supported gates find nothing to act on, and measurement reports the erasure digit `2`.'
   zh: 在 `CZ` 之前遗漏 `Pair` 是程序错误；FatQat 不会自动搬运或配对原子。原子缺失则是另一回事：受支持的门找不到可作用的原子，而测量会报告擦除数字 `2`。
@@ -105,4 +105,52 @@
 - id: 13c4cee676147a90
   en: For native gates, program sizing, and method support, use the [hardware-profile API](../api/simulators/index.md). Continue to [Hamiltonian emulation](hamiltonian-emulation.md) when pulse duration, physical levels, drift, or continuous-time noise becomes relevant.
   zh: 有关原生门、程序规模和方法支持，请使用[硬件配置文件 API](../api/simulators/index.md)。当脉冲时长、物理能级、漂移或连续时间噪声变得重要时，请继续阅读[哈密顿量仿真](hamiltonian-emulation.md)。
+  status: retired
+- id: 2f43f1d0990cf16e
+  en: A hardware-profile simulator checks whether a Program obeys a selected device's rules as written. Like the general [`Simulator`][fatqat.simulator.Simulator], it applies circuit operations and can include noise channels. It also enforces a native operation set, placement, connectivity, capacity, and, for atom arrays, occupancy.
+  zh: 硬件配置模拟器检查 Program 按当前写法是否遵守所选设备的规则。与通用 [`Simulator`][fatqat.simulator.Simulator] 一样，它施加电路操作，也可以包含噪声信道；此外还检查原生操作集、放置、连接关系、容量，以及原子阵列的占据情况。
+  status: machine
+- id: 008702b4b9252727
+  en: Use a profile to test choices such as which operations to use and where to place program qubits. The profile validates those choices; you supply the Program and layout.
+  zh: 可用硬件配置检验操作选择和程序量子比特放置等决策。你提供 Program 与布局，硬件配置负责验证这些选择。
+  status: machine
+- id: c76095c1d6b3f8ed
+  en: Compare circuit behavior
+  zh: 比较电路行为
+  status: machine
+- id: 0c360f5f16f4c355
+  en: 'The general-purpose simulator can run this Bell Program, which uses `H` and `CX` without specifying device placement:'
+  zh: 通用模拟器可以运行这个使用 `H` 和 `CX`、未指定设备放置的 Bell Program：
+  status: machine
+- id: bb7fc621a68e7a9d
+  en: 'Now ask the constrained superconducting profile about the same Program. The profile can report whether it supports `H`, so you do not need to copy its gate table into application code:'
+  zh: 现在用受约束的超导配置检查同一 Program。配置可以报告是否支持 `H`，无需将它的门表复制到应用代码中：
+  status: machine
+- id: da756325639ec210
+  en: This confirms that the operation set and placement are valid. The profile can also apply noise channels, as the next example shows. Use a physical emulator when the question depends on pulse shapes or how the state evolves during a control.
+  zh: 这确认了操作集与放置均有效。硬件配置也能施加噪声信道，下一个示例将展示这一点。如果问题依赖脉冲形状或控制期间态的演化，请使用物理仿真器。
+  status: machine
+- id: a05cef06273fc9cb
+  en: 'The superconducting profile is ideal unless a noise model is passed. Its packaged model is a useful comparison baseline, not a current hardware characterization:'
+  zh: 除非传入噪声模型，否则超导配置执行理想模拟。它内置的模型可作为比较基线，并非当前硬件的实测表征：
+  status: machine
+- id: bdbe871e6b663591
+  en: Compare runs with and without this model to study its effect on the output. `AtomArraySimulator` has no packaged reference noise model; pass a [`NoiseModel`][fatqat.NoiseModel] of your own when loading, loss, or other effects belong in the experiment.
+  zh: 比较使用和不使用该模型的运行，可研究它对输出的影响。`AtomArraySimulator` 没有内置参考噪声模型；如果实验需要加载、丢失或其他效应，请传入自己的 [`NoiseModel`][fatqat.NoiseModel]。
+  status: machine
+- id: fb1f69303ed5d66a
+  en: 'Unlike the superconducting profile, the atom array has no fixed geometry. Program resources define sites that begin empty. `Put` loads the atoms, while `Pair` and `Unpair` reshape the connectivity on which `CZ` is legal:'
+  zh: 与超导配置不同，原子阵列没有固定几何结构。程序资源定义初始为空的位置。`Put` 加载原子，`Pair` 和 `Unpair` 则改变允许施加 `CZ` 的连接关系：
+  status: machine
+- id: 9a47173f4a88d627
+  en: '![An occupied atom undergoes a matched operation, after which Loss either leaves it present with probability one minus p or removes it with probability p; measurement of the empty site returns 2.](../assets/generated/guide/atom-loss-lifecycle.svg)'
+  zh: '![已占据位置上的原子执行匹配的操作后，Loss 以一减 p 的概率保留原子，以 p 的概率移除原子；测量空位置返回 2。](../assets/generated/guide/atom-loss-lifecycle.svg)'
+  status: machine
+- id: ce3e44b2ed641cd8
+  en: 'Loss can be attached to any supported operation. Here it is sampled after `RX`, so surviving atoms return `1`, while lost atoms return `2`:'
+  zh: 丢失可附加到任意受支持的操作。这里在 `RX` 后采样，因此存活原子返回 `1`，丢失原子返回 `2`：
+  status: machine
+- id: 4f6a2b6e6b6ffde4
+  en: For native gates, program sizing, and method support, use the [hardware-profile API](../api/simulators/index.md). For pulse duration, physical levels, drift, or continuous-time noise, see [Hamiltonian emulation](hamiltonian-emulation.md).
+  zh: 原生门、程序规模和方法支持见[硬件配置 API](../api/simulators/index.md)。脉冲时长、物理能级、漂移和连续时间噪声见[哈密顿量仿真](hamiltonian-emulation.md)。
   status: machine

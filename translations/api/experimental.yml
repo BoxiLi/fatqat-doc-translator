@@ -34,3 +34,7 @@
   en: Built-in pulse maps are listed under [Emulators](emulators/index.md).
   zh: 内置的脉冲映射列于[仿真器](emulators/index.md)之下。
   status: machine
+- id: 91343bb1092934bf
+  en: The [compiler](compiler.md) is under development; its interfaces and supported behavior may change. Its [LogicalProgram](logical-program.md) frontend accepts built-in device-independent operations and is required by the Python compiler entry points.
+  zh: '[编译器](compiler.md)仍在开发中，其接口和支持的行为可能发生变化。[LogicalProgram](logical-program.md) 前端接受内置的设备无关操作，是 Python 编译器入口所要求的输入。'
+  status: machine

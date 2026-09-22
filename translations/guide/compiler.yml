@@ -1,0 +1,176 @@
+- id: ca996db5b4992527
+  en: Compile a logical circuit
+  zh: ''
+  status: retired
+- id: caa1cb28ff9a2b89
+  en: 'Use [`LogicalProgram`][fatqat.LogicalProgram] when you want FatQat to choose a hardware-family instruction set, map logical qubits, and route two-qubit gates. It is a small, editable circuit frontend with familiar gate methods:'
+  zh: ''
+  status: retired
+- id: e38deac02b7867e6
+  en: '`LogicalProgram` is distinct from [`Program`][fatqat.Program]. A `LogicalProgram` is input to the compiler. A `Program` is the general container accepted by simulators and emulators, including direct controls and dynamic behavior that the current compiler does not lower.'
+  zh: ''
+  status: retired
+- id: d40e9953c0999003
+  en: Compile and run on an SC profile
+  zh: ''
+  status: retired
+- id: eaf9602395371f00
+  en: The public superconducting route targets [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator]. Its coupling graph is the compiler's routing target; it may be any valid graph and does not need to be a grid.
+  zh: ''
+  status: retired
+- id: 00225a7a724e1f6b
+  en: The route freezes the editable circuit, normalizes it to the common SC gate IR, performs SABRE mapping and routing, and lowers it to the public X/SX/RZ/CZ native profile. The rotation/iSWAP profile is currently private and is not part of the public compiler contract.
+  zh: ''
+  status: retired
+- id: 38a3e05134b2ece3
+  en: Compile for a neutral-atom architecture
+  zh: ''
+  status: retired
+- id: 803f13438a03f098
+  en: 'The neutral-atom route uses the bundled ZAP scheduler:'
+  zh: ''
+  status: retired
+- id: fcf5017635c7d389
+  en: 'Both target compilers return an executable result at their default final boundary. Pass that result directly to the matching simulator. The final compiler IR remains available as `compiled.output`: an `SCNativeProgram` for SC or a `ZonedPlan` for NA. `compiled.route` records the passes that ran.'
+  zh: ''
+  status: retired
+- id: c67b3f17796d2973
+  en: An explicit intermediate `emit` returns an inspectable [`CompilationResult`][fatqat.compiler.CompilationResult] rather than an executable result. The low-level [`to_sc_simulator_program`][fatqat.compiler.to_sc_simulator_program] and [`to_na_simulator_program`][fatqat.compiler.to_na_simulator_program] functions remain available when advanced callers construct or modify final IR directly.
+  zh: ''
+  status: retired
+- id: c907ee628bb51ebd
+  en: Supported source behavior
+  zh: ''
+  status: retired
+- id: a5b0699eada5d42f
+  en: The v0.3 compiler accepts static, numeric gate circuits. Measurements must be terminal. Bind symbolic parameters with `assign_parameters()` before compilation; mid-circuit measurement, conditions, feed-forward, and general control flow are not yet compiler inputs.
+  zh: ''
+  status: retired
+- id: 1e53f065f1aba3e4
+  en: 'The frontend offers the union of the current logical gate methods. Target normalization reports unsupported combinations: in particular, the current NA route rejects `sx()` and `reset()`. Such a failure is reported as a [`PassError`][fatqat.compiler.PassError] naming the pass and the underlying unsupported operation.'
+  zh: ''
+  status: retired
+- id: 391882037fe2e630
+  en: 'OpenQASM remains an equal frontend through [`compile_qasm_to_sc`][fatqat.compiler.compile_qasm_to_sc] and [`compile_qasm_to_na`][fatqat.compiler.compile_qasm_to_na]. Python and QASM inputs converge at the same immutable logical IR, so all later lowering is shared. The OpenQASM `U`, `u1`, `u2`, and `u3` families are normalized into the existing target rotations; they are not added to the SC or NA hardware dialects. Their default results use the same direct execution API:'
+  zh: ''
+  status: retired
+- id: 171c680dd29842cb
+  en: Compile and run a logical circuit
+  zh: 编译并运行逻辑电路
+  status: machine
+- id: 46c03a3fde0e3b99
+  en: 'FatQat can prepare the same logical circuit for a superconducting simulator or a neutral-atom simulator. The normal workflow has three steps:'
+  zh: FatQat 可以将同一逻辑电路分别准备为超导模拟器或中性原子模拟器的输入。通常分为三步：
+  status: machine
+- id: fa0f17cc5980da2e
+  en: Build a [`LogicalProgram`][fatqat.LogicalProgram].
+  zh: 构建 [`LogicalProgram`][fatqat.LogicalProgram]。
+  status: machine
+- id: 7bcc64b5299f6597
+  en: Compile it for a target.
+  zh: 针对目标进行编译。
+  status: machine
+- id: dbf251de08c23f79
+  en: Run the compiled result on the matching simulator.
+  zh: 在匹配的模拟器上运行编译结果。
+  status: machine
+- id: 2a9b6d547fb36a37
+  en: Build a circuit
+  zh: 构建电路
+  status: machine
+- id: c45e41626076b96f
+  en: 'This Bell-state circuit will be used for both targets:'
+  zh: 下面的 Bell 态电路将用于这两种目标：
+  status: machine
+- id: 3a35aa51796c2a74
+  en: '`LogicalProgram` uses the same circuit-building interface as [`Program`][fatqat.Program]. You can simulate it directly while developing an algorithm, then compile it when you are ready to run against a hardware profile. Compilation does not modify the circuit, so it can be reused with more than one target.'
+  zh: '`LogicalProgram` 与 [`Program`][fatqat.Program] 使用相同的电路构建接口。开发算法时可以直接模拟，准备好在硬件配置上运行时再编译。编译不会修改电路，因此可以将其复用于多个目标。'
+  status: machine
+- id: a3710729082af1ae
+  en: Run on a superconducting profile
+  zh: 在超导硬件配置上运行
+  status: machine
+- id: 645f4346e1159115
+  en: Create an [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] with the number of physical qubits and their allowed two-qubit connections. The compiler maps the logical qubits to this topology and adds routing operations where they are needed.
+  zh: 创建 [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator]，指定物理量子比特数及允许的双量子比特连接。编译器将逻辑量子比特映射到此拓扑，并在需要时添加路由操作。
+  status: machine
+- id: 483a2f8faf826821
+  en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set.'
+  zh: '`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。'
+  status: machine
+- id: 00360795314212b8
+  en: Run on a neutral-atom architecture
+  zh: 在中性原子架构上运行
+  status: machine
+- id: 029797262a3762f1
+  en: 'For neutral atoms, load an architecture and compile the same circuit with `compile_to_na()`:'
+  zh: 对于中性原子，先加载架构，再用 `compile_to_na()` 编译同一电路：
+  status: machine
+- id: 392f6004b4d80ac7
+  en: The architecture describes the zones and movement constraints used to create the neutral-atom schedule. FatQat also includes `scale_to_100` and `scale_to_500` profiles for larger studies.
+  zh: 架构描述了生成中性原子调度所需的分区和移动约束。FatQat 还提供 `scale_to_100` 和 `scale_to_500` 配置，用于更大规模的研究。
+  status: machine
+- id: ca7149bff730f0e3
+  en: 'OpenQASM 2 and OpenQASM 3 can be compiled without first creating a `LogicalProgram`. Choose the function that matches the target:'
+  zh: 无需先创建 `LogicalProgram`，即可编译 OpenQASM 2 和 OpenQASM 3。请选择与目标匹配的函数：
+  status: machine
+- id: c8f4615f9168cb0a
+  en: OpenQASM `U`, `u1`, `u2`, and `u3` gates are converted to rotations supported by the target compilation route.
+  zh: OpenQASM 的 `U`、`u1`、`u2` 和 `u3` 门会转换为目标编译路径支持的旋转。
+  status: machine
+- id: 5f23f9c0c51bb6fb
+  en: Inspect a compilation
+  zh: 检查编译结果
+  status: machine
+- id: 84951bb34d360fda
+  en: 'The default compile functions return a result that is ready for the matching simulator. It also keeps two useful views of the compilation:'
+  zh: 默认编译函数返回可直接交给匹配模拟器的结果，同时保留两种有用的编译信息：
+  status: machine
+- id: 9b06dadff5471f8d
+  en: '`compiled.output` is the final compiler representation: an `SCNativeProgram` for SC or a `ZonedPlan` for NA.'
+  zh: '`compiled.output` 是最终编译器表示：SC 对应 `SCNativeProgram`，NA 对应 `ZonedPlan`。'
+  status: machine
+- id: 76bec3679bda0d83
+  en: '`compiled.route` lists the compiler stages that ran.'
+  zh: '`compiled.route` 列出实际执行的编译器阶段。'
+  status: machine
+- id: c7570ea5d6cd2685
+  en: Compiled programs keep classical registers in source declaration order, including unused registers and unwritten slots. Measurement order does not change count-key positions. Counts follow the usual [ordering and zero-fill rules](../api/result.md#ordering-and-mutable-values).
+  zh: 编译后的程序按源程序声明顺序保留经典寄存器，包括未使用的寄存器和未写入的槽位。测量顺序不会改变计数键中的位置。计数遵循通常的[排序和补零规则](../api/result.md#ordering-and-mutable-values)。
+  status: machine
+- id: b01ab7cc3b816436
+  en: To inspect an earlier representation, pass its IR identifier with `emit`. In that case the compiler returns a [`CompilationResult`][fatqat.compiler.CompilationResult] for inspection rather than a simulator-ready result.
+  zh: 如需查看更早阶段的表示，将其 IR 标识符传给 `emit`。此时编译器返回供检查使用的 [`CompilationResult`][fatqat.compiler.CompilationResult]，而非可直接交给模拟器的结果。
+  status: machine
+- id: 428a2368deb026f1
+  en: 'For a neutral-atom compilation, you can animate the resulting schedule:'
+  zh: 对于中性原子编译，可以将生成的调度制作成动画：
+  status: machine
+- id: 50f9590acd1dc3cc
+  en: Creating the animation requires Matplotlib. Saving it as MP4 also requires FFmpeg on `PATH`.
+  zh: 创建动画需要 Matplotlib。保存为 MP4 还要求 `PATH` 中存在 FFmpeg。
+  status: machine
+- id: e7249cd6de860050
+  en: Bind circuit parameters
+  zh: 绑定电路参数
+  status: machine
+- id: 86921b428627f357
+  en: 'Keep symbolic parameters while building a reusable circuit, then bind numeric values before compiling:'
+  zh: 构建可复用电路时保留符号参数，在编译前绑定数值：
+  status: machine
+- id: 2470267cdd183cc9
+  en: '`assign_parameters()` returns a new `LogicalProgram`; the template remains available for another set of values.'
+  zh: '`assign_parameters()` 返回一个新的 `LogicalProgram`；模板仍可用于另一组参数值。'
+  status: machine
+- id: 55accdfd7139d443
+  en: Current compiler support
+  zh: 当前编译器支持范围
+  status: machine
+- id: 428cf66d8aa00e14
+  en: The compiler currently handles static circuits with numeric parameters. Both targets support I, H, X, Y, Z, S, Sdg, T, Tdg, RX, RY, RZ, Phase, U, U1, U2, U3, CX, CZ, and Swap. The SC route also supports SX and Reset. Measurements belong at the end of the circuit, and each classical slot can receive one measurement result.
+  zh: 编译器目前处理参数为数值的静态电路。两种目标都支持 I、H、X、Y、Z、S、Sdg、T、Tdg、RX、RY、RZ、Phase、U、U1、U2、U3、CX、CZ 和 Swap。SC 路径还支持 SX 和 Reset。测量应位于电路末尾，每个经典槽位可以接收一个测量结果。
+  status: machine
+- id: c17c784235da0b92
+  en: Other operations available to `LogicalProgram`, including classical conditions, feed-forward, mid-circuit measurement, multi-controlled gates, and qudit gates, can still be used in direct simulation but are not compiled yet. If a circuit uses an operation unavailable on its chosen target, compilation raises a [`PassError`][fatqat.compiler.PassError] that identifies the compiler stage and operation.
+  zh: '`LogicalProgram` 中的其他操作，包括经典条件、前馈、电路中途测量、多重受控门和 qudit 门，仍可用于直接模拟，但目前尚不能编译。如果电路使用了所选目标不支持的操作，编译会抛出 [`PassError`][fatqat.compiler.PassError]，指出对应的编译阶段和操作。'
+  status: machine

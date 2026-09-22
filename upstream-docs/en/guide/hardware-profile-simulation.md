@@ -1,19 +1,19 @@
 # Test a Program against a hardware profile
 
-A hardware-profile simulator checks whether a Program can run on a selected
-device shape as written. Like the general
-[`Simulator`][fatqat.simulator.Simulator], it evolves discrete gates at circuit
-level; it also enforces a native operation set, placement, connectivity,
-capacity, and, for atom arrays, occupancy.
+A hardware-profile simulator checks whether a Program obeys a selected
+device's rules as written. Like the general
+[`Simulator`][fatqat.simulator.Simulator], it applies circuit operations and can
+include noise channels. It also enforces a native operation set, placement,
+connectivity, capacity, and, for atom arrays, occupancy.
 
-This makes profiles useful before a physical Hamiltonian model is needed. It
-also sets an important boundary: a profile validates your choices; it does not
-make those choices for you.
+Use a profile to test choices such as which operations to use and where to
+place program qubits. The profile validates those choices; you supply the
+Program and layout.
 
-## Start from logical behavior
+## Compare circuit behavior
 
-First establish what the Program means with the general-purpose simulator. A
-Bell Program uses convenient logical gates and has no device placement yet:
+The general-purpose simulator can run this Bell Program, which uses `H` and
+`CX` without specifying device placement:
 
 ```pycon
 >>> import numpy as np
@@ -34,13 +34,15 @@ Bell Program uses convenient logical gates and has no device placement yet:
 True
 ```
 
-Now ask a Google-style superconducting profile about the same Program. The
+Now ask the constrained superconducting profile about the same Program. The
 profile can report whether it supports `H`, so you do not need to copy its
 gate table into application code:
 
 ```pycon
->>> profile = fq.simulator.SCQubitGoogleSimulator(
-...     grid_size=(2, 3),
+>>> profile = fq.simulator.SCQubitSimulator(
+...     num_qubits=6,
+...     couplings=((0, 1), (1, 2), (3, 4), (4, 5),
+...                (0, 3), (1, 4), (2, 5)),
 ...     runtime="numpy",
 ... )
 >>> profile.implementation_map.supports(ops.H)
@@ -68,8 +70,8 @@ a diagonal `CZ` that the grid does not provide:
 ```pycon
 >>> qubits = fq.QuantumRegister(2, name="q")
 >>> native = fq.Program([qubits])
->>> native.add(ops.RX(np.pi), qubits[0])
->>> native.add(ops.RX(np.pi), qubits[1])
+>>> native.add(ops.X, qubits[0])
+>>> native.add(ops.X, qubits[1])
 >>> native.add(ops.CZ, (qubits[0], qubits[1]))
 >>> bad_layout = fq.ResourceLayout({qubits[0]: 0, qubits[1]: 4})
 >>> try:
@@ -91,26 +93,30 @@ Program itself does not need to change:
 3
 ```
 
-This confirms that the gate set and placement are valid. Fidelity, timing, and
-pulse dynamics require a physical emulator.
+This confirms that the operation set and placement are valid. The profile can
+also apply noise channels, as the next example shows. Use a physical emulator
+when the question depends on pulse shapes or how the state evolves during a
+control.
 
 ## Add reference noise deliberately
 
-The superconducting profiles are ideal unless a noise model is passed. Their
-packaged models are useful comparison baselines, not current hardware
-characterizations:
+The superconducting profile is ideal unless a noise model is passed. Its
+packaged model is a useful comparison baseline, not a current hardware
+characterization:
 
 ```python
-profile_type = fq.simulator.SCQubitGoogleSimulator
+profile_type = fq.simulator.SCQubitSimulator
 noisy_profile = profile_type(
-    grid_size=(2, 3),
+    num_qubits=6,
+    couplings=((0, 1), (1, 2), (3, 4), (4, 5),
+               (0, 3), (1, 4), (2, 5)),
     runtime="numpy",
     noise=profile_type.default_noise_model(),
 )
 
 measured_native = fq.Program(2, 2)
-measured_native.add(ops.RX(np.pi), 0)
-measured_native.add(ops.RX(np.pi), 1)
+measured_native.add(ops.X, 0)
+measured_native.add(ops.X, 1)
 measured_native.add(ops.CZ, (0, 1))
 measured_native.measure_all()
 noisy_counts = noisy_profile.run(
@@ -120,19 +126,14 @@ noisy_counts = noisy_profile.run(
 ).result().get_counts()
 ```
 
-Keeping noise opt-in makes the comparison legible: first verify target
-compatibility, then decide whether the reference error model answers your
-question. `AtomArraySimulator` has no packaged reference noise model; pass a
+Compare runs with and without this model to study its effect on the output.
+`AtomArraySimulator` has no packaged reference noise model; pass a
 [`NoiseModel`][fatqat.NoiseModel] of your own when loading, loss, or other
 effects belong in the experiment.
 
-[`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] follows the same workflow
-with a different native gate family. Inspect the selected profile's
-implementation map, then make the Program and layout choices that it requires.
-
 ## Track atom occupancy and pairing { #atom-occupancy-and-pairing }
 
-Unlike the superconducting profiles, the atom array has no fixed geometry.
+Unlike the superconducting profile, the atom array has no fixed geometry.
 Program resources define sites that begin empty. `Put` loads
 the atoms, while `Pair` and `Unpair` reshape the connectivity on which `CZ`
 is legal:
@@ -158,7 +159,7 @@ trajectory. `AtomArraySimulator` records no coordinates or movement duration;
 ...     simulation_config={"seed": 7},
 ... ).result().get_counts()
 >>> atom_counts
-{'01': 8}
+{'10': 8}
 ```
 
 Pairing is ideal unless you attach a noise assumption. For example, apply a
@@ -190,11 +191,31 @@ This channel perturbs the quantum state during `Pair` and `Unpair`; it does not
 remove either atom. Use [`Loss`][fatqat.noise.Loss] instead when movement
 should change occupancy.
 
+![An occupied atom undergoes a matched operation, after which Loss either leaves it present with probability one minus p or removes it with probability p; measurement of the empty site returns 2.](../assets/generated/guide/atom-loss-lifecycle.svg)
+
+Loss can be attached to any supported operation. Here it is sampled after `RX`,
+so surviving atoms return `1`, while lost atoms return `2`:
+
+```pycon
+>>> loss_model = fq.NoiseModel()
+>>> loss_model.add(fq.noise.Loss(p=0.1), operation=ops.RX)
+>>> lossy_atoms = fq.Program(1, 1)
+>>> lossy_atoms.add(ops.Put, 0)
+>>> lossy_atoms.add(ops.RX(np.pi), 0)
+>>> lossy_atoms.measure_all()
+>>> lossy_counts = fq.simulator.AtomArraySimulator(noise=loss_model).run(
+...     lossy_atoms,
+...     shots=100,
+...     simulation_config={"seed": 7},
+... ).result().get_counts()
+>>> lossy_counts
+{'1': 86, '2': 14}
+```
 Omitting `Pair` before `CZ` is a program error; FatQat does not transport or
 pair atoms automatically. A missing atom is different: supported gates find
 nothing to act on, and measurement reports the erasure digit `2`.
 
 For native gates, program sizing, and method support, use the
-[hardware-profile API](../api/simulators/index.md). Continue to
-[Hamiltonian emulation](hamiltonian-emulation.md) when pulse duration,
-physical levels, drift, or continuous-time noise becomes relevant.
+[hardware-profile API](../api/simulators/index.md). For pulse duration,
+physical levels, drift, or continuous-time noise, see
+[Hamiltonian emulation](hamiltonian-emulation.md).

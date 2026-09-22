@@ -141,15 +141,15 @@
 - id: 824dcd52fa1db4ef
   en: '[Ask questions of a run](interpret-results.md) connects each output to the question it answers.'
   zh: '[向一次运行提问](interpret-results.md)把每个输出与它所回答的问题对应起来。'
-  status: machine
+  status: retired
 - id: 9633a55eb5f7e523
   en: Count strings appear reversed
   zh: 计数字符串看起来是反的
-  status: machine
+  status: retired
 - id: b5d4ed01ebadd3cc
   en: Displayed count strings put classical slot 0 on the right. When local dimensions differ—or when you simply want an unambiguous program-order representation—use `result.get_counts_as_tuples()` instead. Tuple position 0 is classical slot 0.
   zh: 显示的计数字符串把经典槽位 0 放在右侧。当局部维度不同时——或者你只是想要一个按程序顺序、无歧义的表示——请改用 `result.get_counts_as_tuples()`。元组位置 0 对应经典槽位 0。
-  status: machine
+  status: retired
 - id: d3cff453d8563cde
   en: Reduce the problem without losing the clue
   zh: 在不丢失线索的前提下缩小问题
@@ -181,4 +181,16 @@
 - id: d68a13ad257b7859
   en: The step where it changes tells you which boundary to inspect. Preserve the small reproducer—it is also the most useful starting point for a bug report.
   zh: 发生变化的那一步会告诉你应检查哪个边界。请保留这个小型复现示例——它也是提交缺陷报告时最有用的起点。
+  status: machine
+- id: 488f301da9f1d419
+  en: The [Result reference](../api/result.md) lists the available fields, their accessors, and which runs produce them.
+  zh: '[Result 参考](../api/result.md)列出了可用字段、访问方法及产生它们的运行类型。'
+  status: machine
+- id: f4550463aa53c38e
+  en: How are count strings ordered?
+  zh: 计数字符串如何排序？
+  status: machine
+- id: b7919bcf68888606
+  en: Displayed count strings and tuple keys both put classical slot 0 first, on the left or at tuple position 0. When local dimensions differ, tuple keys avoid string-token parsing; native strings use commas if any classical dimension is at least 10.
+  zh: 显示的计数字符串和元组键都将经典槽位 0 放在最前面，即字符串最左侧或元组位置 0。局域维数不同时，元组键可以避免解析字符串中的数位；若任一经典维数不小于 10，原生字符串使用逗号分隔。
   status: machine

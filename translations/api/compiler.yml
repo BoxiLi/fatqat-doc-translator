@@ -1,0 +1,116 @@
+- id: d62b4a0de1f16d62
+  en: Compiler
+  zh: 编译器
+  status: machine
+- id: 132d54906bcb888a
+  en: '[`LogicalProgram`][fatqat.LogicalProgram] is the editable Python frontend for FatQat''s static gate compiler. Its gate helpers mutate the circuit and return the same object, so both line-by-line and chained construction are supported.'
+  zh: ''
+  status: retired
+- id: 531c0be6e326d010
+  en: Compile a Python circuit
+  zh: ''
+  status: retired
+- id: 64be6899a1ef4c75
+  en: Compile OpenQASM
+  zh: 编译 OpenQASM
+  status: machine
+- id: 219c4a6c86a716e9
+  en: Results
+  zh: ''
+  status: retired
+- id: 21b7e31e7ffb8966
+  en: Final target helpers return an executable compilation result. It retains the compiler IR and pass route while carrying the simulator program and device layout required by `Simulator.run()`.
+  zh: ''
+  status: retired
+- id: 64ff2f17eb50e3cb
+  en: Low-level simulator translation
+  zh: ''
+  status: retired
+- id: a3dcd1eff35024b3
+  en: These functions project manually created or modified final IR. Normal callers can pass the result of a final-target compile helper directly to the matching simulator.
+  zh: ''
+  status: retired
+- id: 76bfaf6fb46a8cc1
+  en: Use the compiler to prepare a device-independent circuit for a superconducting or neutral-atom target. A final compilation can be passed directly to the matching simulator.
+  zh: 使用编译器将不依赖设备的电路转换为面向超导或中性原子目标的程序。最终编译结果可以直接传给匹配的模拟器。
+  status: machine
+- id: ffe5ef1e9cfbec60
+  en: 'Choose an entry point from the source and target you have:'
+  zh: 根据已有的源程序与目标选择入口：
+  status: machine
+- id: dba9ac5692611db9
+  en: '| Source | Superconducting target | Neutral-atom target |'
+  zh: '| 源程序 | 超导目标 | 中性原子目标 |'
+  status: machine
+- id: e546eb4df69a06cd
+  en: '| OpenQASM 2 or 3 | `compile_qasm_to_sc()` | `compile_qasm_to_na()` |'
+  zh: '| OpenQASM 2 或 3 | `compile_qasm_to_sc()` | `compile_qasm_to_na()` |'
+  status: machine
+- id: 170fa7d891a89053
+  en: The [compiler guide](../guide/compiler.md) shows complete compile-and-run examples for all four paths.
+  zh: '[编译器指南](../guide/compiler.md) 展示了这四条路径的完整编译与运行示例。'
+  status: machine
+- id: 2aa9756d9a566092
+  en: Compile a LogicalProgram
+  zh: 编译 LogicalProgram
+  status: machine
+- id: a4e1d65eac765b43
+  en: 'Build a circuit with `LogicalProgram`, then provide either an SC backend or a neutral-atom architecture:'
+  zh: 使用 `LogicalProgram` 构建电路，然后提供 SC 后端或中性原子架构：
+  status: machine
+- id: aa30c7b43b56c804
+  en: Pass OpenQASM source text directly to the target compiler. The returned result uses the same execution interface as a compiled `LogicalProgram`.
+  zh: 将 OpenQASM 源文本直接传给目标编译器。返回结果与编译后的 `LogicalProgram` 使用相同的执行接口。
+  status: machine
+- id: d9ea79af78648e1e
+  en: Compilation results
+  zh: 编译结果
+  status: machine
+- id: dd2697f3c35717c3
+  en: At the final target boundary, the compile functions return an `ExecutableCompilationResult`. Pass it to the matching simulator, inspect the target representation through `.output`, or review the stages through `.route`.
+  zh: 编译到最终目标阶段时，编译函数返回 `ExecutableCompilationResult`。可以将其传给匹配的模拟器，通过 `.output` 查看目标表示，或通过 `.route` 查看各个阶段。
+  status: machine
+- id: d65839e7d87b90d7
+  en: When `emit` selects an earlier boundary, the return value is a `CompilationResult` intended for inspection.
+  zh: 当 `emit` 选择较早的阶段时，返回值是供检查使用的 `CompilationResult`。
+  status: machine
+- id: aa7892c2c99be973
+  en: Neutral-atom architectures and animation
+  zh: 中性原子架构与动画
+  status: machine
+- id: b28df277f721dc39
+  en: '`load_architecture()` returns a fresh copy of a bundled neutral-atom profile. Use the same architecture for compilation and schedule visualization.'
+  zh: '`load_architecture()` 返回内置中性原子硬件配置的一份新副本。编译和调度可视化应使用同一架构。'
+  status: machine
+- id: bc64685c4318cf4b
+  en: Advanced compiler APIs
+  zh: 高级编译器 API
+  status: machine
+- id: 0e6cd38cf49be2d9
+  en: Most applications only need the four compile functions above. The following APIs expose intermediate translation and pipeline construction for compiler extensions and IR inspection.
+  zh: 大多数应用只需使用上面的四个编译函数。以下 API 提供中间表示转换与流水线构建能力，供编译器扩展及 IR 检查使用。
+  status: machine
+- id: 22d9daa28a5e204c
+  en: Simulator translation
+  zh: 转换为模拟器输入
+  status: machine
+- id: 5d564287e3eafeea
+  en: Use these functions when working with a final compiler IR that was constructed or modified directly. Results returned by the normal compile functions are already ready for simulation.
+  zh: 如果直接构建或修改了最终编译器 IR，可使用这些函数。普通编译函数返回的结果已经可以直接用于模拟。
+  status: machine
+- id: 195718c934de872b
+  en: SC native programs can declare `classical_registers` as a keyword-only tuple of the original register objects in output order. The bridge retains all slots, including unwritten slots and entirely unused registers. Distinct registers may share a name; declaring the same object twice is invalid. Measurement outputs must belong to declared registers. The bridge and native verifier raise `ValidationError` for invalid explicit declarations.
+  zh: SC 原生程序可以通过仅限关键字的 `classical_registers` 参数，按输出顺序声明由原始寄存器对象组成的元组。桥接层保留所有槽位，包括未写入的槽位和完全未使用的寄存器。不同寄存器可以同名，但不能重复声明同一个对象。测量输出必须属于已声明的寄存器。显式声明无效时，桥接层和原生验证器都会抛出 `ValidationError`。
+  status: machine
+- id: cc244e75592a610b
+  en: 'The default `None` preserves compatibility with native programs constructed without declarations: the bridge discovers registers in first measurement occurrence order. This fallback cannot recover original declaration order or registers with no measurements. Use `()` to declare no classical registers; it does not request inference. Compiler-generated native programs always carry explicit declarations. Adding this field preserves the existing three positional constructor arguments; it also participates in dataclass equality and reflection.'
+  zh: 默认值 `None` 保持与未声明寄存器的原生程序兼容：桥接层按照寄存器首次出现在测量中的顺序发现它们。这种回退方式无法恢复原始声明顺序，也无法发现没有测量的寄存器。使用 `()` 可声明没有经典寄存器；它不会触发推断。编译器生成的原生程序始终带有显式声明。新增此字段后，原有的三个位置构造参数保持不变；它也参与 dataclass 的相等性比较和反射。
+  status: machine
+- id: c16c0af8aba62b64
+  en: Pipelines and IRs
+  zh: 流水线与 IR
+  status: machine
+- id: e79e4b8fee7065f5
+  en: Compiler errors share the `CompilerError` base class. `PassError` includes the stage that failed and preserves the original error as its cause.
+  zh: 编译器错误共用 `CompilerError` 基类。`PassError` 包含失败的阶段，并将原始错误保留为其原因。
+  status: machine

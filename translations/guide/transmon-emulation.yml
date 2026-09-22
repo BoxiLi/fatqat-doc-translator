@@ -206,3 +206,7 @@
   en: '**Frames and timing:** calibrated frame changes and the placement of later controls can change phases even when computational populations look alike. Returned states include terminal virtual-frame changes.'
   zh: '**参考系与时序：**校准的参考系变换以及后续控制的放置可能改变相位，即使计算能级布居数看起来相同。返回的态包含末端的虚拟参考系变换。'
   status: machine
+- id: 0806d9b02284b8fc
+  en: For a complete amplitude scan, parameter selection, and checks on other input states, follow [Calibrating a quantum gate](../tutorials/pulse-calibration.md).
+  zh: 完整的振幅扫描、参数选择以及其他输入态的检查见[校准量子门](../tutorials/pulse-calibration.md)。
+  status: machine

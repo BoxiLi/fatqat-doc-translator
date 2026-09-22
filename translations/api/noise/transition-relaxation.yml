@@ -1,0 +1,76 @@
+- id: 368dbd08aeedaf0f
+  en: TransitionRelaxation
+  zh: TransitionRelaxation
+  status: machine
+- id: 8d964a4dc44d98c7
+  en: '[`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] describes exactly one explicitly authored local jump operator. It is independent of hardware kind: the same interface can describe a transmon ladder, one atomic decay branch, or another finite-dimensional relaxation mechanism.'
+  zh: '[`TransitionRelaxation`][fatqat.noise.TransitionRelaxation] 恰好描述一个显式指定的局域跃迁算符。它不依赖硬件类型：同一接口可以描述 transmon 阶梯、一个原子衰减分支，或其他有限维弛豫机制。'
+  status: machine
+- id: e90bd0a91c88ea0f
+  en: Each coefficient key is `(source, destination)`, and one descriptor defines
+  zh: 每个系数的键为 `(source, destination)`，一个描述符定义
+  status: machine
+- id: cafd71f5be3baac5
+  en: FATQAT validates nonnegative level indices at construction and checks them against the physical target dimension during backend preparation. Numerical index order does not by itself determine energy order; the caller identifies the physically relaxing source and destination states.
+  zh: FATQAT 在构造时验证能级索引非负，并在后端准备阶段检查索引是否位于物理目标的维数范围内。数值索引顺序本身不决定能量顺序；调用者需要指定物理弛豫的源态和目标态。
+  status: machine
+- id: d8cfd0647f813492
+  en: Shared and separate jumps
+  zh: 共同跃迁与独立跃迁
+  status: machine
+- id: 98837e96b2e95a26
+  en: 'Terms in one descriptor are components of one coherent jump operator. For example, a truncated bosonic lowering operator for a transmon-like model can contain both ladder transitions, while two uncorrelated atom-like decay branches use separate descriptors:'
+  zh: 同一描述符中的各项是一个相干跃迁算符的组成部分。例如，类 transmon 模型中的截断玻色湮灭算符可同时包含两个阶梯跃迁，而两个互不相关的类原子衰减分支应使用独立描述符：
+  status: machine
+- id: f5ee9bd697b43f21
+  en: In rate mode, the two atom descriptors become separate collapse operators and dissipators, with no cross terms. In finite mode, they become sequential channel applications in registration order. Putting both atom transitions in one descriptor would instead make them components of one coherent jump and can produce coherence between the destination states.
+  zh: 在速率模式下，这两个原子描述符成为独立的坍缩算符和耗散子，没有交叉项。在有限信道模式下，它们按注册顺序依次施加信道。如果把两个原子跃迁放入同一描述符，它们就会成为一个相干跃迁的组成部分，可能在目标态之间产生相干。
+  status: machine
+- id: 81fa261e8ba5005e
+  en: This distinction is explicit. FATQAT does not infer it from labels such as `atom` or `transmon`, and it does not insert harmonic-oscillator coefficients. Supply `1`, `sqrt(2)`, or measured matrix elements directly.
+  zh: 这种区别需要显式指定。FATQAT 不会根据 `atom` 或 `transmon` 等标签推断，也不会自动插入谐振子系数。请直接提供 `1`、`sqrt(2)` 或实测矩阵元。
+  status: machine
+- id: adf8d27d0bf6cec5
+  en: 'Coefficient scale is not normalized: rescaling every coefficient by $\alpha\ne0$ and the strength by $1/|\alpha|^2$ leaves the channel or dissipator unchanged, subject to the finite-form bounds below.'
+  zh: 系数尺度不会归一化：将所有系数乘以 $\alpha\ne0$，并将强度乘以 $1/|\alpha|^2$，信道或耗散子保持不变，但仍须满足下述有限信道形式的边界条件。
+  status: machine
+- id: 186b7b6ad32dbc67
+  en: Finite channel form
+  zh: 有限信道形式
+  status: machine
+- id: bc8b7fd28400fbd4
+  en: Use a scalar `p` in `[0, 1]` for one elementary Kraus-channel application on a matrix simulator.
+  zh: 使用位于 `[0, 1]` 的标量 `p`，在矩阵模拟器上施加一次基本 Kraus 信道。
+  status: machine
+- id: a35a5fd9eb56f63f
+  en: 'Each probability-form declaration resolves independently:'
+  zh: 每个概率形式的声明独立解析：
+  status: machine
+- id: 7d7a34d8d92ab44d
+  en: The operator under the square root must be positive semidefinite. When several declarations match the same target, the simulator applies their channels sequentially in authored (registration) order. For two unit-coefficient branches from the same source level, survival is $(1-p_1)(1-p_2)$ rather than $1-p_1-p_2$, a discrepancy of $p_1p_2$. Destination populations can also depend on registration order, with those differences beginning at second order. Sequential composition therefore agrees with simultaneous independent decay only to first order for small probabilities. Use rate mode on a pulse emulator when accurate continuous competing-decay dynamics matter.
+  zh: 平方根下的算符必须为半正定。当多个声明匹配同一目标时，模拟器按指定的注册顺序依次施加其信道。对于从同一源能级出发、系数均为一的两个分支，存活概率为 $(1-p_1)(1-p_2)$，而不是 $1-p_1-p_2$，差值为 $p_1p_2$。目标态布居也可能依赖注册顺序，这种差异从二阶开始出现。因此，只有在小概率下一阶近似的意义上，顺序复合才与同时发生的独立衰减一致。如果需要准确的连续竞争衰减动力学，请在脉冲仿真器上使用速率模式。
+  status: machine
+- id: c10715c519f9c6ad
+  en: '`p` is a dimensionless jump strength rather than necessarily the total jump probability. For a basis state $|s\rangle$, the jump probability is'
+  zh: '`p` 是无量纲的跃迁强度，不一定等于总跃迁概率。对于基态 $|s\rangle$，跃迁概率为'
+  status: machine
+- id: 28792c3b6fcacbb0
+  en: Continuous form
+  zh: 连续形式
+  status: machine
+- id: fedf6aa4847067df
+  en: Use a finite, nonnegative scalar `rate` on a compatible pulse emulator. One descriptor resolves to
+  zh: 在兼容的脉冲仿真器上使用有限且非负的标量 `rate`。一个描述符解析为
+  status: machine
+- id: b3833d508a72d676
+  en: Multiple descriptors remain separate collapse operators, so the generator is $\sum_\mu \mathcal D[L_\mu]$, not $\mathcal D[\sum_\mu L_\mu]$. Rates use the inverse of the emulator model's time unit.
+  zh: 多个描述符保持为独立的坍缩算符，因此生成元为 $\sum_\mu \mathcal D[L_\mu]$，而不是 $\mathcal D[\sum_\mu L_\mu]$。速率单位是仿真器模型时间单位的倒数。
+  status: machine
+- id: acf1820208350e72
+  en: The `p` and `rate` forms share the same authored operator convention but are not general finite-time conversions of one another. The finite form is an elementary jump/no-jump channel; continuous evolution may include repeated or cascaded jumps.
+  zh: '`p` 与 `rate` 形式使用相同的算符指定约定，但二者通常不能作为彼此的有限时间转换。有限形式是一次基本的跃迁／不跃迁信道；连续演化可能包含重复或级联跃迁。'
+  status: machine
+- id: f09d8d3805d810dd
+  en: See [Backend support](backend-support.md) for accepted forms and scopes.
+  zh: 支持的形式和作用域见[后端支持](backend-support.md)。
+  status: machine

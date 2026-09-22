@@ -17,10 +17,10 @@ dimensions, placement, and feedforward.
 import fatqat as fq
 import fatqat.operations as ops
 
-bell = fq.Program(2, 2, metadata={"name": "bell"})
-bell.add(ops.H, 0)
-bell.add(ops.CX, (0, 1))
-bell.measure_all()
+program = fq.Program(2, 2, metadata={"name": "bell"})
+program.add(ops.H, 0)
+program.add(ops.CX, (0, 1))
+program.measure_all()
 ```
 
 ## Registers
@@ -140,6 +140,8 @@ Circuit drawings use one wire per slot but do not depict register dimension.
 Unknown or custom operations appear as labeled boxes. A direct
 [`PulseOperation`][fatqat.operations.PulseOperation] cannot be represented and raises
 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError].
+The Matplotlib renderer uses FATQAT's palette by default. Pass a QuTiP-QIP
+`theme` or configure Matplotlib's color cycle to use a different palette.
 
 Use
 [`fatqat.visualization.to_qubit_circuit`][fatqat.visualization.to_qubit_circuit]

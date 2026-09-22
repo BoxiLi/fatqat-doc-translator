@@ -1,0 +1,216 @@
+- id: 50d79336eddf5f74
+  en: Model controlled islanding as a QUBO
+  zh: 将受控孤岛划分建模为 QUBO
+  status: machine
+- id: 06dd14c8fd3403cb
+  en: Why splitting a power grid to stop a cascading failure is a combinatorial optimization problem, and how to write it as a QUBO that a quantum optimizer can take.
+  zh: 为什么切分电网以阻止级联故障是组合优化问题，以及如何将其写成量子优化器能够处理的 QUBO。
+  status: machine
+- id: 0a1509faac762acc
+  en: The cheapest split of the WSCC 9-bus network compared with the split that respects generator coherency
+  zh: WSCC 9 母线网络中，代价最低的划分与满足发电机同调性要求的划分对比
+  status: machine
+- id: b4d2b3cccf40b179
+  en: Best feasible two-island split of the 9-bus and 14-bus networks with their cut lines
+  zh: 9 母线与 14 母线网络的最佳可行双孤岛划分及切断线路
+  status: machine
+- id: 81d173b0e62ed36f
+  en: A power grid is a machine that has to stay synchronized. Every generator on it spins at the same electrical frequency, held there by the power flowing through the transmission lines. When a large disturbance hits — a line trips, a generator drops out — that balance is disturbed, and if the disturbance is severe enough the machines begin to pull apart from one another. Protective relays see the resulting swings and trip more lines, which makes the swings worse. That runaway is a *cascading failure*, and it is how a local fault becomes a regional blackout.
+  zh: 电网是一台必须保持同步的机器。各发电机以相同的电气频率运行，输电线路上的功率流维持这种同步。当线路跳闸、发电机退出等较大扰动发生时，平衡被打破；若扰动足够严重，各机组开始相互失去同步。保护继电器检测到随之而来的振荡并切断更多线路，使振荡进一步加剧。这种失控过程就是*级联故障*，它会使局部故障演变成区域性停电。
+  status: machine
+- id: 44e5aa6a6c6c93c2
+  en: '*Controlled islanding* is the last-resort defense: instead of fighting the cascade, the operator deliberately splits the network into separate **islands**, each of which contains enough generation to supply its own load and can run independently until the system is repaired. The cascade stops at the island boundaries.'
+  zh: '*受控孤岛划分*是最后一道防线：运行人员主动将网络分成独立的**孤岛**，每个孤岛拥有足以供应自身负荷的发电能力，能够独立运行直至系统修复，而不再试图阻挡整个网络中的级联过程。级联传播在孤岛边界处停止。'
+  status: machine
+- id: bd43ed2bf22d2525
+  en: The engineering question is *where to cut*, and it has to be answered in seconds.
+  zh: 工程问题是*在哪里切分*，而且必须在数秒内作答。
+  status: machine
+- id: 401a3bdc95ea6691
+  en: Why this is a combinatorial optimization problem
+  zh: 为什么这是组合优化问题
+  status: machine
+- id: 1f57aea6740577c3
+  en: 'Strip away the physics and a network is a weighted graph: **buses** (substations) are the nodes, **transmission lines** are the edges, and each edge carries a weight equal to the power flowing on it. Splitting the grid means assigning every bus to an island, and the lines whose two endpoints land in different islands are the ones that get opened.'
+  zh: 去掉物理细节，网络就是加权图：**母线**（变电站）是节点，**输电线路**是边，每条边的权重等于其承载的功率流。切分电网，就是为每条母线指定所属孤岛；两端属于不同孤岛的线路将被断开。
+  status: machine
+- id: c2c0221acae1a9b7
+  en: 'That gives the shape of the problem:'
+  zh: 由此得到问题的基本结构：
+  status: machine
+- id: 5e70b9b88c7afa2c
+  en: '**The cost is the total weight of the cut lines.** Opening a line interrupts the power flowing on it, and that power has to be made up somewhere — by shedding load or by ramping a generator. So the objective is to cut as little power flow as possible.'
+  zh: '**代价是切断线路的总权重。**断开线路会中断其功率流，这部分功率必须通过其他方式补偿，例如切负荷或调整发电机出力。因此，目标是尽可能少地中断功率流。'
+  status: machine
+- id: b10ab1cb5fabadab
+  en: '**The decision is discrete.** A bus is either in island 0 or island 1. There is no useful notion of a bus being 40% in one island.'
+  zh: '**决策是离散的。**一条母线属于孤岛 0 或孤岛 1；“40% 属于某个孤岛”没有实用意义。'
+  status: machine
+- id: 60b565dd49c84725
+  en: '**The choices interact.** Whether a line is cut depends on *two* buses at once, so the cost is not a sum of independent per-bus decisions. This is what makes the problem quadratic rather than linear, and what makes it hard.'
+  zh: '**选择之间相互影响。**一条线路是否被切断同时取决于*两条*母线，因此代价不是各母线独立决策的简单相加。这使问题成为二次而非线性问题，也带来了求解难度。'
+  status: machine
+- id: 10c8f34a7399132e
+  en: Assigning $n$ buses to $k$ islands gives $k^n$ possible assignments. There is no known way to search that space efficiently in general — minimum cut with balance requirements is NP-hard — and the assignment has to be found fast enough to act on. That combination, an exponential discrete search under a hard time budget, is exactly the class of problem quantum optimization is aimed at.
+  zh: 将 $n$ 条母线分配给 $k$ 个孤岛，共有 $k^n$ 种赋值。一般情况下，没有已知方法能高效搜索该空间——带平衡要求的最小割是 NP-hard 问题——而赋值必须足够快地找到，才能及时执行。这种在严格时间预算下进行指数规模离散搜索的组合，正是量子优化希望处理的问题类型。
+  status: machine
+- id: 38bff5c3fad887ad
+  en: Constraints are what make it interesting
+  zh: 约束使问题更有意义
+  status: machine
+- id: 89da1a4ee62f37c9
+  en: 'A pure minimum cut is not a usable answer, because a split that is cheap to make can still be one the grid cannot survive. Four requirements matter:'
+  zh: 单纯的最小割并不是可用答案，因为切分代价低并不意味着电网能够承受该划分。有四项要求需要考虑：
+  status: machine
+- id: e92cd546a2cc9eaa
+  en: '**Generator coherency.** After a disturbance, generators do not swing randomly: they separate into groups whose members accelerate together and decelerate together. Two generators from *different* groups left inside one island will pull against each other, lose synchronism, and trip the island they were supposed to save. Coherent generators must therefore stay together, and incoherent ones must be separated. This is the requirement that makes controlled islanding different from graph partitioning, and it comes from the dynamics rather than the topology.'
+  zh: '**发电机同调性。**扰动后，发电机并非随机振荡，而是形成内部共同加速、共同减速的机群。若把来自*不同*机群的发电机留在同一孤岛内，它们会相互拉扯、失去同步，并使本应保住的孤岛跳闸。因此，同调发电机必须在一起，不同调的发电机必须分开。这一要求使受控孤岛划分不同于一般图划分；它来自动力学而非拓扑。'
+  status: machine
+- id: 07cf849012d98603
+  en: '**Each island must be able to run.** It needs generation, it needs load to absorb that generation, and it needs to be more than a stub.'
+  zh: '**每个孤岛都必须能够运行。**它需要发电能力，需要吸收发电功率的负荷，也不能只剩下一个过小的支节。'
+  status: machine
+- id: 7e026ae38b5fae36
+  en: '**Each island must be connected.** A set of buses with no path between them is not an island; it is two islands, one of which may have no generator at all.'
+  zh: '**每个孤岛都必须连通。**一组相互之间没有路径的母线不是一个孤岛，而是两个孤岛，其中一个甚至可能没有发电机。'
+  status: machine
+- id: f46cf8951e29b3f6
+  en: The identification of coherent groups is a separate problem with its own literature [2]. The search for a splitting strategy that respects them is the problem modeled here, and [3] is a good entry point to the classical approaches. This tutorial takes the coherent groups as given data and asks for the split.
+  zh: 识别同调机群是一个独立问题，有其专门文献 [2]。这里建模的是在满足同调分组的前提下搜索切分策略，[3] 是了解经典方法的良好起点。本教程将同调机群作为给定数据，求解划分。
+  status: machine
+- id: 798163e33350c7ad
+  en: Where this tutorial stops
+  zh: 本教程的范围
+  status: machine
+- id: 8ea9c1d05739144d
+  en: By the end you will have a QUBO — a quadratic function of binary variables whose minimum is the split — checked against exhaustive enumeration on two IEEE test systems, plus a clear picture of what the model does and does not capture. Running it on a quantum circuit is the subject of [Split a power grid into islands with QAOA](islanding-qaoa.md).
+  zh: 完成本教程后，你将得到一个 QUBO，即最小值对应划分的二进制变量二次函数，并在两个 IEEE 测试系统上用穷举核验，同时明确模型包含与未包含的内容。在量子电路上运行它，是[用 QAOA 将电网划分为孤岛](islanding-qaoa.md)的主题。
+  status: machine
+- id: 9f067401d638a3b1
+  en: The formulation developed here follows REGRID-QAOA [1], which introduces this coherency-informed model of controlled islanding together with the structured post-processing the companion tutorial uses.
+  zh: 这里的公式遵循 REGRID-QAOA [1]，该工作提出了考虑同调性的受控孤岛划分模型，以及配套教程使用的结构化后处理。
+  status: machine
+- id: 40450be491673288
+  en: The mechanics of QUBOs in general, and of turning one into a FatQat program, are covered in [Solve a QUBO with QAOA](qubo-qaoa.md).
+  zh: QUBO 的基本机制及其转换为 FatQat 程序的方法，见[用 QAOA 求解 QUBO](qubo-qaoa.md)。
+  status: machine
+- id: 383a63b0230623e4
+  en: The networks
+  zh: 网络数据
+  status: machine
+- id: dbb4c72fb0045991
+  en: Two systems are carried in full here, the WSCC 9-bus and the IEEE 14-bus. Three larger ones appear in the qubit accounting of [Split a power grid into islands with QAOA](islanding-qaoa.md), which is where the width of the model starts to matter. Bus labels are zero-based, so bus 0 is the system's bus 1. Line weights are the steady-state power flows of the reference case, which is what makes the cut weight the power interrupted by the split.
+  zh: 这里完整提供两个系统：WSCC 9 母线和 IEEE 14 母线。另外三个较大系统出现在[用 QAOA 将电网划分为孤岛](islanding-qaoa.md)的量子比特计数中，模型宽度从那里开始成为关键。母线标签从零开始，因此母线 0 对应系统中的母线 1。线路权重取参考工况的稳态功率流，因此割权重就是切分中断的功率。
+  status: machine
+- id: beea59e9d983a659
+  en: The coherency groups are the interesting part of the data. On the 14-bus system, generators 0, 1, and 2 swing together and generators 5 and 7 swing together, so any acceptable split must put `{0, 1, 2}` on one side and `{5, 7}` on the other. That single requirement is what stops the answer from being the cheapest cut in the graph.
+  zh: 数据中值得关注的是同调机群。在 14 母线系统中，发电机 0、1、2 同步振荡，发电机 5、7 也同步振荡，因此可接受划分必须将 `{0, 1, 2}` 放在一侧，将 `{5, 7}` 放在另一侧。仅这一要求就使答案不再是图中代价最低的割。
+  status: machine
+- id: 0e90a8f51085c60a
+  en: The 9-bus system has 512 assignments, which a laptop enumerates instantly. The 39-bus system has more than $4 \times 10^{18}$. Real transmission networks have thousands of buses. Enumeration stops being an option almost immediately, which is why the classical literature reaches for ordered binary decision diagrams, spectral clustering, and submodular relaxations — and why the problem is a candidate for quantum optimization.
+  zh: 9 母线系统有 512 种赋值，笔记本电脑瞬间就能枚举。39 母线系统则超过 $4 \times 10^{18}$ 种。真实输电网拥有数千条母线，穷举很快就不再可行。因此，经典研究采用有序二元决策图、谱聚类和次模松弛，这也使该问题成为量子优化的候选应用。
+  status: machine
+- id: ec684a4b673038c0
+  en: Two encodings for the same decision
+  zh: 同一决策的两种编码
+  status: machine
+- id: f0b063015f3c6599
+  en: 'The textbook encoding gives every bus one binary variable per island: $y_{i,g} = 1$ when bus $i$ joins island $g$. It handles any number of islands, but most of its bitstrings are nonsense — a bus can be assigned to two islands, or to none — so it needs a one-hot penalty $\sum_i (\sum_g y_{i,g} - 1)^2$ to forbid them, and it costs $n_\text{buses} \times k$ qubits.'
+  zh: 教科书式编码为每条母线、每个孤岛各设置一个二进制变量：母线 $i$ 加入孤岛 $g$ 时，$y_{i,g} = 1$。它支持任意孤岛数，但大多数比特串没有意义——一条母线可能分配给两个孤岛，或没有任何归属。因此需要独热惩罚 $\sum_i (\sum_g y_{i,g} - 1)^2$ 来禁止这些情况，并占用 $n_\text{buses} \times k$ 个量子比特。
+  status: machine
+- id: b8ea6515e7da8d63
+  en: 'When there are exactly two islands, the one-hot rule says $y_{i,1} = 1 - y_{i,0}$: the second variable carries no information. Keeping one variable per bus, whose value names the island directly, halves the qubit count *and* deletes the penalty, because no bitstring can violate a rule the encoding cannot express. That is the single largest lever available on a near-term device, and it costs nothing. Encodings that push the same idea further, and the reductions that go with them, are the subject of [5] and [6].'
+  zh: 恰有两个孤岛时，独热规则给出 $y_{i,1} = 1 - y_{i,0}$，第二个变量不携带额外信息。每条母线只保留一个直接表示孤岛编号的变量，就能将量子比特数减半，*同时*去掉惩罚，因为任何比特串都无法违反编码本身不能表达的规则。这是近期设备上最有力且无需额外代价的改进。进一步利用这一思路的编码与缩减方法见 [5] 和 [6]。
+  status: machine
+- id: d5a9730ecc185f17
+  en: 'Both encodings are built below. The rest of the requirements are the same in each: they only differ in how "bus $i$ is in island $g$" is written down.'
+  zh: 下文会构建两种编码。其余要求在二者中相同，仅“母线 $i$ 位于孤岛 $g$”的表达方式不同。
+  status: machine
+- id: b45edceb9af453e9
+  en: What the model actually says
+  zh: 模型实际表达了什么
+  status: machine
+- id: e230e625adf3dccd
+  en: With 14 or fewer variables the whole space fits in memory, so the model can be checked exhaustively before any quantum work. That check is worth doing, and on this problem it turns up something important.
+  zh: 变量数不超过 14 时，整个空间可以放入内存，因此在进行量子计算前就能穷尽检查模型。这一检查值得进行，而且会在本问题中揭示重要现象。
+  status: machine
+- id: ebbb383ede73e0f5
+  en: The energy of a bitstring is only half the story. Decoding it into an island assignment and running the operating checks — including connectivity, which is deliberately *not* in the QUBO — is what says whether the split is usable.
+  zh: 比特串的能量只是问题的一部分。将其解码为孤岛分配，并执行运行条件检查，才能判断划分是否可用；这包括特意*未放入* QUBO 的连通性检查。
+  status: machine
+- id: 6ad969ecc00ac140
+  en: 'On the 9-bus system the QUBO''s ground state is the answer. On the 14-bus system it is not: the cheapest assignment the QUBO knows about leaves an island in two disconnected pieces, and the best *usable* split costs noticeably more.'
+  zh: 在 9 母线系统上，QUBO 基态就是答案。但在 14 母线系统上并非如此：QUBO 所能识别的最低代价赋值使一个孤岛分成两块不连通部分，最佳*可用*划分的代价明显更高。
+  status: machine
+- id: c3b41426ee055ca1
+  en: This is not a modeling mistake — it is a deliberate trade. Writing connectivity as a quadratic penalty needs auxiliary variables and a great many terms, which buys width and depth on a device that has neither to spare. Checking it after decoding costs nothing. The consequence is that minimizing the QUBO is not the same as solving the problem, and the gap has to be closed somewhere else. That is the job of the postprocessing in [Split a power grid into islands with QAOA](islanding-qaoa.md).
+  zh: 这不是建模失误，而是有意的取舍。将连通性写成二次惩罚，需要辅助变量和大量项，会增加本就紧缺的设备宽度与深度。解码后检查连通性的代价则可以忽略。结果是，最小化 QUBO 不等于解决原问题，这一差距必须在其他环节补上。[用 QAOA 将电网划分为孤岛](islanding-qaoa.md)中的后处理正是为此而设。
+  status: machine
+- id: a8bd69b94300bb61
+  en: 'On the 9-bus system the cheapest split tears a coherent group in half, which is precisely the failure the exercise exists to prevent: those two machines would swing apart inside one island and trip it. Keeping them together costs more than twice as much interrupted power. That trade — a worse cut in exchange for a split the grid survives — is why this is a constrained optimization problem and not a minimum-cut computation.'
+  zh: 在 9 母线系统上，最低代价划分将一个同调机群拆成两半，恰好造成该练习希望避免的故障：同一孤岛内的两台机组会失步，使孤岛跳闸。保持同调机群完整，需要中断两倍以上的功率。这种以更高割代价换取电网能够承受的划分的取舍，使它成为有约束优化问题，而非单纯的最小割计算。
+  status: machine
+- id: 198fe236230a8f96
+  en: 'The 14-bus system is bound by a different requirement. There the cheapest split happens to separate the coherent groups correctly, and what makes it unusable is that one of its islands falls into two disconnected pieces. Both systems land on the same lesson from opposite directions: the cheap answer is not the usable one.'
+  zh: 14 母线系统受另一项要求限制。其最低代价划分碰巧正确分开了同调机群，但其中一个孤岛分成两块不连通部分，因此不可用。两个系统从不同方向说明同一点：便宜的答案并不一定可用。
+  status: machine
+- id: 0a306c490a7e0f04
+  en: Here are the answers the full model gives on each.
+  zh: 下面给出完整模型对两个系统得到的答案。
+  status: machine
+- id: 05d8b8aafb423038
+  en: What the model is, and what it leaves out
+  zh: 模型包含与省略的内容
+  status: machine
+- id: 958c0ca318977059
+  en: 'The model is now complete enough to hand to an optimizer. It is a quadratic function of binary variables in which:'
+  zh: 现在模型已经足够完整，可以交给优化器。它是一个二进制变量的二次函数，其中：
+  status: machine
+- id: 1f5d57a23cfe0e41
+  en: the **objective** is the interrupted power flow;
+  zh: '**目标**是中断的功率流；'
+  status: machine
+- id: 96ce255c1d723b64
+  en: '**generator coherency**, **island balance**, and — optionally — generation, load, and minimum size per island are quadratic penalties that vanish exactly when the requirement holds;'
+  zh: '**发电机同调性**、**孤岛平衡**，以及可选的各孤岛发电、负荷和最小规模要求，被写成恰在满足要求时为零的二次惩罚；'
+  status: machine
+- id: 156ee7743fe2361b
+  en: '**connectivity is not represented at all**, and is checked after a candidate is decoded.'
+  zh: '**完全不表示连通性**，而是在候选解码后检查。'
+  status: machine
+- id: bfe7502e162dc0b4
+  en: 'That last point is a deliberate trade, and on the 14-bus system it has teeth: the QUBO''s own minimum is a split whose islands are disconnected, so minimizing the model is not the same as solving the problem. Closing that gap is a postprocessing step rather than a modeling one, and it is where the next tutorial begins.'
+  zh: 最后一点是有意的取舍，并在 14 母线系统中产生实际影响：QUBO 自身的最小值对应孤岛不连通的划分，因此最小化模型并不等于解决问题。弥合这一差距属于后处理而非建模步骤，也是下一篇教程的起点。
+  status: machine
+- id: 155a3f9e155493c3
+  en: '[Split a power grid into islands with QAOA](islanding-qaoa.md) takes this model, maps it onto a circuit, runs it on FatQat''s simulator, and repairs what comes back.'
+  zh: '[用 QAOA 将电网划分为孤岛](islanding-qaoa.md)将此模型映射到电路，在 FatQat 模拟器上运行，并修复所得结果。'
+  status: machine
+- id: 69824d3b0e70ca6a
+  en: References
+  zh: 参考文献
+  status: machine
+- id: 43d4ce159b0953e5
+  en: 'Y. Jiang, Y. Zhang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "REGRID-QAOA: A Resource-Efficient Hybrid QAOA Framework for Physics-Constrained Power System Islanding", [arXiv:2606.15083](https://arxiv.org/abs/2606.15083) (2026). The coherency-informed formulation this tutorial develops.'
+  zh: 'Y. Jiang, Y. Zhang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "REGRID-QAOA: A Resource-Efficient Hybrid QAOA Framework for Physics-Constrained Power System Islanding", [arXiv:2606.15083](https://arxiv.org/abs/2606.15083) (2026)。本教程采用的考虑同调性的建模方法。'
+  status: machine
+- id: 1ecf586556ee4dc4
+  en: H. You, V. Vittal, and X. Wang, "Slow coherency-based islanding", *IEEE Transactions on Power Systems* **19**(1), 483–491 (2004). How coherent generator groups are identified; this tutorial takes them as given data.
+  zh: H. You, V. Vittal, and X. Wang, "Slow coherency-based islanding", *IEEE Transactions on Power Systems* **19**(1), 483–491 (2004)。介绍如何识别同调发电机群；本教程将这些分组视为给定数据。
+  status: machine
+- id: ba5706c0bbab1656
+  en: K. Sun, D.-Z. Zheng, and Q. Lu, "Splitting strategies for islanding operation of large-scale power systems using OBDD-based methods", *IEEE Transactions on Power Systems* **18**(2), 912–923 (2003). A classical approach to the same search, evaluated on the same IEEE test systems.
+  zh: K. Sun, D.-Z. Zheng, and Q. Lu, "Splitting strategies for islanding operation of large-scale power systems using OBDD-based methods", *IEEE Transactions on Power Systems* **18**(2), 912–923 (2003)。针对同一搜索问题的经典方法，在相同 IEEE 测试系统上评估。
+  status: machine
+- id: 5c6b106dc87510e1
+  en: A. Lucas, "Ising formulations of many NP problems", *Frontiers in Physics* **2**, 5 (2014). The standard catalogue of constraint-to-penalty mappings, and the reference for writing a requirement as a quadratic penalty.
+  zh: A. Lucas, "Ising formulations of many NP problems", *Frontiers in Physics* **2**, 5 (2014)。约束到惩罚映射的标准汇总，也是将要求写为二次惩罚的参考。
+  status: machine
+- id: 30f077b98389f667
+  en: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "PACE-QAOA: Physics-Constrained Quantum Optimization for Qubit-Efficient Power System Islanding", [arXiv:2608.02789](https://arxiv.org/abs/2608.02789) (2026). Compact encodings and Lagrangian constraint handling for qubit-efficient islanding.'
+  zh: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "PACE-QAOA: Physics-Constrained Quantum Optimization for Qubit-Efficient Power System Islanding", [arXiv:2608.02789](https://arxiv.org/abs/2608.02789) (2026)。通过紧凑编码与拉格朗日约束处理，提高孤岛划分的量子比特利用效率。'
+  status: machine
+- id: 434b3bf9c0125f0b
+  en: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "SPLIT-Q: A Scalable Sequential Quantum Computing Framework for Coherent Controlled Islanding", [arXiv:2608.12711](https://arxiv.org/abs/2608.12711) (2026). Sequential regional QUBOs that keep circuit width independent of network size.'
+  zh: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "SPLIT-Q: A Scalable Sequential Quantum Computing Framework for Coherent Controlled Islanding", [arXiv:2608.12711](https://arxiv.org/abs/2608.12711) (2026)。通过顺序求解区域 QUBO，使电路宽度独立于网络规模。'
+  status: machine

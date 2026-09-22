@@ -1,0 +1,21 @@
+/* Keep the upstream homepage grid while adapting its typography to Chinese. */
+:lang(zh) .fatqat-hero__content h1 {
+  max-width: none;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-wrap: balance;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* Material figures otherwise shrink to the width of their translated content. */
+:lang(zh) .fatqat-hero__visual {
+  width: min(100%, 32rem);
+}
+
+@media screen and (max-width: 37.5em) {
+  :lang(zh) .fatqat-hero__content h1 {
+    font-size: clamp(1.6rem, 9vw, 1.8rem);
+  }
+}

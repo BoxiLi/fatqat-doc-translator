@@ -90,3 +90,7 @@
   en: When an input cannot be represented by the supported Program subset, the converter reports an error rather than guessing at its meaning.
   zh: 当输入无法用受支持的 Program 子集表示时，转换器会报告错误，而不是猜测其含义。
   status: machine
+- id: 8cadd2f035b93b2f
+  en: FATQAT full-register arrays and dense labels put subsystem 0 first, as the most-significant factor. Qiskit raw arrays and displayed Pauli labels use its own convention. Convert explicitly when comparing them; circuit operand order itself is unchanged.
+  zh: FATQAT 的完整寄存器数组和稠密标签将子系统 0 放在最前面，作为最高有效位的张量因子。Qiskit 的原始数组和显示的 Pauli 标签使用其自身约定。比较时需显式转换；电路操作数顺序本身不变。
+  status: machine

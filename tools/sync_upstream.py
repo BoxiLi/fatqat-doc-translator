@@ -1,10 +1,9 @@
-"""Refresh upstream-docs/ from the upstream repository's English sources.
+"""Refresh the English documentation snapshot and exact upstream source pin.
 
-Only documentation inputs are synchronized: docs/mkdocs/en/,
-docs/mkdocs/tutorial-sources/en/, and gallery.yml. When none of them changed,
-the snapshot and the UPSTREAM_COMMIT pin are left untouched, so downstream
-steps (translation, builds) can skip work entirely. The pin therefore always
-names the last upstream commit that changed the documentation.
+Synchronize the MkDocs configuration, authored pages, tutorial sources, and
+gallery settings. Advance the pin for every upstream revision so API docstrings,
+examples, and build dependencies also come from the selected source version.
+Pending translations still need processing when the source is unchanged.
 """
 
 from __future__ import annotations
@@ -17,12 +16,15 @@ import subprocess
 import sys
 import tempfile
 
+from site_config import upstream_config
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = REPO_ROOT / "upstream-docs"
 PIN = REPO_ROOT / "UPSTREAM_COMMIT"
 
 # (path inside upstream, path inside the snapshot)
 SYNCED = (
+    ("mkdocs.yml", "mkdocs.yml"),
     ("docs/mkdocs/en", "en"),
     ("docs/mkdocs/tutorial-sources/en", "tutorial-sources/en"),
     ("docs/mkdocs/tutorial-sources/gallery.yml", "tutorial-sources/gallery.yml"),
@@ -47,10 +49,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--repo",
-        default="https://github.com/BoxiLi/fatqat.git",
+        default=upstream_config()["repository"],
         help="upstream repository URL or local path",
     )
-    parser.add_argument("--ref", default="main", help="upstream ref to sync from")
+    parser.add_argument("--ref", default=upstream_config()["ref"], help="upstream ref to sync from")
     args = parser.parse_args()
 
     with tempfile.TemporaryDirectory(prefix="fatqat-sync-") as scratch:
@@ -70,13 +72,17 @@ def main() -> int:
             not _trees_identical(clone / source, SNAPSHOT / target)
             for source, target in SYNCED
         )
-        if not changed:
+        pin_changed = not PIN.exists() or PIN.read_text().strip() != head
+        if not changed and not pin_changed:
             print(f"sync: documentation unchanged (upstream at {head[:12]})")
+            (REPO_ROOT / "UPSTREAM_REF").write_text(args.ref + "\n", encoding="utf-8")
             print("changed=false")
             return 0
 
         for source, target in SYNCED:
             destination = SNAPSHOT / target
+            if SNAPSHOT.resolve() not in destination.resolve().parents:
+                raise RuntimeError("snapshot destination escapes repository")
             if destination.is_dir():
                 shutil.rmtree(destination)
             elif destination.is_file():
@@ -89,6 +95,7 @@ def main() -> int:
                 shutil.copy2(origin, destination)
 
     PIN.write_text(head + "\n", encoding="utf-8", newline="\n")
+    (REPO_ROOT / "UPSTREAM_REF").write_text(args.ref + "\n", encoding="utf-8")
     print(f"sync: documentation updated to upstream {head[:12]}")
     print("changed=true")
     return 0

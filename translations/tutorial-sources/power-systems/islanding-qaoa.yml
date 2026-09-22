@@ -1,0 +1,204 @@
+- id: 6490eb510cd85c88
+  en: Split a power grid into islands with QAOA
+  zh: 用 QAOA 将电网划分为孤岛
+  status: machine
+- id: 73bec9ae7dab89e4
+  en: Run the controlled-islanding QUBO on a FatQat simulator, then repair every measured bitstring into a feasible split with pVSQA postprocessing.
+  zh: 在 FatQat 模拟器上运行受控孤岛划分 QUBO，再通过 pVSQA 后处理，将每个测量比特串修复为可行划分。
+  status: machine
+- id: 2010594335a64b8e
+  en: Mean energy and best-feasible-split probability against QAOA depth
+  zh: 平均能量和最佳可行划分概率随 QAOA 深度的变化
+  status: machine
+- id: b44a33226c1fa47e
+  en: Energy distribution of raw QAOA samples compared with repaired ones
+  zh: 原始 QAOA 样本与修复后样本的能量分布对比
+  status: machine
+- id: bdfffa6619d805dd
+  en: Qubit count per encoding across five IEEE test systems
+  zh: 五个 IEEE 测试系统中各编码所需的量子比特数量
+  status: machine
+- id: ba39710dc301da62
+  en: '[Model controlled islanding as a QUBO](islanding-model.md) turned the problem of splitting a transmission network into a quadratic function of binary variables: the objective is the power interrupted by the cut lines, and generator coherency and island balance are penalties that vanish when the requirement holds. This tutorial takes that model, runs it on a quantum circuit, and deals with what comes back.'
+  zh: '[将受控孤岛划分建模为 QUBO](islanding-model.md)把输电网络切分问题转换成二进制变量的二次函数：目标是被切断线路中断的功率，发电机同调性与孤岛平衡则作为满足要求时为零的惩罚。本教程将该模型放到量子电路上运行，并处理返回的结果。'
+  status: machine
+- id: 79255209c8cf1916
+  en: The headline difficulty is that a shallow QAOA circuit on a constrained problem returns mostly unusable bitstrings. Out of 2000 measurements of the 14-bus model below, around 25 describe a split the grid could actually operate. The fix is not a deeper circuit; it is to stop treating a measurement as an answer and start treating it as a starting point, which is what the postprocessing half of this tutorial does.
+  zh: 主要困难是，浅层 QAOA 电路处理受约束问题时，返回的大多数比特串不可用。下方 14 母线模型的 2000 次测量中，约 25 次描述了电网实际可以运行的划分。解决办法不是加深电路，而是将测量结果视为起点而非答案；本教程的后半部分将进行这种后处理。
+  status: machine
+- id: 8390ea3a4af0e46c
+  en: The pipeline as a whole — the coherency-informed QUBO, sampling it with a shallow circuit, and repairing what comes back — follows REGRID-QAOA [1]. The repair itself is the pVSQA procedure of [2].
+  zh: 整个流程——考虑同调性的 QUBO、浅层电路采样以及结果修复——遵循 REGRID-QAOA [1]。修复本身使用 [2] 中的 pVSQA 方法。
+  status: machine
+- id: 7f8e5c817f9f442d
+  en: The mechanics of mapping a QUBO onto gates — the substitution to spins, the phase separator, the mixer — are covered in [Solve a QUBO with QAOA](qubo-qaoa.md) and are reused here without re-derivation.
+  zh: 将 QUBO 映射为量子门的机制，包括自旋代换、相位分离器和混合器，已在[用 QAOA 求解 QUBO](qubo-qaoa.md)中介绍，这里直接复用，不再推导。
+  status: machine
+- id: fb1f3ee5db0fa258
+  en: Rebuilding the model
+  zh: 重新构建模型
+  status: machine
+- id: c7066f997d4789d1
+  en: 'This tutorial stands alone, so the model is rebuilt here in condensed form. Only the 14-bus system and the binary encoding are needed: one qubit per bus, whose value names the island directly. The derivation, the comparison against the one-hot encoding, and the exhaustive check all live in the modeling tutorial.'
+  zh: 本教程可独立运行，因此在此简要重建模型。只需 14 母线系统和二进制编码：每条母线对应一个量子比特，其值直接表示所属孤岛。推导、与独热编码的比较及穷举检查均在建模教程中。
+  status: machine
+- id: 3fa5ee8ab76aa28c
+  en: 'The gap between those two numbers is the thing to keep in view. The QUBO''s minimum is cheaper than the best feasible split, and it is cheaper precisely because it is allowed to be wrong: its islands are disconnected. An optimizer pointed at this model is being pointed slightly past the answer.'
+  zh: 需要关注这两个数之间的差距。QUBO 最小值比最佳可行划分更低，恰恰因为它允许不正确的结果：其孤岛不连通。面向此模型的优化器，目标位置略微越过了真正的答案。
+  status: machine
+- id: 7533a0f3b88bedbc
+  en: Running QAOA on the 14-bus model
+  zh: 在 14 母线模型上运行 QAOA
+  status: machine
+- id: 30da50f22d0bd5cf
+  en: 'The circuit construction is exactly the one from the QUBO tutorial: substitute $x_i = (1 - z_i)/2$ to get an Ising Hamiltonian, then emit an `RZ` per field term, a `CX`-`RZ`-`CX` ladder per coupling, and an `RX` mixer per layer.'
+  zh: 电路构造与 QUBO 教程完全相同：代入 $x_i = (1 - z_i)/2$ 得到 Ising 哈密顿量，再为每个场项生成一个 `RZ`，每个耦合生成一个 `CX`-`RZ`-`CX` 序列，并在每层加入 `RX` 混合器。
+  status: machine
+- id: dfaf8ba2fd91a8f3
+  en: The target to aim at is the best feasible split, not the QUBO ground state, so that is what the probability below is measured against. Depth is grown one layer at a time, seeding each depth from the previous solution.
+  zh: 目标是最佳可行划分，而非 QUBO 基态，因此下方概率以该划分为衡量对象。深度逐层增加，每个深度都以上一层的解作为初值。
+  status: machine
+- id: 17d7b4b2ebf25609
+  en: The mean energy falls toward the QUBO ground state, which sits *below* the best feasible split — a reminder that the optimizer is minimizing the model, not the problem. The probability of measuring the split we actually want rises with depth, but it stays small. At this point a naive pipeline would need a very large shot budget, and most of what it collected would be unusable.
+  zh: 平均能量趋向 QUBO 基态，而该基态*低于*最佳可行划分，提醒我们优化器最小化的是模型，不是原问题。测得实际所需划分的概率随深度增加，但仍然很小。此时，直接使用原始结果的流程将需要很大的采样预算，且收集到的大多数结果都不可用。
+  status: machine
+- id: 4c02fbfb001ef72c
+  en: 'Postprocessing: pVSQA Method 1'
+  zh: 后处理：pVSQA 方法 1
+  status: machine
+- id: 1ed142275968d5c3
+  en: The fix is to stop treating a measurement as an answer and start treating it as a *starting point*. The postprocessing variationally scheduled quantum algorithm (pVSQA) [2] walks each measured bitstring downhill to the nearest feasible assignment, so every shot yields a usable split.
+  zh: 解决办法是将测量视为*起点*，而不直接视为答案。后处理变分调度量子算法（pVSQA）[2] 从每个测量比特串出发，沿代价下降方向到达最近的可行赋值，使每次采样都得到可用划分。
+  status: machine
+- id: a04b1dcc8a457419
+  en: 'Method 1 is the two-stage form. The first stage is that paper''s Algorithm 1: repeatedly flip whichever single variable most decreases'
+  zh: 方法 1 分为两个阶段。第一阶段对应该论文的算法 1：反复翻转使下式下降最多的单个变量，
+  status: machine
+- id: f839a692955e888b
+  en: where the violation term counts constraint breaches *linearly* rather than quadratically. That flatter penalty is the point — with $A'$ above the objective's own scale, every local minimum of $Q'$ is feasible, so the descent cannot stall on a violation.
+  zh: 其中，违规项以*线性*而非二次方式统计约束违反。关键在于更平缓的惩罚：当 $A'$ 超过目标自身的尺度时，$Q'$ 的每个局部极小值都可行，因此下降不会停在违规点。
+  status: machine
+- id: 8bd4645999e34a73
+  en: Under the binary encoding there is no constraint left for the flip stage to enforce, so it reduces to a pure descent on the QUBO. That is not the whole job, as the next result shows.
+  zh: 在二进制编码下，翻转阶段没有剩余约束需要实施，因此退化为对 QUBO 的纯下降。但这还没有完成全部工作，下面的结果会说明这一点。
+  status: machine
+- id: 76ce2557d32e9bc4
+  en: Every descent lands on the QUBO's ground state, and none of them is feasible — because that ground state is the disconnected split found earlier. The greedy stage is doing exactly what it was asked to do, and it is not enough.
+  zh: 每次下降都落在 QUBO 基态，但没有一个结果可行，因为该基态正是此前发现的不连通划分。贪心阶段准确完成了要求的任务，但仅靠它还不够。
+  status: machine
+- id: d22e0124df67d4e6
+  en: 'The second stage handles what the QUBO deliberately left out. When an island falls into several connected components, each stray fragment can be fixed two ways: hand it to a neighboring island, or annex the buses along the shortest path back to the island''s main body. Exile is cheaper, but it is impossible when a coherency group straddles the fragment. Both moves are constructed, scored with the model''s own energy, and the better one wins.'
+  zh: 第二阶段处理 QUBO 有意省略的部分。当一个孤岛分成多个连通分量时，每个分离片段有两种修复方式：将其交给相邻孤岛，或沿回到主体的最短路径并入所经过的母线。移出片段代价较低，但当一个同调机群横跨该片段与主体时不可行。两种移动都会被构造出来，按模型自身能量评分，并选择更好的一个。
+  status: machine
+- id: 4a1a18407207a833
+  en: 'Together the two stages turn most random bitstrings into feasible splits, and most of those are the best feasible split. Stage 2 is what made the difference: the same descent that produced nothing usable on its own now lands on the answer four times out of five.'
+  zh: 两阶段结合后，大多数随机比特串变成可行划分，其中多数为最佳可行划分。第二阶段发挥了关键作用：原本单独使用时无法产生任何可用结果的下降，现在每五次约有四次能得到答案。
+  status: machine
+- id: 76e70e3a5e2d10b3
+  en: That number is also a warning, and the next section takes it seriously.
+  zh: 这个比例同时也提示了一个问题，下一节将认真检验它。
+  status: machine
+- id: d6fd729c2068565f
+  en: A control the demonstration needs
+  zh: 演示所需的对照实验
+  status: machine
+- id: 0645b4cf84b1e1fc
+  en: Repairing random bitstrings already reaches the best feasible split most of the time. So before claiming that QAOA contributes anything, the honest thing to do is run the classical half on its own and compare. Uniform random bitstrings, repaired with the same Method 1, are the baseline; anything the quantum sampler is worth has to show up as a difference against it.
+  zh: 修复随机比特串已经能在大多数情况下达到最佳可行划分。因此，在声称 QAOA 有贡献之前，应该单独运行经典部分并进行比较。均匀随机比特串经过同一方法 1 修复，构成基线；量子采样器的价值必须体现为相对于此基线的差异。
+  status: machine
+- id: 582d42d6c00838a1
+  en: 'The two rates are close. On a 14-bus network the repair is strong enough to find the answer from almost anywhere, so the quantum sampler has nothing left to contribute, and no claim of advantage is supportable from this run. What these results do establish is that the pipeline is correct end to end: the model, the circuit, the repair, and the decoding all agree with an exhaustive classical reference.'
+  zh: 两个比例很接近。对于 14 母线网络，修复过程足够强，几乎从任何位置都能找到答案，因此量子采样器没有剩余贡献空间，这次运行无法支持优势声明。这些结果确实验证了端到端流程的正确性：模型、电路、修复和解码都与穷举经典参考一致。
+  status: machine
+- id: 58c81b8e4ca62c15
+  en: Separating the two claims needs a network where the classical descent gets stuck — larger, more strongly meshed, or with tighter coherency groups. That is exactly where the qubit accounting at the end of this tutorial becomes the binding constraint, and it is the honest place to put the effort next.
+  zh: 要区分这两种结论，需要一个经典下降会陷入局部困境的网络，例如更大、网状连接更强，或同调分组限制更严格的网络。此时，本教程末尾的量子比特计数就成为实际限制，也是下一步值得投入的方向。
+  status: machine
+- id: 9355ded8842fef29
+  en: What postprocessing does to a QAOA run
+  zh: 后处理如何改变 QAOA 运行结果
+  status: machine
+- id: ae1457fc6adad672
+  en: Applied to a real measurement, the effect is a shift in what the shot budget buys. Raw outcomes spread across the whole energy range and are mostly infeasible; repaired outcomes collapse onto feasible splits. Repair runs once per *distinct* outcome rather than once per shot, which is what keeps it affordable.
+  zh: 应用于实际测量时，后处理改变了相同采样预算能够带来的结果。原始输出分散在整个能量范围内，且大多不可行；修复后则集中到可行划分。修复对每个*不同的*结果执行一次，而不是对每次采样执行一次，从而保持可承受的开销。
+  status: machine
+- id: 49e2a5c645c4e85c
+  en: How wide does this get?
+  zh: 电路会有多宽？
+  status: machine
+- id: 0c8ceb4c7b2ab55d
+  en: 'Qubit count is what decides whether a network is reachable at all, and it follows directly from the encoding and the components in use. Three numbers matter per system: the one-hot width $n_\text{buses} \times k$, the binary width $n_\text{buses}$ when $k = 2$, and the width once the slack-carrying requirements are added. The two encodings and the reason they agree on the answer are developed in [Model controlled islanding as a QUBO](islanding-model.md).'
+  zh: 量子比特数量决定一个网络是否有可能处理，它直接取决于编码和所用模型组成部分。每个系统有三个重要数值：独热宽度 $n_\text{buses} \times k$，$k = 2$ 时的二进制宽度 $n_\text{buses}$，以及加入需要松弛变量的要求后的宽度。两种编码及其答案一致的原因见[将受控孤岛划分建模为 QUBO](islanding-model.md)。
+  status: machine
+- id: d421ecd9965609d2
+  en: The slack-carrying components — "at least $M$ buses", "at least one generator", "at least one load" — are inequalities, and an inequality needs a binary slack register per island to absorb the difference. That is $\lceil \log_2(\cdot) \rceil$ extra qubits per island, per requirement. The balance requirement used above avoids all of it by being an equality instead, which is why it is the default here.
+  zh: 需要松弛变量的组成部分——“至少 $M$ 条母线”“至少一台发电机”“至少一个负荷”——都是不等式，每个孤岛需为每个不等式配备二进制松弛寄存器来吸收差额。也就是每个孤岛、每项要求额外需要 $\lceil \log_2(\cdot) \rceil$ 个量子比特。上面使用的平衡要求是等式，避免了这些额外开销，因此成为这里的默认选择。
+  status: machine
+- id: b04c74b65a9ab225
+  en: Two islands on the 30-bus system need 30 qubits with the binary encoding and 60 with one-hot — the difference between a statevector simulation that fits on a laptop and one that does not. Three-island systems cannot use the binary encoding at all, which is why the 24-bus and 39-bus rows show only the one-hot width; a base-$k$ encoding recovers part of the saving there, at the cost of a messier decoding.
+  zh: 在 30 母线系统上划分两个孤岛，二进制编码需要 30 个量子比特，独热编码需要 60 个；这决定了态矢量模拟能否放入笔记本电脑内存。三个孤岛的系统完全无法采用上述二进制编码，因此 24 母线和 39 母线的行只显示独热宽度；$k$ 进制编码可挽回部分节省，但解码会更复杂。
+  status: machine
+- id: f4cb394e95eebd5a
+  en: Where this leaves the problem
+  zh: 目前解决到了哪一步
+  status: machine
+- id: e672ed96a147dff5
+  en: 'The pipeline is complete and each piece is checkable: the QUBO reproduces the operating requirements, the two encodings agree on the answer, the circuit construction matches an independent estimator, and every measured bitstring becomes a feasible split.'
+  zh: 流程已完整，各部分都能检查：QUBO 复现运行要求，两种编码的答案一致，电路构造与独立估计器匹配，每个测量比特串都能变成可行划分。
+  status: machine
+- id: 495a12cd12532b6a
+  en: What it does not yet show is a quantum advantage, and it is worth being precise about why. On networks small enough to simulate, the classical repair reaches the optimum from any starting point, so the quantum sampler's contribution is unmeasurable. Making that contribution visible needs a network where the classical descent has somewhere to get stuck — and there, the width numbers above become the binding constraint rather than the runtime. Approaches aimed at exactly that constraint are developed in [7] and [8].
+  zh: 目前尚未展示量子优势，原因需要说清楚。在小到能够模拟的网络上，经典修复从任意起点都能达到最优，因而量子采样器的贡献无法测出。要让贡献显现，需要经典下降可能被困住的网络；到了那里，上面的宽度数字会比运行时间更先成为限制。[7] 和 [8] 研究了专门针对这一限制的方法。
+  status: machine
+- id: 2214d09be1d08edd
+  en: 'The parts most worth pushing on:'
+  zh: 最值得继续探索的部分：
+  status: machine
+- id: 1f2d1d1f95e139d7
+  en: '**Narrower encodings.** A base-$k$ assignment beats one-hot for more than two islands, and merging buses that will never separate shrinks the problem before any encoding is chosen [7]. Solving regional subproblems in sequence keeps the circuit width independent of the network size altogether [8].'
+  zh: '**更紧凑的编码。**孤岛数超过两个时，$k$ 进制赋值优于独热编码；将永远不会分开的母线合并，还能在选择编码之前缩小问题 [7]。依次求解区域子问题，则可以使电路宽度完全独立于网络规模 [8]。'
+  status: machine
+- id: 9435b8497956d9e5
+  en: '**Constraint-preserving mixers.** An XY mixer confines the state to the one-hot subspace, so amplitude is never spent on assignments the penalty would only have to reject.'
+  zh: '**保持约束的混合器。**XY 混合器将态限制在独热子空间内，避免将振幅分配给最终只会被惩罚项排除的赋值。'
+  status: machine
+- id: f83981424dca3169
+  en: '**Warm starts.** Seeding QAOA from a classical partition and letting the circuit search nearby uses shallow depth where it helps most.'
+  zh: '**热启动。**用经典划分初始化 QAOA，让电路在附近搜索，可以将浅层深度用在最有帮助的位置。'
+  status: machine
+- id: d173b4faa8036430
+  en: '**Noise.** Every run here is noiseless. Attaching a `fatqat.NoiseModel` to the simulator turns the same code into a study of how much depth this problem can actually afford on hardware.'
+  zh: '**噪声。**这里所有运行都没有噪声。为模拟器附加 `fatqat.NoiseModel`，同一份代码就能研究该问题在实际硬件上能够承受多大深度。'
+  status: machine
+- id: 31f572540763fefb
+  en: 'Y. Jiang, Y. Zhang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "REGRID-QAOA: A Resource-Efficient Hybrid QAOA Framework for Physics-Constrained Power System Islanding", [arXiv:2606.15083](https://arxiv.org/abs/2606.15083) (2026). The hybrid pipeline this tutorial implements.'
+  zh: 'Y. Jiang, Y. Zhang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "REGRID-QAOA: A Resource-Efficient Hybrid QAOA Framework for Physics-Constrained Power System Islanding", [arXiv:2606.15083](https://arxiv.org/abs/2606.15083) (2026)。本教程实现的混合流程。'
+  status: machine
+- id: af8e433f3e351577
+  en: K. Shirai and N. Togawa, "Postprocessing Variationally Scheduled Quantum Algorithm for Constrained Combinatorial Optimization Problems", *IEEE Transactions on Quantum Engineering* **5**, 3100415 (2024). The pVSQA procedure used for the repair.
+  zh: K. Shirai and N. Togawa, "Postprocessing Variationally Scheduled Quantum Algorithm for Constrained Combinatorial Optimization Problems", *IEEE Transactions on Quantum Engineering* **5**, 3100415 (2024)。修复使用的 pVSQA 方法。
+  status: machine
+- id: a2d4f5f5e425c06e
+  en: E. Farhi, J. Goldstone, and S. Gutmann, "A Quantum Approximate Optimization Algorithm", [arXiv:1411.4028](https://arxiv.org/abs/1411.4028) (2014).
+  zh: E. Farhi, J. Goldstone, and S. Gutmann, "A Quantum Approximate Optimization Algorithm", [arXiv:1411.4028](https://arxiv.org/abs/1411.4028) (2014)。
+  status: machine
+- id: 92239fcb5b81c0af
+  en: H. You, V. Vittal, and X. Wang, "Slow coherency-based islanding", *IEEE Transactions on Power Systems* **19**(1), 483–491 (2004). Where the coherent generator groups this model takes as input come from.
+  zh: H. You, V. Vittal, and X. Wang, "Slow coherency-based islanding", *IEEE Transactions on Power Systems* **19**(1), 483–491 (2004)。介绍本模型所需的同调发电机群如何得到。
+  status: machine
+- id: c4277084201ba65c
+  en: K. Sun, D.-Z. Zheng, and Q. Lu, "Splitting strategies for islanding operation of large-scale power systems using OBDD-based methods", *IEEE Transactions on Power Systems* **18**(2), 912–923 (2003). A classical approach to the same search, on the same IEEE test systems.
+  zh: K. Sun, D.-Z. Zheng, and Q. Lu, "Splitting strategies for islanding operation of large-scale power systems using OBDD-based methods", *IEEE Transactions on Power Systems* **18**(2), 912–923 (2003)。在相同 IEEE 测试系统上求解同一搜索问题的经典方法。
+  status: machine
+- id: 2064a8f0fd294a7c
+  en: A. Lucas, "Ising formulations of many NP problems", *Frontiers in Physics* **2**, 5 (2014). The standard catalogue of constraint-to-penalty mappings.
+  zh: A. Lucas, "Ising formulations of many NP problems", *Frontiers in Physics* **2**, 5 (2014)。约束到惩罚映射的标准汇总。
+  status: machine
+- id: 35edd69e96efb8bf
+  en: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "PACE-QAOA: Physics-Constrained Quantum Optimization for Qubit-Efficient Power System Islanding", [arXiv:2608.02789](https://arxiv.org/abs/2608.02789) (2026). Compact encodings that reduce phase-separator cost on sparse grids.'
+  zh: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "PACE-QAOA: Physics-Constrained Quantum Optimization for Qubit-Efficient Power System Islanding", [arXiv:2608.02789](https://arxiv.org/abs/2608.02789) (2026)。通过紧凑编码降低稀疏电网的相位分离器开销。'
+  status: machine
+- id: 6c6bdd4203f4f366
+  en: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "SPLIT-Q: A Scalable Sequential Quantum Computing Framework for Coherent Controlled Islanding", [arXiv:2608.12711](https://arxiv.org/abs/2608.12711) (2026). Qubit-bounded sequential regional QAOA for larger networks.'
+  zh: 'Y. Jiang, Z. Liang, Q. Guan, Y. Li, and G. K. Venayagamoorthy, "SPLIT-Q: A Scalable Sequential Quantum Computing Framework for Coherent Controlled Islanding", [arXiv:2608.12711](https://arxiv.org/abs/2608.12711) (2026)。面向更大网络、限制量子比特数量的顺序区域 QAOA。'
+  status: machine

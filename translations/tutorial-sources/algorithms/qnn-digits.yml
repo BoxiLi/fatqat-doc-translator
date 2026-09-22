@@ -49,7 +49,7 @@
 - id: 1cd7775fc5b6834a
   en: 'The data are the 8x8 handwritten digits bundled with scikit-learn: real scans, but bundled locally, so this page is fully reproducible with no download. Every source of randomness is seeded.'
   zh: 数据是 scikit-learn 自带的 8x8 手写数字：真实的扫描图像，但随包本地提供，因此本页面无需任何下载即可完全复现。所有随机源都设定了种子。
-  status: machine
+  status: retired
 - id: 84e07c3a1f11aca5
   en: 'Data: two classes of small digits'
   zh: 数据：两类小尺寸数字
@@ -81,11 +81,11 @@
 - id: 8e2732f05840050d
   en: 'Within one optimizer step the weights are fixed, so they are bound once with `assign_parameters`. The batch then sweeps only the features: `run_sweep` takes the entire `(N, 16)` feature array as one binding and returns an ordered list of results — one ordinary `Result` per sample. The parameters have become *data*: plain NumPy arrays flowing through one call, instead of circuit structure rebuilt per sample.'
   zh: 在一个优化器步骤内权重是固定的，因此先用 `assign_parameters` 一次性绑定权重。随后批处理只扫描特征：`run_sweep` 把整个 `(N, 16)` 特征数组作为一次绑定接收，并返回一个有序的结果列表——每个样本对应一个普通的 `Result`。参数变成了*数据*：普通的 NumPy 数组通过一次调用流动，而不是为每个样本重建电路结构。
-  status: machine
+  status: retired
 - id: 8558caaf550ae037
   en: (In this fatqat version `run_sweep` still lowers and executes row by row; the win today is the single-template workflow and one-call batch interface, which is also where fused batched execution will land. For observable-centric workflows, [`fatqat.Estimator`][fatqat.Estimator] offers the same batching as `Estimator.run_sweep`; see [the simulation guide](../guide/simulation.md).)
   zh: （在当前 fatqat 版本中，`run_sweep` 仍然逐行降低并执行；目前的收益在于单模板工作流和一次调用的批处理接口，而这也是将来融合批量执行落地的地方。对于以可观测量为中心的工作流，[`fatqat.Estimator`][fatqat.Estimator] 以 `Estimator.run_sweep` 提供相同的批处理能力；参见[模拟指南](../guide/simulation.md)。）
-  status: machine
+  status: retired
 - id: 3ad062f431e84703
   en: 'A small check with random initial weights: the logits start near zero, as expected for an untrained circuit.'
   zh: 用随机初始权重做一个小检查：logits 起始接近零，这正是未训练电路的预期表现。
@@ -121,4 +121,28 @@
 - id: fd88e61ef11029fd
   en: 'Natural extensions: more rounds or qubits, a noise model passed to the simulator, or sampled (`shots > 0`) expectations to study shot noise on the training curve.'
   zh: 自然的扩展方向：更多轮数或量子比特、向模拟器传入噪声模型，或使用采样（`shots > 0`）期望值来研究采样噪声对训练曲线的影响。
+  status: machine
+- id: 7399ba3aba833503
+  en: Four-qubit data-reuploading QNN template
+  zh: 四量子比特数据重上传 QNN 模板
+  status: machine
+- id: 7c4c70a32bff7945
+  en: Additional dependency
+  zh: 额外依赖
+  status: machine
+- id: 5009ae831a4d53ec
+  en: This tutorial requires scikit-learn, which is not installed with FatQat. Install it with `python -m pip install scikit-learn`.
+  zh: 本教程需要 scikit-learn，FatQat 不会附带安装它。请运行 `python -m pip install scikit-learn` 安装。
+  status: machine
+- id: 944b353107a44d54
+  en: The data are the 8x8 handwritten digits bundled with scikit-learn. Once that package is installed, the dataset is available locally, so the tutorial needs no external data download. Every source of randomness is seeded.
+  zh: 数据来自 scikit-learn 附带的 8x8 手写数字。安装该包后，数据集即可在本地使用，无需额外下载。所有随机源均设置了种子。
+  status: machine
+- id: ff09d29b4f321b3c
+  en: 'Within one optimizer step the weights are fixed, so they are bound once with `assign_parameters`. The batch then sweeps only the features: [`Estimator`][fatqat.Estimator] takes the two class observables alongside the entire `(N, 16)` feature array and returns an ordered list of results — one ordinary [`Result`][fatqat.Result] per sample. Each result contains the two expectation values, which a short list comprehension collects into the `(N, 2)` logit array. The parameters have become *data*: plain NumPy arrays flowing through one call, instead of circuit structure rebuilt per sample.'
+  zh: 在一次优化器步骤内，权重固定，因此用 `assign_parameters` 绑定一次即可。随后批次只扫描特征：[`Estimator`][fatqat.Estimator] 接收两个类别可观测量和完整的 `(N, 16)` 特征数组，返回有序结果列表，每个样本对应一个普通 [`Result`][fatqat.Result]。每个结果包含两个期望值，用简短的列表推导式即可收集为 `(N, 2)` logit 数组。参数变成了*数据*：普通 NumPy 数组通过一次调用传入，而不再为每个样本重建电路结构。
+  status: machine
+- id: adb221d68af7fcd3
+  en: (In this fatqat version `run_sweep` still lowers and executes row by row; the win today is the single-template workflow and one-call batch interface, which is also where fused batched execution will land. The estimator handles final-state evolution and observable contraction; see [interpreting results](../guide/interpret-results.md).)
+  zh: （在此 fatqat 版本中，`run_sweep` 仍逐行降级转换并执行；目前的优势是单模板工作流程和单次调用的批处理接口，未来融合批执行也将在此实现。估计器负责最终态演化与可观测量收缩，见[解读结果](../guide/interpret-results.md)。）
   status: machine

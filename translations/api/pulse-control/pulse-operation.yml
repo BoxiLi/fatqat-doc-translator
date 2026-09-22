@@ -25,4 +25,8 @@
 - id: fc21f5527abb8990
   en: The three pulse emulators listed in [Pulse control](index.md) support `PulseOperation`. [Matrix simulators and their device profiles](../simulators/index.md) do not; neither do circuit drawing or OpenQASM export.
   zh: '[脉冲控制](index.md)中列出的三个脉冲仿真器支持 `PulseOperation`。[矩阵模拟器及其设备配置](../simulators/index.md)不支持；电路绘制和 OpenQASM 导出也不支持。'
+  status: retired
+- id: dd171c59c706e434
+  en: Direct `PulseOperation` blocks run on [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] and [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]. [Pulse control](index.md) compares their channels and units. [Matrix simulators and their device profiles](../simulators/index.md) do not accept direct pulse blocks, and neither circuit drawing nor OpenQASM export can represent them.
+  zh: 直接的 `PulseOperation` 块可以在 [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 和 [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 上运行。[脉冲控制](index.md)比较了它们的信道和单位。[矩阵模拟器及其硬件配置](../simulators/index.md)不接受直接脉冲块，电路绘图和 OpenQASM 导出也无法表示它们。
   status: machine

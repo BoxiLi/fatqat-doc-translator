@@ -34,3 +34,11 @@
   en: The [transmon](../pulse-emulator.md) and [neutral-atom](../atom-emulators.md) pages show the built-in maps and full workflows.
   zh: '[transmon](../pulse-emulator.md) 与[中性原子](../atom-emulators.md)页面展示了内置映射与完整工作流。'
   status: machine
+- id: 9f5cbf686afafe35
+  en: Pulse control under development
+  zh: 脉冲控制仍在开发中
+  status: machine
+- id: 822ba8cbdf4f8d59
+  en: The pulse control module is under active development. Its interfaces and supported behavior may change between releases. Pin an exact FatQat version when reproducibility matters.
+  zh: 脉冲控制模块正在积极开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的确切版本。
+  status: machine

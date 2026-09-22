@@ -1,0 +1,280 @@
+- id: 5957e98c8cd785a4
+  en: Build a Toffoli gate by borrowing a third level
+  zh: 借用第三能级构建 Toffoli 门
+  status: machine
+- id: 6f9e94b452777c0d
+  en: Use a qubit–qutrit–qubit register to construct Toffoli with three qubit–qutrit interactions, then verify its relative phases and return from the borrowed level.
+  zh: 使用量子比特–qutrit–量子比特寄存器，以三次量子比特–qutrit 相互作用构建 Toffoli 门，再验证相对相位以及从借用能级返回的过程。
+  status: machine
+- id: efab3866fc676b1c
+  en: One simulated input follows 110, 120, 121, and 111 at the input, controlled level exchange, target flip, and restoration checkpoints; the middle system's level-2 population is zero, one, one, and zero.
+  zh: 一个模拟输入在输入、受控能级交换、目标翻转和恢复检查点依次经过 110、120、121、111；中间系统的能级 2 布居依次为零、一、一、零。
+  status: machine
+- id: 15712a5bf3546440
+  en: 'Transition probabilities from eight logical inputs to all twelve output states: only 110 and 111 exchange places, and the four orange-outlined output rows with middle level 2 have zero population.'
+  zh: 八个逻辑输入到全部十二个输出态的跃迁概率：只有 110 和 111 交换位置，橙色边框标出的四个中间能级为 2 的输出行布居均为零。
+  status: machine
+- id: c950dc7048298eec
+  en: 'In this tutorial, we build a Toffoli gate with three qubit–qutrit interactions and verify its action on quantum states. The middle system is a qutrit: it has levels $|0\rangle$, $|1\rangle$, and $|2\rangle$. We use its first two levels as a logical qubit and borrow the third during the gate. The final checks will show that we recover the required logical output, including its relative phases, and empty the borrowed level.'
+  zh: 本教程用三次量子比特–qutrit 相互作用构建 Toffoli 门，并验证其对量子态的作用。中间系统是 qutrit，具有 $|0\rangle$、$|1\rangle$ 和 $|2\rangle$ 三个能级。以前两个能级作为逻辑量子比特，在执行门时借用第三能级。最终检查将表明，我们恢复了所需的逻辑输出及其相对相位，并清空了借用能级。
+  status: machine
+- id: 14ffde9c6d006100
+  en: You should be familiar with qubit basis states, superpositions, and basic single-qubit gates. Here we use ideal gate simulation to study a register with different local dimensions.
+  zh: 你应熟悉量子比特基态、叠加态和基本单量子比特门。这里通过理想门模拟，研究局域维数不同的寄存器。
+  status: machine
+- id: 19f7216018b2e824
+  en: 'A Toffoli gate has two controls, $a$ and $b$, and a target, $t$. It flips the target exactly when both controls are $1$:'
+  zh: Toffoli 门有两个控制位 $a$、$b$ 和一个目标位 $t$。当且仅当两个控制位都为 $1$ 时，它翻转目标：
+  status: machine
+- id: d61cbcf3f8864bbe
+  en: where $\oplus$ means addition modulo two. Starting the target at zero therefore computes the logical AND of the controls without changing their values. The gate exchanges $|110\rangle$ and $|111\rangle$ and leaves the other six logical basis states unchanged.
+  zh: 其中 $\oplus$ 表示模二加法。因此，目标初始为零时，该门计算两个控制位的逻辑 AND，同时不改变控制位的值。它交换 $|110\rangle$ 与 $|111\rangle$，其余六个逻辑基态保持不变。
+  status: machine
+- id: c1d9d69314c8946b
+  en: 'We give the middle control, $b$, access to $|2\rangle$ and construct the gate in three steps:'
+  zh: 让中间控制位 $b$ 可以访问 $|2\rangle$，分三步构建该门：
+  status: machine
+- id: 44935bbba4649d2b
+  en: '**Borrow the third level.** When the input has $a=1$ and $b=1$, move $b$ from $|1\rangle$ to $|2\rangle$.'
+  zh: '**借用第三能级。**输入满足 $a=1$ 且 $b=1$ 时，将 $b$ 从 $|1\rangle$ 移到 $|2\rangle$。'
+  status: machine
+- id: 839236e1e735da89
+  en: '**Flip the target.** Apply $X$ to $t$ when $b=2$.'
+  zh: '**翻转目标。**当 $b=2$ 时，对 $t$ 施加 $X$。'
+  status: machine
+- id: cb9c41a93f6b208a
+  en: '**Return the control.** Undo the first step so that $b$ has its original value.'
+  zh: '**恢复控制位。**撤销第一步，使 $b$ 回到原值。'
+  status: machine
+- id: 46fb07457a3ea633
+  en: Each step uses a short sequence of gates, which we call a block. At the end of the first block, occupation of level 2 records that both input controls were $1$. We can then condition the target flip on this one level and undo the temporary encoding, using the same three subsystems throughout.
+  zh: 每一步使用一段短门序列，称为一个块。第一个块结束时，能级 2 的占据记录了两个输入控制位均为 $1$。随后只需以这个能级为条件翻转目标，再撤销临时编码，整个过程始终使用同样的三个子系统。
+  status: machine
+- id: da31938065f988ef
+  en: Set up the mixed register
+  zh: 设置混合寄存器
+  status: machine
+- id: 919032b7187d9048
+  en: We give each control and the target a named one-slot register. The registers `a` and `t` use the default qubit dimension, while `dim=3` makes `b` a qutrit. We address their slots as `a[0]`, `b[0]`, and `t[0]`, following the [mixed-register guide](../guide/program.md#mix-qubits-and-qutrits).
+  zh: 为每个控制位和目标位创建一个有名称的单槽位寄存器。`a` 和 `t` 使用默认量子比特维数，`dim=3` 则使 `b` 成为 qutrit。按照[混合寄存器指南](../guide/program.md#mix-qubits-and-qutrits)，使用 `a[0]`、`b[0]` 和 `t[0]` 对其槽位寻址。
+  status: machine
+- id: 08710becb74001e0
+  en: The joint state has $2\times3\times2=12$ amplitudes. Eight basis states have `b=0` or `b=1`; these form the logical subspace on which we want Toffoli to act. The remaining four have `b=2` and are available during the gate.
+  zh: 联合态有 $2\times3\times2=12$ 个振幅。其中八个基态满足 `b=0` 或 `b=1`，构成希望 Toffoli 作用的逻辑子空间。其余四个满足 `b=2`，可在执行门时使用。
+  status: machine
+- id: d7da52eadd58341e
+  en: Returned states follow register declaration order, with the last subsystem changing fastest. For these dimensions, $|a,b,t\rangle$ has flat index $6a+2b+t$. For example, $|110\rangle$ is at index $8$, and $|120\rangle$ is at index $10$. This differs from the three-qubit index because the middle system has three levels.
+  zh: 返回态遵循寄存器声明顺序，最后一个子系统变化最快。对于这些维数，$|a,b,t\rangle$ 的展平索引为 $6a+2b+t$。例如，$|110\rangle$ 位于索引 $8$，$|120\rangle$ 位于索引 $10$。由于中间系统有三个能级，这不同于三量子比特索引。
+  status: machine
+- id: fbea99a3e3b67f2e
+  en: The helper below creates a basis state with unit amplitude at the requested index and zero everywhere else. We will use it both to choose inputs and to write down the states we expect from the gate.
+  zh: 下面的辅助函数创建一个基态，使指定索引的振幅为一，其余为零。它既用于选择输入，也用于写出该门的预期输出态。
+  status: machine
+- id: 9689c3ea510ee6c1
+  en: Exchange levels 1 and 2 when a=1
+  zh: 当 a=1 时交换能级 1 和 2
+  status: machine
+- id: 6c697345e8e33d0d
+  en: 'The first block must distinguish inputs with both controls equal to $1$. We do this with a controlled level exchange: exchange the middle system''s levels 1 and 2 when `a=1`, and leave them alone when `a=0`. Level `b=0` stays unchanged in either case.'
+  zh: 第一个块必须识别两个控制位均为 $1$ 的输入。通过受控能级交换实现：当 `a=1` 时，交换中间系统的能级 1 和 2；当 `a=0` 时，保持不变。无论哪种情况，能级 `b=0` 都不变。
+  status: machine
+- id: 1b0c318dec2ac0a6
+  en: We can build the controlled exchange from two rotations and a controlled phase. `SubspaceRY(theta, (1, 2))` applies the usual qubit $R_y$ rotation within the ordered pair $(|1\rangle,|2\rangle)$ of `b`, leaving its $|0\rangle$ level untouched.
+  zh: 受控交换可由两次旋转和一个受控相位构建。`SubspaceRY(theta, (1, 2))` 在 `b` 的有序能级对 $(|1\rangle,|2\rangle)$ 内施加通常的量子比特 $R_y$ 旋转，保持 $|0\rangle$ 能级不变。
+  status: machine
+- id: ca8c278f17e42153
+  en: 'Between the rotations, we use `CClock(1)` to change a sign when `a=1`. Its second operand''s dimension sets the phase''s root of unity. We put the qutrit first and the qubit second, `(b[0], a[0])`, to obtain the binary phases $\pm1$:'
+  zh: 在两次旋转之间，使用 `CClock(1)`，在 `a=1` 时改变一个符号。其第二操作数的维数决定相位使用哪种单位根。将 qutrit 放在前、量子比特放在后，即 `(b[0], a[0])`，可得到二元相位 $\pm1$：
+  status: machine
+- id: dd7e39e0b73cf445
+  en: This formula uses the pair's operand order, $(b,a)$; the full register remains in $(a,b,t)$ order. Putting the qutrit second would introduce third roots of unity and change the gate.
+  zh: 此公式采用该对操作数的顺序 $(b,a)$，完整寄存器仍按 $(a,b,t)$ 排列。若将 qutrit 放在第二位，就会引入三次单位根并改变该门。
+  status: machine
+- id: 2b97e260a58254eb
+  en: When `a=0`, the phase is always $+1$ and the two opposite rotations cancel. When `a=1`, level `b=1` gains a minus sign, while levels 0 and 2 keep their phase. In the selected pair, placing this sign change between the rotations gives
+  zh: 当 `a=0` 时，相位始终为 $+1$，两次反向旋转抵消。当 `a=1` 时，能级 `b=1` 获得负号，而能级 0 和 2 的相位不变。在选定能级对中，将这一符号变化夹在两次旋转之间，得到
+  status: machine
+- id: 2efa9aed64975ae4
+  en: 'The matrix on the right exchanges levels 1 and 2 with no extra phase. Matrix products act from right to left, so we apply the positive rotation first. The list below keeps the operations and their targets in execution order:'
+  zh: 右侧矩阵交换能级 1 和 2，不引入额外相位。矩阵乘积从右向左作用，因此先施加正向旋转。下面的列表按执行顺序保存操作及其目标：
+  status: machine
+- id: f368c7d4e514e1dd
+  en: For a logical input, this block moves $|11t\rangle$ to $|12t\rangle$ and leaves the other control combinations unchanged. After this exchange, `b=2` tells us that both controls were $1$ at the input. Repeating the block swaps the levels back, so the controlled exchange is its own inverse. The [qudit-gate reference](../api/operations/qudit-gates.md) gives the full rotation and controlled-phase conventions.
+  zh: 对于逻辑输入，该块将 $|11t\rangle$ 移到 $|12t\rangle$，其他控制组合不变。交换后，`b=2` 表示输入时两个控制位都为 $1$。再次执行该块会交换回原能级，因此受控交换是自身的逆。[qudit 门参考](../api/operations/qudit-gates.md)给出了完整的旋转与受控相位约定。
+  status: machine
+- id: ebc528c83167f0b3
+  en: Flip the target when b=2
+  zh: 当 b=2 时翻转目标
+  status: machine
+- id: 8775e8db368c7064
+  en: The first block has encoded the two-control condition in `b=2`. We now need a target flip conditioned on that level, while leaving `t` unchanged for `b=0` and `b=1`.
+  zh: 第一个块已将双控制条件编码到 `b=2`。现在需要以该能级为条件翻转目标，同时在 `b=0` 和 `b=1` 时保持 `t` 不变。
+  status: machine
+- id: 0185a5b522b694da
+  en: 'We again put the qubit second in the controlled phase, now using `(b[0], t[0])`. It applies $Z$ to `t` when `b=1` and the identity when `b=0` or `b=2`. Placing `H` before and after it gives a target flip for `b=1`, because $H Z H=X$. For the other two levels, the Hadamards cancel: $H I H=I$.'
+  zh: 受控相位中仍将量子比特放在第二位，这次使用 `(b[0], t[0])`。它在 `b=1` 时对 `t` 施加 $Z$，在 `b=0` 或 `b=2` 时施加恒等操作。前后各加一个 `H`，就能在 `b=1` 时翻转目标，因为 $H Z H=X$。对于其余两个能级，Hadamard 相互抵消：$H I H=I$。
+  status: machine
+- id: 24260609fb85285e
+  en: 'To select states that enter with `b=2`, we exchange levels 1 and 2 using `SwapLevels(1, 2)` before the `H`, `CClock`, `H` sequence and exchange them again afterward. Tracking each possible value of `b` gives:'
+  zh: 为选择进入时满足 `b=2` 的态，在 `H`、`CClock`、`H` 序列之前用 `SwapLevels(1, 2)` 交换能级 1 和 2，之后再交换一次。跟踪 `b` 的每个可能值，得到：
+  status: machine
+- id: ed5985af660b8033
+  en: '| `b` at the start of this block | After the first swap | Effect of `H`, `CClock`, `H` on `t` | After the second swap |'
+  zh: '| 此块开始时的 `b` | 第一次交换后 | `H`、`CClock`、`H` 对 `t` 的作用 | 第二次交换后 |'
+  status: machine
+- id: 2357992b021af78b
+  en: '| 0 | 0 | Unchanged | 0 |'
+  zh: '| 0 | 0 | 不变 | 0 |'
+  status: machine
+- id: 474e6db4ae1d8c7a
+  en: '| 1 | 2 | Unchanged | 1 |'
+  zh: '| 1 | 2 | 不变 | 1 |'
+  status: machine
+- id: 1c9466eb72c6b060
+  en: '| 2 | 1 | Flipped | 2 |'
+  zh: '| 2 | 1 | 翻转 | 2 |'
+  status: machine
+- id: 3550f321a7ab7648
+  en: The two swaps return `b` to the value it had at the start of this block. Only the target of a state that entered with `b=2` is flipped.
+  zh: 两次交换使 `b` 回到此块开始时的值。只有进入时满足 `b=2` 的态，其目标才被翻转。
+  status: machine
+- id: b8208acf4ffdb4ac
+  en: Restore the middle control
+  zh: 恢复中间控制位
+  status: machine
+- id: 3131141c25ca3364
+  en: For input $|110\rangle$, the first two blocks produce $|121\rangle$. The target has the correct value, $t=1$, but the middle control is still at $b=2$. Toffoli must leave both controls at their input values, so the required output is $|111\rangle$.
+  zh: 对于输入 $|110\rangle$，前两个块产生 $|121\rangle$。目标已经具有正确值 $t=1$，但中间控制位仍为 $b=2$。Toffoli 必须保持两个控制位的输入值，因此所需输出为 $|111\rangle$。
+  status: machine
+- id: 0cfd6c36210df50b
+  en: We finish the gate by repeating `controlled_exchange`. Since `a=1`, it exchanges `b`'s levels 1 and 2 again, taking $|121\rangle$ to $|111\rangle$ without changing the target. Inputs with `a=0` or `b=0` remain unchanged by this last block.
+  zh: 最后重复 `controlled_exchange`，完成该门。由于 `a=1`，它再次交换 `b` 的能级 1 和 2，将 $|121\rangle$ 变为 $|111\rangle$，不改变目标。满足 `a=0` 或 `b=0` 的输入不受最后一个块影响。
+  status: machine
+- id: 3532e7e4d75a37b9
+  en: This reversal of the temporary encoding is called uncomputation. We undo the encoding with coherent gates, preserving the relative amplitudes of input branches. After tracing one basis input, we will check that restoration also works for a superposition.
+  zh: 撤销临时编码称为反计算。使用相干门撤销编码，可以保留各输入分支的相对振幅。跟踪一个基输入后，还将检查叠加态能否正确恢复。
+  status: machine
+- id: 43dd88a6c9eeb614
+  en: Assemble and run the program
+  zh: 组装并运行程序
+  status: machine
+- id: 043f12ce50274a88
+  en: We have the three blocks needed for Toffoli. Joining them in order gives the complete gate; keeping their instruction lists also lets us stop at block boundaries to inspect the temporary encoding. The helper `make_program` turns an instruction list into a `Program` through `Program.add`.
+  zh: 已经得到 Toffoli 所需的三个块。按顺序连接即可构成完整门；保留各块的指令列表，还能在块边界停止以检查临时编码。辅助函数 `make_program` 通过 `Program.add` 将指令列表转为 `Program`。
+  status: machine
+- id: d93241cd22bebe9f
+  en: To follow the borrowed level, we need the complex state after each block. The `statevector` method returns this vector. In `evolve`, `initial_state` chooses the input, and `result_config` requests the final state and disables counts. These ideal runs contain no measurements or noise, so they have no sampling uncertainty and need no random seed. We can use the same helper for the full gate or a prefix of its instructions.
+  zh: 为跟踪借用能级，需要得到每个块结束后的复数态。`statevector` 方法返回这一向量。在 `evolve` 中，`initial_state` 选择输入，`result_config` 请求最终态并禁用计数。这些理想运行不含测量或噪声，因此没有采样不确定度，也无需随机种子。同一辅助函数既能运行完整门，也能运行指令的前缀。
+  status: machine
+- id: 74fa2e592a4a866b
+  en: Follow one input through the borrowed level
+  zh: 跟踪一个输入经过借用能级的过程
+  status: machine
+- id: 438ea4a8364ce63f
+  en: 'We start with $|110\rangle$: both controls are $1$, and the target is $0$. The controlled exchange moves the middle control to level 2, the middle block flips the target, and restoration brings the control back. The expected states at the block boundaries are'
+  zh: 从 $|110\rangle$ 开始：两个控制位都为 $1$，目标为 $0$。受控交换将中间控制位移到能级 2，中间块翻转目标，恢复块将控制位移回。各块边界的预期态为
+  status: machine
+- id: d51875efca8c3813
+  en: The boundaries occur after 0, 3, 8, and 11 instructions. Each prefix run starts from the same $|110\rangle$ input; its returned state is compared directly with the expected complex vector.
+  zh: 边界位于第 0、3、8 和 11 条指令之后。每次前缀运行都从同一个 $|110\rangle$ 输入开始，返回态直接与预期复向量比较。
+  status: machine
+- id: e6a7d2361f1e17bf
+  en: We also compute the probability of finding `b` in level 2. Reshaping a state to `(2, 3, 2)` gives one axis per subsystem. The slice `[:, 2, :]` selects every amplitude with `b=2`, regardless of `a` or `t`, and summing their squared magnitudes gives the borrowed-level population.
+  zh: 同时计算 `b` 位于能级 2 的概率。将态重塑为 `(2, 3, 2)`，每个子系统对应一个轴。切片 `[:, 2, :]` 选出所有满足 `b=2` 的振幅，不论 `a` 或 `t` 的值；对其模平方求和，即得到借用能级的布居。
+  status: machine
+- id: 31d16d717676c3aa
+  en: The printed populations follow $0,1,1,0$ to numerical precision. For this input, the middle control occupies level 2 after the exchange and target flip, then returns to level 1. The figure pairs each population with its state label so we can inspect both the control's return and the target's flip.
+  zh: 输出布居在数值精度内依次为 $0,1,1,0$。对于此输入，中间控制位在交换和目标翻转后占据能级 2，随后返回能级 1。图中每个布居都配有态标签，便于同时检查控制位返回和目标翻转。
+  status: machine
+- id: 0df1ce0014ebad3c
+  en: The horizontal axis marks block boundaries, not elapsed time. Rotations and swaps can also populate level 2 within a block; each bar describes the state at its checkpoint. The tiny final residual is consistent with floating-point arithmetic.
+  zh: 横轴标记块边界，而不是经过的时间。块内部的旋转和交换也可能占据能级 2；每根柱仅描述检查点处的态。最终微小残差与浮点运算精度一致。
+  status: machine
+- id: ac514ce606d60230
+  en: Check a superposition
+  zh: 检查叠加态
+  status: machine
+- id: 7180a78c3a0215f3
+  en: 'The trace confirms the route through level 2 for one input. We now combine two branches: after the controlled exchange, one occupies level 2 and the other remains in the logical subspace. To prepare them, we apply `H` followed by `S` to `a`, giving $(|0\rangle+i|1\rangle)/\sqrt2$. A `Shift(1)` puts `b` in level 1, while `t` starts at zero. The factor $i$ gives us a relative phase to track.'
+  zh: 上述跟踪确认了一个输入经过能级 2 的路径。现在组合两个分支：受控交换后，一个占据能级 2，另一个留在逻辑子空间。先对 `a` 施加 `H` 再施加 `S`，得到 $(|0\rangle+i|1\rangle)/\sqrt2$。`Shift(1)` 将 `b` 置于能级 1，`t` 从零开始。因子 $i$ 提供了可跟踪的相对相位。
+  status: machine
+- id: b9c0a4078ed10ff6
+  en: This input contains two branches. The $|010\rangle$ branch should stay unchanged because its first control is zero. The $|110\rangle$ branch should undergo the exchange, flip, and restoration we just traced. The full gate should therefore give
+  zh: 该输入包含两个分支。$|010\rangle$ 分支的第一个控制位为零，应保持不变。$|110\rangle$ 分支则应经历刚才跟踪的交换、翻转和恢复。因此，完整门应给出
+  status: machine
+- id: 9e676d132b9d1f37
+  en: 'After the first block, only the second branch occupies level 2. Restoration must bring it back without altering its relative factor $i$. We keep preparation separate from the gate: first create `coherent_input`, then pass it to a run of `sequence`. The assertions check both the expected complex output and the absence of any remaining borrowed-level amplitude.'
+  zh: 第一个块之后，只有第二个分支占据能级 2。恢复必须使其返回，同时不改变相对因子 $i$。将制备与门分开：先创建 `coherent_input`，再将其传入 `sequence` 的运行。断言同时检查预期复数输出，以及借用能级上是否没有残余振幅。
+  status: machine
+- id: 91df84303b492101
+  en: The two printed amplitudes are $1/\sqrt2$ and $i/\sqrt2$, as expected. Both branches end with `b=1`, while `a` and `t` are entangled with a relative phase of $i$ between their $|00\rangle$ and $|11\rangle$ components.
+  zh: 输出的两个振幅为 $1/\sqrt2$ 和 $i/\sqrt2$，符合预期。两个分支最终都满足 `b=1`，而 `a` 和 `t` 处于纠缠态，其 $|00\rangle$ 与 $|11\rangle$ 分量之间的相对相位为 $i$。
+  status: machine
+- id: 1f0f85c2d715278c
+  en: Measuring these branches in the computational basis would give equal probabilities. Replacing $i$ by $-i$ would give the same probabilities but a different quantum state. Comparing complex amplitudes lets us detect that phase error, which a probability-only check would miss.
+  zh: 在计算基下测量这些分支会得到相等概率。将 $i$ 替换为 $-i$ 会给出相同概率，但量子态不同。比较复振幅可以检测这种相位错误，而只检查概率会漏掉它。
+  status: machine
+- id: d20aea1a136e4f13
+  en: Check all eight logical inputs
+  zh: 检查全部八个逻辑输入
+  status: machine
+- id: 7a1f6788c4bf2734
+  en: The superposition check tests coherence for two input branches. We can cover the whole logical subspace by comparing the output for each of its eight basis states, including the complex amplitudes. The `unitary` simulation method gives us all those outputs in the full $12\times12$ matrix of the gate. We run `toffoli_program`, which contains only the gate.
+  zh: 叠加态检查验证了两个输入分支的相干性。通过比较八个基态各自的输出及复振幅，可以覆盖整个逻辑子空间。`unitary` 模拟方法在该门完整的 $12\times12$ 矩阵中给出所有这些输出。运行只包含该门的 `toffoli_program`。
+  status: machine
+- id: 617fc341c1be4810
+  en: Each column is the output state for one basis input. Entry $(i,j)$ is the amplitude for output state $i$ when the input is state $j$. Both axes use the [result conventions](../api/result.md#ordering-and-mutable-values) introduced above. For example, the column for $|110\rangle$ should have unit amplitude in the row for $|111\rangle$.
+  zh: 每列是一个基输入的输出态。矩阵元 $(i,j)$ 表示输入态为 $j$ 时，输出态 $i$ 的振幅。两个轴都使用前面介绍的[结果约定](../api/result.md#ordering-and-mutable-values)。例如，$|110\rangle$ 对应的列应在 $|111\rangle$ 对应的行具有单位振幅。
+  status: machine
+- id: e80bdc742e78a5f7
+  en: 'The logical states are interleaved with the borrowed-level states in this ordering. We select the eight logical rows and columns to obtain the gate''s logical matrix. We also select the four borrowed-level output rows to check for leakage: amplitude left outside the logical subspace at the end of the gate.'
+  zh: 在这种顺序下，逻辑态与借用能级态交错排列。选出八个逻辑行、列，得到该门的逻辑矩阵。再选出四个借用能级输出行，检查泄漏，即门结束时残留在逻辑子空间之外的振幅。
+  status: machine
+- id: a16f0f9189c8606d
+  en: For comparison, we build a reference $8\times8$ Toffoli matrix from its Boolean rule. Here the indices use the three-bit formula $4a+2b+t$. For each input column, `t_bit ^ (a_bit & b_bit)` gives the output target bit; we put a one in the corresponding output row and leave the other entries zero.
+  zh: 为进行比较，根据布尔规则构造参考 $8\times8$ Toffoli 矩阵。这里的索引使用三比特公式 $4a+2b+t$。对于每个输入列，`t_bit ^ (a_bit & b_bit)` 给出输出目标位；将对应输出行设为一，其余矩阵元保持为零。
+  status: machine
+- id: 9ddad430f90c86b7
+  en: Both printed errors should be near floating-point precision. The first assertion compares the logical matrix with Toffoli, including every complex phase. The second requires the amplitudes from logical inputs to level-2 outputs to be zero. These checks use the returned amplitudes without a phase adjustment or renormalization, so a phase mismatch or amplitude left in level 2 would remain visible.
+  zh: 输出的两个误差都应接近浮点精度。第一个断言比较逻辑矩阵与 Toffoli，包括每个复相位。第二个要求从逻辑输入到能级 2 输出的振幅为零。这些检查直接使用返回振幅，不调整相位或重新归一化，因此任何相位不匹配或残留在能级 2 的振幅都不会被掩盖。
+  status: machine
+- id: c96d05614b3d547d
+  en: Any logical superposition is a linear combination of the eight input columns. Matching all those columns, including their phases and their borrowed-level entries, therefore establishes the intended action for arbitrary logical superpositions to numerical precision.
+  zh: 任意逻辑叠加态都是八个输入列的线性组合。因此，匹配全部列，包括相位和借用能级上的矩阵元，就在数值精度内确认了该门对任意逻辑叠加态的预期作用。
+  status: machine
+- id: 2e0696e5071558b5
+  en: With the complex matrix checked, we can visualize the truth table by plotting the squared magnitudes of the eight logical input columns. We keep all twelve output rows so that any final borrowed-level population would also appear.
+  zh: 检查复矩阵后，可以绘制八个逻辑输入列的模平方，将真值表可视化。保留全部十二个输出行，以便显示任何最终借用能级布居。
+  status: machine
+- id: ac9821ae7908f969
+  en: Read the heatmap one column at a time. Inputs `110` and `111` exchange places, while the other six logical inputs return to themselves. The four orange-outlined rows correspond to `b=2` and have zero population to numerical precision for all eight inputs. The figure shows the correct truth table and return to the logical subspace; the complex comparisons above supply the phase-sensitive verification.
+  zh: 逐列阅读热图。输入 `110` 和 `111` 交换位置，其余六个逻辑输入回到自身。橙色边框标出的四行对应 `b=2`，对全部八个输入，其布居在数值精度内为零。图展示了正确的真值表和返回逻辑子空间的过程；上面的复数比较则提供了相位敏感的验证。
+  status: machine
+- id: 4cd2541f277b8271
+  en: Count the interactions
+  zh: 统计相互作用次数
+  status: machine
+- id: a606760d4ee43586
+  en: Having verified the gate, we can count the operations needed to construct it. Each `CClock` couples the qutrit `b` to one qubit, either `a` or `t`. The other gates act on one subsystem at a time. We count these groups in the same `sequence` we simulated, using each operation's `num_subsystems` value. The count covers the gate itself; input preparation is separate.
+  zh: 验证该门后，可以统计构建它所需的操作。每个 `CClock` 将 qutrit `b` 与量子比特 `a` 或 `t` 耦合，其他门每次只作用于一个子系统。在模拟使用的同一个 `sequence` 中，依据各操作的 `num_subsystems` 值分类计数。统计只覆盖门本身，输入制备单独处理。
+  status: machine
+- id: 73aea9e3ee2c5a40
+  en: 'There are eleven primitive instructions: three qubit–qutrit interactions, two single-qubit gates (`H` on `t`), and six single-qutrit gates (four rotations and two level swaps on `b`). Each of the three blocks uses one interaction, with local gates selecting how it acts on the logical states.'
+  zh: 共有十一条基本指令：三次量子比特–qutrit 相互作用、两个单量子比特门（`t` 上的 `H`），以及六个单 qutrit 门（`b` 上的四次旋转和两次能级交换）。三个块各使用一次相互作用，由局域门选择它对逻辑态的作用方式。
+  status: machine
+- id: 7761cbce74fd1262
+  en: In [*Efficient Toffoli Gates Using Qudits*](https://arxiv.org/abs/0806.0654), Ralph, Resch, and Gilchrist showed how access to a third level reduces Toffoli to three controlled-sign interactions. This FatQat construction follows that principle with a different gate sequence. To compare physical speed or fidelity, we would also need the durations and errors of the rotations and interactions.
+  zh: 在 [*Efficient Toffoli Gates Using Qudits*](https://arxiv.org/abs/0806.0654) 中，Ralph、Resch 和 Gilchrist 展示了如何利用第三能级，将 Toffoli 简化为三次受控符号相互作用。本 FatQat 构造遵循该原理，但采用不同的门序列。若要比较物理速度或保真度，还需要旋转与相互作用的时长和误差。
+  status: machine
+- id: d739adfc0cf08bc9
+  en: 'Exercise: leave out restoration'
+  zh: 练习：省略恢复步骤
+  status: machine
+- id: 792bc414fae7e026
+  en: Run the following code after the tutorial cells to omit the restoration block. It applies the first two blocks to $|110\rangle$ and prints the output amplitudes and borrowed-level population. Predict the output state before running it, then compare it with the required $|111\rangle$.
+  zh: 在教程代码单元之后运行以下代码，省略恢复块。它将前两个块作用于 $|110\rangle$，输出振幅和借用能级布居。运行前先预测输出态，再与所需的 $|111\rangle$ 比较。
+  status: machine
+- id: 607972d33a48f509
+  en: Next, replace `basis_state(1, 1, 0)` in the exercise with `coherent_input`. Predict which branch will remain in level 2 and its contribution to `P(b=2)`, then compare the returned amplitudes with `expected_output`. Explain why getting the target bit right on each branch is insufficient to recover the intended quantum state. Finally, use the full `sequence` and check that the middle control returns to the logical subspace.
+  zh: 接着，将练习中的 `basis_state(1, 1, 0)` 替换为 `coherent_input`。预测哪个分支会留在能级 2，以及它对 `P(b=2)` 的贡献，再将返回振幅与 `expected_output` 比较。解释为什么每个分支的目标位正确，还不足以恢复预期量子态。最后使用完整的 `sequence`，检查中间控制位是否返回逻辑子空间。
+  status: machine

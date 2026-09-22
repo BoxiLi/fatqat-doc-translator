@@ -1,0 +1,216 @@
+- id: 3a78695388b38b5c
+  en: Home
+  zh: 主页
+  status: machine
+- id: e4095b778786868d
+  en: Start with one program
+  zh: 从一个程序开始
+  status: machine
+- id: d3b2aefa7524f88c
+  en: Quickstart
+  zh: 快速入门
+  status: machine
+- id: d71f409e900eb6ed
+  en: Programs and registers
+  zh: 程序与寄存器
+  status: machine
+- id: 435e7cb6fa6d898c
+  en: Execution models
+  zh: 执行模型
+  status: machine
+- id: bcab022f89313896
+  en: Run and analyze programs
+  zh: 运行与分析程序
+  status: machine
+- id: 45314e97b0c26a86
+  en: Simulation
+  zh: 模拟
+  status: machine
+- id: 0b450ba46b4d6b79
+  en: Ideal and noisy runs
+  zh: 理想运行与含噪运行
+  status: machine
+- id: 442aded87a55aa8c
+  en: Performance
+  zh: 性能
+  status: machine
+- id: 9a9cc4a72ef682dd
+  en: Model hardware and physics
+  zh: 硬件与物理建模
+  status: machine
+- id: 348c1c6d71f05569
+  en: Transmon emulation
+  zh: Transmon 仿真
+  status: machine
+- id: 2eab1e06090bdc3d
+  en: Neutral-atom emulation
+  zh: 中性原子仿真
+  status: machine
+- id: e6665fc1d2b887bc
+  en: Connect and diagnose
+  zh: 互操作与问题诊断
+  status: machine
+- id: c3af076f92c5ed8d
+  en: Troubleshooting
+  zh: 故障排查
+  status: machine
+- id: 8d9f66992dd4373c
+  en: Tutorials
+  zh: 教程
+  status: machine
+- id: fa67b73f924173f5
+  en: Atom gates
+  zh: 原子门
+  status: machine
+- id: 5ccfda1d2e6f7edc
+  en: Structural operations
+  zh: 结构操作
+  status: machine
+- id: f2b98fa03b5e7013
+  en: Pulse operation
+  zh: 脉冲操作
+  status: machine
+- id: aba195e5a25033a0
+  en: Sampled waveform
+  zh: 采样波形
+  status: machine
+- id: 311d61958b798ee2
+  en: Superconducting profile
+  zh: 超导硬件配置
+  status: machine
+- id: be224f1a4e829978
+  en: Atom-array profile
+  zh: 原子阵列硬件配置
+  status: machine
+- id: 00a5ef93df74d61e
+  en: Transmon emulator
+  zh: Transmon 仿真器
+  status: machine
+- id: 8de013e1075dfe0d
+  en: Neutral-atom emulators
+  zh: 中性原子仿真器
+  status: machine
+- id: 0400649647234c8f
+  en: Pauli channel
+  zh: Pauli 信道
+  status: machine
+- id: efdc19ad0456f1a5
+  en: Amplitude damping
+  zh: 振幅阻尼
+  status: machine
+- id: 6e24bf42abc3c2bc
+  en: Transition relaxation
+  zh: 跃迁弛豫
+  status: machine
+- id: 06dc1bd3c1ac5ca1
+  en: Phase damping
+  zh: 相位阻尼
+  status: machine
+- id: 235c723928862110
+  en: Thermal relaxation
+  zh: 热弛豫
+  status: machine
+- id: 3594f151d3e213e5
+  en: Readout confusion
+  zh: 读出混淆
+  status: machine
+- id: 913a3ce80567b922
+  en: Custom implementations
+  zh: 自定义实现
+  status: machine
+- id: cd1f1dbdda8a0624
+  en: Estimator
+  zh: 估计器
+  status: machine
+- id: 191121b5415625c5
+  en: Implementation maps
+  zh: 实现映射
+  status: machine
+- id: 41086d79c9f4b58a
+  en: Runtime result
+  zh: 运行结果
+  status: machine
+- id: 751b889343959a6a
+  en: Python cell
+  zh: Python 代码单元
+  status: machine
+- id: 051f01f095a28b04
+  en: Track
+  zh: 专题
+  status: machine
+- id: d5fdc1af021e2d36
+  en: Downloads
+  zh: 下载
+  status: machine
+- id: 6923d8b0cc04e3de
+  en: Python script
+  zh: Python 脚本
+  status: machine
+- id: 610e853f5a689f60
+  en: Jupyter notebook
+  zh: Jupyter notebook
+  status: machine
+- id: defc57312aca47bf
+  en: Tutorials collected from the {title} source folder.
+  zh: 来自 {title} 源文件目录的教程。
+  status: machine
+- id: 4a0a39ff71fee55d
+  en: Executable FatQat case studies, from first circuits to many-body dynamics.
+  zh: 可执行的 FatQat 案例，涵盖入门电路到多体动力学。
+  status: machine
+- id: 3d6a9f34a30a31cf
+  en: Go beyond the task-focused user guide with complete, executable case studies. Every card and runtime panel is discovered from the Markdown sources in its category folder.
+  zh: 通过完整、可执行的案例，进一步探索用户指南中各项任务的应用。每张卡片和运行信息面板都从对应分类目录中的 Markdown 源文件自动生成。
+  status: machine
+- id: 140ac7ae079e25b1
+  en: Choose a path
+  zh: 选择学习路径
+  status: machine
+- id: 0942e63d93756e3d
+  en: Begin with the Bell state if you are new to FatQat. The algorithms reuse the same execution model, while the neutral-atom track moves progressively closer to many-body hardware physics.
+  zh: ''
+  status: retired
+- id: 22d7a3a1ec2eadac
+  en: Open tutorial
+  zh: 打开教程
+  status: machine
+- id: 1157606ee47522a8
+  en: Foundations
+  zh: 基础
+  status: machine
+- id: 575898172b5f0175
+  en: Start with a compact circuit whose state, samples, and visual interpretation can all be checked by hand.
+  zh: ''
+  status: retired
+- id: 3c34d938281ebe9c
+  en: Algorithms
+  zh: 算法
+  status: machine
+- id: ee9ffc888e88c806
+  en: Use parameterized programs, optimizers, sweeps, and estimators to answer chemistry and machine-learning questions.
+  zh: 使用参数化程序、优化器、扫描和估计器研究化学与机器学习问题。
+  status: machine
+- id: c37c4a2a31329e4c
+  en: Neutral-atom physics
+  zh: 中性原子物理
+  status: machine
+- id: c40be1212423ae98
+  en: Move from programmable connectivity to continuous-time Rydberg dynamics and constrained many-body evolution.
+  zh: 从可编程连接关系出发，探索连续时间里德堡动力学与受约束的多体演化。
+  status: machine
+- id: 05717b65dd5e8e5e
+  en: Power systems
+  zh: 电力系统
+  status: machine
+- id: 3aa224bb011e292d
+  en: Apply the QUBO and QAOA machinery to grid operation problems, where the encoding decides whether a network fits on the device at all.
+  zh: 将 QUBO 和 QAOA 方法用于电网运行问题。在这类问题中，编码方式决定了设备是否容得下整个网络。
+  status: machine
+- id: da6462b56349cbfe
+  en: In Foundations, borrow a qutrit's third level to build and verify a Toffoli gate. The algorithms reuse the same execution model, while the neutral-atom track moves progressively closer to many-body hardware physics.
+  zh: 在基础教程中，借用 qutrit 的第三个能级构建并验证 Toffoli 门。算法教程复用相同的执行模型，中性原子专题则逐步深入多体硬件物理。
+  status: machine
+- id: ca8a4dadbf50ff97
+  en: Learn to build, run, and interpret compact quantum experiments, from circuits and measurement to control pulses.
+  zh: 学习构建、运行和解读小型量子实验，内容从电路与测量延伸到控制脉冲。
+  status: machine

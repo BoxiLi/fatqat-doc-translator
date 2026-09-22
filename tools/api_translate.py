@@ -75,9 +75,10 @@ def main() -> int:
         f"- {term} -> {translation}"
         for term, translation in (glossary.get("terms") or {}).items()
     )
-    system = SYSTEM_PROMPT.format(glossary=glossary_lines)
+    system = SYSTEM_PROMPT.replace("{glossary}", glossary_lines)
 
     translated = 0
+    seen = {}
     for path in sorted(TRANSLATIONS.rglob("*.yml")):
         if path.name == "glossary.yml":
             continue
@@ -86,7 +87,10 @@ def main() -> int:
         for entry in entries:
             if entry.get("status") != "pending" or translated >= limit:
                 continue
-            entry["zh"] = _request(base, key, model, system, entry["en"])
+            entry["zh"] = seen.get(entry["id"]) or _request(base, key, model, system, entry["en"])
+            if not entry["zh"]:
+                raise ValueError("Translation endpoint returned empty text")
+            seen[entry["id"]] = entry["zh"]
             entry["status"] = "machine"
             translated += 1
             dirty = True

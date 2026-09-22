@@ -1,88 +1,160 @@
 - id: 30a62c058a799f69
   en: Ask questions of a run
   zh: 向一次运行提问
-  status: machine
+  status: retired
 - id: b7f6f82e31146e97
   en: 'Every FatQat execution crosses the same boundary: submit a [`Program`][fatqat.Program], receive a [`Job`][fatqat.Job], and call [`result`][fatqat.Job.result] for the answer. The useful result depends on the question you asked.'
   zh: 每次 FatQat 执行都会跨越同一个边界：提交 [`Program`][fatqat.Program]，得到 [`Job`][fatqat.Job]，再调用 [`result`][fatqat.Job.result] 获取答案。哪种结果有用取决于你提出的问题。
-  status: machine
+  status: retired
 - id: 0d3172bcac9da9b0
   en: 'We will build one Bell Program and use it four ways: observed outcomes, final state, implemented map, and expectation value.'
   zh: 我们将构建一个贝尔 Program，并以四种方式使用它：观测到的结果、最终状态、实现的映射，以及期望值。
-  status: machine
+  status: retired
 - id: fc8b6e458ffeaba2
   en: Build the computation once
   zh: 只构建一次计算
-  status: machine
+  status: retired
 - id: 9a18eaa6ec55139e
   en: 'Keep the Program unmeasured at first. That leaves state-, map-, and observable-based questions open:'
   zh: 先让 Program 保持未测量的状态。这样基于状态、映射和可观测量的问题都仍然可以提出：
-  status: machine
+  status: retired
 - id: 2611b7dd7e9e9957
   en: What outcomes occurred?
   zh: 出现了哪些结果？
-  status: machine
+  status: retired
 - id: e62426c145b70db6
   en: 'Copy the Program and append measurement when the output you want is a sampled classical distribution:'
   zh: 当你需要的输出是采样得到的经典分布时，复制 Program 并追加测量：
-  status: machine
+  status: retired
 - id: e97ac3de82641518
   en: 'Only the correlated Bell outcomes occur. Count strings display the highest classical slot on the left and slot 0 on the right. A deliberately asymmetric example makes that order visible:'
   zh: 只会出现相互关联的贝尔结果。计数字符串把最高的经典槽位显示在左边、槽位 0 显示在右边。一个刻意不对称的示例能让这一顺序清晰可见：
-  status: machine
+  status: retired
 - id: 16f4c5119cb588e5
   en: Qubit 0 is `1`, so classical slot 0 appears as the rightmost digit. Use [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples] when code benefits from slot 0 being first rather than from display strings.
   zh: 量子比特 0 是 `1`，因此经典槽位 0 显示为最右边的数字。当代码更需要槽位 0 排在最前而不是显示字符串时，使用 [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples]。
-  status: machine
+  status: retired
 - id: 0ae8e0ab8329b413
   en: What state did the run reach?
   zh: 这次运行到达了什么状态？
-  status: machine
+  status: retired
 - id: ac77ff6005297a06
   en: 'Run the unmeasured Program and request its natural final state:'
   zh: 运行未测量的 Program，并请求其自然的最终状态：
-  status: machine
+  status: retired
 - id: f4e6ac90e1180c98
   en: '`available_data` tells you what this run actually produced before you choose an accessor. Here the state has equal probability on `|00>` and `|11>`. A density-matrix run expresses the same pure state as a matrix and can also represent exact mixed evolution. Hamiltonian emulators may return states that include non-computational physical levels or model subsystems not addressed by the logical Program.'
   zh: '`available_data` 会在你选择访问器之前告诉你这次运行实际产生了什么。这里的状态在 `|00>` 和 `|11>` 上概率相等。密度矩阵运行以矩阵形式表达同一个纯态，还能表示精确的混合演化。哈密顿量仿真器返回的状态可能包含非计算物理能级，或逻辑 Program 未寻址的模型子系统。'
-  status: machine
+  status: retired
 - id: fd4bb186cbe81fbc
   en: What transformation did the Program implement?
   zh: Program 实现了什么变换？
-  status: machine
+  status: retired
 - id: 11d21aaefd027a73
   en: 'An unmeasured coherent Program can itself be the object of study. Running it with the unitary method returns a matrix whose first column is the state that the Program prepares from `|00>`:'
   zh: 未测量的相干 Program 本身也可以作为研究对象。以 unitary 方法运行它会返回一个矩阵，其第一列就是该 Program 从 `|00>` 制备出的状态：
-  status: machine
+  status: retired
 - id: 3b2b7ef8070f28dd
   en: Use this route for a small coherent block whose complete action matters. A super-operator extends the idea to complete channels at substantially greater cost.
   zh: 当一个小型相干模块的完整作用很重要时，走这条路线。超算符将这一思路扩展到完整的信道，但代价大得多。
-  status: machine
+  status: retired
 - id: 326840fc8dc29964
   en: What physical quantity do I care about?
   zh: 我关心的物理量是什么？
-  status: machine
+  status: retired
 - id: c537bb7e6df5e49f
   en: 'Counts are indirect when the answer is already an expectation value such as a correlation or magnetization. [`Estimator`][fatqat.Estimator] evolves the unmeasured Program through a backend and evaluates an [`Observable`][fatqat.Observable] on the resulting state:'
   zh: 当答案本身就是期望值（例如关联或磁化强度）时，计数就显得间接。[`Estimator`][fatqat.Estimator] 通过某个后端演化未测量的 Program，并在得到的状态上求值一个 [`Observable`][fatqat.Observable]：
-  status: machine
+  status: retired
 - id: 699e98543f54406d
   en: The Bell pair is perfectly correlated, so `<ZZ> = 1`. Either individual qubit is balanced between zero and one, so `<Z_0> = 0`. Observable labels place qubit 0 at the right, matching count-string order.
   zh: 贝尔对是完全关联的，因此 `<ZZ> = 1`。任一单个量子比特在零和一之间均衡分布，因此 `<Z_0> = 0`。可观测量标签把量子比特 0 放在右边，与计数字符串的顺序一致。
-  status: machine
+  status: retired
 - id: cd00ec896271f370
   en: 'By default, Estimator calculates an exact value from the final state. A positive shot count instead shows the statistical precision of a finite-shot request:'
   zh: 默认情况下，Estimator 从最终状态计算精确值。给定正的 shot 数则会转而展示有限 shot 请求的统计精度：
-  status: machine
+  status: retired
 - id: 94522ff0c66b904f
   en: The estimate fluctuates around zero, and `get_std()` reports its standard error. Increase the shots when statistical precision—not state evolution—is the limiting factor.
   zh: 估计值在零附近波动，`get_std()` 报告其标准误差。当限制因素是统计精度——而非状态演化——时，增加 shot 数。
-  status: machine
+  status: retired
 - id: c39ced49852e32fa
   en: For formal state-axis, operator-vectorization, and observable-shape contracts, use the [Result](../api/result.md), [Simulator](../api/simulator.md), and [Estimator](../api/estimator.md) references.
   zh: 关于状态轴、算符向量化和可观测量形状的正式契约，请查阅 [Result](../api/result.md)、[Simulator](../api/simulator.md) 和 [Estimator](../api/estimator.md) 参考。
-  status: machine
+  status: retired
 - id: f4ab5dfd52a23f60
   en: The next question is often whether that answer survives realistic errors. [Compare the same Program ideally and noisily](ideal-and-noisy.md) changes the execution model while leaving the Bell Program untouched.
   zh: 接下来的问题往往是：这个答案在真实误差下是否仍然成立。[在理想与含噪条件下比较同一个 Program](ideal-and-noisy.md)改变的是执行模型，而贝尔 Program 保持原样。
+  status: retired
+- id: e0f311227e5df258
+  en: Estimate observables
+  zh: 估计可观测量
+  status: machine
+- id: de78884df70f702a
+  en: Use [`Estimator`][fatqat.Estimator] to calculate expectation values, such as spin correlations or energies. Define the quantity with an [`Observable`][fatqat.Observable], then supply a Program and a [compatible simulator or emulator](../api/estimator.md#exact-and-sampled-results). You can calculate the expectation directly from the state or estimate it from a finite number of measurement shots.
+  zh: 使用 [`Estimator`][fatqat.Estimator] 计算自旋关联或能量等期望值。用 [`Observable`][fatqat.Observable] 定义所需的量，再提供 Program 和[兼容的模拟器或仿真器](../api/estimator.md#exact-and-sampled-results)。可以直接从态计算期望值，也可以用有限次测量采样进行估计。
+  status: machine
+- id: a013c4a700936969
+  en: 'The examples below use the general-purpose `Simulator` and two Bell states. Adding a `Z` operation to the Bell circuit changes its relative phase while leaving its computational-basis probabilities unchanged:'
+  zh: 下面的示例使用通用 `Simulator` 和两个 Bell 态。在 Bell 电路中添加 `Z` 操作会改变相对相位，但保持计算基概率不变：
+  status: machine
+- id: 9641ba0b9862ff14
+  en: Both states give `00` or `11` with equal probability. Their state vectors are \((|00\rangle + |11\rangle)/\sqrt{2}\) and \((|00\rangle - |11\rangle)/\sqrt{2}\). To distinguish them, we need to measure in another basis.
+  zh: 两个态均以相等概率给出 `00` 或 `11`。它们的态矢量分别为 \((|00\rangle + |11\rangle)/\sqrt{2}\) 和 \((|00\rangle - |11\rangle)/\sqrt{2}\)。要区分二者，需要在另一组基下测量。
+  status: machine
+- id: aa8caaf1b81336c5
+  en: Calculate correlations
+  zh: 计算关联
+  status: machine
+- id: 719106c44b65f4e8
+  en: A Pauli measurement along the X or Z axis has outcomes `+1` and `-1`. For Z, `|0>` corresponds to `+1` and `|1>` to `-1`. `ZZ` measures the product of the two qubits' Z outcomes; `XX` does the same along X. An expectation of `+1` means the outcomes always agree, while `-1` means they are always opposite.
+  zh: 沿 X 或 Z 轴的 Pauli 测量结果为 `+1` 和 `-1`。对于 Z，`|0>` 对应 `+1`，`|1>` 对应 `-1`。`ZZ` 测量两个量子比特 Z 结果的乘积，`XX` 则对 X 方向做同样的事。期望值为 `+1` 表示结果始终一致，为 `-1` 表示始终相反。
+  status: machine
+- id: 4d04ade7f80053a6
+  en: 'Pass a list of observables to calculate both correlations in one request:'
+  zh: 传入可观测量列表，即可在一次请求中计算两个关联：
+  status: machine
+- id: 96fd6aadd7b6c8a3
+  en: 'The results follow the order `[zz, xx]`. Both states have `ZZ = 1`: their Z outcomes always agree. The `XX` values distinguish them. X outcomes always agree for the original Bell state and are always opposite for the phase-flipped state.'
+  zh: 结果按 `[zz, xx]` 的顺序返回。两个态都满足 `ZZ = 1`，即 Z 结果始终一致。`XX` 的值可以区分它们：原始 Bell 态的 X 结果始终一致，相位翻转后则始终相反。
+  status: machine
+- id: a3e8a781e85c0c7c
+  en: 'Each tuple in an `Observable` contains a Pauli label and its real coefficient. For example, `("ZZ", 1.0)` represents Z on both qubits with coefficient 1. Labels follow qubit order from left to right, and `I` is the identity: `ZI` measures Z on qubit 0 alone. To calculate a weighted sum, such as an energy, include its terms in the same `Observable`.'
+  zh: '`Observable` 中的每个元组包含一个 Pauli 标签及其实系数。例如，`("ZZ", 1.0)` 表示系数为 1、作用于两个量子比特的 Z。标签从左到右遵循量子比特顺序，`I` 是恒等算符：`ZI` 仅测量量子比特 0 上的 Z。若要计算能量等加权和，请将各项放入同一个 `Observable`。'
+  status: machine
+- id: 09ab7c95017ed787
+  en: By default, `Estimator.run` uses `shots=0` to calculate the expectation directly from the state. The Program must be unmeasured; the estimator adds the required measurements when you request sampling.
+  zh: 默认情况下，`Estimator.run` 使用 `shots=0` 直接从态计算期望值。Program 必须不含测量；请求采样时，估计器会添加所需的测量。
+  status: machine
+- id: afaffc9442ea7089
+  en: Estimate from samples
+  zh: 从样本估计
+  status: machine
+- id: 0fbd3d9e5cda0e4e
+  en: 'Set `shots` to a positive integer to estimate an expectation from sampled measurements. For `ZI` on the original Bell state, each shot gives `+1` or `-1` with equal probability. The exact expectation is zero, but a finite sample usually gives a small nonzero mean:'
+  zh: 将 `shots` 设为正整数，即可通过采样测量估计期望值。对于原始 Bell 态上的 `ZI`，每次采样以相等概率得到 `+1` 或 `-1`。精确期望值为零，但有限样本的均值通常略微偏离零：
+  status: machine
+- id: 9e0ff5b29b234cd7
+  en: For a single observable, `get_expectation()` and `get_standard_error()` each return a scalar. This run gives an estimate of `-0.045` with a standard error of about `0.05`. The standard error describes the expected spread of estimates if you repeated the run with the same number of shots.
+  zh: 对于单个可观测量，`get_expectation()` 和 `get_standard_error()` 各返回一个标量。此次运行得到估计值 `-0.045`，标准误差约为 `0.05`。标准误差描述了以相同采样次数重复运行时，估计值预期的离散程度。
+  status: machine
+- id: 0de5cbcaafd74856
+  en: 'Increase `shots` for better precision. The plot below shows estimates from 100 to 6,400 shots, with error bars extending one standard error above and below each estimate:'
+  zh: 增加 `shots` 可以提高精度。下图展示了 100 至 6,400 次采样的估计值，误差棒在每个估计值上下各延伸一个标准误差：
+  status: machine
+- id: 0b9d3fd6ac59a7f6
+  en: '![Estimates of ZI are plotted against increasing shot counts with one-standard-error bars that shrink around the exact expectation of zero.](../assets/generated/guide/observable-uncertainty.png)'
+  zh: '![ZI 估计值随采样次数增加的变化，误差棒表示一个标准误差，并在精确期望值零附近逐渐缩小。](../assets/generated/guide/observable-uncertainty.png)'
+  status: machine
+- id: 83ee380ba9821fe1
+  en: Quadrupling the shots roughly halves the standard error. Individual estimates still fluctuate, so a larger sample can give a value farther from zero. The exact value can also fall outside a one-standard-error bar.
+  zh: 采样次数增至四倍，标准误差大致减半。单次估计仍有波动，因此更大的样本也可能得到离零更远的值。精确值也可能落在一个标准误差的误差棒之外。
+  status: machine
+- id: 0b0418d8a9138516
+  en: Circuit noise can change the expectation itself. Configure noise on the estimator's backend as described in [Ideal and noisy runs](ideal-and-noisy.md). A density-matrix backend can calculate the expectation with noise channels directly; increasing the shot count improves the precision of a sampled estimate of that noisy expectation.
+  zh: 电路噪声可以改变期望值本身。按照[理想运行与含噪运行](ideal-and-noisy.md)中的说明，在估计器后端上配置噪声。密度矩阵后端可以直接计算包含噪声信道的期望值；增加采样次数则能提高对该含噪期望值的采样估计精度。
+  status: machine
+- id: 040de4c07b00d573
+  en: See the [Estimator API](../api/estimator.md) for supported backends, observable construction, and run options.
+  zh: 支持的后端、可观测量构造方式和运行选项见[估计器 API](../api/estimator.md)。
   status: machine

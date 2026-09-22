@@ -1,0 +1,52 @@
+- id: 4cb5a2167b8403dd
+  en: LogicalProgram
+  zh: LogicalProgram
+  status: machine
+- id: f928299f5cbb70d0
+  en: Use [`LogicalProgram`][fatqat.LogicalProgram] to describe a circuit that FatQat will compile for a hardware profile. It follows the familiar [`Program`](program.md) interface, so the same circuit can also be simulated directly.
+  zh: 使用 [`LogicalProgram`][fatqat.LogicalProgram] 描述电路，由 FatQat 将其编译为面向硬件配置的程序。它沿用熟悉的 [`Program`](program.md) 接口，因此同一电路也可以直接模拟。
+  status: machine
+- id: 453663e8eb4ffd00
+  en: '`LogicalProgram(2, 2)` creates two logical qubits and two classical bits. `add()` appends gates, while `measure()` and `measure_all()` record measurement results. These methods update the circuit in place.'
+  zh: '`LogicalProgram(2, 2)` 创建两个逻辑量子比特和两个经典位。`add()` 追加量子门，`measure()` 和 `measure_all()` 记录测量结果。这些方法会原地更新电路。'
+  status: machine
+- id: 1b03518789170a58
+  en: Compile or simulate the circuit
+  zh: 编译或模拟电路
+  status: machine
+- id: 77d1e5d89899824f
+  en: 'Compile the circuit by choosing a target family:'
+  zh: 选择目标类型以编译电路：
+  status: machine
+- id: ae6c168240365fe4
+  en: 'For algorithm development, the same circuit can run directly on the general simulator:'
+  zh: 开发算法时，同一电路可以直接在通用模拟器上运行：
+  status: machine
+- id: 303571ba799a8d0c
+  en: See [Compile and run a logical circuit](../guide/compiler.md) for complete SC, neutral-atom, and OpenQASM workflows.
+  zh: 完整的 SC、中性原子和 OpenQASM 工作流程见[编译并运行逻辑电路](../guide/compiler.md)。
+  status: machine
+- id: 010c44e9717d1225
+  en: Reuse parameterized circuits
+  zh: 复用参数化电路
+  status: machine
+- id: b9d87f4a5b705a4b
+  en: '`copy()` returns a `LogicalProgram` with independent instructions and top-level metadata. Values nested inside metadata remain shared. `assign_parameters()` returns a new `LogicalProgram` with the selected values, leaving the original template unchanged.'
+  zh: '`copy()` 返回一个指令和顶层元数据相互独立的 `LogicalProgram`。元数据内部嵌套的值仍然共享。`assign_parameters()` 返回一个绑定了所选参数值的新 `LogicalProgram`，原始模板保持不变。'
+  status: machine
+- id: 466b158092fd1f1c
+  en: Bind all parameters to numeric values before compiling. Partial binding remains useful while assembling a larger template.
+  zh: 编译前需将所有参数绑定为数值。构建较大模板时，部分绑定仍然有用。
+  status: machine
+- id: e93e26809f52effc
+  en: Choose between LogicalProgram and Program
+  zh: 选择 LogicalProgram 或 Program
+  status: machine
+- id: 87609141707bf8ea
+  en: '`LogicalProgram` is for device-independent gates that can be lowered by the compiler. Use [`Program`](program.md) when you are constructing physical operations directly, such as atom placement, pairing, or pulse controls, or when you are adding custom operation types.'
+  zh: '`LogicalProgram` 用于可由编译器降级转换的设备无关量子门。如果要直接构建原子放置、配对或脉冲控制等物理操作，或者添加自定义操作类型，请使用 [`Program`](program.md)。'
+  status: machine
+- id: 04e41354faeb8034
+  en: Classical conditions are available when simulating a `LogicalProgram` directly. The current compiler handles static circuits with terminal measurements; the [compiler guide](../guide/compiler.md#current-compiler-support) summarizes the supported inputs.
+  zh: 直接模拟 `LogicalProgram` 时可以使用经典条件。当前编译器处理带末端测量的静态电路；支持的输入见[编译器指南](../guide/compiler.md#current-compiler-support)。
+  status: machine

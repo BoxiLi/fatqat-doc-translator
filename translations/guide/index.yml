@@ -5,7 +5,7 @@
 - id: d3df2cc97b2ba1eb
   en: Choose the level of detail that answers your question. Every path starts from the same backend-independent [`Program`][fatqat.Program], so moving from an algorithm study to a hardware or physics study does not require a second authoring model.
   zh: 选择能回答你问题的细节层级。每条路径都从同一个与后端无关的 [`Program`][fatqat.Program] 出发，因此从算法研究转向硬件或物理研究并不需要第二套编写模型。
-  status: machine
+  status: retired
 - id: b2608199afbcf2fe
   en: '![Five-qubit variational ansatz](../assets/generated/guide/guide-path-algorithm.png){ loading=lazy width="636" height="409" }'
   zh: '![五量子比特变分拟设](../assets/generated/guide/guide-path-algorithm.png){ loading=lazy width="636" height="409" }'
@@ -17,7 +17,7 @@
 - id: 0603685298480922
   en: Start with ideal circuit behavior, inspect states and measurements, then add controlled noise and measure performance.
   zh: 从理想电路行为开始，检查状态和测量，然后加入受控的噪声并衡量性能。
-  status: machine
+  status: retired
 - id: a55f972269404651
   en: '[Start with simulation :material-arrow-right:](simulation.md)'
   zh: '[从模拟开始 :material-arrow-right:](simulation.md)'
@@ -33,7 +33,7 @@
 - id: eb870c531e4bf93c
   en: Add topology, native operations, placement, occupancy, movement, and reference noise without changing the logical workload.
   zh: 在不改变逻辑工作负载的情况下，加入拓扑、原生操作、放置、占用、移动和参考噪声。
-  status: machine
+  status: retired
 - id: d24245b1fe2c7c94
   en: '[Open hardware-profile simulation :material-arrow-right:](hardware-profile-simulation.md)'
   zh: '[打开硬件配置文件模拟 :material-arrow-right:](hardware-profile-simulation.md)'
@@ -49,7 +49,7 @@
 - id: 82f31475a823abd7
   en: Resolve calibrated gates and direct pulse controls into continuous dynamics for transmons and neutral atoms.
   zh: 将校准的门和直接脉冲控制解析为 transmon 与中性原子的连续动力学。
-  status: machine
+  status: retired
 - id: 197f1a458192becc
   en: '[Open Hamiltonian emulation :material-arrow-right:](hamiltonian-emulation.md)'
   zh: '[打开哈密顿量仿真 :material-arrow-right:](hamiltonian-emulation.md)'
@@ -57,19 +57,19 @@
 - id: c2fbdff2be61a55c
   en: One Program, three levels
   zh: 一个 Program，三个层级
-  status: machine
+  status: retired
 - id: 16d344c0b2e0fb02
   en: Begin with a working program
   zh: 从一个可运行的程序开始
-  status: machine
+  status: retired
 - id: 81408cccd382026f
   en: New to FatQat? [Build and run a Bell program](quickstart.md). It takes about ten minutes and ends with a circuit drawing and a counts plot.
   zh: 初次接触 FatQat？[构建并运行一个贝尔程序](quickstart.md)。它大约需要十分钟，最后会得到一张电路图和一张计数图。
-  status: machine
+  status: retired
 - id: 3d039d4c8ded5334
   en: When you are ready to go beyond the first circuit, [write a richer Program](program.md). That chapter introduces named registers, classical control, reusable parameters, and mixed qubit–qutrit systems without changing the authoring model.
   zh: 当你准备超越第一个电路时，请[编写更丰富的 Program](program.md)。那一章介绍命名寄存器、经典控制、可复用参数以及量子比特–qutrit 混合系统，而无需改变编写模型。
-  status: machine
+  status: retired
 - id: 199aa25730d144d7
   en: '!!! tip'
   zh: '!!! tip'
@@ -81,16 +81,84 @@
 - id: 1080a3d338cf5d1d
   en: '| Question | Execution target | Typical answer |'
   zh: '| 问题 | 执行目标 | 典型答案 |'
-  status: machine
+  status: retired
 - id: d2e2f49bf495ee0a
   en: '| What does the algorithm do? | General simulator | Counts, states, expectations, or a unitary |'
   zh: '| 算法做了什么？ | 通用模拟器 | 计数、状态、期望值或酉矩阵 |'
-  status: machine
+  status: retired
 - id: 1b8f6b17b5797f3e
   en: '| Does it fit this device profile? | Hardware-profile simulator | Native-operation, layout, and noise behavior |'
   zh: '| 它符合这个设备配置文件吗？ | 硬件配置文件模拟器 | 原生操作、布局与噪声行为 |'
-  status: machine
+  status: retired
 - id: f3e03c4b532b6ca3
   en: '| What dynamics produce it? | Hamiltonian emulator | Time evolution, leakage, occupancy, and pulse effects |'
   zh: '| 什么样的动力学产生了它？ | 哈密顿量仿真器 | 时间演化、泄漏、占用与脉冲效应 |'
+  status: retired
+- id: 3c607c2c258c3bf6
+  en: Choose the level of detail that answers your question. Direct simulation and physics workflows start from the same backend-independent [`Program`][fatqat.Program]. When mapping and routing are part of the question, start from the compiler's concise [`LogicalProgram`][fatqat.LogicalProgram] instead.
+  zh: ''
+  status: retired
+- id: 87bd519875584b72
+  en: New to FatQat?
+  zh: 初次使用 FatQat？
+  status: machine
+- id: 5e6b46ba4d76696f
+  en: '[Build, draw, and run a Bell program](quickstart.md), then learn how to [write Programs and registers](program.md). When you are ready to compare backends, [choose how much physics to model](execution-models.md).'
+  zh: 先[构建、绘制并运行 Bell 程序](quickstart.md)，再学习[编写 Program 和寄存器](program.md)。准备好比较后端时，可[选择需要建模的物理细节](execution-models.md)。
+  status: machine
+- id: e47b6c18d04de867
+  en: Choose an execution path
+  zh: 选择执行路径
+  status: machine
+- id: 77ca0539d56d4aa7
+  en: Simulate states, measurements, observables, and parameter sweeps, then compare ideal and noisy results or tune performance.
+  zh: 模拟态、测量、可观测量和参数扫描，再比较理想与含噪结果，或调整性能。
+  status: machine
+- id: 643afd5e2f430d6d
+  en: Check native operations, placement, connectivity, capacity, atom occupancy, pairing, and reference noise.
+  zh: 检查原生操作、放置、连接关系、容量、原子占据、配对和参考噪声。
+  status: machine
+- id: aeff105564baafc7
+  en: Follow calibrated transmon gates and direct pulse controls as continuous dynamics, with built-in models for transmons and neutral atoms.
+  zh: 使用 transmon 和中性原子的内置模型，通过连续动力学跟踪校准 transmon 门与直接脉冲控制。
+  status: machine
+- id: acd3ea8d36e24bf4
+  en: '[Compare the execution levels](execution-models.md) if you are unsure which path contains the detail your study needs.'
+  zh: 如果不确定哪条路径包含研究所需的细节，请先[比较执行层级](execution-models.md)。
+  status: machine
+- id: 5997d80375de01f4
+  en: To compile an editable gate circuit for a superconducting or neutral-atom target, continue with [Compile a logical circuit](compiler.md).
+  zh: 若要将可编辑的门电路编译到超导或中性原子目标，请继续阅读[编译逻辑电路](compiler.md)。
+  status: machine
+- id: 9ce9ddbaa838b9d4
+  en: Continue by task
+  zh: 按任务继续阅读
+  status: machine
+- id: fc5a96b97f78a695
+  en: :material-chart-box-outline:{ .lg .middle } **Simulate and analyze**
+  zh: :material-chart-box-outline:{ .lg .middle } **模拟与分析**
+  status: machine
+- id: f97507a79e8abb6d
+  en: '[Simulation](simulation.md) · [Observables](interpret-results.md) · [Ideal and noisy runs](ideal-and-noisy.md) · [Visualization](visualization.md) · [Performance](performance.md)'
+  zh: '[模拟](simulation.md) · [可观测量](interpret-results.md) · [理想运行与含噪运行](ideal-and-noisy.md) · [可视化](visualization.md) · [性能](performance.md)'
+  status: machine
+- id: 8fed65b90a08bb3d
+  en: :material-memory:{ .lg .middle } **Model hardware and dynamics**
+  zh: :material-memory:{ .lg .middle } **硬件与动力学建模**
+  status: machine
+- id: 9c7bf88b62eec61a
+  en: '[Hardware profiles](hardware-profile-simulation.md) · [Hamiltonian emulation](hamiltonian-emulation.md) · [Transmons](transmon-emulation.md) · [Neutral atoms](neutral-atom-emulation.md)'
+  zh: '[硬件配置](hardware-profile-simulation.md) · [哈密顿量仿真](hamiltonian-emulation.md) · [Transmon](transmon-emulation.md) · [中性原子](neutral-atom-emulation.md)'
+  status: machine
+- id: 6afa8a1317501315
+  en: :material-transit-connection-variant:{ .lg .middle } **Connect and diagnose**
+  zh: :material-transit-connection-variant:{ .lg .middle } **互操作与问题诊断**
+  status: machine
+- id: 38dc3347fc810932
+  en: '[OpenQASM and Qiskit](interoperability.md) · [Troubleshooting](troubleshooting.md)'
+  zh: '[OpenQASM 和 Qiskit](interoperability.md) · [故障排查](troubleshooting.md)'
+  status: machine
+- id: 692fb192bcb3b4d0
+  en: Choose the level of detail that answers your question. Direct simulation and physics workflows start from the same backend-independent [`Program`][fatqat.Program]. When mapping and routing are part of the question, author a [`LogicalProgram`][fatqat.LogicalProgram] for the [compiler](compiler.md).
+  zh: 选择足以回答问题的细节层级。直接模拟与物理工作流程从同一个后端无关的 [`Program`][fatqat.Program] 出发。当问题涉及映射与路由时，为[编译器](compiler.md)编写 [`LogicalProgram`][fatqat.LogicalProgram]。
   status: machine

@@ -4,6 +4,11 @@ title: "PulseOperation"
 
 # PulseOperation
 
+!!! warning "Pulse control under development"
+
+    The pulse control module is under active development. Its interfaces and
+    supported behavior may change between releases. Pin an exact FatQat
+    version when reproducibility matters.
 
 [`PulseOperation`][fatqat.operations.PulseOperation] adds an explicit pulse block to a program. Import
 it from `fatqat.operations`, normally as `ops.PulseOperation`.
@@ -29,8 +34,12 @@ Background noise selected by target or device label still applies.
 ## Support
 
 
-The three pulse emulators listed in [Pulse control](index.md) support
-`PulseOperation`. [Matrix simulators and their device profiles](../simulators/index.md) do not; neither do circuit drawing or OpenQASM export.
+Direct `PulseOperation` blocks run on
+[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] and
+[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator].
+[Pulse control](index.md) compares their channels and units. [Matrix simulators
+and their device profiles](../simulators/index.md) do not accept direct pulse
+blocks, and neither circuit drawing nor OpenQASM export can represent them.
 
 ## Reference
 

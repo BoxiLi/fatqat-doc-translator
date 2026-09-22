@@ -50,3 +50,7 @@
   en: File I/O and text-decoding failures from [`from_qasm_file`][fatqat.qasm.from_qasm_file] use the underlying Python exceptions.
   zh: '[`from_qasm_file`][fatqat.qasm.from_qasm_file] 的文件 I/O 和文本解码失败使用底层的 Python 异常。'
   status: machine
+- id: 1a3d2dace00aec2d
+  en: 'Quantum operands remain positional: `cx q[0], q[1]` keeps q0 as the first operand. OpenQASM whole-register condition integers use the language''s classical weighting, where bit `i` contributes `2**i`. Thus `(c0, c1) = (1, 0)` exports as `if (c == 1)`, while `(0, 1)` exports as `if (c == 2)`. FATQAT count strings still display `c0` first.'
+  zh: 量子操作数仍按位置解释：`cx q[0], q[1]` 保持 q0 为第一个操作数。OpenQASM 对整个寄存器的条件整数使用其经典位权约定，即位 `i` 的贡献为 `2**i`。因此，`(c0, c1) = (1, 0)` 导出为 `if (c == 1)`，而 `(0, 1)` 导出为 `if (c == 2)`。FATQAT 的计数字符串仍将 `c0` 显示在最左侧。
+  status: machine

@@ -1,253 +1,206 @@
-"""Build the bilingual documentation site from an upstream clone.
-
-Upstream owns the entire documentation toolchain (root mkdocs.yml, lifecycle
-hooks, figure sources, executable tutorials, validators) and is single-locale
-English. This repository owns the translations. Building therefore means:
-
-1. clone upstream at the pinned commit and verify it matches upstream-docs/
-2. append the language switcher to upstream's mkdocs.yml
-3. build English exactly as upstream does (hooks generate and validate)
-4. translate.py render writes docs/mkdocs/zh/ and tutorial-sources/zh/
-5. build_zh_assets.py retargets upstream's tutorial builder at the zh trees
-   and copies the language-neutral figures
-6. build Chinese with overlay/mkdocs.zh.yml (INHERITs upstream's config)
-7. assemble site/: en/ + zh/ + a root language-chooser page
-
-If upstream restructures its toolchain, the guards here and in
-build_zh_assets.py fail loudly instead of publishing a broken site.
-"""
+"""Build Chinese HTML at the RTD version root from a pinned FatQat checkout."""
 
 from __future__ import annotations
-
 import argparse
-import filecmp
-import html
 import json
 import os
 from pathlib import Path
 import shutil
-import stat
 import subprocess
 import sys
+import yaml
+from site_config import upstream_config, read_config, translate_nav, translate_gallery
+import translate
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-PIN = REPO_ROOT / "UPSTREAM_COMMIT"
-
-LOCALES = (("en", "English"), ("zh", "简体中文"))
-
-ALTERNATE_BLOCK = """
-# Injected by fatqat-doc-translator: header language selector.
-extra:
-  alternate:
-    - name: English
-      link: !ENV [FATQAT_EN_LINK, "/en/"]
-      lang: en
-    - name: 简体中文
-      link: !ENV [FATQAT_ZH_LINK, "/zh/"]
-      lang: zh
-"""
+ROOT = Path(__file__).resolve().parents[1]
 
 
-def _run(command: list[str], **kwargs) -> None:
-    print("+", " ".join(str(part) for part in command), flush=True)
-    subprocess.run(command, check=True, **kwargs)
+def run(command, **kwargs):
+    print("+", " ".join(map(str, command)), flush=True)
+    subprocess.run(list(map(str, command)), check=True, **kwargs)
 
 
-def _remove_readonly(function, path, error) -> None:
-    """Retry removal after clearing a Windows read-only file attribute."""
-
-    del error
-    os.chmod(path, stat.S_IWRITE)
-    function(path)
-
-
-def _clone_upstream(url: str, workdir: Path, commit: str) -> Path:
-    clone = workdir / "upstream"
-    if clone.exists():
-        shutil.rmtree(clone, onexc=_remove_readonly)
-    clone.parent.mkdir(parents=True, exist_ok=True)
-    _run(["git", "init", "--quiet", str(clone)])
-    _run(["git", "-C", str(clone), "remote", "add", "origin", url])
-    _run(["git", "-C", str(clone), "fetch", "--depth", "1", "origin", commit])
-    _run(["git", "-C", str(clone), "checkout", "--quiet", "FETCH_HEAD"])
+def checkout(repository, workdir, commit):
+    clone = workdir.resolve() / "upstream"
+    if not clone.exists():
+        run(["git", "init", "--quiet", clone])
+        run(["git", "-C", clone, "remote", "add", "origin", repository])
+    # A reusable build directory retains expensive tutorial execution caches.
+    actual = subprocess.check_output(
+        ["git", "-C", str(clone), "remote", "get-url", "origin"], text=True
+    ).strip()
+    if actual != repository:
+        raise ValueError("Build directory belongs to a different upstream repository")
+    run(["git", "-C", clone, "fetch", "--depth", "1", "origin", commit])
+    run(["git", "-C", clone, "checkout", "--quiet", "--detach", commit])
     return clone
 
 
-def _assert_layout(clone: Path) -> None:
-    expected = (
-        clone / "mkdocs.yml",
-        clone / "docs" / "mkdocs" / "hooks.py",
-        clone / "docs" / "mkdocs" / "tools" / "build_tutorials.py",
-    )
-    for path in expected:
-        if not path.is_file():
-            raise RuntimeError(
-                f"upstream layout changed: {path.relative_to(clone)} missing; "
-                "adapt inject_build.py"
+def assert_snapshot(clone):
+    for relative in ("en", "tutorial-sources/en"):
+        snapshot = ROOT / "upstream-docs" / relative
+        prefix = "docs/mkdocs/" + relative + "/"
+        tracked = subprocess.check_output(
+            ["git", "-C", str(clone), "ls-files", prefix], text=True
+        ).splitlines()
+        expected = {
+            str(Path(p).relative_to("docs/mkdocs/" + relative)) for p in tracked
+        }
+        actual = {
+            str(p.relative_to(snapshot)) for p in snapshot.rglob("*") if p.is_file()
+        }
+        if expected != actual:
+            raise ValueError(
+                f"Snapshot file list differs from pinned upstream: {relative}"
             )
+        for path in tracked:
+            snap = snapshot / Path(path).relative_to("docs/mkdocs/" + relative)
+            if snap.read_bytes().replace(b"\r\n", b"\n") != (
+                clone / path
+            ).read_bytes().replace(b"\r\n", b"\n"):
+                raise ValueError(f"Snapshot content differs: {path}")
 
 
-def _assert_snapshot_current(clone: Path) -> None:
-    """The database was extracted against upstream-docs/; the clone must match."""
-
-    pairs = (
-        (REPO_ROOT / "upstream-docs" / "en", clone / "docs" / "mkdocs" / "en"),
-        (
-            REPO_ROOT / "upstream-docs" / "tutorial-sources" / "en",
-            clone / "docs" / "mkdocs" / "tutorial-sources" / "en",
+def generate_config(clone, canonical_url):
+    settings = upstream_config()
+    merged = translate.global_map(translate.load_database())
+    lookup = lambda text: translate._lookup(merged, translate.normalize(text)) or text
+    config = yaml.safe_load(
+        (ROOT / "overlay/mkdocs.zh.yml").read_text(encoding="utf-8")
+    )
+    config["hooks"] = [str(ROOT / "overlay/translation_notice.py")]
+    config["nav"] = translate_nav(read_config(clone / "mkdocs.yml")["nav"], lookup)
+    ref_file = ROOT / "UPSTREAM_REF"
+    ref = ref_file.read_text().strip() if ref_file.exists() else "main"
+    version = "latest" if ref == settings["ref"] else ref
+    config["site_url"] = canonical_url.rstrip("/") + "/"
+    config["extra"] = {
+        "alternate": [
+            {
+                "name": "English",
+                "link": settings["english_site"].rstrip("/") + "/" + version + "/",
+                "lang": "en",
+            },
+            {"name": "简体中文", "link": config["site_url"], "lang": "zh"},
+        ]
+    }
+    (clone / "mkdocs.zh.yml").write_text(
+        yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8"
+    )
+    gallery = yaml.safe_load(
+        (clone / "docs/mkdocs/tutorial-sources/gallery.yml").read_text(encoding="utf-8")
+    )
+    target = clone / "gallery.zh.generated.yml"
+    target.write_text(
+        yaml.safe_dump(
+            translate_gallery(gallery, lookup), allow_unicode=True, sort_keys=False
         ),
+        encoding="utf-8",
     )
-    for snapshot, upstream in pairs:
-        comparison = filecmp.dircmp(snapshot, upstream)
-        stack = [comparison]
-        while stack:
-            node = stack.pop()
-            if node.left_only or node.right_only or node.diff_files:
-                raise RuntimeError(
-                    "upstream-docs/ does not match the pinned upstream commit "
-                    f"(first difference under {node.left}); run "
-                    "tools/sync_upstream.py and re-extract before building"
-                )
-            stack.extend(node.subdirs.values())
+    return target
 
 
-def _append_alternate(clone: Path) -> None:
-    config = clone / "mkdocs.yml"
-    text = config.read_text(encoding="utf-8")
-    if "\nextra:" in text or text.startswith("extra:"):
-        raise RuntimeError(
-            "upstream mkdocs.yml now defines extra:; merge the language "
-            "switcher manually in inject_build.py"
-        )
-    config.write_text(text.rstrip() + "\n" + ALTERNATE_BLOCK, encoding="utf-8", newline="\n")
-
-
-def _chooser_page() -> str:
-    supported = json.dumps([code for code, _ in LOCALES])
-    links = "\n".join(
-        f'        <a href="{code}/" hreflang="{code}">{html.escape(label)}</a>'
-        for code, label in LOCALES
-    )
-    return f"""<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FatQat documentation</title>
-    <script>
-      const supported = {supported};
-      const preferred = (navigator.languages?.[0] || navigator.language || "en")
-        .toLowerCase();
-      const target = supported.find(
-        locale => preferred === locale || preferred.startsWith(`${{locale}}-`)
-      ) || "en";
-      window.location.replace(new URL(`${{target}}/`, window.location.href));
-    </script>
-    <style>
-      :root {{ color-scheme: light dark; font-family: system-ui, sans-serif; }}
-      body {{ display: grid; min-height: 100vh; margin: 0; place-items: center; }}
-      main {{ max-width: 36rem; padding: 2rem; text-align: center; }}
-      nav {{ display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }}
-      a {{ border: 1px solid currentColor; border-radius: .5rem; padding: .7rem 1rem; }}
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>FatQat documentation</h1>
-      <p>Select a language if automatic redirection does not start.</p>
-      <nav aria-label="Language selection">
-{links}
-      </nav>
-    </main>
-  </body>
-</html>
-"""
-
-
-def main() -> int:
+def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", required=True, help="directory for the built site")
-    parser.add_argument(
-        "--upstream-url",
-        default="https://github.com/BoxiLi/fatqat.git",
-        help="upstream repository URL or local path",
-    )
-    parser.add_argument(
-        "--workdir",
-        default=str(REPO_ROOT / ".build"),
-        help="scratch directory for the upstream clone",
-    )
-    parser.add_argument("--site-url", default="", help="canonical base URL of the published site")
-    parser.add_argument(
-        "--skip-install",
-        action="store_true",
-        help="assume upstream and its documentation dependencies are already installed",
-    )
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--workdir", type=Path, default=ROOT / ".build")
+    parser.add_argument("--upstream-url", default=upstream_config()["repository"])
+    parser.add_argument("--site-url", default="http://127.0.0.1:8767/")
+    parser.add_argument("--skip-install", action="store_true")
+    parser.add_argument("--require-complete", action="store_true")
     args = parser.parse_args()
-
-    commit = PIN.read_text(encoding="utf-8").strip()
-    clone = _clone_upstream(args.upstream_url, Path(args.workdir), commit)
-    _assert_layout(clone)
-    _assert_snapshot_current(clone)
-    _append_alternate(clone)
-    shutil.copy2(REPO_ROOT / "overlay" / "mkdocs.zh.yml", clone / "mkdocs.zh.yml")
-
+    output = Path(args.output).resolve()
+    if output == ROOT or output in ROOT.parents or (output / ".git").exists():
+        raise ValueError("Output must be a dedicated build directory")
+    if args.require_complete and translate.run_check(require_complete=True):
+        return 1
+    commit = (ROOT / "UPSTREAM_COMMIT").read_text().strip()
+    clone = checkout(args.upstream_url, args.workdir, commit)
+    assert_snapshot(clone)
     python = sys.executable
     if not args.skip_install:
-        _run([python, "-m", "pip", "install", str(clone)])
-        _run(
-            [python, "-m", "pip", "install", "-r",
-             str(clone / "docs" / "mkdocs" / "requirements.txt"), "jieba"]
+        run([python, "-m", "pip", "install", clone])
+        run(
+            [
+                python,
+                "-m",
+                "pip",
+                "install",
+                "-r",
+                clone / "docs/mkdocs/requirements.txt",
+                "jieba",
+            ]
         )
-
-    output = Path(args.output).resolve()
-    if output.exists():
-        shutil.rmtree(output, onexc=_remove_readonly)
-    output.mkdir(parents=True)
-
-    base_url = args.site_url.rstrip("/")
-    environment = os.environ.copy()
-    if base_url:
-        environment["READTHEDOCS_CANONICAL_URL"] = f"{base_url}/en/"
-        environment["FATQAT_ZH_SITE_URL"] = f"{base_url}/zh/"
-        environment["FATQAT_EN_LINK"] = f"{base_url}/en/"
-        environment["FATQAT_ZH_LINK"] = f"{base_url}/zh/"
-
-    # English first: upstream's hooks generate figures and tutorials, fill the
-    # execution caches, and validate the canonical content.
-    _run(
-        [python, "-m", "mkdocs", "build", "-f", "mkdocs.yml", "--strict",
-         "-d", str(output / "en")],
+    env = os.environ.copy()
+    # English is built only to generate/validate shared assets and tutorial caches.
+    run(
+        [
+            python,
+            "-m",
+            "mkdocs",
+            "build",
+            "--strict",
+            "-f",
+            "mkdocs.yml",
+            "-d",
+            args.workdir.resolve() / "english",
+        ],
         cwd=clone,
-        env=environment,
+        env=env,
     )
-
-    render_env = environment.copy()
-    render_env["FATQAT_MKDOCS_ROOT"] = str(clone / "docs" / "mkdocs")
-    render_env["FATQAT_TRANSLATIONS_ROOT"] = str(REPO_ROOT / "translations")
-    _run(
-        [python, str(REPO_ROOT / "tools" / "translate.py"), "render",
-         "--out-root", str(clone / "docs" / "mkdocs")],
-        cwd=REPO_ROOT,
-        env=render_env,
+    mkdocs_root = clone / "docs/mkdocs"
+    env["FATQAT_MKDOCS_ROOT"] = str(mkdocs_root)
+    run(
+        [python, ROOT / "tools/translate.py", "render", "--out-root", mkdocs_root],
+        env=env,
     )
-    _run(
-        [python, str(REPO_ROOT / "tools" / "build_zh_assets.py"), "--clone", str(clone)],
+    shutil.copytree(
+        mkdocs_root / "en/assets", mkdocs_root / "zh/assets", dirs_exist_ok=True
+    )
+    shutil.copytree(
+        ROOT / "overlay/assets", mkdocs_root / "zh/assets", dirs_exist_ok=True
+    )
+    gallery = generate_config(clone, args.site_url)
+    run(
+        [
+            python,
+            ROOT / "tools/build_zh_assets.py",
+            "--clone",
+            clone,
+            "--gallery",
+            gallery,
+        ],
+        env=env,
+    )
+    run(
+        [
+            python,
+            "-m",
+            "mkdocs",
+            "build",
+            "--strict",
+            "-f",
+            "mkdocs.zh.yml",
+            "-d",
+            output,
+        ],
         cwd=clone,
-        env=environment,
+        env=env,
     )
-    _run(
-        [python, "-m", "mkdocs", "build", "-f", "mkdocs.zh.yml", "--strict",
-         "-d", str(output / "zh")],
-        cwd=clone,
-        env=environment,
+    (output / "translation-source.json").write_text(
+        json.dumps(
+            {
+                "repository": args.upstream_url,
+                "commit": commit,
+                "ref": (ROOT / "UPSTREAM_REF").read_text().strip(),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
     )
-
-    (output / "index.html").write_text(_chooser_page(), encoding="utf-8", newline="\n")
-    (output / ".nojekyll").touch()
-    print("inject_build: site written to", output)
+    print("Chinese site:", output)
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

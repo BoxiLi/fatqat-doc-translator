@@ -1,9 +1,18 @@
 # User guide
 
-Choose the level of detail that answers your question. Every path starts from
-the same backend-independent [`Program`][fatqat.Program], so moving from an
-algorithm study to a hardware or physics study does not require a second
-authoring model.
+Choose the level of detail that answers your question. Direct simulation and
+physics workflows start from the same backend-independent
+[`Program`][fatqat.Program]. When mapping and routing are part of the question,
+author a [`LogicalProgram`][fatqat.LogicalProgram] for the
+[compiler](compiler.md).
+
+!!! tip "New to FatQat?"
+
+    [Build, draw, and run a Bell program](quickstart.md), then learn how to
+    [write Programs and registers](program.md). When you are ready to compare
+    backends, [choose how much physics to model](execution-models.md).
+
+## Choose an execution path
 
 <div class="grid cards fatqat-guide-paths" markdown>
 
@@ -11,8 +20,8 @@ authoring model.
 
     :material-chart-bell-curve-cumulative: **Explore the algorithm**
 
-    Start with ideal circuit behavior, inspect states and measurements, then add
-    controlled noise and measure performance.
+    Simulate states, measurements, observables, and parameter sweeps, then
+    compare ideal and noisy results or tune performance.
 
     [Start with simulation :material-arrow-right:](simulation.md)
 
@@ -20,8 +29,8 @@ authoring model.
 
     :material-chip: **Test hardware constraints**
 
-    Add topology, native operations, placement, occupancy, movement, and
-    reference noise without changing the logical workload.
+    Check native operations, placement, connectivity, capacity, atom occupancy,
+    pairing, and reference noise.
 
     [Open hardware-profile simulation :material-arrow-right:](hardware-profile-simulation.md)
 
@@ -29,30 +38,50 @@ authoring model.
 
     :material-atom: **Follow the physics**
 
-    Resolve calibrated gates and direct pulse controls into continuous dynamics
-    for transmons and neutral atoms.
+    Follow calibrated transmon gates and direct pulse controls as continuous
+    dynamics, with built-in models for transmons and neutral atoms.
 
     [Open Hamiltonian emulation :material-arrow-right:](hamiltonian-emulation.md)
 
 </div>
 
-## One Program, three levels
+[Compare the execution levels](execution-models.md) if you are unsure which
+path contains the detail your study needs.
 
-| Question | Execution target | Typical answer |
-| --- | --- | --- |
-| What does the algorithm do? | General simulator | Counts, states, expectations, or a unitary |
-| Does it fit this device profile? | Hardware-profile simulator | Native-operation, layout, and noise behavior |
-| What dynamics produce it? | Hamiltonian emulator | Time evolution, leakage, occupancy, and pulse effects |
+To compile an editable gate circuit for a superconducting or neutral-atom
+target, continue with [Compile a logical circuit](compiler.md).
 
-## Begin with a working program
+## Continue by task
 
-New to FatQat? [Build and run a Bell program](quickstart.md). It takes about
-ten minutes and ends with a circuit drawing and a counts plot.
+<div class="grid cards" markdown>
 
-When you are ready to go beyond the first circuit, [write a richer
-Program](program.md). That chapter introduces named registers, classical
-control, reusable parameters, and mixed qubit–qutrit systems without changing
-the authoring model.
+-   :material-chart-box-outline:{ .lg .middle } **Simulate and analyze**
+
+    ---
+
+    [Simulation](simulation.md) ·
+    [Observables](interpret-results.md) ·
+    [Ideal and noisy runs](ideal-and-noisy.md) ·
+    [Visualization](visualization.md) ·
+    [Performance](performance.md)
+
+-   :material-memory:{ .lg .middle } **Model hardware and dynamics**
+
+    ---
+
+    [Hardware profiles](hardware-profile-simulation.md) ·
+    [Hamiltonian emulation](hamiltonian-emulation.md) ·
+    [Transmons](transmon-emulation.md) ·
+    [Neutral atoms](neutral-atom-emulation.md)
+
+-   :material-transit-connection-variant:{ .lg .middle } **Connect and diagnose**
+
+    ---
+
+    [OpenQASM and Qiskit](interoperability.md) ·
+    [Troubleshooting](troubleshooting.md)
+
+</div>
 
 !!! tip
 

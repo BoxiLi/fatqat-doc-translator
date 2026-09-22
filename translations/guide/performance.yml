@@ -49,7 +49,7 @@
 - id: 4b7ff615ffe11c69
   en: See [Ask questions of a run](interpret-results.md) for choosing an answer and the [Simulator API](../api/simulator.md) for exact method and result constraints.
   zh: 关于如何选择答案，请参阅[向一次运行提问](interpret-results.md)；关于精确的方法和结果约束，请参阅[模拟器 API](../api/simulator.md)。
-  status: machine
+  status: retired
 - id: aff6d0e042b3d6f5
   en: Compare NumPy and Numba on your workload
   zh: 在你的工作负载上比较 NumPy 与 Numba
@@ -129,4 +129,8 @@
 - id: f62d06a81d1002a8
   en: Benchmark the actual model, arrangement, controls, duration, solver settings, and requested result. Do not extrapolate an emulator run from a gate-level Simulator timing. The [emulator API](../api/emulators/index.md) lists the solver and schedule controls available to each physical model.
   zh: 请对实际的模型、排布、控制、时长、求解器设置和所请求的结果进行基准测试。不要用门级 Simulator 的计时来外推仿真器运行的开销。[仿真器 API](../api/emulators/index.md)列出了每种物理模型可用的求解器和调度控制。
+  status: machine
+- id: b0fe69b8b621bc2c
+  en: See [Estimate observables](interpret-results.md) for expectation values and uncertainty, and the [Simulator API](../api/simulator.md) for method and result constraints.
+  zh: 期望值与不确定度见[估计可观测量](interpret-results.md)，方法和结果限制见[模拟器 API](../api/simulator.md)。
   status: machine

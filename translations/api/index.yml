@@ -78,3 +78,11 @@
   en: '[Experimental APIs](experimental.md)'
   zh: '[实验性 API](experimental.md)'
   status: machine
+- id: f8b5f24857553948
+  en: '[Compiler](compiler.md)'
+  zh: '[编译器](compiler.md)'
+  status: machine
+- id: 319c69b773f2423e
+  en: '[LogicalProgram](logical-program.md)'
+  zh: '[LogicalProgram](logical-program.md)'
+  status: machine

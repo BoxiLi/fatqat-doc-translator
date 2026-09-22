@@ -6,3 +6,11 @@
   en: Native FATQAT backends and [`Estimator`][fatqat.Estimator] return a completed [`Job`][fatqat.Job]. Call [`result`][fatqat.Job.result] to obtain the result; it does not wait.
   zh: 原生 FATQAT 后端和 [`Estimator`][fatqat.Estimator] 返回已完成的 [`Job`][fatqat.Job]。调用 [`result`][fatqat.Job.result] 获取结果；该调用不会等待。
   status: machine
+- id: 7a602eb84d82aa3b
+  en: Job API under development
+  zh: Job API 仍在开发中
+  status: machine
+- id: 98a03d4e150ad576
+  en: The Job API is under active development. Its interfaces and supported behavior may change between releases. Pin an exact FatQat version when reproducibility matters.
+  zh: Job API 正在积极开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的确切版本。
+  status: machine
