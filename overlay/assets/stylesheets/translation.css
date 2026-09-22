@@ -19,3 +19,9 @@
     font-size: clamp(1.6rem, 9vw, 1.8rem);
   }
 }
+
+/* Keep the feedback link recognizable without hovering. */
+.md-footer .translation-feedback {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}

@@ -1,12 +1,13 @@
-"""Add the translation disclosure to every Chinese documentation page."""
+"""Add the translation disclosure to the Chinese site's Material footer."""
 
 NOTICE = (
-    '<aside class="admonition note" aria-label="翻译说明">'
-    '<p>本页由大语言模型从英文翻译，可能存在翻译错误。'
-    '<a href="https://github.com/BoxiLi/fatqat-doc-translator/issues">'
-    '反馈翻译问题</a></p></aside>\n'
+    '本文由大语言模型翻译，可能有误。'
+    '<a class="translation-feedback" href="https://github.com/BoxiLi/fatqat-doc-translator/issues">'
+    '发现翻译问题？点此反馈</a>'
 )
 
 
-def on_page_content(html, **kwargs):
-    return NOTICE + html
+def on_config(config, **kwargs):
+    copyright = config.get("copyright", "")
+    config["copyright"] = f"{copyright}<br>{NOTICE}" if copyright else NOTICE
+    return config
