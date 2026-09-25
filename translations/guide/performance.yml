@@ -116,7 +116,7 @@
   status: machine
 - id: 37f6e7b028ddadff
   en: For eligible combinations and error behavior, see [Simulator runtime and execution](../api/simulator.md). Fusion is opt-in, and explicit parallel modes can be rejected when the Program cannot use them.
-  zh: "有关可用组合与错误行为，请参阅[Simulator 运行时与执行](../api/simulator.md)。融合需要显式开启，而当 Program 无法使用显式并行模式时，这些模式可能会被拒绝。"
+  zh: 有关可用组合与错误行为，请参阅[Simulator 运行时与执行](../api/simulator.md)。融合需要显式开启，而当 Program 无法使用显式并行模式时，这些模式可能会被拒绝。
   status: machine
 - id: 32305c55b3b2e6b9
   en: Account for physical emulation separately
@@ -132,5 +132,5 @@
   status: machine
 - id: b0fe69b8b621bc2c
   en: See [Estimate observables](interpret-results.md) for expectation values and uncertainty, and the [Simulator API](../api/simulator.md) for method and result constraints.
-  zh: "期望值与不确定度见[估计可观测量](interpret-results.md)，方法和结果限制见[Simulator API](../api/simulator.md)。"
+  zh: 期望值与不确定度见[估计可观测量](interpret-results.md)，方法和结果限制见[Simulator API](../api/simulator.md)。
   status: machine

@@ -4,7 +4,7 @@
   status: machine
 - id: 3b7a454557263109
   en: '**Result fields**'
-  zh: "**Result 字段**"
+  zh: '**Result 字段**'
   status: machine
 - id: 1ddc6eaa4ff2a32f
   en: '`"final_state"` is a request name, not an available-data name. A produced state or operator uses its concrete representation name from the table. Deterministic unmeasured runs enable method-native output by default. A stochastic pulse-emulator state—caused by measurement, statevector reset, or potentially active statevector Lindblad evolution—must be requested explicitly with `shots=1`.'
