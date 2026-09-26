@@ -76,7 +76,7 @@
   status: machine
 - id: f8f47a58563d185f
   en: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] requires an `Atom2LevelModel` and an arrangement. Its global drive and detuning channels act on every site; see [PulseOperation](pulse-control/pulse-operation.md) for how to add a direct pulse block. A terminal measurement may follow the pulse program, and barriers are ignored. The built-in gate map is empty, so ordinary gates require a custom map. Reset, conditions, per-site controls, mid-circuit measurement, and pulses after measurement are not supported.'
-  zh: "[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 需要一个 `Atom2LevelModel` 和一个排布。其全局驱动通道和失谐通道作用于每个位点；关于如何添加直接脉冲块，请参见 [PulseOperation](pulse-control/pulse-operation.md)。脉冲程序之后可以跟随一次末端测量，barrier 会被忽略。内置门映射为空，因此普通门需要自定义映射。不支持重置、条件、逐位点控制、电路中途测量以及测量之后的脉冲。"
+  zh: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 需要一个 `Atom2LevelModel` 和一个排布。其全局驱动通道和失谐通道作用于每个位点；关于如何添加直接脉冲块，请参见 [PulseOperation](pulse-control/pulse-operation.md)。脉冲程序之后可以跟随一次末端测量，barrier 会被忽略。内置门映射为空，因此普通门需要自定义映射。不支持重置、条件、逐位点控制、电路中途测量以及测量之后的脉冲。'
   status: machine
 - id: b22b8b950b9c3eaf
   en: Model and controls
@@ -84,7 +84,7 @@
   status: machine
 - id: 38f52ec4df7534d9
   en: The runtime model exposes basis order `("g", "r")`, the pulse time unit, and global control selectors, but it contains no geometry or calibration. Retain the decoded source document when application code needs persisted species data, state labels, signed `C6`, interaction-law metadata, parameter units, or channel bounds. Derive the local dimension as `len(model.basis_order)`.
-  zh: "运行时模型暴露基矢顺序 `(\"g\", \"r\")`、脉冲时间单位和全局控制选择器，但不包含几何结构或校准信息。当应用代码需要持久化的原子种类数据、状态标签、带符号的 `C6`、相互作用规律元数据、参数单位或通道边界时，请保留解码后的源文档。局部维度可由 `len(model.basis_order)` 得到。"
+  zh: 运行时模型暴露基矢顺序 `("g", "r")`、脉冲时间单位和全局控制选择器，但不包含几何结构或校准信息。当应用代码需要持久化的原子种类数据、状态标签、带符号的 `C6`、相互作用规律元数据、参数单位或通道边界时，请保留解码后的源文档。局部维度可由 `len(model.basis_order)` 得到。
   status: machine
 - id: 3eba5ccb267af8ad
   en: Create instances with [`from_document`][fatqat.emulator.Atom2LevelModel.from_document]; direct construction is not supported.

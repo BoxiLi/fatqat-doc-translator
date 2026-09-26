@@ -20,7 +20,7 @@
   status: machine
 - id: 21e364de512be153
   en: 'Bare integers are convenient for `Program(2)`, where there is only one quantum register. Once a Program contains several registers, use the register references you created:'
-  zh: "对于只有一个量子 Register 的 `Program(2)`，裸整数很方便。一旦 Program 包含多个 Register，请使用你创建的 Register 引用："
+  zh: 对于只有一个量子 Register 的 `Program(2)`，裸整数很方便。一旦 Program 包含多个 Register，请使用你创建的 Register 引用：
   status: machine
 - id: fa1dda001e9d7328
   en: This also makes each target's local dimension unambiguous. See [Write quantum computations with Program](program.md).
@@ -52,7 +52,7 @@
   status: machine
 - id: 13a948cdb96e44f6
   en: An operation works on Simulator but is unsupported here
-  zh: "某条指令在 Simulator 上可用，在这里却不受支持"
+  zh: 某条指令在 Simulator 上可用，在这里却不受支持
   status: machine
 - id: f9546d1afd71b66a
   en: That usually means the selected hardware profile or emulator cannot realize the instruction as written. The general simulator accepts a wider logical operation set; constrained targets intentionally do not.
@@ -84,7 +84,7 @@
   status: machine
 - id: 92152188b5a272ec
   en: The operation can be native while its two physical locations are not connected. Inspect or choose a [`ResourceLayout`][fatqat.ResourceLayout] and keep the ordered logical targets distinct from their device labels. The worked failure-and-fix is in [Test a Program against a hardware profile](hardware-profile-simulation.md).
-  zh: "量子门本身可以是原生的，但它的两个物理位置并不相连。请检查或选择 [`ResourceLayout`][fatqat.ResourceLayout]，并把有序的逻辑目标与它们的设备标号区分开。完整的失败与修复示例见[用硬件配置文件检验 Program](hardware-profile-simulation.md)。"
+  zh: 量子门本身可以是原生的，但它的两个物理位置并不相连。请检查或选择 [`ResourceLayout`][fatqat.ResourceLayout]，并把有序的逻辑目标与它们的设备标号区分开。完整的失败与修复示例见[用硬件配置文件检验 Program](hardware-profile-simulation.md)。
   status: machine
 - id: 81ebaa3fc23e5356
   en: A direct control is rejected by an emulator
@@ -92,7 +92,7 @@
   status: machine
 - id: c65497b61f8c09e0
   en: Each pulse channel comes from a particular physical model and identifies one of that model's resources. Build the control from the same model used by the emulator. Then check that the waveform uses the model's time and control units, that its values are allowed, and that the operation duration covers every control. [Follow a Program into physical dynamics](hamiltonian-emulation.md) builds this chain one piece at a time.
-  zh: "每个脉冲控制通道都来自特定的物理模型，并标识该模型的某个资源。请从仿真器所用的同一模型构建控制。然后检查波形是否使用该模型的时间和控制单位、其数值是否被允许，以及脉冲块时长是否覆盖每个控制。[跟随 Program 进入物理动力学](hamiltonian-emulation.md)逐步构建了这条链路。"
+  zh: 每个脉冲控制通道都来自特定的物理模型，并标识该模型的某个资源。请从仿真器所用的同一模型构建控制。然后检查波形是否使用该模型的时间和控制单位、其数值是否被允许，以及脉冲块时长是否覆盖每个控制。[跟随 Program 进入物理动力学](hamiltonian-emulation.md)逐步构建了这条链路。
   status: machine
 - id: f78c928a5db65fdb
   en: Configuring the run
@@ -160,7 +160,7 @@
   status: machine
 - id: fcab0e9ab2780f25
   en: keep one register and one operation;
-  zh: "只保留一个 Register 和一个 Operation；"
+  zh: 只保留一个 Register 和一个 Operation；
   status: machine
 - id: 1b865511cf0921f1
   en: run it with the general `Simulator`;
@@ -176,7 +176,7 @@
   status: machine
 - id: f01c2ebce4dc4155
   en: restore operations one at a time.
-  zh: "逐条恢复程序指令。"
+  zh: 逐条恢复程序指令。
   status: machine
 - id: d68a13ad257b7859
   en: The step where it changes tells you which boundary to inspect. Preserve the small reproducer—it is also the most useful starting point for a bug report.
