@@ -92,7 +92,7 @@
   status: machine
 - id: 22d9daa28a5e204c
   en: Simulator translation
-  zh: "转换为 Simulator 输入"
+  zh: 转换为 Simulator 输入
   status: machine
 - id: 5d564287e3eafeea
   en: Use these functions when working with a final compiler IR that was constructed or modified directly. Results returned by the normal compile functions are already ready for simulation.

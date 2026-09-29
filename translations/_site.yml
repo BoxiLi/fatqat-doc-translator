@@ -12,7 +12,7 @@
   status: machine
 - id: d71f409e900eb6ed
   en: Programs and registers
-  zh: "Program 与 Register"
+  zh: Program 与 Register
   status: machine
 - id: 435e7cb6fa6d898c
   en: Execution models
@@ -68,7 +68,7 @@
   status: machine
 - id: f2b98fa03b5e7013
   en: Pulse operation
-  zh: "PulseOperation"
+  zh: PulseOperation
   status: machine
 - id: aba195e5a25033a0
   en: Sampled waveform
@@ -120,7 +120,7 @@
   status: machine
 - id: cd1f1dbdda8a0624
   en: Estimator
-  zh: "Estimator"
+  zh: Estimator
   status: machine
 - id: 191121b5415625c5
   en: Implementation maps
@@ -157,11 +157,11 @@
 - id: 4a0a39ff71fee55d
   en: Executable FatQat case studies, from first circuits to many-body dynamics.
   zh: 可执行的 FatQat 案例，涵盖入门电路到多体动力学。
-  status: machine
+  status: retired
 - id: 3d6a9f34a30a31cf
   en: Go beyond the task-focused user guide with complete, executable case studies. Every card and runtime panel is discovered from the Markdown sources in its category folder.
   zh: 通过完整、可执行的案例，进一步探索用户指南中各项任务的应用。每张卡片和运行信息面板都从对应分类目录中的 Markdown 源文件自动生成。
-  status: machine
+  status: retired
 - id: 140ac7ae079e25b1
   en: Choose a path
   zh: 选择学习路径
@@ -177,7 +177,7 @@
 - id: 1157606ee47522a8
   en: Foundations
   zh: 基础
-  status: machine
+  status: retired
 - id: 575898172b5f0175
   en: Start with a compact circuit whose state, samples, and visual interpretation can all be checked by hand.
   zh: ''
@@ -185,32 +185,92 @@
 - id: 3c34d938281ebe9c
   en: Algorithms
   zh: 算法
-  status: machine
+  status: retired
 - id: ee9ffc888e88c806
   en: Use parameterized programs, optimizers, sweeps, and estimators to answer chemistry and machine-learning questions.
   zh: 使用参数化程序、优化器、扫描和估计器研究化学与机器学习问题。
-  status: machine
+  status: retired
 - id: c37c4a2a31329e4c
   en: Neutral-atom physics
   zh: 中性原子物理
-  status: machine
+  status: retired
 - id: c40be1212423ae98
   en: Move from programmable connectivity to continuous-time Rydberg dynamics and constrained many-body evolution.
   zh: 从可编程连接关系出发，探索连续时间里德堡动力学与受约束的多体演化。
-  status: machine
+  status: retired
 - id: 05717b65dd5e8e5e
   en: Power systems
   zh: 电力系统
-  status: machine
+  status: retired
 - id: 3aa224bb011e292d
   en: Apply the QUBO and QAOA machinery to grid operation problems, where the encoding decides whether a network fits on the device at all.
   zh: 将 QUBO 和 QAOA 方法用于电网运行问题。在这类问题中，编码方式决定了设备是否容得下整个网络。
-  status: machine
+  status: retired
 - id: da6462b56349cbfe
   en: In Foundations, borrow a qutrit's third level to build and verify a Toffoli gate. The algorithms reuse the same execution model, while the neutral-atom track moves progressively closer to many-body hardware physics.
   zh: 在基础教程中，借用 qutrit 的第三个能级构建并验证 Toffoli 门。算法教程复用相同的执行模型，中性原子专题则逐步深入多体硬件物理。
-  status: machine
+  status: retired
 - id: ca8a4dadbf50ff97
   en: Learn to build, run, and interpret compact quantum experiments, from circuits and measurement to control pulses.
   zh: 学习构建、运行和解读小型量子实验，内容从电路与测量延伸到控制脉冲。
-  status: machine
+  status: retired
+- id: d37597d4221ee046
+  en: Executable FatQat case studies in circuits, control, error correction, simulation, optimization, and machine learning.
+  zh: ''
+  status: pending
+- id: c2a1b013a196080f
+  en: Explore complete, executable case studies grouped by topic. If you are new to FatQat, start with the [quickstart](../guide/quickstart.md) to learn how to build, run, and inspect a program.
+  zh: ''
+  status: pending
+- id: 294bdbea76a46f14
+  en: Follow [eight-atom GHZ preparation](atom-array-ghz8.md) with [atom-loss error correction](atom-loss-erasure.md), or move from [gate calibration](pulse-calibration.md) to [Rydberg CZ pulse design](optimal-cz-control.md). For optimization, work through [QUBO and QAOA](qubo-qaoa.md), [the islanding model](islanding-model.md), and [islanding with QAOA](islanding-qaoa.md).
+  zh: ''
+  status: pending
+- id: dd6caa21b5b249b2
+  en: Circuits and entanglement
+  zh: ''
+  status: pending
+- id: 96fd73eba3eeaa5f
+  en: Construct and verify quantum gates and entangled states using mixed qubit-qutrit registers and reconfigurable atom-array connectivity.
+  zh: ''
+  status: pending
+- id: c7bdad567af23bae
+  en: Error correction
+  zh: ''
+  status: pending
+- id: d057e3b372ddf753
+  en: Study repetition-code memories, parity checks, and decoding with information about atom loss.
+  zh: ''
+  status: pending
+- id: 424ea86c0b42650e
+  en: Quantum simulation
+  zh: ''
+  status: pending
+- id: dfaf297980a192b7
+  en: Estimate molecular ground-state energies and explore correlations, revivals, and entanglement in interacting quantum systems.
+  zh: ''
+  status: pending
+- id: d4e81b343e3c9857
+  en: Combinatorial optimization
+  zh: ''
+  status: pending
+- id: a651e2aaed99e35c
+  en: Encode constraints as QUBOs, solve them with QAOA, and apply the workflow to controlled power-grid islanding.
+  zh: ''
+  status: pending
+- id: 49e2662f86fd17cb
+  en: Quantum machine learning
+  zh: ''
+  status: pending
+- id: 44ca0662598d620e
+  en: Train parameterized circuits and search circuit structures for classification and regression with batched parameter sweeps.
+  zh: ''
+  status: pending
+- id: 152549dfacbdcd6b
+  en: Pulse control and calibration
+  zh: ''
+  status: pending
+- id: a1a6016e838e11b5
+  en: Design and calibrate control pulses, then check their action on quantum states in transmon and Rydberg models.
+  zh: ''
+  status: pending

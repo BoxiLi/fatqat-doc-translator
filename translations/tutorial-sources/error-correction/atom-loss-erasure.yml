@@ -1,0 +1,140 @@
+- id: e602f0c05a1eeb4d
+  en: Atom loss as an erasure in a repetition code
+  zh: ''
+  status: pending
+- id: bf7504deb5c04c63
+  en: Run a repetition-code memory on AtomArraySimulator with atom loss, see what the parity checks reveal about a lost atom, and measure how much the erasure flag in the final readout is worth to a simple decoder.
+  zh: ''
+  status: pending
+- id: 35ee9e01f2bdfec7
+  en: Logical error rate versus per-gate loss probability for distance-3 and distance-5 repetition codes, decoded by a majority vote over the final readout with and without the erasure flag. Simulated points follow the exact curves, and the curves that use the flag fall much more steeply at each distance.
+  zh: ''
+  status: pending
+- id: ce369adb03bf9678
+  en: 'A neutral-atom processor can lose an atom from its trap. The atom takes its quantum state with it, but the loss is not invisible: when the array is imaged, the trap is empty. On [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] an empty site measures as the digit `2`, distinct from `0` and `1`. An error whose location is known in this way is called an *erasure*.'
+  zh: ''
+  status: pending
+- id: b1a55137c3a54145
+  en: 'Erasures are easier to correct than errors at unknown locations. A code of distance $d$ corrects any $\lfloor (d-1)/2 \rfloor$ errors at unknown locations, but up to $d-1$ erasures. This tutorial shows what that means in a small memory experiment. We run a bit-flip repetition code, lose atoms during its entangling gates, and look at the loss from two sides: what the parity checks reveal while the circuit runs, and what the erasure flag in the final readout is worth to a decoder.'
+  zh: ''
+  status: pending
+- id: 29e4558fd9e4781e
+  en: Imports and settings
+  zh: ''
+  status: pending
+- id: 314bdca43c166935
+  en: A repetition code with reloaded ancillas
+  zh: ''
+  status: pending
+- id: 77fafda5d35c1c04
+  en: 'The distance-$d$ repetition code stores one bit in $d$ data atoms, $|0_L\rangle = |0\cdots0\rangle$ and $|1_L\rangle = |1\cdots1\rangle$. Between neighbouring data atoms sits an ancilla that measures the parity $Z_j Z_{j+1}$: prepared in $|+\rangle$, it picks up a phase from a `CZ` with each neighbour, and a final Hadamard turns that phase into a bit. A round of these measurements is a *syndrome*. For an intact code it reports even parity everywhere.'
+  zh: ''
+  status: pending
+- id: 972208f117b4941c
+  en: The atom array accepts only `RX`, `RY`, `RZ`, and `CZ`, and a `CZ` needs its two atoms to be paired first, as in the [eight-atom GHZ tutorial](atom-array-ghz8.md). Each round pairs every ancilla with its left data atom, applies the `CZ` gates, and then does the same with the right neighbours. The pairs within a layer are disjoint, so the gates of a layer can run in parallel.
+  zh: ''
+  status: pending
+- id: 3901100e31e3ffb7
+  en: Every site starts empty. [`Put`][fatqat.operations.Put] loads the data atoms once and the ancillas at the start of every round. Because `Put` leaves an occupied site unchanged, it only refills an ancilla lost in an earlier round. Each round writes its syndrome to its own classical register, and the data atoms are read out at the end.
+  zh: ''
+  status: pending
+- id: 79246318e9a3f395
+  en: 'Count keys list the classical registers in declaration order: three rounds of two syndrome bits, then the three data bits. Without noise every check reports even parity and the data atoms read `111`.'
+  zh: ''
+  status: pending
+- id: 296ed536f64782ff
+  en: Lose atoms during the entangling gates
+  zh: ''
+  status: pending
+- id: 82bc06f4a50b3612
+  en: 'Attach [`Loss`][fatqat.noise.Loss] to `CZ`. The backend samples a loss independently for each of the two atoms after every `CZ`, so an atom that takes part in more gates is more likely to be lost. A lost atom stays lost: later gates on its site do nothing, and its final readout is `2`.'
+  zh: ''
+  status: pending
+- id: a85464bd7cbc974d
+  en: A `2` among the syndrome bits is a lost ancilla. It is flagged in the round in which it happens, since that round's parity is missing, and the next round's `Put` loads a fresh ancilla. A lost data atom is different. Data atoms are not imaged until the end, so the `2` of a lost data atom appears only in the final readout, and nothing in the record says when the atom was lost.
+  zh: ''
+  status: pending
+- id: a421640dc765ca06
+  en: What a parity check sees of a lost atom
+  zh: ''
+  status: pending
+- id: 2f80da5b9da8c16e
+  en: 'A `CZ` with an empty trap applies no phase, exactly as an atom in $|0\rangle$ would. A check next to a lost data atom therefore measures its surviving neighbour alone: instead of $Z_j Z_{j+1}$ it measures a single $Z$. The next cell selects shots in which exactly one data atom and no ancilla was lost, and counts how often the last syndrome round shows an odd parity.'
+  zh: ''
+  status: pending
+- id: f67bfff477d5cf89
+  en: 'For $|0_L\rangle$ the checks never fire, because the lost atom looks like the $|0\rangle$ atoms around it. For $|1_L\rangle$ they fire in most shots; in the rest the atom was lost after its last `CZ`, too late for any check to notice. A lost atom is therefore not a Pauli error: what the checks show depends on the state the atom held.'
+  zh: ''
+  status: pending
+- id: 006e91f4d2e1aaec
+  en: 'This also means the syndrome carries information about the logical value itself. In the repetition code every single-atom $Z$ is a logical operator, so a check that has lost one of its atoms measures the logical bit. Codes such as the surface code do not have this property, because no single-atom $Z$ is a logical operator there. Keep this in mind below: it is a feature of this small code, not of atom loss in general.'
+  zh: ''
+  status: pending
+- id: e20240b603677329
+  en: Decoders and logical error rates
+  zh: ''
+  status: pending
+- id: 97bedd95528c8b9b
+  en: 'A *decoder* maps the recorded outcomes of a shot to a guess of the stored logical bit. Its *logical error rate* (LER) is the probability that the guess is wrong. The LER is a property of the decoder as much as of the noise: the same shots decoded two ways give two error rates.'
+  zh: ''
+  status: pending
+- id: 066a6fe98c231ccd
+  en: 'This tutorial uses the simplest decoder for a repetition code: a majority vote over the final data readout. For the repetition code this is the minimum-weight correction of the last syndrome, which the final readout determines. It ignores the syndrome history, so it is not the best possible decoder, even without loss. What it offers here is a controlled comparison. We run the same vote in two versions that differ only in whether they use the erasure flag:'
+  zh: ''
+  status: pending
+- id: f6869efd29999296
+  en: '**Loss-unaware.** The vote cannot tell an empty trap from an atom, as if the loss went undetected. Each `2` enters the vote as a random bit.'
+  zh: ''
+  status: pending
+- id: 0e76be9341fb8bb1
+  en: '**Erasure-aware.** The vote drops every `2` and counts only the surviving atoms. A tie, or a shot with no survivors, is decided by a coin flip.'
+  zh: ''
+  status: pending
+- id: 3a07aa1d5ee8ecb1
+  en: Both versions see the same shots, so the difference between their error rates is the value of the erasure flag to this decoder.
+  zh: ''
+  status: pending
+- id: 54e07674d729d016
+  en: When loss is the only noise, every surviving atom reads the stored value. The erasure-aware vote then fails only when all $d$ data atoms are lost and it has to guess. No decoder that sees only the final readout can do better, since such a shot contains no information about the logical bit. A decoder that also reads the syndrome history can do better, because of the leak described in the previous section, so this is not a lower bound on the LER of the experiment.
+  zh: ''
+  status: pending
+- id: 7cd9505044c9e26e
+  en: 'The two error rates also have exact values under pure loss. Data atom $i$ takes part in $n_i$ `CZ` gates: $R$ at either end of the chain and $2R$ in between, for $R$ rounds. It is lost with probability $q_i = 1-(1-p)^{n_i}$, independently of the others, and each decoder fails on a known set of loss patterns. The loss-unaware vote fails when at least $(d+1)/2$ of the random bits that replace lost atoms are wrong. The erasure-aware vote fails with probability $1/2$ when every atom is lost.'
+  zh: ''
+  status: pending
+- id: cdfd28e49b9acd4f
+  en: Logical error rate versus loss rate
+  zh: ''
+  status: pending
+- id: 74a43e8bfdfdaf42
+  en: Sweep the loss probability for distances 3 and 5, and decode each set of shots both ways.
+  zh: ''
+  status: pending
+- id: 9e35fa112719c410
+  en: Markers are sampled error rates; dashed and solid lines are the exact loss-unaware and erasure-aware rates. Points with no failures in the sampled shots are left out, which is why the distance-5 erasure-aware curve has no markers at the lowest loss rates.
+  zh: ''
+  status: pending
+- id: 9bf2a14d64f93845
+  en: At small $p$ each curve becomes a straight line whose slope counts the losses needed to cause a logical error. The loss-unaware vote fails once $(d+1)/2$ lost atoms happen to contribute the wrong bit, so its error rate scales as $p^{(d+1)/2}$. The erasure-aware vote fails only when all $d$ atoms are lost, so it scales as $p^d$. These are the two numbers from the introduction, $\lfloor (d-1)/2 \rfloor + 1$ unknown errors against $d$ erasures. Going from distance 3 to 5 gains the loss-unaware vote one power of $p$ and the erasure-aware vote two.
+  zh: ''
+  status: pending
+- id: d03ae4d4e73d0fa6
+  en: Loss together with bit flips
+  zh: ''
+  status: pending
+- id: 1c9cbb819b4e593d
+  en: Atoms that stay in their traps can still flip. Add a 2% `X` error on the data atom of every `CZ`, keep 5% loss, and decode again. The surviving atoms are no longer always right, so the erasure-aware vote can now fail with atoms left to vote, but it still removes the lost atoms instead of letting them add random bits.
+  zh: ''
+  status: pending
+- id: 18d22878464f39df
+  en: '`AtomArraySimulator` reports a lost atom as the digit `2`, which turns atom loss into an erasure. For a majority vote over the final readout, using that flag changes the scaling of the logical error rate from $p^{(d+1)/2}$ to $p^d$. The comparison holds the decoder fixed and so isolates the value of the flag; it does not show the best error rate the experiment allows.'
+  zh: ''
+  status: pending
+- id: 219d0e0547a29def
+  en: While the circuit runs, loss is harder to read. A lost ancilla is flagged in its own round, but a lost data atom shows up in the checks only as a changed parity, which depends on the state the atom held. A decoder that uses the syndrome history must therefore treat a data-atom loss as a set of possible error patterns, one for each time at which the atom may have been lost. Such decoders go beyond this tutorial.
+  zh: ''
+  status: pending
+- id: a488990ff955dfb5
+  en: To explore further, attach `Loss` to `Pair` and `Unpair` to model the cost of transport, as in the [eight-atom GHZ tutorial](atom-array-ghz8.md). You can also raise `ROUNDS` to see loss accumulate over a longer memory, or replace the majority vote with a decoder that reads the syndrome history and compare its error rate with the curves above.
+  zh: ''
+  status: pending
