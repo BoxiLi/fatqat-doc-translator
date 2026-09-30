@@ -1,0 +1,168 @@
+- id: 08c014bb9a47640c
+  en: Defining a near-time-optimal Rydberg CZ pulse
+  zh: ''
+  status: pending
+- id: de39dea91de60879
+  en: Recreate a compact approximation to the constant-amplitude, phase-shaped Rydberg CZ pulse of Jandura and Pupillo, simulate its two blockade-limit control blocks, and locate the conditional-phase crossing.
+  zh: ''
+  status: pending
+- id: a9bbac8264ba360c
+  en: 'The authored Rydberg pulse over its dimensionless duration: constant unit-normalized amplitude and a smooth phase made from a linear ramp and two sine harmonics.'
+  zh: ''
+  status: pending
+- id: 2402c7ca30923a6a
+  en: Conditional phase versus dimensionless pulse duration between 7.5 and 7.7, showing a nearly linear crossing of pi near 7.614 while the computational-state return probability remains close to one.
+  zh: ''
+  status: pending
+- id: 9c3fad702becf89b
+  en: 'Jandura and Pupillo identify a time-optimal global pulse for a two-atom Rydberg CZ gate in the infinite-blockade limit. Their result has a particularly simple control structure: the laser stays at its maximum amplitude while its phase changes smoothly in time.'
+  zh: ''
+  status: pending
+- id: 5cffcbf59d766c62
+  en: This tutorial recreates that control idea with FatQat. It does **not** run the GRAPE or Pontryagin-maximum-principle optimizations from the paper. Instead, it uses a compact analytic approximation to the published phase profile, shows how to turn it into a complex waveform, and verifies the resulting gate with the public two-level atom emulator.
+  zh: ''
+  status: pending
+- id: ea573581eb974d0a
+  en: 'The reference is:'
+  zh: ''
+  status: pending
+- id: e71d8c6e59969e7d
+  en: '> S. Jandura and G. Pupillo, *Time-Optimal Two- and Three-Qubit Gates for > Rydberg Atoms*, [Quantum **6**, 712 > (2022)](https://doi.org/10.22331/q-2022-05-13-712), > [arXiv:2202.00903](https://arxiv.org/abs/2202.00903).'
+  zh: ''
+  status: pending
+- id: 2561cdbd611ed35e
+  en: The authors provide the phase samples used for their Figure 1(d) in a [CC BY 4.0 data set](https://doi.org/10.6084/m9.figshare.19658427). The short formula below approximates that profile; it is not a replacement for the paper's optimization procedure or a new claim about the exact optimum.
+  zh: ''
+  status: pending
+- id: 5a59690d27239ee2
+  en: The three-level gate becomes two two-level problems
+  zh: ''
+  status: pending
+- id: a98f1d26eced35ee
+  en: Each atom has computational states \(|0\rangle\) and \(|1\rangle\), plus a Rydberg state \(|r\rangle\). A global laser couples \(|1\rangle\) to \(|r\rangle\) with the same complex Rabi frequency \(\Omega(t)\) on both atoms. The computational state \(|00\rangle\) is dark.
+  zh: ''
+  status: pending
+- id: dc7cd18099047f67
+  en: 'At infinite blockade, \(|rr\rangle\) cannot be populated. Symmetry then reduces the other computational inputs to the two independent blocks of Eq. (16) in the paper:'
+  zh: ''
+  status: pending
+- id: 3120a976f9a4d2fd
+  en: \[ \begin{aligned} \{|01\rangle,|0r\rangle\}:&\qquad H_{01}(t)=\frac{1}{2} \begin{pmatrix}0&\Omega^*(t)\\\Omega(t)&0\end{pmatrix},\\[4pt] \{|11\rangle,|W\rangle\}:&\qquad H_{11}(t)=\frac{\sqrt2}{2} \begin{pmatrix}0&\Omega^*(t)\\\Omega(t)&0\end{pmatrix}, \end{aligned} \]
+  zh: ''
+  status: pending
+- id: b0e51627b9de04b4
+  en: 'where \(|W\rangle=(|1r\rangle+|r1\rangle)/\sqrt2\). The \(|10\rangle\) block is identical to the \(|01\rangle\) block. We can therefore use a one-site `Atom2LevelEmulator` as an exact simulator for each reduced block: use the authored drive once at its original strength and once multiplied by \(\sqrt2\). The second factor is a collective coupling, not a stronger physical laser.'
+  zh: ''
+  status: pending
+- id: ec8560f606449e0c
+  en: If the pulse returns both blocks to their computational states, write
+  zh: ''
+  status: pending
+- id: 115a8ea0c1bc0af7
+  en: \[ \langle01|U(T)|01\rangle=e^{i\xi_{01}},\qquad \langle11|U(T)|11\rangle=e^{i\xi_{11}}. \]
+  zh: ''
+  status: pending
+- id: fed20015fa96ff13
+  en: The global pulse is locally equivalent to CZ when
+  zh: ''
+  status: pending
+- id: 54834f99cfca39af
+  en: \[ \Phi_{\mathrm{CZ}}=\xi_{11}-2\xi_{01}=\pi\pmod{2\pi}. \]
+  zh: ''
+  status: pending
+- id: 4d987b4ae51ce908
+  en: The return amplitudes must also have magnitude one. A phase crossing by itself is not sufficient if population remains in \(|0r\rangle\) or \(|W\rangle\).
+  zh: ''
+  status: pending
+- id: 1fc996ebd63ea350
+  en: Write down the pulse
+  zh: ''
+  status: pending
+- id: 6d66e532497dc2bb
+  en: In dimensionless time \(s=t/T\), the paper's time-optimal ansatz is
+  zh: ''
+  status: pending
+- id: 40c6df158dd5a801
+  en: \[ \Omega(t)=\Omega_{\max}e^{i\varphi(s)},\qquad |\Omega(t)|=\Omega_{\max}. \]
+  zh: ''
+  status: pending
+- id: 36f64c4ce38790a6
+  en: 'Keeping the amplitude below \(\Omega_{\max}\) cannot be time-optimal in the ideal blockade-limit model: increasing the whole Hamiltonian and shortening the duration traces the same trajectory faster. The phase remains the useful control. It rotates the drive axis in the equatorial plane of each effective two-level system; equivalently, in a frame following the phase, \(\dot\varphi(t)\) acts as a detuning.'
+  zh: ''
+  status: pending
+- id: d51a5371e0decce6
+  en: The two blocks rotate at different rates because their couplings differ by \(\sqrt2\). A shaped phase can steer both trajectories back to their starting states while leaving the non-additive phase \(\Phi_{\mathrm{CZ}}=\pi\).
+  zh: ''
+  status: pending
+- id: 158500c1a874ba39
+  en: For a self-contained tutorial, we use the compact three-term approximation
+  zh: ''
+  status: pending
+- id: 0432067559e98acb
+  en: \[ \varphi(s)=c_0s+c_1\sin(2\pi s)+c_2\sin(4\pi s), \]
+  zh: ''
+  status: pending
+- id: 755e7c1b830f1fba
+  en: with the coefficients below. It reaches unit fidelity in the reduced model at \(T\Omega_{\max}\simeq7.614\), within \(0.03\%\) of the paper's optimized value \(7.612\).
+  zh: ''
+  status: pending
+- id: 484f93e85dd76e9b
+  en: Plot amplitude and phase
+  zh: ''
+  status: pending
+- id: f46c0ab34e38263c
+  en: The amplitude plot is intentionally a horizontal line. The ideal pulse turns on at \(\Omega_{\max}\), stays there for the whole gate, and turns off at the end. Only the phase is shaped.
+  zh: ''
+  status: pending
+- id: f9c868a4cc3e97b6
+  en: This curve is one member of the symmetry pair discussed in the paper. Complex conjugation reverses the phase profile and changes the removable single-qubit phase, but implements the same CZ gate in the infinite-blockade limit. The matrix convention above selects the member used by FatQat's drive channel.
+  zh: ''
+  status: pending
+- id: 84e0552855923d10
+  en: Simulate both control blocks
+  zh: ''
+  status: pending
+- id: cf7c5c805ed93ff3
+  en: '`block_return_amplitude` passes the plotted complex waveform directly to the drive channel, runs it for either effective coupling, and returns the computational-state amplitude at the end.'
+  zh: ''
+  status: pending
+- id: 269f270f6aae32d3
+  en: The fidelity is not inferred from the phase alone. Equation (7) also penalizes failure to return \(|01\rangle\) and \(|11\rangle\) from their Rydberg-coupled blocks, which is why the return probability is reported separately.
+  zh: ''
+  status: pending
+- id: 8a152277eaab8bf0
+  en: Resolve one conditional-phase crossing
+  zh: ''
+  status: pending
+- id: e9f77551b4f5db93
+  en: A wide duration scan mixes several wrapped copies of the phase and makes the result look irregular. The paper resolves the optimum in the narrow interval \(7.5\leq T\Omega_{\max}\leq7.7\); we use the same interval. Stretching the fixed normalized phase profile across this window produces one nearly linear crossing.
+  zh: ''
+  status: pending
+- id: b5cf20c23b8bca3b
+  en: What this tutorial does and does not establish
+  zh: ''
+  status: pending
+- id: b2dc45ca1f35b0d0
+  en: 'The example reproduces the essential physics and scale of the paper''s blockade-limit CZ pulse:'
+  zh: ''
+  status: pending
+- id: 5dde63a9338cabda
+  en: the physical laser amplitude is constant at \(\Omega_{\max}\);
+  zh: ''
+  status: pending
+- id: d42f43acd1b27528
+  en: a smooth phase profile coordinates blocks whose Rabi frequencies differ by \(\sqrt2\);
+  zh: ''
+  status: pending
+- id: 9b492ab0d5ab4218
+  en: both blocks return to the computational subspace; and
+  zh: ''
+  status: pending
+- id: f388f2f7505a1e14
+  en: their phases differ by the nonlocal angle \(\pi\).
+  zh: ''
+  status: pending
+- id: 3caf5a9119a609fa
+  en: The compact harmonic phase is an approximation to the published pulse, so the tutorial calls it *near*-time-optimal. Proving time optimality requires the duration sweep with re-optimization used in the paper, not merely stretching one fixed profile. Finite blockade, Rydberg decay, and experimental control limits are also outside this reduced-model tutorial; the paper treats those effects separately.
+  zh: ''
+  status: pending
