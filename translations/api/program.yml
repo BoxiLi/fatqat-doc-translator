@@ -12,7 +12,7 @@
   status: machine
 - id: 048713a5001fc80f
   en: Registers
-  zh: "Registers"
+  zh: Registers
   status: machine
 - id: 07203021cae3b43e
   en: 'The two register arguments accept these forms:'
@@ -24,11 +24,11 @@
   status: machine
 - id: 6e7d50e84f4731ef
   en: Result
-  zh: "Result"
+  zh: Result
   status: machine
 - id: 700ca4f96b4fedeb
   en: See [Registers](registers.md) for explicit registers, dimensions, and grid selections.
-  zh: "有关显式寄存器、维度和网格选择，参见[Registers](registers.md)。"
+  zh: 有关显式寄存器、维度和网格选择，参见[Registers](registers.md)。
   status: machine
 - id: f8e3cd1a2ea4f98c
   en: A bare integer indexes the sole register of the relevant kind; it is not a global index across several registers. With multiple registers, index the register you want and pass the resulting [`RegisterRef`][fatqat.RegisterRef].
@@ -44,7 +44,7 @@
   status: machine
 - id: 8974a8716ebd0f38
   en: For other operations, `targets` is one tuple in operand order. Controlled gates list controls before targets. See [Registers](registers.md) for view selection and compatibility, and [Write quantum computations with Program](../guide/program.md) for the ordinary construction workflow.
-  zh: "对于其他操作，`targets` 是一个按操作数顺序排列的元组。受控门先列出控制位再列出目标位。有关视图选择与兼容性，参见[Registers](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。"
+  zh: 对于其他操作，`targets` 是一个按操作数顺序排列的元组。受控门先列出控制位再列出目标位。有关视图选择与兼容性，参见[Registers](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。
   status: machine
 - id: 08bb8d08f90dad77
   en: Pass `condition=(slot, literal)` to [`add`][fatqat.Program.add], or pass a non-empty tuple or list of such pairs for logical AND. A slot follows the same integer-or-ref rules as other classical operands. Each literal is a Python integer in `0 <= literal < slot.dim`; booleans are also accepted. Every term is compared with the current classical value when the operation is reached.
@@ -84,7 +84,7 @@
   status: machine
 - id: f0cdca999be213ea
   en: '[`assign_parameters`][fatqat.Program.assign_parameters] accepts an empty or partial mapping and returns a new program. It binds only [`Parameter`][fatqat.Parameter] objects used directly as operation arguments. Unbound parameters remain symbolic and are rejected by numeric execution and export. String keys, positional assignments, boolean or complex values, and assigning both a vector and one of its elements are rejected. Replacement values still undergo the operation''s normal validation. Read [Write quantum computations with Program](../guide/program.md) for the authoring workflow and [Simulate a quantum program](../guide/simulation.md) for a parameter sweep. The complete binding and execution contracts are specified here and in [Simulator](simulator.md).'
-  zh: "[`assign_parameters`][fatqat.Program.assign_parameters] 接受空映射或部分映射，并返回一个新程序。它只绑定直接用作操作实参的 [`Parameter`][fatqat.Parameter] 对象。未绑定的参数保持符号形式，会被数值执行和导出拒绝。字符串键、按位置赋值、布尔值或复数值，以及同时为一个向量及其某个元素赋值都会被拒绝。替换值仍需通过该操作的常规验证。有关编写工作流，请阅读[使用 Program 编写量子计算](../guide/program.md)；有关参数扫描，请阅读[模拟量子程序](../guide/simulation.md)。完整的绑定与执行契约在本页和[Simulator](simulator.md)中给出。"
+  zh: '[`assign_parameters`][fatqat.Program.assign_parameters] 接受空映射或部分映射，并返回一个新程序。它只绑定直接用作操作实参的 [`Parameter`][fatqat.Parameter] 对象。未绑定的参数保持符号形式，会被数值执行和导出拒绝。字符串键、按位置赋值、布尔值或复数值，以及同时为一个向量及其某个元素赋值都会被拒绝。替换值仍需通过该操作的常规验证。有关编写工作流，请阅读[使用 Program 编写量子计算](../guide/program.md)；有关参数扫描，请阅读[模拟量子程序](../guide/simulation.md)。完整的绑定与执行契约在本页和[Simulator](simulator.md)中给出。'
   status: machine
 - id: e9dfa196fd71df85
   en: '[`copy`][fatqat.Program.copy] and [`assign_parameters`][fatqat.Program.assign_parameters] return new programs. [`add`][fatqat.Program.add], [`measure`][fatqat.Program.measure], and [`measure_all`][fatqat.Program.measure_all] update the current program and return `None`.'
