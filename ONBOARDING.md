@@ -9,19 +9,21 @@ this setup; do not use its subscription-credential cache for this public repo.
 
 ## Hosting
 
-1. Import `BoxiLi/fatqat-doc-translator` into Read the Docs as `fatqat-zh`
-   (or another available project name).
+1. The Chinese RTD project is `fatqat-translations`, linked to
+   `BoxiLi/fatqat-doc-translator`.
 2. Set its language to Simplified Chinese and its default branch to `main`.
 3. In the parent `fatqat` project's Translations settings, add the Chinese project.
-4. Activate `latest`. To publish releases automatically, add an automation rule
-   for branches with semantic-version names: Activate version.
+4. Activate `latest` and the release tags you want to publish. Match the English
+   project's version slugs: it serves the `v0.1.x` branch as `stable`, alongside
+   `v0.1.0a1` and `v0.1.0a2`. Configure the Chinese `stable` version to track the
+   same release branch.
 5. Enable PR previews if review builds are wanted. Do not publish `sync/*`
    staging branches as release versions.
 
 RTD supplies the canonical language/version URL. The build puts Chinese HTML
 straight in `$READTHEDOCS_OUTPUT/html`; there is no extra `/zh/` directory.
-Language and version switching use the RTD flyout; the theme does not add a
-separate language menu.
+The RTD flyout lists languages and versions. Source versions that include the
+Material language menu also retain that menu and its current-version links.
 A `translation-source.json` file records the upstream ref and exact commit.
 
 Official RTD references:
@@ -74,17 +76,43 @@ checkout's environment. `--skip-install` is available after installation.
 
 ## Versioned documentation
 
-`main` in this repository tracks the latest upstream `main`. List available
-release tags with `python tools/list_versions.py`. No FatQat release tags existed
-when this setup was prepared.
+Mirror upstream's release history: `main` tracks upstream `main`, `v0.1.x`
+tracks the release branch, and translator tags `v0.1.0a1` and `v0.1.0a2`
+pin the corresponding published source versions. RTD uses the same version
+slugs in both language projects. Alpha tags do not automatically create a
+`stable` alias; English explicitly serves `v0.1.x` as `stable`, so configure
+that same mapping in the Chinese project.
 
-For an upstream release such as `v0.1.0`, create a translator branch with exactly
-that name, run `python tools/sync_upstream.py --ref v0.1.0`, extract and translate,
-then validate before publishing that branch. Do this in a clean, separate checkout.
-Never run a release sync on the translator's `main` branch.
+Prepare releases in upstream ancestry order. Start from the existing translation
+database, sync the oldest missing release, and translate only pending segments.
+The extractor reuses exact English segments, including retired translations.
+Advance the release branch to the next source version and repeat; do not translate
+unchanged text again. If a release tag and branch point to the same upstream
+commit, share their translation and build validation.
 
-Each version branch keeps its own `UPSTREAM_REF`, `UPSTREAM_COMMIT`, snapshot, and
-translation database. Builds fetch that exact commit, not the current upstream
-branch or a potentially moved tag. Translation corrections can update the version
-branch while preserving its upstream pin. New releases get new branches.
-RTD can then expose `latest`, each version, and its automatic `stable` alias.
+Every snapshot records its own `UPSTREAM_REF`, `UPSTREAM_COMMIT`, English source,
+and translation database. Set `upstream.yml`'s `ref` to the same source ref so the
+default sync command stays on that release. The build always uses the exact
+commit pin, even after the upstream branch advances. Never run a release sync
+on translator `main`.
+
+For an existing release branch, use a clean, separate checkout:
+
+```sh
+python tools/sync_upstream.py --ref v0.1.x
+python tools/translate.py extract
+# Translate pending entries, then run the validation commands above.
+```
+
+For a new release tag, sync its exact upstream tag, validate, and commit before
+creating the matching translator tag. Then restore the moving branch's sync ref.
+Published tags remain immutable. Apply later translation corrections to the
+maintained release branch, carrying the same correction across identical English
+segments on other maintained branches. Do not merge another version's source pin
+or entire snapshot just to share a wording correction.
+
+Push the branch and tags after validation. In each RTD project's Versions page,
+activate the corresponding tag versions and map `stable` to `v0.1.x`. One
+Chinese project serves all of them;
+no additional project is needed per release. These steps do not enable scheduled
+release updates.
