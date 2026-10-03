@@ -85,8 +85,8 @@
 - id: 319c69b773f2423e
   en: '[LogicalProgram](logical-program.md)'
   zh: '[LogicalProgram](logical-program.md)'
-  status: machine
+  status: retired
 - id: 88faf43201ee8ac5
   en: '[Backend](backend.md)'
-  zh: "[Backend](backend.md)"
-  status: machine
+  zh: '[Backend](backend.md)'
+  status: retired

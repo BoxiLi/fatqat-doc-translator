@@ -13,7 +13,7 @@
 - id: 0eb30251770f4475
   en: 'This tutorial builds an eight-atom Greenberger-Horne-Zeilinger (GHZ) state on [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator], fatqat''s neutral-atom execution target. It is a step up from the two-qubit Bell tutorial in two ways: the state spans eight atoms instead of two, and the circuit runs on a backend whose two-qubit-gate connectivity is *reconfigured mid-circuit* rather than fixed.'
   zh: 本教程在 fatqat 的中性原子执行目标 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 上构建八原子 Greenberger-Horne-Zeilinger（GHZ）态。相比双量子比特 Bell 教程，它在两方面更进一步：量子态跨越八个原子而非两个，并且电路运行在一个双量子比特门连通性*在电路中途重新配置*而非固定不变的后端上。
-  status: retired
+  status: machine
 - id: 77d0ab522b46a87b
   en: The GHZ state generalises the Bell state to $n$ qubits,
   zh: GHZ 态把 Bell 态推广到 $n$ 个量子比特，

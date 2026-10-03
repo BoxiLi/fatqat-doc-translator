@@ -104,7 +104,7 @@
   status: machine
 - id: 5e6b46ba4d76696f
   en: '[Build, draw, and run a Bell program](quickstart.md), then learn how to [write Programs and registers](program.md). When you are ready to compare backends, [choose how much physics to model](execution-models.md).'
-  zh: "先[构建、绘制并运行 Bell 程序](quickstart.md)，再学习[编写 Program 和 Register](program.md)。准备好比较后端时，可[选择需要建模的物理细节](execution-models.md)。"
+  zh: 先[构建、绘制并运行 Bell 程序](quickstart.md)，再学习[编写 Program 和 Register](program.md)。准备好比较后端时，可[选择需要建模的物理细节](execution-models.md)。
   status: machine
 - id: e47b6c18d04de867
   en: Choose an execution path
@@ -161,4 +161,8 @@
 - id: 692fb192bcb3b4d0
   en: Choose the level of detail that answers your question. Direct simulation and physics workflows start from the same backend-independent [`Program`][fatqat.Program]. When mapping and routing are part of the question, author a [`LogicalProgram`][fatqat.LogicalProgram] for the [compiler](compiler.md).
   zh: 选择足以回答问题的细节层级。直接模拟与物理工作流程从同一个后端无关的 [`Program`][fatqat.Program] 出发。当问题涉及映射与路由时，为[编译器](compiler.md)编写 [`LogicalProgram`][fatqat.LogicalProgram]。
+  status: retired
+- id: 0029e9d1bb1176b1
+  en: Choose the level of detail that answers your question. Direct simulation and physics workflows start from the same backend-independent [`Program`][fatqat.Program]. When mapping and routing are part of the question, pass the Program to the [compiler](compiler.md).
+  zh: "选择足以回答问题的细节层次。直接模拟和物理建模流程都从同一个与后端无关的 [`Program`][fatqat.Program] 开始。如果需要研究映射和路由，将 Program 传给[编译器](compiler.md)。"
   status: machine

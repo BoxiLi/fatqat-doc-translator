@@ -12,7 +12,6 @@ workflow.
 ## Build programs
 
 - [Program](program.md)
-- [LogicalProgram](logical-program.md)
 - [Compiler](compiler.md)
 - [Registers](registers.md)
 - [Operations](operations.md)
@@ -29,7 +28,6 @@ workflow.
 
 ## Integrate and extend
 
-- [Backend](backend.md)
 - [Interoperability](interoperability/index.md)
 - [Matrix implementations](implementation.md)
 

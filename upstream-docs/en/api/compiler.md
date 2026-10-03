@@ -4,37 +4,27 @@ title: "Compiler"
 
 # Compiler
 
-Use the compiler to prepare a device-independent circuit for a superconducting
-or neutral-atom target. A final compilation can be passed directly to the
-matching simulator.
+!!! warning "Compiler under development"
 
-Choose an entry point from the source and target you have:
+    The compiler module is under active development. Its interfaces and
+    supported behavior may change between releases. Pin an exact FatQat
+    version when reproducibility matters.
 
-| Source | Superconducting target | Neutral-atom target |
-| --- | --- | --- |
-| [`LogicalProgram`](logical-program.md) | `compile_to_sc()` | `compile_to_na()` |
-| OpenQASM 2 or 3 | `compile_qasm_to_sc()` | `compile_qasm_to_na()` |
-
-The [compiler guide](../guide/compiler.md) shows complete compile-and-run
-examples for all four paths.
-
-## Compile a LogicalProgram
-
-Build a circuit with `LogicalProgram`, then provide either an SC backend or a
-neutral-atom architecture:
+Pass a [`Program`][fatqat.Program] to the static gate compiler to map and
+lower it for a superconducting or neutral-atom target. Compilation snapshots
+the source without editing it. See the [compiler guide](../guide/compiler.md)
+for supported source behavior and complete execution examples.
 
 ```python
 import fatqat as fq
 
-circuit = fq.LogicalProgram(2, 2)
+circuit = fq.Program(2, 2)
 circuit.add(fq.operations.H, 0)
 circuit.add(fq.operations.CX, (0, 1))
 circuit.measure_all()
-
-backend = fq.simulator.SCQubitSimulator()
-compiled = fq.compiler.compile_to_sc(circuit, backend)
-result = backend.run(compiled, shots=100).result()
 ```
+
+## Compile a Python circuit
 
 ::: fatqat.compiler.compile_to_sc
 
@@ -42,22 +32,15 @@ result = backend.run(compiled, shots=100).result()
 
 ## Compile OpenQASM
 
-Pass OpenQASM source text directly to the target compiler. The returned result
-uses the same execution interface as a compiled `LogicalProgram`.
-
 ::: fatqat.compiler.compile_qasm_to_sc
 
 ::: fatqat.compiler.compile_qasm_to_na
 
-## Compilation results
+## Results
 
-At the final target boundary, the compile functions return an
-`ExecutableCompilationResult`. Pass it to the matching simulator, inspect the
-target representation through `.output`, or review the stages through
-`.route`.
-
-When `emit` selects an earlier boundary, the return value is a
-`CompilationResult` intended for inspection.
+Final target helpers return an executable compilation result. It retains the
+compiler IR and pass route while carrying the simulator program and device
+layout required by `Simulator.run()`.
 
 ::: fatqat.compiler.ExecutableCompilationResult
 
@@ -65,28 +48,11 @@ When `emit` selects an earlier boundary, the return value is a
 
 ::: fatqat.ExecutableProgram
 
-## Neutral-atom architectures and animation
+## Low-level simulator translation
 
-`load_architecture()` returns a fresh copy of a bundled neutral-atom profile.
-Use the same architecture for compilation and schedule visualization.
-
-::: fatqat.compiler.algorithms.load_architecture
-
-::: fatqat.compiler.create_na_animation
-
-::: fatqat.compiler.save_na_animation
-
-## Advanced compiler APIs
-
-Most applications only need the four compile functions above. The following
-APIs expose intermediate translation and pipeline construction for compiler
-extensions and IR inspection.
-
-### Simulator translation
-
-Use these functions when working with a final compiler IR that was constructed
-or modified directly. Results returned by the normal compile functions are
-already ready for simulation.
+These functions project manually created or modified final IR. Normal callers
+can pass the result of a final-target compile helper directly to the matching
+simulator.
 
 SC native programs can declare `classical_registers` as a keyword-only tuple
 of the original register objects in output order. The bridge retains all slots,
@@ -109,39 +75,42 @@ constructor arguments; it also participates in dataclass equality and reflection
 
 ::: fatqat.compiler.to_na_simulator_program
 
-### Pipelines and IRs
-
-::: fatqat.compiler.Compiler
-
-::: fatqat.compiler.CompileContext
-
-::: fatqat.compiler.Pipeline
-
-::: fatqat.compiler.TranslationPass
-
-::: fatqat.compiler.create_sc_pipeline
-
-::: fatqat.compiler.create_na_pipeline
-
-::: fatqat.compiler.IRRegistry
-
-::: fatqat.compiler.IRDefinition
-
-::: fatqat.compiler.IRProgram
-
 ## Errors
-
-Compiler errors share the `CompilerError` base class. `PassError` includes the
-stage that failed and preserves the original error as its cause.
-
-::: fatqat.compiler.CompilerError
-
-::: fatqat.compiler.ValidationError
 
 ::: fatqat.compiler.PassError
 
-::: fatqat.compiler.EmitNotFoundError
+## LogicalProgram
 
-::: fatqat.compiler.PipelineNotFoundError
+[`LogicalProgram`][fatqat.LogicalProgram] is a restricted
+[`Program`](program.md) for device-independent circuits. It uses the same
+constructor and authoring interface; `add()`, `measure()`, and `measure_all()`
+mutate in place and return `None`. Both types can be passed to
+`compile_to_sc()` and `compile_to_na()`.
 
-::: fatqat.compiler.UnsupportedFeatureError
+`add()` accepts the built-in qubit and qudit circuit gates, reset, and
+barriers. It rejects device operations (including atom placement, pairing,
+and pulse controls) and custom operation classes, including subclasses of
+built-in gates, with `ValueError`. Measurements use `measure()`.
+
+Classical conditions remain available for direct simulation. Register views
+follow `Program`'s authoring rules and expand into scalar gates when compiled.
+Compilation applies the
+[static gate and target restrictions](../guide/compiler.md#supported-source-behavior).
+
+```python
+import fatqat as fq
+
+circuit = fq.LogicalProgram(2, 2, metadata={"name": "bell"})
+circuit.add(fq.operations.H, 0)
+circuit.add(fq.operations.CX, (0, 1))
+circuit.measure_all()
+compiled = fq.compiler.compile_to_sc(circuit, fq.simulator.SCQubitSimulator())
+```
+
+The inherited `copy()` and `assign_parameters()` methods return independently
+editable `LogicalProgram` instances with the same operation restrictions.
+
+::: fatqat.LogicalProgram
+    options:
+      inherited_members: false
+      show_bases: true
