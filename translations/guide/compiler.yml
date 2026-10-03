@@ -97,7 +97,7 @@
 - id: 483a2f8faf826821
   en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set.'
   zh: '`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。'
-  status: machine
+  status: retired
 - id: 00360795314212b8
   en: Run on a neutral-atom architecture
   zh: 在中性原子架构上运行
@@ -173,4 +173,8 @@
 - id: c17c784235da0b92
   en: Other operations available to `LogicalProgram`, including classical conditions, feed-forward, mid-circuit measurement, multi-controlled gates, and qudit gates, can still be used in direct simulation but are not compiled yet. If a circuit uses an operation unavailable on its chosen target, compilation raises a [`PassError`][fatqat.compiler.PassError] that identifies the compiler stage and operation.
   zh: '`LogicalProgram` 中的其他操作，包括经典条件、前馈、电路中途测量、多重受控门和 qudit 门，仍可用于直接模拟，但目前尚不能编译。如果电路使用了所选目标不支持的操作，编译会抛出 [`PassError`][fatqat.compiler.PassError]，指出对应的编译阶段和操作。'
+  status: machine
+- id: a0eb5c50fd3df5ba
+  en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set. Toffoli (`CCX`) gates are decomposed into one- and two-qubit gates before routing.'
+  zh: "`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。"
   status: machine
