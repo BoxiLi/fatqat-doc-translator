@@ -273,8 +273,8 @@
 - id: 946d69fe8e75bd5d
   en: If you want the compiler to map and route a static gate circuit before it is run, construct a [`LogicalProgram`][fatqat.LogicalProgram] instead. It keeps the same register and authoring model while restricting operations to the device-independent compiler frontend. The [compiler workflow](compiler.md) describes its supported gates and source restrictions.
   zh: 如果希望编译器在运行前为静态门电路执行映射和路由，请改为构建 [`LogicalProgram`][fatqat.LogicalProgram]。它保留相同的 Register 和编写模型，同时将操作限制为设备无关的编译器前端支持的范围。[编译器工作流程](compiler.md)介绍了支持的门和源程序限制。
-  status: retired
+  status: machine
 - id: 3dd51f8f4ba1bb1e
   en: If you want the compiler to map and route a static gate circuit before it is run, pass the Program to [`compile_to_sc`][fatqat.compiler.compile_to_sc] or [`compile_to_na`][fatqat.compiler.compile_to_na]. The [compiler workflow](compiler.md) describes supported gates and source restrictions.
-  zh: "如果希望编译器在运行前为静态门电路执行映射和路由，请将 Program 传给 [`compile_to_sc`][fatqat.compiler.compile_to_sc] 或 [`compile_to_na`][fatqat.compiler.compile_to_na]。[编译器工作流程](compiler.md)介绍了支持的门和源程序限制。"
-  status: machine
+  zh: 如果希望编译器在运行前为静态门电路执行映射和路由，请将 Program 传给 [`compile_to_sc`][fatqat.compiler.compile_to_sc] 或 [`compile_to_na`][fatqat.compiler.compile_to_na]。[编译器工作流程](compiler.md)介绍了支持的门和源程序限制。
+  status: retired

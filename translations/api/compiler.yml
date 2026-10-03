@@ -8,96 +8,96 @@
   status: retired
 - id: 531c0be6e326d010
   en: Compile a Python circuit
-  zh: "编译 Python 电路"
-  status: machine
+  zh: 编译 Python 电路
+  status: retired
 - id: 64be6899a1ef4c75
   en: Compile OpenQASM
   zh: 编译 OpenQASM
   status: machine
 - id: 219c4a6c86a716e9
   en: Results
-  zh: "编译结果"
-  status: machine
+  zh: 编译结果
+  status: retired
 - id: 21b7e31e7ffb8966
   en: Final target helpers return an executable compilation result. It retains the compiler IR and pass route while carrying the simulator program and device layout required by `Simulator.run()`.
-  zh: "最终目标的辅助函数返回可执行的编译结果。其中保留编译器 IR 和转换流程，并包含 `Simulator.run()` 所需的模拟器程序和设备布局。"
-  status: machine
+  zh: 最终目标的辅助函数返回可执行的编译结果。其中保留编译器 IR 和转换流程，并包含 `Simulator.run()` 所需的模拟器程序和设备布局。
+  status: retired
 - id: 64ff2f17eb50e3cb
   en: Low-level simulator translation
-  zh: "底层模拟器转换"
-  status: machine
+  zh: 底层模拟器转换
+  status: retired
 - id: a3dcd1eff35024b3
   en: These functions project manually created or modified final IR. Normal callers can pass the result of a final-target compile helper directly to the matching simulator.
-  zh: "这些函数用于转换手动创建或修改的最终 IR。通常可将最终目标编译辅助函数的返回结果直接传给对应模拟器。"
-  status: machine
+  zh: 这些函数用于转换手动创建或修改的最终 IR。通常可将最终目标编译辅助函数的返回结果直接传给对应模拟器。
+  status: retired
 - id: 76bfaf6fb46a8cc1
   en: Use the compiler to prepare a device-independent circuit for a superconducting or neutral-atom target. A final compilation can be passed directly to the matching simulator.
   zh: 使用编译器将不依赖设备的电路转换为面向超导或中性原子目标的程序。最终编译结果可以直接传给匹配的模拟器。
-  status: retired
+  status: machine
 - id: ffe5ef1e9cfbec60
   en: 'Choose an entry point from the source and target you have:'
   zh: 根据已有的源程序与目标选择入口：
-  status: retired
+  status: machine
 - id: dba9ac5692611db9
   en: '| Source | Superconducting target | Neutral-atom target |'
   zh: '| 源程序 | 超导目标 | 中性原子目标 |'
-  status: retired
+  status: machine
 - id: e546eb4df69a06cd
   en: '| OpenQASM 2 or 3 | `compile_qasm_to_sc()` | `compile_qasm_to_na()` |'
   zh: '| OpenQASM 2 或 3 | `compile_qasm_to_sc()` | `compile_qasm_to_na()` |'
-  status: retired
+  status: machine
 - id: 170fa7d891a89053
   en: The [compiler guide](../guide/compiler.md) shows complete compile-and-run examples for all four paths.
   zh: '[编译器指南](../guide/compiler.md) 展示了这四条路径的完整编译与运行示例。'
-  status: retired
+  status: machine
 - id: 2aa9756d9a566092
   en: Compile a LogicalProgram
   zh: 编译 LogicalProgram
-  status: retired
+  status: machine
 - id: a4e1d65eac765b43
   en: 'Build a circuit with `LogicalProgram`, then provide either an SC backend or a neutral-atom architecture:'
   zh: 使用 `LogicalProgram` 构建电路，然后提供 SC 后端或中性原子架构：
-  status: retired
+  status: machine
 - id: aa30c7b43b56c804
   en: Pass OpenQASM source text directly to the target compiler. The returned result uses the same execution interface as a compiled `LogicalProgram`.
   zh: 将 OpenQASM 源文本直接传给目标编译器。返回结果与编译后的 `LogicalProgram` 使用相同的执行接口。
-  status: retired
+  status: machine
 - id: d9ea79af78648e1e
   en: Compilation results
   zh: 编译结果
-  status: retired
+  status: machine
 - id: dd2697f3c35717c3
   en: At the final target boundary, the compile functions return an `ExecutableCompilationResult`. Pass it to the matching simulator, inspect the target representation through `.output`, or review the stages through `.route`.
   zh: 编译到最终目标阶段时，编译函数返回 `ExecutableCompilationResult`。可以将其传给匹配的模拟器，通过 `.output` 查看目标表示，或通过 `.route` 查看各个阶段。
-  status: retired
+  status: machine
 - id: d65839e7d87b90d7
   en: When `emit` selects an earlier boundary, the return value is a `CompilationResult` intended for inspection.
   zh: 当 `emit` 选择较早的阶段时，返回值是供检查使用的 `CompilationResult`。
-  status: retired
+  status: machine
 - id: aa7892c2c99be973
   en: Neutral-atom architectures and animation
   zh: 中性原子架构与动画
-  status: retired
+  status: machine
 - id: b28df277f721dc39
   en: '`load_architecture()` returns a fresh copy of a bundled neutral-atom profile. Use the same architecture for compilation and schedule visualization.'
   zh: '`load_architecture()` 返回内置中性原子硬件配置的一份新副本。编译和调度可视化应使用同一架构。'
-  status: retired
+  status: machine
 - id: bc64685c4318cf4b
   en: Advanced compiler APIs
   zh: 高级编译器 API
-  status: retired
+  status: machine
 - id: 0e6cd38cf49be2d9
   en: Most applications only need the four compile functions above. The following APIs expose intermediate translation and pipeline construction for compiler extensions and IR inspection.
   zh: 大多数应用只需使用上面的四个编译函数。以下 API 提供中间表示转换与流水线构建能力，供编译器扩展及 IR 检查使用。
-  status: retired
+  status: machine
 - id: 22d9daa28a5e204c
   en: Simulator translation
   zh: 转换为 Simulator 输入
-  status: retired
+  status: machine
 - id: 5d564287e3eafeea
   en: Use these functions when working with a final compiler IR that was constructed or modified directly. Results returned by the normal compile functions are already ready for simulation.
   zh: 如果直接构建或修改了最终编译器 IR，可使用这些函数。普通编译函数返回的结果已经可以直接用于模拟。
-  status: retired
+  status: machine
 - id: 195718c934de872b
   en: SC native programs can declare `classical_registers` as a keyword-only tuple of the original register objects in output order. The bridge retains all slots, including unwritten slots and entirely unused registers. Distinct registers may share a name; declaring the same object twice is invalid. Measurement outputs must belong to declared registers. The bridge and native verifier raise `ValidationError` for invalid explicit declarations.
   zh: SC 原生程序可以通过仅限关键字的 `classical_registers` 参数，按输出顺序声明由原始寄存器对象组成的元组。桥接层保留所有槽位，包括未写入的槽位和完全未使用的寄存器。不同寄存器可以同名，但不能重复声明同一个对象。测量输出必须属于已声明的寄存器。显式声明无效时，桥接层和原生验证器都会抛出 `ValidationError`。
@@ -109,36 +109,36 @@
 - id: c16c0af8aba62b64
   en: Pipelines and IRs
   zh: 流水线与 IR
-  status: retired
+  status: machine
 - id: e79e4b8fee7065f5
   en: Compiler errors share the `CompilerError` base class. `PassError` includes the stage that failed and preserves the original error as its cause.
   zh: 编译器错误共用 `CompilerError` 基类。`PassError` 包含失败的阶段，并将原始错误保留为其原因。
-  status: retired
+  status: machine
 - id: fc6349ae0911f97e
   en: Compiler under development
-  zh: "编译器仍在开发中"
-  status: machine
+  zh: 编译器仍在开发中
+  status: retired
 - id: df487eb7bb1081c5
   en: The compiler module is under active development. Its interfaces and supported behavior may change between releases. Pin an exact FatQat version when reproducibility matters.
-  zh: "编译器模块仍在积极开发，其接口和支持的行为可能随版本变化。需要可复现结果时，请固定 FatQat 的确切版本。"
-  status: machine
+  zh: 编译器模块仍在积极开发，其接口和支持的行为可能随版本变化。需要可复现结果时，请固定 FatQat 的确切版本。
+  status: retired
 - id: b20520250899d6ae
   en: Pass a [`Program`][fatqat.Program] to the static gate compiler to map and lower it for a superconducting or neutral-atom target. Compilation snapshots the source without editing it. See the [compiler guide](../guide/compiler.md) for supported source behavior and complete execution examples.
-  zh: "将 [`Program`][fatqat.Program] 传给静态门编译器，即可为超导或中性原子目标进行映射和逐级转换。编译会创建源程序快照，不会修改源程序。有关支持的源程序行为及完整执行示例，请参阅[编译器指南](../guide/compiler.md)。"
-  status: machine
+  zh: 将 [`Program`][fatqat.Program] 传给静态门编译器，即可为超导或中性原子目标进行映射和逐级转换。编译会创建源程序快照，不会修改源程序。有关支持的源程序行为及完整执行示例，请参阅[编译器指南](../guide/compiler.md)。
+  status: retired
 - id: 7628fbf29f7bdfd7
   en: '[`LogicalProgram`][fatqat.LogicalProgram] is a restricted [`Program`](program.md) for device-independent circuits. It uses the same constructor and authoring interface; `add()`, `measure()`, and `measure_all()` mutate in place and return `None`. Both types can be passed to `compile_to_sc()` and `compile_to_na()`.'
-  zh: "[`LogicalProgram`][fatqat.LogicalProgram] 是用于设备无关电路的受限 [`Program`](program.md)。它使用相同的构造函数和编写接口；`add()`、`measure()` 和 `measure_all()` 会就地修改对象并返回 `None`。这两种类型均可传给 `compile_to_sc()` 和 `compile_to_na()`。"
-  status: machine
+  zh: '[`LogicalProgram`][fatqat.LogicalProgram] 是用于设备无关电路的受限 [`Program`](program.md)。它使用相同的构造函数和编写接口；`add()`、`measure()` 和 `measure_all()` 会就地修改对象并返回 `None`。这两种类型均可传给 `compile_to_sc()` 和 `compile_to_na()`。'
+  status: retired
 - id: ad4afeabd4d7eed4
   en: '`add()` accepts the built-in qubit and qudit circuit gates, reset, and barriers. It rejects device operations (including atom placement, pairing, and pulse controls) and custom operation classes, including subclasses of built-in gates, with `ValueError`. Measurements use `measure()`.'
-  zh: "`add()` 接受内置的量子比特和 qudit 电路门、重置及屏障。对于设备指令（包括原子放置、配对和脉冲控制）及自定义 Operation 类，包括内置门的子类，它会抛出 `ValueError`。测量使用 `measure()`。"
-  status: machine
+  zh: '`add()` 接受内置的量子比特和 qudit 电路门、重置及屏障。对于设备指令（包括原子放置、配对和脉冲控制）及自定义 Operation 类，包括内置门的子类，它会抛出 `ValueError`。测量使用 `measure()`。'
+  status: retired
 - id: 1488a4bf732ea565
   en: Classical conditions remain available for direct simulation. Register views follow `Program`'s authoring rules and expand into scalar gates when compiled. Compilation applies the [static gate and target restrictions](../guide/compiler.md#supported-source-behavior).
-  zh: "经典条件仍可用于直接模拟。Register 视图遵循 `Program` 的编写规则，并在编译时展开为作用于单个目标的门。编译还需满足[静态门与目标限制](../guide/compiler.md#supported-source-behavior)。"
-  status: machine
+  zh: 经典条件仍可用于直接模拟。Register 视图遵循 `Program` 的编写规则，并在编译时展开为作用于单个目标的门。编译还需满足[静态门与目标限制](../guide/compiler.md#supported-source-behavior)。
+  status: retired
 - id: 5d2fb32119bd8c3a
   en: The inherited `copy()` and `assign_parameters()` methods return independently editable `LogicalProgram` instances with the same operation restrictions.
-  zh: "继承的 `copy()` 和 `assign_parameters()` 方法返回可独立编辑的 `LogicalProgram` 实例，并保留相同的 Operation 限制。"
-  status: machine
+  zh: 继承的 `copy()` 和 `assign_parameters()` 方法返回可独立编辑的 `LogicalProgram` 实例，并保留相同的 Operation 限制。
+  status: retired

@@ -1,4 +1,4 @@
 - id: 6729271bb3084c4a
   en: You need basic Python, qubit states, and X rotations. The [quickstart](../guide/quickstart.md) introduces the program and result workflow. We use FatQat's supplied single-transmon model, which includes an extra energy level \(|2\rangle\) beyond the two qubit states. Population can enter this level during a pulse; we call it **leakage**. All calibration results here refer to this simulation model.
   zh: 你需要了解基本 Python、量子比特态和 X 旋转。[快速入门](../guide/quickstart.md)介绍了程序与结果的使用流程。这里使用 FatQat 提供的单 transmon 模型，它在两个量子比特态之外还包含一个额外能级 \(|2\rangle\)。脉冲期间，布居可能进入该能级，称为**泄漏**。这里所有校准结果均针对这个模拟模型。
-  status: retired
+  status: machine

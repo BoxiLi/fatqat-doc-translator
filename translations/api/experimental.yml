@@ -37,8 +37,8 @@
 - id: 91343bb1092934bf
   en: The [compiler](compiler.md) is under development; its interfaces and supported behavior may change. Its [LogicalProgram](logical-program.md) frontend accepts built-in device-independent operations and is required by the Python compiler entry points.
   zh: '[编译器](compiler.md)仍在开发中，其接口和支持的行为可能发生变化。[LogicalProgram](logical-program.md) 前端接受内置的设备无关操作，是 Python 编译器入口所要求的输入。'
-  status: retired
+  status: machine
 - id: e17ddd86db2f26a1
   en: The [compiler](compiler.md) is under development; its interfaces and supported behavior may change. The optional [LogicalProgram](compiler.md#logicalprogram) subclass accepts built-in device-independent operations while its compiler support continues to evolve.
-  zh: "[编译器](compiler.md)仍在开发中，其接口和支持的行为可能发生变化。可选的 [LogicalProgram](compiler.md#logicalprogram) 子类接受内置的设备无关指令，其编译器支持仍在完善。"
-  status: machine
+  zh: '[编译器](compiler.md)仍在开发中，其接口和支持的行为可能发生变化。可选的 [LogicalProgram](compiler.md#logicalprogram) 子类接受内置的设备无关指令，其编译器支持仍在完善。'
+  status: retired

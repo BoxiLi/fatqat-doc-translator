@@ -333,19 +333,19 @@
 - id: 3a6b9acf6c2eb324
   en: '![The SCQubitSimulator result gives the target outcome 101 a probability of 86.15 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
   zh: '![SCQubitSimulator 在相干时间为 200 微秒、两条边均添加 0.003 的 CZ 退极化噪声时，得到目标结果 101 的概率为 86.15%。](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
-  status: machine
+  status: retired
 - id: 549c2609defea5f7
   en: With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003`. Compiled native-gate simulation then returns `101` with **86.15%** probability.
   zh: 设 `T1 = T2 = 200 µs`，并添加 `p = 0.003` 的 CZ 退极化噪声。编译后的原生门模拟以 **86.15%** 的概率返回 `101`。
-  status: machine
+  status: retired
 - id: aedf1c2731ef7946
   en: '![The three-level TransmonEmulator result gives the target outcome 101 a probability of about 68.5 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
   zh: '![三能级 TransmonEmulator 在相同相干时间下，得到目标结果 101 的概率约为 68.5%。](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
-  status: machine
+  status: retired
 - id: 89f1a0095b7c6ecd
   en: Calibrated pulses, three physical levels, and the same coherence times return `101` with about **68.5%** probability; physical leakage is **0.0446%**. Most of the error comes from imperfect `iSWAP` gates.
   zh: 使用校准脉冲、三个物理能级与相同相干时间时，返回 `101` 的概率约为 **68.5%**，物理泄漏为 **0.0446%**。大部分误差来自不完美的 `iSWAP` 门。
-  status: machine
+  status: retired
 - id: 51ffc6eebdfdbcd9
   en: Shared algorithm source — `home_grover_program.py`
   zh: 共享算法源代码 — `home_grover_program.py`
@@ -353,11 +353,11 @@
 - id: d6a2401ea9562e3f
   en: The compact circuit view and fused rotation data live in this visible source. The general and Transmon scripts share the rotation Program; the SC script builds equivalent QASM and compiles it to the canonical native basis.
   zh: 紧凑电路视图和融合旋转数据位于这份可查看的源文件中。通用模拟与 Transmon 脚本共用旋转 Program；SC 脚本构建等价的 QASM，并将其编译到规范原生门基。
-  status: machine
+  status: retired
 - id: 06e9ab2e991ba0dc
   en: Each tab is a top-to-bottom script. It uses the algorithm representation appropriate to its target, while private plotting details stay out of the execution flow.
   zh: 每个标签页都是可从上到下运行的脚本，使用适合其目标的算法表示；内部绘图细节不混入执行流程。
-  status: machine
+  status: retired
 - id: e9a2ce2d270e9d64
   en: Encode hardware behavior when needed
   zh: 按需表达硬件行为
@@ -401,28 +401,28 @@
 - id: fa32672227a9ed82
   en: '![The SCQubitSimulator result gives the target outcome 101 a probability of 81.65 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
   zh: '![SCQubitSimulator 在相干时间为 200 微秒、两条边均添加 0.003 的 CZ 退极化噪声时，得到目标结果 101 的概率为 81.65%。](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
-  status: retired
+  status: machine
 - id: e0dd853dd661f302
   en: With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003`. Compiled native-gate simulation then returns `101` with **81.65%** probability.
   zh: 设 `T1 = T2 = 200 µs`，并添加 `p = 0.003` 的 CZ 退极化噪声。编译后的原生门模拟以 **81.65%** 的概率返回 `101`。
-  status: retired
+  status: machine
 - id: 5727a0b51520e3b5
   en: '![The three-level TransmonEmulator result gives the target outcome 101 a probability of about 64.05 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
   zh: '![三能级 TransmonEmulator 在相同相干时间下，得到目标结果 101 的概率约为 64.05%。](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
-  status: retired
+  status: machine
 - id: c0722ef9790a984b
   en: Calibrated pulses, three physical levels, and the same coherence times return `101` with about **64.05%** probability; physical leakage is **0.0649%**. This run realizes the compiled X/SX/RZ/CZ gates with calibrated pulses.
   zh: 校准脉冲、三个物理能级和相同的相干时间以约 **64.05%** 的概率返回 `101`；物理泄漏为 **0.0649%**。这次运行用校准脉冲实现编译后的 X/SX/RZ/CZ 门。
-  status: retired
+  status: machine
 - id: 7b314aaff7ff66e9
   en: With the fixed routing seed, compilation produces **51 CZ**, **172 SX**, and **383 RZ** gates. These results use the same compiled circuit for both hardware models; the SC noise channels and the Transmon pulse dynamics model different physical effects. The Transmon model also uses 60 ns CZ pulses, while the SC coherence channels use a 50 ns CZ duration. Compilation preserves ideal algorithm behavior, but the gate decomposition and routing affect noisy results.
   zh: 固定路由随机种子后，编译得到 **51 个 CZ**、**172 个 SX** 和 **383 个 RZ** 门。两种硬件模型使用同一个编译后的电路；SC 噪声信道和 Transmon 脉冲动力学描述不同的物理效应。此外，Transmon 模型使用 60 ns 的 CZ 脉冲，而 SC 相干噪声信道采用 50 ns 的 CZ 门时长。编译保持算法的理想行为，但门分解和路由会影响含噪结果。
-  status: retired
+  status: machine
 - id: 7cc9bf4b96af55d4
   en: All three scripts start from the same compact `LogicalProgram` shown above. General simulation runs it directly; the SC and Transmon scripts use `compile_to_sc()` to decompose its Toffoli gates and route the circuit onto the three-site line. The routing seed is fixed for reproducible results. The shared axis helper restores logical qubit order when reading a compiled final state.
   zh: 三个脚本都从上面同一个简洁的 `LogicalProgram` 开始。通用模拟直接运行该程序；SC 和 Transmon 脚本使用 `compile_to_sc()` 分解其中的 Toffoli 门，并将电路路由到三个位置组成的链上。固定路由随机种子使结果可复现。共用的轴处理辅助函数在读取编译后的最终态时恢复逻辑量子比特顺序。
-  status: retired
+  status: machine
 - id: 68adc938030ac905
   en: Each tab is a top-to-bottom script. The general script also verifies that ideal compiled execution matches the source state up to a global phase. The Transmon script binds compiled sites to model subsystems and supplies X/SX pulse definitions using its calibrated RX recipe.
   zh: 每个选项卡都是可从头到尾运行的脚本。通用模拟脚本还会验证：除全局相位外，编译后的理想执行结果与源程序的态相同。Transmon 脚本将编译后的设备位置绑定到模型子系统，并利用校准后的 RX 脉冲方案定义 X/SX 脉冲。
-  status: retired
+  status: machine
