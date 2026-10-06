@@ -24,7 +24,7 @@
   status: machine
 - id: 01aa76e1c50c7a0c
   en: 'Reuse the guide''s central rotation as an ordinary Program operation. The emulator realizes it with its gate implementation map and reference calibration:'
-  zh: "在 Program 中添加前面使用过的旋转门。仿真器通过其门实现映射和参考校准来实现它："
+  zh: 在 Program 中添加前面使用过的旋转门。仿真器通过其门实现映射和参考校准来实现它：
   status: machine
 - id: c5d1ba9a6946b539
   en: 'The Program declares a logical qubit, but the result covers the complete two-transmon qutrit space. To inspect `q0`, reshape the diagonal in FatQat''s little-endian physical-axis order and sum over `q1`:'

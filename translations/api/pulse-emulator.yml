@@ -12,7 +12,7 @@
   status: machine
 - id: c21a1e0b1c52589f
   en: Ordinary gates use `gate_implementation_map`. A [`PulseOperation`][fatqat.operations.PulseOperation] contains its own physical channels and does not use that map. See [Pulse control](pulse-control/index.md) for direct pulse authoring.
-  zh: "普通门使用 `gate_implementation_map`。[`PulseOperation`][fatqat.operations.PulseOperation] 包含自己的物理通道，不使用该映射。有关直接脉冲的编写，参见[脉冲控制](pulse-control/index.md)。"
+  zh: 普通门使用 `gate_implementation_map`。[`PulseOperation`][fatqat.operations.PulseOperation] 包含自己的物理通道，不使用该映射。有关直接脉冲的编写，参见[脉冲控制](pulse-control/index.md)。
   status: machine
 - id: d63928e8dadaf71f
   en: Unless a path is shown explicitly, the APIs on this page come from `fatqat.emulator`; the GHz conversion helper comes from `fatqat.emulator.superconducting`.
@@ -164,7 +164,7 @@
   status: machine
 - id: 94c4a092c8034f37
   en: The `model.control` namespace selects the Hamiltonian mechanism, while `model.frame(...)` selects a virtual-drive phase. The control-selector methods are also available by name through the `model.available_controls` mapping. Each mapping entry describes a supported control kind, not every fully bound channel instance. Selectors expose `scope`, required `operands`, `coefficient_domain`, and `coefficient_unit` for lightweight inspection. Calling a selector returns a channel address. When you run the program, the emulator checks resource names, declared pairs, waveform type, and values.
-  zh: "`model.control` 命名空间选择哈密顿量机制，而 `model.frame(...)` 选择虚拟驱动相位。控制选择器方法也可以通过 `model.available_controls` 映射按名称访问。每个映射条目描述一种受支持的控制类型，而不是每个完全绑定的通道实例。选择器公开 `scope`、所需的 `operands`、`coefficient_domain` 和 `coefficient_unit`，便于轻量检查。调用选择器会返回一个通道地址。运行程序时，仿真器会检查资源名称、已声明的配对、波形类型和取值。"
+  zh: '`model.control` 命名空间选择哈密顿量机制，而 `model.frame(...)` 选择虚拟驱动相位。控制选择器方法也可以通过 `model.available_controls` 映射按名称访问。每个映射条目描述一种受支持的控制类型，而不是每个完全绑定的通道实例。选择器公开 `scope`、所需的 `operands`、`coefficient_domain` 和 `coefficient_unit`，便于轻量检查。调用选择器会返回一个通道地址。运行程序时，仿真器会检查资源名称、已声明的配对、波形类型和取值。'
   status: machine
 - id: 655e4212c1bbf7ca
   en: Calibration recipes
@@ -200,7 +200,7 @@
   status: retired
 - id: ef89ea33fcdde777
   en: See [PulseOperation](pulse-control/pulse-operation.md), [PulseControl](pulse-control/pulse-control.md), and [SampledWaveform](pulse-control/sampled-waveform.md) for construction and timing. `iSwap` is a gate whose built-in realization uses exchange; `iSwap` is not a channel name.
-  zh: "有关构造与时序，参见 [PulseOperation](pulse-control/pulse-operation.md)、[PulseControl](pulse-control/pulse-control.md) 和 [SampledWaveform](pulse-control/sampled-waveform.md)。`iSwap` 是一个门，其内置实现使用 exchange；`iSwap` 不是通道名称。"
+  zh: 有关构造与时序，参见 [PulseOperation](pulse-control/pulse-operation.md)、[PulseControl](pulse-control/pulse-control.md) 和 [SampledWaveform](pulse-control/sampled-waveform.md)。`iSwap` 是一个门，其内置实现使用 exchange；`iSwap` 不是通道名称。
   status: machine
 - id: d309acb3f84e23cf
   en: Pass supported declarations through `noise=`. The transmon emulator provides the collapse-operator realizations documented in [Pulse emulators](noise/backend-support.md#noise-emulator-support), including [`AmplitudeDamping`][fatqat.noise.AmplitudeDamping], [`PhaseDamping`][fatqat.noise.PhaseDamping], and [`ThermalRelaxation`][fatqat.noise.ThermalRelaxation], plus rate-form [`Depolarizing`][fatqat.noise.Depolarizing]. Qutrit amplitude damping requires two adjacent-level rates. Depolarization acts on the full three-level space and can populate `|2>`. Rates use inverse nanoseconds, while `t1`, `t2`, and `t_phi` use nanoseconds. The emulator accepts both background declarations and declarations scoped to ordinary operations. Finite probability forms, `Loss`, and nonlocal declarations are rejected.
@@ -212,7 +212,7 @@
   status: machine
 - id: 621b8d6e068f96b9
   en: Call [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] before running a program to validate its noise model. Program-specific selectors are checked at run time.
-  zh: "在运行程序之前，调用 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] 来验证其噪声模型。与 Program 有关的选择器在运行时检查。"
+  zh: 在运行程序之前，调用 [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] 来验证其噪声模型。与 Program 有关的选择器在运行时检查。
   status: machine
 - id: 4708e41d83bb8266
   en: Neutral-atom pulse emulator
@@ -328,7 +328,7 @@
   status: machine
 - id: b950a45613790ba0
   en: The same model channels can be used without a gate-realization rule. Drive and detuning resolve one declared transmon; exchange resolves two transmons and their declared coupling. Drive accepts a full complex Rabi-rate envelope for the two quadratures, while detuning and exchange require real values. Pulse times use the model units described above. The current transmon model does not add amplitude or duration limits beyond requiring finite values.
-  zh: "同样的模型通道可以在没有门实现规则的情况下使用。drive 和 detuning 解析一个已声明的 transmon；exchange 解析两个 transmon 及其已声明的耦合。drive 接受表示两个正交分量的完整复数 Rabi 速率包络，而 detuning 和 exchange 要求实数值。脉冲时间使用上文所述的模型单位。当前的 transmon 模型除要求取值有限外，不施加额外的振幅或时长限制。"
+  zh: 同样的模型通道可以在没有门实现规则的情况下使用。drive 和 detuning 解析一个已声明的 transmon；exchange 解析两个 transmon 及其已声明的耦合。drive 接受表示两个正交分量的完整复数 Rabi 速率包络，而 detuning 和 exchange 要求实数值。脉冲时间使用上文所述的模型单位。当前的 transmon 模型除要求取值有限外，不施加额外的振幅或时长限制。
   status: machine
 - id: fe0ba1832e6975ea
   en: By default, qubits in a [`Program`][fatqat.Program] bind in declaration order to `model.subsystem_ids`. Pass an explicit [`ResourceLayout`][fatqat.ResourceLayout] to `run(resource_layout=...)` to override that binding; its device labels must be model subsystem IDs. Unaddressed transmons remain part of the full physical state and still contribute factors of three to state and operator dimensions. The result's `state_axes` lists every model transmon in model order, most-significant first. Statevectors and both axes of density matrices and unitaries use that order. State and unitary results may still use different documented terminal frames.
@@ -336,7 +336,7 @@
   status: machine
 - id: 2df6d55471785545
   en: Result metadata includes the effective run and result settings, identifies `runtime="qutip"`, and reports `solver` and `solver_options` inside `runtime_details`. `solver` is one solver name for a uniform run or a tuple of names when execution used multiple solvers. Metadata does not include the model or calibration documents. When a sampled-control run invokes a QuTiP solver, the reported `max_step` is derived separately for each program as half the smallest adjacent interval in its control-waveform grids. It is expressed in the model's native time unit (`ns` for Transmon and `us` for the atom emulators). This keeps narrow controls visible to QuTiP's adaptive solver without assuming a fixed pulse time scale.
-  zh: "Result 元数据包含实际生效的运行和结果设置，标识 `runtime=\"qutip\"`，并在 `runtime_details` 中报告 `solver` 和 `solver_options`。统一使用一个求解器的运行以名称报告 `solver`；使用多个求解器时则报告名称元组。元数据不包含模型或校准文档。采样控制运行调用 QuTiP 求解器时，会针对每个程序，将其控制波形网格中最小相邻间隔的一半作为报告的 `max_step`。其单位使用模型原生时间单位：Transmon 为 `ns`，原子仿真器为 `us`。这样无需假设固定脉冲时间尺度，也能让 QuTiP 自适应求解器捕捉到窄控制脉冲。"
+  zh: Result 元数据包含实际生效的运行和结果设置，标识 `runtime="qutip"`，并在 `runtime_details` 中报告 `solver` 和 `solver_options`。统一使用一个求解器的运行以名称报告 `solver`；使用多个求解器时则报告名称元组。元数据不包含模型或校准文档。采样控制运行调用 QuTiP 求解器时，会针对每个程序，将其控制波形网格中最小相邻间隔的一半作为报告的 `max_step`。其单位使用模型原生时间单位：Transmon 为 `ns`，原子仿真器为 `us`。这样无需假设固定脉冲时间尺度，也能让 QuTiP 自适应求解器捕捉到窄控制脉冲。
   status: machine
 - id: 0bcbee8a2f1e6488
   en: Pass supported declarations through `noise=`. The transmon emulator provides the collapse-operator realizations documented in [Pulse emulators](noise/backend-support.md#noise-emulator-support), including [`TransitionRelaxation`][fatqat.noise.TransitionRelaxation], [`PhaseDamping`][fatqat.noise.PhaseDamping], and rate-form [`Depolarizing`][fatqat.noise.Depolarizing]. Transition relaxation takes explicit level-pair coefficients; FATQAT does not insert a harmonic `sqrt(n)` ladder. Depolarization acts on the full three-level space and can populate `|2>`. Rates use inverse nanoseconds and `t_phi` uses nanoseconds. The emulator accepts both background declarations and declarations scoped to ordinary operations. Finite probability forms, `AmplitudeDamping`, `Loss`, qubit-only `ThermalRelaxation`, and nonlocal declarations are rejected.
