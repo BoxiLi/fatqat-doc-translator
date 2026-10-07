@@ -176,5 +176,5 @@
   status: machine
 - id: a0eb5c50fd3df5ba
   en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set. Toffoli (`CCX`) gates are decomposed into one- and two-qubit gates before routing.'
-  zh: "`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。"
+  zh: '`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。'
   status: machine
