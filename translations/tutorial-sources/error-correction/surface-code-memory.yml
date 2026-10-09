@@ -1,0 +1,228 @@
+- id: 7bdca6e7fee98fd6
+  en: Run a surface-code memory-Z experiment
+  zh: ''
+  status: pending
+- id: 70373c70db071b72
+  en: Build a noisy surface-code memory-Z experiment with SCQubitSimulator, decode repeated stabilizer measurements, and fit the logical error rate per cycle.
+  zh: ''
+  status: pending
+- id: 5828b43b350ca6ba
+  en: Seventeen-qubit surface-code patch with nine data qubits, four X checks, four Z checks, and the logical Z support
+  zh: ''
+  status: pending
+- id: ca52a9286b9baa65
+  en: Z-check detection-event frequencies during eighteen noisy QEC cycles and the final data readout
+  zh: ''
+  status: pending
+- id: f4db69e77205249f
+  en: Decoded logical error versus QEC cycles, with 128 shots per point, symmetric one-standard-error bars, and a fitted logical error rate per cycle
+  zh: ''
+  status: pending
+- id: 57e89265ee01f78e
+  en: Written by Zhi ZENG, The Chinese University of Hong Kong.
+  zh: ''
+  status: pending
+- id: 142076b94e9ce3f6
+  en: A surface code uses data qubits to store information and ancilla qubits to detect errors through stabilizer measurements. In this tutorial, we use FatQat to study a distance-three surface-code memory-Z experiment with nine data qubits and eight ancilla qubits.
+  zh: ''
+  status: pending
+- id: aa2e528da5e398e5
+  en: We will show how repeated stabilizer measurements provide information for decoding the final logical Z readout. You will learn how to construct a noisy syndrome-extraction circuit, interpret detection events, and apply a classical decoder. Finally, we will examine how the decoded logical error rate changes with the number of QEC cycles and fit an effective error rate per cycle.
+  zh: ''
+  status: pending
+- id: ee7eb41e9c4a3ed2
+  en: 1. Specify the code and initial state
+  zh: ''
+  status: pending
+- id: 39a87391405846da
+  en: Data qubits 0 through 8 form a row-major $3\times3$ square. Each ancilla qubit measures the product of X or Z on its neighbouring data qubits. $H_X$ and $H_Z$ record those stabilizers as binary matrices and the commutation relation requires $H_X H_Z^T=0\pmod2$. The chosen logical operators are $Z_L=Z_0Z_3Z_6$ and $X_L=X_0X_1X_2$.
+  zh: ''
+  status: pending
+- id: 4f70050f8a4088ce
+  en: '`POSITIONS` assigns dimensionless coordinates to this code diagram. These coordinates are used to draw the patch and generate the four ordered CNOT layers in `cx_layers()` below.'
+  zh: ''
+  status: pending
+- id: b41aaa548423e869
+  en: The simulator starts every shot with all 17 qubits in the computational zero state. The data therefore start in $|0\rangle^{\otimes9}$ and all ancillas in $|0\rangle$. The initial Z-check parities and logical Z parity are zero. This product state is not the fully encoded logical state $|0_L\rangle$, since it is not an eigenstate of all X stabilizers. X stabilizers commute with the Z stabilizers and $Z_L$, so they preserve the initial logical Z value. This experiment tracks that value without requiring all X-check signs to be $+1$.
+  zh: ''
+  status: pending
+- id: 9e57497bf32e1814
+  en: The following small exhaustive check verifies that each check matrix has rank four and that a Pauli error with no syndrome but a flipped logical observable has minimum weight three.
+  zh: ''
+  status: pending
+- id: 9da499a4386acaf8
+  en: 2. Construct the backend and noise model
+  zh: ''
+  status: pending
+- id: 6f6359ed8e96fec1
+  en: We use illustrative noise parameters to model gate errors, relaxation, dephasing, and readout errors. All qubits share the same coherence times and readout probabilities, and gates of each type share the same fidelity. We set $T_1=40\,\mu\mathrm{s}$ and $T_2=10\,\mu\mathrm{s}$.
+  zh: ''
+  status: pending
+- id: 8bf44322e6cce6a6
+  en: Here we use a $d$-dimensional depolarizing channel
+  zh: ''
+  status: pending
+- id: 2bd714537af12e95
+  en: given gate fidelity $F_{\rm avg}$,
+  zh: ''
+  status: pending
+- id: da1717c23bcb0148
+  en: Each X or SX receives one single-qubit channel, and each CZ receives one joint two-qubit channel. RZ is virtual and noiseless. During each gate layer, idle qubits undergo amplitude damping and pure dephasing for the duration of that layer, which is 20 ns for a single-qubit gate layer and 40 ns for a CZ layer. These idle intervals are represented by identity operations with the corresponding noise channels. All nine data qubits also experience 600 ns of idle decoherence during each ancilla measurement.
+  zh: ''
+  status: pending
+- id: 67289f91c8525679
+  en: Idle decoherence is modeled as Markovian amplitude damping and pure dephasing, with rates derived from $T_1$ and $T_2$. We assume a 600 ns ancilla readout time. A true outcome of 0 is reported as 1 with probability $1-F_{00}$, while a true outcome of 1 is reported as 0 with probability $1-F_{11}$. Reset prepares every ancilla in $|0\rangle$ with zero duration and no error, independently of its reported measurement bit. The measurement window adds decoherence only to the data qubits. Leakage, crosstalk, and dynamical decoupling are not included. Initialization is ideal, so no additional state-preparation error is applied to the default all-zero state.
+  zh: ''
+  status: pending
+- id: a44a386a636ab6af
+  en: 3. Build the syndrome extraction circuit
+  zh: ''
+  status: pending
+- id: 17506ac887b88700
+  en: Z-type stabilizers are measured using CNOT gates with the data qubits as controls and the ancilla as the target. For X-type stabilizers, the ancilla acts as the control and the data qubits as targets. A Hadamard gate is applied to each X-check ancilla before and after its CNOT sequence. All ancillas are then measured in the Z basis.
+  zh: ''
+  status: pending
+- id: 161ea463465951c7
+  en: The CNOT gates are scheduled in four layers. Each Z-check ancilla interacts with its neighbouring data qubits in the order northwest, northeast, southwest, southeast. Each X-check ancilla uses the order northwest, southwest, northeast, southeast. These directions refer to the positions of data qubits relative to the ancilla in the patch diagram. Missing neighbours at the boundaries are skipped. Each layer contains six CNOT gates acting on disjoint qubit pairs. The ordering controls how ancilla faults propagate into correlated data errors. Any alternative schedule should be checked for correct stabilizer extraction and hook-error propagation. See [Tomita and Svore](https://arxiv.org/abs/1404.3747).
+  zh: ''
+  status: pending
+- id: 66cf48e006d868ec
+  en: Each QEC cycle measures all eight ancillas in parallel over a 600 ns window, then resets them to $|0\rangle$. The last cycle includes the same measurement window and reset before the final Z-basis data readout.
+  zh: ''
+  status: pending
+- id: 12debd0647840034
+  en: 4. Construct detection events
+  zh: ''
+  status: pending
+- id: 2029d86b62f7e100
+  en: With every ancilla initialized or reset to $|0\rangle$ before extraction, an ideal measurement directly returns the stabilizer bit $s_t$. A reported bit $m_t=s_t\oplus e_t$ may contain a classical readout error. For the R cycles, indexed $t=0,\ldots,R-1$, define
+  zh: ''
+  status: pending
+- id: 33f4b760b91a38f4
+  en: The initial data have all-positive Z-check signs, so their reference bits are zero. A single classical ancilla-readout flip produces events at two adjacent times, t and t+1. For the last ancilla readout, the second event lies on the final data boundary.
+  zh: ''
+  status: pending
+- id: 21e263021939989b
+  en: The final reported data bits $b$ provide four additional Z-check parities, $s_{\mathrm{data}}=H_Zb$. Close the detector history with
+  zh: ''
+  status: pending
+- id: 281ea73c39b7e3df
+  en: The resulting Z-detector array has shape `(R + 1, 4)`. For R=0, it consists only of $H_Zb$. These checks come from the actual noisy data readout. A final Z-basis readout does not supply terminal X-check values. Data errors during the last 600 ns measurement window can therefore appear on this terminal boundary even when the last ancilla outcomes were correct.
+  zh: ''
+  status: pending
+- id: dc557f36083faaa1
+  en: 5. Predict the logical correction from the syndrome
+  zh: ''
+  status: pending
+- id: 3d0363350d7a3238
+  en: An X error on a data qubit reverses the sign of each Z stabilizer acting on that qubit. The decoder uses the resulting detection events to infer a Pauli-X recovery. If the recovery anticommutes with the chosen $Z_L$, the final logical readout must be flipped. Both stabilizer types are measured in the circuit, but this decoder uses only the Z-check history.
+  zh: ''
+  status: pending
+- id: b11f4ffe7fcab6e7
+  en: We approximate the noise by independent data X errors and ancilla readout errors. In the corresponding spacetime graph, a data error connects the affected Z checks within one time layer. An error detected by only one check connects that check to a spatial code boundary. An ancilla readout error changes one reported result and produces detection events at two successive times on the same check.
+  zh: ''
+  status: pending
+- id: 1350481784637be4
+  en: The model has R+1 intervals for data errors, from before the first syndrome extraction to after the last. Data decoherence during each 600 ns ancilla measurement is assigned to the interval following that extraction. In the final interval, an X error before data measurement and a flipped data readout bit have the same effect on both the syndrome and logical readout. The two mechanisms share an edge in the decoding graph. The final data parities close the syndrome history at the last time boundary.
+  zh: ''
+  status: pending
+- id: 65bd0374e363ee6a
+  en: The decoder selects a minimum-weight error history consistent with the observed detection events. Each elementary error has weight $w=\log[(1-p)/p]$. We set `data_error=readout_error=0.01`, so both error types have equal weight and the decoder favours histories with fewer faults.
+  zh: ''
+  status: pending
+- id: c08141e14adc8512
+  en: Let $x_t$ describe the data X errors in interval $t$, and let $e_{t-1}$ and $e_t$ describe readout errors in the adjacent ancilla measurements. These are binary vectors with nine and four components, respectively. The true Z-syndrome change is $H_Zx_t$. The observed change $d_t$ also contains the readout errors from both measurements, giving the constraint
+  zh: ''
+  status: pending
+- id: 913a9559aaf984d8
+  en: We enumerate the 512 possible data X errors and retain a minimum-weight error for each of the 16 Z syndromes. Denote this weight by $g(s)$. We then follow the syndrome history using dynamic programming. Define $V_t(e_t)$ as the minimum accumulated weight through layer $t$, with ancilla readout errors $e_t$ in that layer. Comparing the 16 possible readout-error configurations in the preceding layer gives
+  zh: ''
+  status: pending
+- id: 27ada2123ccf08c1
+  en: where $|e_t|$ counts incorrect ancilla readout bits. Each candidate adds the weight of the current readout errors and the least costly data error compatible with the observed syndrome change.
+  zh: ''
+  status: pending
+- id: aa4b766a04d7bac9
+  en: The known initial Z-stabilizer values impose $e_{-1}=0$. At the final boundary we set $e_R=0$, since noisy data readout is already included in $x_R$. Multiplying the inferred X corrections along the selected history gives the net recovery, stored as a nine-bit mask. Its overlap parity with `LOGICAL_Z` determines the classical correction to the logical readout. For these four checks, the decoding time grows linearly with the number of QEC cycles.
+  zh: ''
+  status: pending
+- id: 04ab57f02d1d0b51
+  en: Different Pauli errors can produce the same syndrome history while having opposite effects on the logical Z readout. The decoder chooses a recovery using the detection events and the assumed error weights. The measured logical bit is not passed to `decode()`, so identical syndrome histories always receive the same recovery prediction.
+  zh: ''
+  status: pending
+- id: 14d86c78d511dcfb
+  en: Larger code distances
+  zh: ''
+  status: pending
+- id: b1a90fc0ac9b01e9
+  en: For larger code distances, consider sampling with FatQat, constructing a compatible detector error model with [Stim](https://github.com/quantumlib/Stim), and decoding with [PyMatching](https://github.com/oscarhiggott/PyMatching). The reference model should match the experiment's circuit and measurement protocol.
+  zh: ''
+  status: pending
+- id: 30040fc8eafeb68c
+  en: 6. Measure logical error after decoding
+  zh: ''
+  status: pending
+- id: 607eb1f6c5e355c7
+  en: At the end of each shot, all nine data qubits are measured in the Z basis, giving the reported bits $b_0,\ldots,b_8$. The measurement outcome of the chosen logical operator $Z_L$ is $(-1)^\ell$, where
+  zh: ''
+  status: pending
+- id: ea5aab868829cdc7
+  en: The initial state $|0\rangle^{\otimes9}$ has logical Z eigenvalue $+1$, so the expected logical bit is zero. From the Z-check detection events, the decoder selects a Pauli-X recovery represented by the binary vector $x(d)$. Its predicted logical flip is $\hat\ell(d)=x_0(d)\oplus x_3(d)\oplus x_6(d)$. The measured logical bit is used only to evaluate the recovery. A shot fails when the corrected logical Z outcome is $-1$. After $R$ cycles, we estimate this probability as
+  zh: ''
+  status: pending
+- id: 7c3b2e17cdf260b2
+  en: The indicator counts shots whose corrected logical bit is one. The recovery is applied through classical post-processing of the measurement record. The value stored as `logical_error` is the fraction of shots that have an incorrect decoded logical readout.
+  zh: ''
+  status: pending
+- id: aab85841e6297fa1
+  en: The following data are the decoded failure counts and the Z-check detection-event counts from a simulation with base seed `20260925`, 128 shots per point, and four shot workers. They are stored explicitly so the plots and fit can be reproduced without sampling.
+  zh: ''
+  status: pending
+- id: 40eb1c09eb07263d
+  en: To generate new measurement records, uncomment and run the next cell, then rerun the plotting cells. It replaces `summaries` with the new results.
+  zh: ''
+  status: pending
+- id: 113894330bb10d61
+  en: When rerunning the simulation, each cycle count uses 128 independent noisy shots. Each measurement record contributes according to its observed frequency. Up to four workers sample shots, with serial numerical kernels within each shot. Use `shot_parallelism="serial"` when only one worker is available. Fixed seeds reproduce counts for the same runtime, parallelism settings, and result requests.
+  zh: ''
+  status: pending
+- id: be59a677bf2f37bb
+  en: 7. Fit logical error per cycle
+  zh: ''
+  status: pending
+- id: 7b0f932748dd2d7b
+  en: The detector map shows changes in the measured Z-stabilizer parities during storage. Its final column compares the last ancilla results with the Z-check parities reconstructed from noisy data readout. Both X and Z stabilizers are measured in every QEC cycle, but this decoder uses only the Z-check history. Pauli-Z corrections commute with $Z_L$ and do not change its measurement outcome.
+  zh: ''
+  status: pending
+- id: 1e008c17b7eed4bc
+  en: The detection probabilities are the event counts divided by the number of shots.
+  zh: ''
+  status: pending
+- id: e369d90a358f2405
+  en: The data points estimate the logical error rate after $R$ cycles. To extract a rate per cycle, assume that each cycle independently flips the logical Z value with probability $\epsilon_L$. An odd number of flips reverses the stored value, while an even number leaves it unchanged. Thus
+  zh: ''
+  status: pending
+- id: 1f8c481932d53bca
+  en: We fit $\epsilon_L$ to the observed failure counts $k_R$ out of $N=128$ shots at each cycle count. Maximizing their binomial likelihood is equivalent to minimizing
+  zh: ''
+  status: pending
+- id: f3dfdda9246d4a1b
+  en: where terms independent of $\epsilon_L$ are omitted. Fitting the counts directly accommodates zero observed failures and measured fractions above one half due to sampling fluctuations. The symmetric error bars show one estimated binomial standard error, $\sigma_R=\sqrt{\hat p_R(1-\hat p_R)/N}$, above and below each measured rate $\hat p_R=k_R/N$. These bars describe sampling uncertainty at each point.
+  zh: ''
+  status: pending
+- id: 00c1bfff890ce977
+  en: The fit assumes identical cycles and fixes $p_L(0)=0$. Final-readout errors and the finite syndrome history also affect the measured failure probability. The fitted $\epsilon_L$ therefore describes an effective rate over the chosen cycle range.
+  zh: ''
+  status: pending
+- id: 63e438e3a7d6a4d9
+  en: Detection events reveal changes in stabilizer outcomes. A readout error can trigger a detector without changing the data state, while a logical X error can reverse the stored logical Z value without producing a syndrome. Decoding can also select a recovery in the wrong logical class. This decoder approximates gate-level and correlated faults with independent data-X and ancilla-readout errors.
+  zh: ''
+  status: pending
+- id: 73f3f7322172d35d
+  en: This memory-Z experiment tests preservation of the logical Z value after decoding. Logical phase errors are invisible to this readout. A complementary memory-X experiment tests preservation of the logical X value. Both experiments measure all stabilizers during storage, but they do not fully characterize an arbitrary logical noise channel.
+  zh: ''
+  status: pending
+- id: edd0d2877e12a1a9
+  en: A full characterization can use logical process tomography, with an informationally complete set of encoded inputs and measurements of the recovered logical X, Y, and Z observables. This requires more preparation and measurement settings. For quantitative comparisons, increase the shot count and use a decoder matched to the circuit noise. Multiple code distances are needed to study suppression with distance.
+  zh: ''
+  status: pending

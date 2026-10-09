@@ -216,61 +216,65 @@
   status: retired
 - id: d37597d4221ee046
   en: Executable FatQat case studies in circuits, control, error correction, simulation, optimization, and machine learning.
-  zh: "可执行的 FatQat 案例，涵盖电路、控制、纠错、模拟、优化和机器学习。"
+  zh: 可执行的 FatQat 案例，涵盖电路、控制、纠错、模拟、优化和机器学习。
   status: machine
 - id: c2a1b013a196080f
   en: Explore complete, executable case studies grouped by topic. If you are new to FatQat, start with the [quickstart](../guide/quickstart.md) to learn how to build, run, and inspect a program.
-  zh: "按主题浏览完整、可执行的案例。如果刚开始使用 FatQat，请先阅读[快速入门](../guide/quickstart.md)，学习构建、运行程序并查看结果。"
+  zh: 按主题浏览完整、可执行的案例。如果刚开始使用 FatQat，请先阅读[快速入门](../guide/quickstart.md)，学习构建、运行程序并查看结果。
   status: machine
 - id: 294bdbea76a46f14
   en: Follow [eight-atom GHZ preparation](atom-array-ghz8.md) with [atom-loss error correction](atom-loss-erasure.md), or move from [gate calibration](pulse-calibration.md) to [Rydberg CZ pulse design](optimal-cz-control.md). For optimization, work through [QUBO and QAOA](qubo-qaoa.md), [the islanding model](islanding-model.md), and [islanding with QAOA](islanding-qaoa.md).
-  zh: "阅读[八原子 GHZ 态制备](atom-array-ghz8.md)后，可继续学习[原子丢失纠错](atom-loss-erasure.md)；也可以从[量子门校准](pulse-calibration.md)进入[里德堡 CZ 脉冲设计](optimal-cz-control.md)。对于优化问题，可以依次学习 [QUBO 与 QAOA](qubo-qaoa.md)、[孤岛划分模型](islanding-model.md)和[用 QAOA 划分孤岛](islanding-qaoa.md)。"
+  zh: 阅读[八原子 GHZ 态制备](atom-array-ghz8.md)后，可继续学习[原子丢失纠错](atom-loss-erasure.md)；也可以从[量子门校准](pulse-calibration.md)进入[里德堡 CZ 脉冲设计](optimal-cz-control.md)。对于优化问题，可以依次学习 [QUBO 与 QAOA](qubo-qaoa.md)、[孤岛划分模型](islanding-model.md)和[用 QAOA 划分孤岛](islanding-qaoa.md)。
   status: machine
 - id: dd6caa21b5b249b2
   en: Circuits and entanglement
-  zh: "电路与纠缠"
+  zh: 电路与纠缠
   status: machine
 - id: 96fd73eba3eeaa5f
   en: Construct and verify quantum gates and entangled states using mixed qubit-qutrit registers and reconfigurable atom-array connectivity.
-  zh: "使用混合量子比特与 qutrit 的 Register，以及可重构的原子阵列连接关系，构建并验证量子门和纠缠态。"
+  zh: 使用混合量子比特与 qutrit 的 Register，以及可重构的原子阵列连接关系，构建并验证量子门和纠缠态。
   status: machine
 - id: c7bdad567af23bae
   en: Error correction
-  zh: "量子纠错"
+  zh: 量子纠错
   status: machine
 - id: d057e3b372ddf753
   en: Study repetition-code memories, parity checks, and decoding with information about atom loss.
-  zh: "研究重复码存储、奇偶校验，以及如何利用原子丢失信息进行解码。"
-  status: machine
+  zh: 研究重复码存储、奇偶校验，以及如何利用原子丢失信息进行解码。
+  status: retired
 - id: 424ea86c0b42650e
   en: Quantum simulation
-  zh: "量子模拟"
+  zh: 量子模拟
   status: machine
 - id: dfaf297980a192b7
   en: Estimate molecular ground-state energies and explore correlations, revivals, and entanglement in interacting quantum systems.
-  zh: "估计分子基态能量，探索相互作用量子系统中的关联、复苏和纠缠。"
+  zh: 估计分子基态能量，探索相互作用量子系统中的关联、复苏和纠缠。
   status: machine
 - id: d4e81b343e3c9857
   en: Combinatorial optimization
-  zh: "组合优化"
+  zh: 组合优化
   status: machine
 - id: a651e2aaed99e35c
   en: Encode constraints as QUBOs, solve them with QAOA, and apply the workflow to controlled power-grid islanding.
-  zh: "将约束编码为 QUBO，用 QAOA 求解，并将这一流程用于电网受控孤岛划分。"
+  zh: 将约束编码为 QUBO，用 QAOA 求解，并将这一流程用于电网受控孤岛划分。
   status: machine
 - id: 49e2662f86fd17cb
   en: Quantum machine learning
-  zh: "量子机器学习"
+  zh: 量子机器学习
   status: machine
 - id: 44ca0662598d620e
   en: Train parameterized circuits and search circuit structures for classification and regression with batched parameter sweeps.
-  zh: "借助批量参数扫描训练参数化电路，搜索适合分类和回归的电路结构。"
+  zh: 借助批量参数扫描训练参数化电路，搜索适合分类和回归的电路结构。
   status: machine
 - id: 152549dfacbdcd6b
   en: Pulse control and calibration
-  zh: "脉冲控制与校准"
+  zh: 脉冲控制与校准
   status: machine
 - id: a1a6016e838e11b5
   en: Design and calibrate control pulses, then check their action on quantum states in transmon and Rydberg models.
-  zh: "设计并校准控制脉冲，然后在 transmon 和里德堡模型中检查它们对量子态的作用。"
+  zh: 设计并校准控制脉冲，然后在 transmon 和里德堡模型中检查它们对量子态的作用。
   status: machine
+- id: c49e59c70de41581
+  en: Study repetition-code and surface-code memories, parity checks, and decoding with syndrome histories or information about atom loss.
+  zh: ''
+  status: pending
