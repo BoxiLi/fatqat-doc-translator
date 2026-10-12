@@ -93,7 +93,7 @@
 - id: 645f4346e1159115
   en: Create an [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] with the number of physical qubits and their allowed two-qubit connections. The compiler maps the logical qubits to this topology and adds routing operations where they are needed.
   zh: 创建 [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator]，指定物理量子比特数及允许的双量子比特连接。编译器将逻辑量子比特映射到此拓扑，并在需要时添加路由操作。
-  status: machine
+  status: retired
 - id: 483a2f8faf826821
   en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set.'
   zh: '`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。'
@@ -176,5 +176,21 @@
   status: machine
 - id: a0eb5c50fd3df5ba
   en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set. Toffoli (`CCX`) gates are decomposed into one- and two-qubit gates before routing.'
-  zh: "`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。"
+  zh: '`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。'
   status: machine
+- id: a78b91dd4db9ad90
+  en: 'Describe the device with an [`SCTarget`][fatqat.compiler.SCTarget]: the number of physical qubits and their allowed two-qubit connections. The compiler maps the logical qubits to this topology and adds routing operations where they are needed.'
+  zh: ''
+  status: pending
+- id: 2dea8262bfd52d6c
+  en: 'The target describes only the device''s qubits and connections. Choose how to run the result separately: create an [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] that provides the qubits and connections the result uses, and select its runtime, simulation method, and noise model there.'
+  zh: ''
+  status: pending
+- id: bef30853ea8b21ce
+  en: A simulator with more qubits or additional connections can run the same result. If the simulator lacks a qubit or connection that the result uses, `run()` raises an error immediately. The [SCTarget reference](../api/sc-target.md#when-errors-are-raised) lists these errors.
+  zh: ''
+  status: pending
+- id: 5d2ca6e80653c2ea
+  en: 'Code that passes a simulator to the compiler continues to work. The compiler then uses the simulator''s qubits and connections, and also checks the emitted gates against its implementation map:'
+  zh: ''
+  status: pending

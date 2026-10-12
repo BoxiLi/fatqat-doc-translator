@@ -1,0 +1,108 @@
+- id: e8b1fc6e1f547387
+  en: SCTarget
+  zh: ''
+  status: pending
+- id: 753af8e596948b75
+  en: 'Use [`SCTarget`][fatqat.compiler.SCTarget] to describe the superconducting device that you compile a program for: how many sites it has and which pairs of sites support `CZ`. Pass it to [`compile_to_sc()`][fatqat.compiler.compile_to_sc] or [`compile_qasm_to_sc()`][fatqat.compiler.compile_qasm_to_sc] in place of a simulator.'
+  zh: ''
+  status: pending
+- id: 3bc601a71335ff45
+  en: Why compile against a target
+  zh: ''
+  status: pending
+- id: 08b32b1a6571a790
+  en: A target contains only the information the compiler needs. It has no gate set, runtime, simulation method, or noise model, and it cannot run a program. You can therefore compile without constructing a simulator, and choose how to run the result afterwards.
+  zh: ''
+  status: pending
+- id: 1c21c23682825e20
+  en: The compiled result is not tied to one simulator. An [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] can run it if it provides the sites and couplings that the result uses, including a simulator with more sites or additional couplings. The simulator's method must also support the program. For example, `method="unitary"` rejects measurements.
+  zh: ''
+  status: pending
+- id: 2761143e1d325ec7
+  en: 'You can still pass an `SCQubitSimulator` as the `backend` argument. In that case, the compiler also applies the simulator''s implementation map, both when choosing couplings for routing and when checking each emitted gate. To reuse the sites and couplings of an existing simulator, call [`get_compiler_target()`][fatqat.simulator.SCQubitSimulator.get_compiler_target]:'
+  zh: ''
+  status: pending
+- id: e50dec58f0df54a6
+  en: '`get_compiler_target()` returns the site count and couplings the simulator was constructed with. For a simulator created with its public constructor, compiling against the simulator or against this target produces the same native operations and layouts. The results can differ for a subclass that changes the implementation map, for example by removing a native gate or allowing `CZ` in one direction only.'
+  zh: ''
+  status: pending
+- id: 7225712563b37fc1
+  en: Construct a target
+  zh: ''
+  status: pending
+- id: 4d54abad5f55e8ee
+  en: Both arguments are keyword-only and required. There is no default capacity or topology.
+  zh: ''
+  status: pending
+- id: 1eff5b76881cd004
+  en: '`num_qubits` is the number of device sites, labeled `0` to `num_qubits - 1`. It must be a Python `int` greater than zero. The constructor rejects `bool`, `float`, and NumPy integers and does not convert them.'
+  zh: ''
+  status: pending
+- id: f10762f51a7a17c9
+  en: '`couplings` is a finite iterable of undirected connections. Each element must be a two-element `tuple` of `int` site labels.'
+  zh: ''
+  status: pending
+- id: 1b5f7be0935b5ceb
+  en: 'The constructor reads the couplings once. You can therefore pass a generator, and later changes to the original container do not affect the target. The target stores each edge as `(low, high)` and merges reversed and repeated edges into their first occurrence:'
+  zh: ''
+  status: pending
+- id: 631c63c0b3b7fbc5
+  en: An empty `couplings` describes a device without `CZ` connections. It is a valid target. Circuits without two-qubit gates compile. A circuit with a two-qubit gate fails during compilation.
+  zh: ''
+  status: pending
+- id: 26ea5772220b7015
+  en: '`num_qubits` and `couplings` are read-only. You can reuse a target for any number of compilations. Equality, hashing, and serialization are not part of the `SCTarget` interface.'
+  zh: ''
+  status: pending
+- id: e30e10283c839b67
+  en: When errors are raised
+  zh: ''
+  status: pending
+- id: 325dbb54599e3c32
+  en: '| Stage | Condition | Error |'
+  zh: ''
+  status: pending
+- id: f7f345792c1a2bcf
+  en: '| `SCTarget(...)` | A missing or positional argument, a non-`int` site count or site label, or a coupling that is not a two-element `tuple` | `TypeError` |'
+  zh: ''
+  status: pending
+- id: da109ca318db8446
+  en: '| `SCTarget(...)` | A site count below one, a site label outside `range(num_qubits)`, or a coupling between a site and itself | `ValueError` |'
+  zh: ''
+  status: pending
+- id: 0a3bea99476f7038
+  en: '| Compilation | More program qubits than target sites, a two-qubit gate whose qubits the couplings cannot connect, or a `backend` that is neither an `SCTarget` nor an `SCQubitSimulator` | [`PassError`][fatqat.compiler.PassError] from the `lower-sc-to-native` stage. Its `__cause__` is the original `ValueError` or `TypeError` |'
+  zh: ''
+  status: pending
+- id: 7d02a5ad18990af6
+  en: '| `SCQubitSimulator.run()` | The result uses a site that the simulator does not have | [`BackendValidationError`][fatqat.errors.BackendValidationError] |'
+  zh: ''
+  status: pending
+- id: c23d2181744cbf58
+  en: '| `SCQubitSimulator.run()` | The result applies `CZ` to a pair that the simulator does not couple | [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
+  zh: ''
+  status: pending
+- id: 1f5eeb602f93b388
+  en: '`run()` raises these errors itself, before it returns a job. The compiled result does not keep a reference to its target. The simulator checks the program against its own sites and couplings.'
+  zh: ''
+  status: pending
+- id: cc26d4390ef692be
+  en: Compiled output
+  zh: ''
+  status: pending
+- id: b63a09e552842412
+  en: 'Compiling for a target always produces gates from the canonical SC native basis: `X`, `SX`, `RZ`, and `CZ`. The compiler keeps the measurements and `Reset` operations of the source. Every operation uses a site within `range(num_qubits)`, and every `CZ` acts on a target coupling. A target cannot request a different native gate set. `SCQubitSimulator` executes this basis.'
+  zh: ''
+  status: pending
+- id: 45b60071232e2e1c
+  en: The convenience functions return an [`ExecutableCompilationResult`][fatqat.compiler.ExecutableCompilationResult] at the final boundary. A compiler created with [`create_sc_pipeline()`][fatqat.compiler.create_sc_pipeline] accepts the same target through [`CompileContext`][fatqat.compiler.CompileContext], but returns a [`CompilationResult`][fatqat.compiler.CompilationResult] whose `output` is an `SCNativeProgram`. Convert that output with [`to_sc_simulator_program()`][fatqat.compiler.to_sc_simulator_program] before running it.
+  zh: ''
+  status: pending
+- id: f3a94becb382575d
+  en: Compile and run
+  zh: ''
+  status: pending
+- id: 54a19c580a765caf
+  en: 'The same target works with a directly constructed compiler:'
+  zh: ''
+  status: pending
