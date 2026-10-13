@@ -57,7 +57,7 @@
 - id: a4e1d65eac765b43
   en: 'Build a circuit with `LogicalProgram`, then provide either an SC backend or a neutral-atom architecture:'
   zh: 使用 `LogicalProgram` 构建电路，然后提供 SC 后端或中性原子架构：
-  status: machine
+  status: retired
 - id: aa30c7b43b56c804
   en: Pass OpenQASM source text directly to the target compiler. The returned result uses the same execution interface as a compiled `LogicalProgram`.
   zh: 将 OpenQASM 源文本直接传给目标编译器。返回结果与编译后的 `LogicalProgram` 使用相同的执行接口。
@@ -113,4 +113,16 @@
 - id: e79e4b8fee7065f5
   en: Compiler errors share the `CompilerError` base class. `PassError` includes the stage that failed and preserves the original error as its cause.
   zh: 编译器错误共用 `CompilerError` 基类。`PassError` 包含失败的阶段，并将原始错误保留为其原因。
+  status: machine
+- id: 775c8b2bafa8fa6b
+  en: 'Build a circuit with `LogicalProgram`, then provide either an [SC target](sc-target.md) or a neutral-atom architecture. Run an SC result on a simulator that provides the sites and couplings it uses:'
+  zh: '使用 `LogicalProgram` 构建电路，再提供 [SC 编译目标](sc-target.md)或中性原子架构。在具备编译结果所用位点与耦合的模拟器上运行 SC 编译结果：'
+  status: machine
+- id: 7165119da4d40aef
+  en: You can also pass an `SCQubitSimulator` in place of the target. The compiler then uses its sites and couplings and checks the emitted gates against its implementation map.
+  zh: '也可以传入 `SCQubitSimulator` 来代替编译目标。此时，编译器使用模拟器的位点与耦合，并根据其实现映射检查生成的量子门。'
+  status: machine
+- id: e120b05f9137892b
+  en: A compiler created with `create_sc_pipeline()` or `create_na_pipeline()` returns a `CompilationResult` at every boundary, including the final one. Convert a final-boundary `output` with the [simulator translation](#simulator-translation) functions before running it.
+  zh: '通过 `create_sc_pipeline()` 或 `create_na_pipeline()` 创建的编译器在每个阶段边界（包括最终边界）都返回 `CompilationResult`。运行前，先用[模拟器转换](#simulator-translation)函数转换最终边界的 `output`。'
   status: machine

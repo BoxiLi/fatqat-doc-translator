@@ -198,3 +198,15 @@
   en: Circuit drawings use one wire per slot but do not depict register dimension. Unknown or custom operations appear as labeled boxes. A direct [`PulseOperation`][fatqat.operations.PulseOperation] cannot be represented and raises [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. The Matplotlib renderer uses FATQAT's palette by default. Pass a QuTiP-QIP `theme` or configure Matplotlib's color cycle to use a different palette.
   zh: 电路图为每个槽位绘制一条线，但不表示寄存器维数。未知或自定义操作显示为带标签的方框。直接的 [`PulseOperation`][fatqat.operations.PulseOperation] 无法表示，会抛出 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。Matplotlib 渲染器默认使用 FATQAT 配色。若要更换配色，可传入 QuTiP-QIP 的 `theme`，或配置 Matplotlib 的颜色循环。
   status: machine
+- id: 94b0fd4467e21909
+  en: Read instructions
+  zh: '读取指令'
+  status: machine
+- id: fa8af34ab44c5255
+  en: Use [`Program.instructions`][fatqat.Program.instructions] to read a program's instructions in insertion order. It returns a read-only snapshot containing [`OperationInstruction`][fatqat.program.OperationInstruction] and [`Measurement`][fatqat.operations.Measurement] records.
+  zh: '使用 [`Program.instructions`][fatqat.Program.instructions] 按插入顺序读取程序指令。它返回一个只读快照，包含 [`OperationInstruction`][fatqat.program.OperationInstruction] 和 [`Measurement`][fatqat.operations.Measurement] 记录。'
+  status: machine
+- id: 62ef756a14c66b7c
+  en: Backends and other program readers should use this interface instead of depending on FatQat's private instruction representation.
+  zh: '后端及其他程序读取方应使用此接口，不应依赖 FatQat 的私有指令表示。'
+  status: machine

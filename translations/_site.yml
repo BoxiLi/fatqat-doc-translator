@@ -240,8 +240,8 @@
   status: machine
 - id: d057e3b372ddf753
   en: Study repetition-code memories, parity checks, and decoding with information about atom loss.
-  zh: "研究重复码存储、奇偶校验，以及如何利用原子丢失信息进行解码。"
-  status: machine
+  zh: 研究重复码存储、奇偶校验，以及如何利用原子丢失信息进行解码。
+  status: retired
 - id: 424ea86c0b42650e
   en: Quantum simulation
   zh: "量子模拟"
@@ -273,4 +273,12 @@
 - id: a1a6016e838e11b5
   en: Design and calibrate control pulses, then check their action on quantum states in transmon and Rydberg models.
   zh: "设计并校准控制脉冲，然后在 transmon 和里德堡模型中检查它们对量子态的作用。"
+  status: machine
+- id: 90d9132f374d3bac
+  en: SC target
+  zh: 'SC 编译目标'
+  status: machine
+- id: c49e59c70de41581
+  en: Study repetition-code and surface-code memories, parity checks, and decoding with syndrome histories or information about atom loss.
+  zh: '研究重复码与表面码存储实验、奇偶校验，以及利用综合征历史或原子丢失信息进行译码。'
   status: machine

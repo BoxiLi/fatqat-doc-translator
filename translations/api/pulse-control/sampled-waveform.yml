@@ -17,8 +17,12 @@
 - id: 7d7c54238f131cd7
   en: '`Atom2LevelEmulator` uses zero outside the sample interval. `TransmonEmulator` holds the nearest endpoint, so use zero first and last samples when a control should be off outside its grid. This behavior does not change the operation''s duration.'
   zh: '`Atom2LevelEmulator` 在采样区间之外取零值。`TransmonEmulator` 保持最近端点的值，因此当控制在其网格之外应当关闭时，请将首末采样值设为零。此行为不会改变操作的时长。'
-  status: machine
+  status: retired
 - id: 2c55dfd5ae9baed1
   en: A spline can exceed the supplied sample values between points. If a model has amplitude limits, the emulator checks the interpolated curve as well as the samples.
   zh: 样条曲线在采样点之间可能超出所提供的采样值。如果模型有振幅限制，仿真器除了检查采样值之外，还会检查插值曲线。
+  status: machine
+- id: 0ca833ecdc811b1b
+  en: '`Atom2LevelEmulator` uses zero outside the sample interval. `TransmonEmulator` holds the nearest endpoint within the enclosing pulse block, so use zero first and last samples when a control should be off outside its grid. Every control is zero outside its block, allowing sequential pulse operations to compose without one block contributing during another. These rules do not change the operation''s duration.'
+  zh: '`Atom2LevelEmulator` 在采样区间外取零。`TransmonEmulator` 在所属脉冲块内沿用最近端点的值，因此，如果控制信号在采样网格外应为零，请将首尾采样值设为零。所有控制信号在所属脉冲块外均为零，使顺序执行的脉冲能够组合，而不会在其他脉冲块期间继续起作用。这些规则不改变指令的持续时间。'
   status: machine

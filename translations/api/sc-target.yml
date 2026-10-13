@@ -1,0 +1,108 @@
+- id: e8b1fc6e1f547387
+  en: SCTarget
+  zh: 'SCTarget'
+  status: machine
+- id: 753af8e596948b75
+  en: 'Use [`SCTarget`][fatqat.compiler.SCTarget] to describe the superconducting device that you compile a program for: how many sites it has and which pairs of sites support `CZ`. Pass it to [`compile_to_sc()`][fatqat.compiler.compile_to_sc] or [`compile_qasm_to_sc()`][fatqat.compiler.compile_qasm_to_sc] in place of a simulator.'
+  zh: '使用 [`SCTarget`][fatqat.compiler.SCTarget] 描述程序的超导编译目标设备：它有多少个位点，以及哪些位点对支持 `CZ`。将它传给 [`compile_to_sc()`][fatqat.compiler.compile_to_sc] 或 [`compile_qasm_to_sc()`][fatqat.compiler.compile_qasm_to_sc]，以代替模拟器。'
+  status: machine
+- id: 3bc601a71335ff45
+  en: Why compile against a target
+  zh: '为什么针对编译目标进行编译'
+  status: machine
+- id: 08b32b1a6571a790
+  en: A target contains only the information the compiler needs. It has no gate set, runtime, simulation method, or noise model, and it cannot run a program. You can therefore compile without constructing a simulator, and choose how to run the result afterwards.
+  zh: '编译目标仅包含编译器所需的信息。它没有门集、运行时、模拟方法或噪声模型，也不能运行程序。因此，你可以先完成编译，无需构造模拟器，之后再决定如何运行结果。'
+  status: machine
+- id: 1c21c23682825e20
+  en: The compiled result is not tied to one simulator. An [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] can run it if it provides the sites and couplings that the result uses, including a simulator with more sites or additional couplings. The simulator's method must also support the program. For example, `method="unitary"` rejects measurements.
+  zh: '编译结果不绑定到某一个模拟器。只要 [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] 提供了结果所用的位点与耦合，就能运行它；位点更多或具有额外耦合的模拟器也可以。模拟器的方法也必须支持该程序。例如，`method="unitary"` 不接受测量。'
+  status: machine
+- id: 2761143e1d325ec7
+  en: 'You can still pass an `SCQubitSimulator` as the `backend` argument. In that case, the compiler also applies the simulator''s implementation map, both when choosing couplings for routing and when checking each emitted gate. To reuse the sites and couplings of an existing simulator, call [`get_compiler_target()`][fatqat.simulator.SCQubitSimulator.get_compiler_target]:'
+  zh: '仍可将 `SCQubitSimulator` 作为 `backend` 参数传入。此时，编译器在选择路由所用的耦合以及检查每个生成的量子门时，还会使用模拟器的实现映射。要复用现有模拟器的位点与耦合，可调用 [`get_compiler_target()`][fatqat.simulator.SCQubitSimulator.get_compiler_target]：'
+  status: machine
+- id: e50dec58f0df54a6
+  en: '`get_compiler_target()` returns the site count and couplings the simulator was constructed with. For a simulator created with its public constructor, compiling against the simulator or against this target produces the same native operations and layouts. The results can differ for a subclass that changes the implementation map, for example by removing a native gate or allowing `CZ` in one direction only.'
+  zh: '`get_compiler_target()` 返回构造模拟器时指定的位点数与耦合。对于通过公开构造函数创建的模拟器，针对模拟器或此编译目标进行编译，会产生相同的原生指令与布局。如果子类修改了实现映射，例如移除某个原生门或仅允许单一方向的 `CZ`，结果可能不同。'
+  status: machine
+- id: 7225712563b37fc1
+  en: Construct a target
+  zh: '构造编译目标'
+  status: machine
+- id: 4d54abad5f55e8ee
+  en: Both arguments are keyword-only and required. There is no default capacity or topology.
+  zh: '两个参数都必须提供，且只能以关键字形式传入。容量和拓扑均无默认值。'
+  status: machine
+- id: 1eff5b76881cd004
+  en: '`num_qubits` is the number of device sites, labeled `0` to `num_qubits - 1`. It must be a Python `int` greater than zero. The constructor rejects `bool`, `float`, and NumPy integers and does not convert them.'
+  zh: '`num_qubits` 是设备位点数，编号从 `0` 到 `num_qubits - 1`。它必须是大于零的 Python `int`。构造函数不接受 `bool`、`float` 或 NumPy 整数，也不会对其进行转换。'
+  status: machine
+- id: f10762f51a7a17c9
+  en: '`couplings` is a finite iterable of undirected connections. Each element must be a two-element `tuple` of `int` site labels.'
+  zh: '`couplings` 是表示无向连接的有限可迭代对象。每个元素必须是包含两个 `int` 位点编号的 `tuple`。'
+  status: machine
+- id: 1b5f7be0935b5ceb
+  en: 'The constructor reads the couplings once. You can therefore pass a generator, and later changes to the original container do not affect the target. The target stores each edge as `(low, high)` and merges reversed and repeated edges into their first occurrence:'
+  zh: '构造函数仅读取一次耦合。因此可以传入生成器，且之后修改原始容器不会影响编译目标。编译目标将每条边存储为 `(low, high)`，并将反向边和重复边合并到首次出现的位置：'
+  status: machine
+- id: 631c63c0b3b7fbc5
+  en: An empty `couplings` describes a device without `CZ` connections. It is a valid target. Circuits without two-qubit gates compile. A circuit with a two-qubit gate fails during compilation.
+  zh: '空的 `couplings` 表示没有 `CZ` 连接的设备。这是有效的编译目标。不含双量子比特门的电路可以编译；含双量子比特门的电路则会在编译时失败。'
+  status: machine
+- id: 26ea5772220b7015
+  en: '`num_qubits` and `couplings` are read-only. You can reuse a target for any number of compilations. Equality, hashing, and serialization are not part of the `SCTarget` interface.'
+  zh: '`num_qubits` 和 `couplings` 均为只读属性。一个编译目标可以复用于任意次数的编译。相等性比较、哈希和序列化不属于 `SCTarget` 接口的约定。'
+  status: machine
+- id: e30e10283c839b67
+  en: When errors are raised
+  zh: '何时抛出错误'
+  status: machine
+- id: 325dbb54599e3c32
+  en: '| Stage | Condition | Error |'
+  zh: '| 阶段 | 条件 | 错误 |'
+  status: machine
+- id: f7f345792c1a2bcf
+  en: '| `SCTarget(...)` | A missing or positional argument, a non-`int` site count or site label, or a coupling that is not a two-element `tuple` | `TypeError` |'
+  zh: '| `SCTarget(...)` | 缺少参数或使用位置参数、位点数或编号不是 `int`，或耦合不是包含两个元素的 `tuple` | `TypeError` |'
+  status: machine
+- id: da109ca318db8446
+  en: '| `SCTarget(...)` | A site count below one, a site label outside `range(num_qubits)`, or a coupling between a site and itself | `ValueError` |'
+  zh: '| `SCTarget(...)` | 位点数小于一、位点编号不在 `range(num_qubits)` 内，或位点与自身耦合 | `ValueError` |'
+  status: machine
+- id: 0a3bea99476f7038
+  en: '| Compilation | More program qubits than target sites, a two-qubit gate whose qubits the couplings cannot connect, or a `backend` that is neither an `SCTarget` nor an `SCQubitSimulator` | [`PassError`][fatqat.compiler.PassError] from the `lower-sc-to-native` stage. Its `__cause__` is the original `ValueError` or `TypeError` |'
+  zh: '| 编译 | 程序量子比特数超过目标位点数、某个双量子比特门的两个量子比特无法通过耦合连接，或 `backend` 既不是 `SCTarget` 也不是 `SCQubitSimulator` | `lower-sc-to-native` 阶段抛出 [`PassError`][fatqat.compiler.PassError]，其 `__cause__` 为原始的 `ValueError` 或 `TypeError` |'
+  status: machine
+- id: 7d02a5ad18990af6
+  en: '| `SCQubitSimulator.run()` | The result uses a site that the simulator does not have | [`BackendValidationError`][fatqat.errors.BackendValidationError] |'
+  zh: '| `SCQubitSimulator.run()` | 结果使用了模拟器中不存在的位点 | [`BackendValidationError`][fatqat.errors.BackendValidationError] |'
+  status: machine
+- id: c23d2181744cbf58
+  en: '| `SCQubitSimulator.run()` | The result applies `CZ` to a pair that the simulator does not couple | [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
+  zh: '| `SCQubitSimulator.run()` | 结果对模拟器中没有耦合的位点对施加 `CZ` | [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] |'
+  status: machine
+- id: 1f5eeb602f93b388
+  en: '`run()` raises these errors itself, before it returns a job. The compiled result does not keep a reference to its target. The simulator checks the program against its own sites and couplings.'
+  zh: '`run()` 会在返回作业之前直接抛出这些错误。编译结果不保留对编译目标的引用。模拟器根据自身的位点与耦合检查程序。'
+  status: machine
+- id: cc26d4390ef692be
+  en: Compiled output
+  zh: '编译输出'
+  status: machine
+- id: b63a09e552842412
+  en: 'Compiling for a target always produces gates from the canonical SC native basis: `X`, `SX`, `RZ`, and `CZ`. The compiler keeps the measurements and `Reset` operations of the source. Every operation uses a site within `range(num_qubits)`, and every `CZ` acts on a target coupling. A target cannot request a different native gate set. `SCQubitSimulator` executes this basis.'
+  zh: '针对编译目标进行编译时，生成的门始终来自标准 SC 原生基：`X`、`SX`、`RZ` 和 `CZ`。编译器保留源程序的测量与 `Reset` 指令。每条指令使用的位点都在 `range(num_qubits)` 内，每个 `CZ` 都作用于目标的一条耦合。编译目标不能指定其他原生门集。`SCQubitSimulator` 可以执行这组基门。'
+  status: machine
+- id: 45b60071232e2e1c
+  en: The convenience functions return an [`ExecutableCompilationResult`][fatqat.compiler.ExecutableCompilationResult] at the final boundary. A compiler created with [`create_sc_pipeline()`][fatqat.compiler.create_sc_pipeline] accepts the same target through [`CompileContext`][fatqat.compiler.CompileContext], but returns a [`CompilationResult`][fatqat.compiler.CompilationResult] whose `output` is an `SCNativeProgram`. Convert that output with [`to_sc_simulator_program()`][fatqat.compiler.to_sc_simulator_program] before running it.
+  zh: '便捷函数在最终边界返回 [`ExecutableCompilationResult`][fatqat.compiler.ExecutableCompilationResult]。通过 [`create_sc_pipeline()`][fatqat.compiler.create_sc_pipeline] 创建的编译器可通过 [`CompileContext`][fatqat.compiler.CompileContext] 接收相同的编译目标，但返回的是 [`CompilationResult`][fatqat.compiler.CompilationResult]，其中 `output` 为 `SCNativeProgram`。运行前，先用 [`to_sc_simulator_program()`][fatqat.compiler.to_sc_simulator_program] 转换该输出。'
+  status: machine
+- id: f3a94becb382575d
+  en: Compile and run
+  zh: '编译并运行'
+  status: machine
+- id: 54a19c580a765caf
+  en: 'The same target works with a directly constructed compiler:'
+  zh: '同一个编译目标也适用于直接构造的编译器：'
+  status: machine

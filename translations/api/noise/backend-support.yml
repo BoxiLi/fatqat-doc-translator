@@ -138,3 +138,7 @@
   en: Rates use the inverse of the model's time unit. `t_phi`, `t1`, and `t2` use that unit directly on families that accept them. The reference [`time_unit`][fatqat.emulator.TransmonModel.time_unit] is nanoseconds, while [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] is microseconds. Read the chosen model's `time_unit` rather than guessing from a value's magnitude.
   zh: 速率的单位是模型时间单位的倒数。支持 `t_phi`、`t1` 和 `t2` 的后端直接以该时间单位解释这些参数。参考 [`time_unit`][fatqat.emulator.TransmonModel.time_unit] 为纳秒，而 [`time_unit`][fatqat.emulator.Atom2LevelModel.time_unit] 为微秒。请读取所选模型的 `time_unit`，不要根据数值大小猜测单位。
   status: machine
+- id: 62f47db58934afab
+  en: '`AtomArraySimulator` accepts only single-subsystem finite channels. Use `target_positions` to select an operand of a multi-subsystem operation; see [occupancy and loss](../simulators/atom-array.md#occupancy-and-loss) for an example and behavior when an atom is absent.'
+  zh: '`AtomArraySimulator` 仅接受作用于单个子系统的有限信道。使用 `target_positions` 选择多子系统指令中的一个作用对象；示例及原子缺失时的行为见[占据与丢失](../simulators/atom-array.md#occupancy-and-loss)。'
+  status: machine

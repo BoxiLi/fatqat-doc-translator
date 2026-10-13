@@ -145,11 +145,11 @@
 - id: da463fa39ea8fedb
   en: 'Occupancy is tracked outside the quantum-state representation. Final statevectors, density matrices, and [`Estimator`][fatqat.Estimator] calculations still include one qubit subsystem per declared site, whether or not an atom is present. With the default initial state, a never-loaded site is represented by `|0>`: measuring it returns `2`, while evaluating `Z` returns `+1`. These quantum-state exports cannot reveal whether a site is occupied; use measurements and counts for that distinction.'
   zh: 占据情况在量子态表示之外跟踪。最终的态矢量、密度矩阵以及 [`Estimator`][fatqat.Estimator] 计算仍为每个已声明的位点包含一个量子比特子系统，无论该处是否有原子。在默认初态下，从未装载过的位点表示为 `|0>`：对其测量返回 `2`，而对其求 `Z` 的值返回 `+1`。这些量子态导出无法体现位点是否被占据；要区分这一点，请使用测量和计数。
-  status: machine
+  status: retired
 - id: 064143da84c6e2e0
   en: '[`fatqat.noise.Loss`][fatqat.noise.Loss] can eject gate targets, make `Put` fail, or model loss during `Pair` and `Unpair`. Its selector runs only after a matching operation; `p=0` removes nothing and leaves the loading rule unchanged. No other gate-level simulator accepts `Loss`. If an otherwise-valid paired `CZ` finds a missing atom, it does nothing for that shot; an unpaired `CZ` still fails before execution.'
   zh: '[`fatqat.noise.Loss`][fatqat.noise.Loss] 可以弹出门操作的目标原子、使 `Put` 失败，或对 `Pair` 和 `Unpair` 期间的丢失进行建模。其选择器仅在匹配的操作之后运行；`p=0` 不会移除任何原子，也不改变装载规则。没有其他门级模拟器接受 `Loss`。如果本来有效的已配对 `CZ` 发现原子缺失，它在该次 shot 中不产生任何作用；未配对的 `CZ` 仍会在执行前失败。'
-  status: machine
+  status: retired
 - id: 58f00dfe93ad8d60
   en: Because an empty site produces no physical readout digit, its erasure value `2` bypasses readout-confusion noise. Atom loss also makes the final state stochastic, so `final_state=True` requires `shots == 1`. A measured lossy run returns counts by default rather than one arbitrary trajectory's final state.
   zh: 由于空位点不产生物理读出数字，其擦除值 `2` 会绕过读出混淆噪声。原子丢失还会使最终态成为随机的，因此 `final_state=True` 要求 `shots == 1`。带测量且有丢失的运行默认返回计数，而不返回任意一条轨迹的最终态。
@@ -157,4 +157,20 @@
 - id: a56b273102780095
   en: Because occupancy sits outside the quantum matrix, `unitary` and `superop` cannot represent this lifecycle. `AtomArraySimulator` accepts only `statevector` and `density_matrix`, rejecting either operator method when the backend is constructed—even for a program with no `Put` or loss.
   zh: 由于占据情况位于量子矩阵之外，`unitary` 和 `superop` 无法表示这一生命周期。`AtomArraySimulator` 只接受 `statevector` 和 `density_matrix`，并在构造后端时就拒绝这两种算符类方法——即使程序不含 `Put` 或丢失也是如此。
+  status: machine
+- id: 7224480823a92682
+  en: Occupancy is tracked outside the quantum-state representation. Final statevectors and density matrices still include one qubit subsystem per declared site, whether or not an atom is present. With the default initial state, a never-loaded site is represented by `|0>`, but measuring it returns `2`. These quantum-state exports cannot reveal whether a site is occupied; use measurements and counts for that distinction.
+  zh: '占据状态独立于量子态表示进行跟踪。最终态矢量和密度矩阵仍为每个声明的位点保留一个量子比特子系统，无论该位点是否存在原子。使用默认初态时，从未装载的位点以 `|0>` 表示，但测量它会返回 `2`。这些导出的量子态无法反映位点是否被占据；请用测量结果和计数来区分。'
+  status: machine
+- id: ddcedf9103f9c8b4
+  en: '[`Estimator`][fatqat.Estimator] supports loss-free programs only. It preserves both quantum state and occupancy when reusing a base execution. An observable targeting an unloaded site raises [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] before execution.'
+  zh: '[`Estimator`][fatqat.Estimator] 仅支持不含丢失的程序。复用基础执行结果时，它同时保留量子态与占据状态。若可观测量作用于未装载的位点，会在执行前抛出 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。'
+  status: machine
+- id: 5bc9c4f859f7633c
+  en: '[`fatqat.noise.Loss`][fatqat.noise.Loss] can eject gate targets, make `Put` fail, or model loss during `Pair` and `Unpair`. Its selector runs only after a matching operation; `p=0` removes nothing and leaves the loading rule unchanged. No other gate-level simulator accepts `Loss`. If an otherwise-valid paired `CZ` finds a missing atom, the entangling gate is skipped; an unpaired `CZ` still fails before execution.'
+  zh: '[`fatqat.noise.Loss`][fatqat.noise.Loss] 可使门的目标原子逸出、使 `Put` 装载失败，或模拟 `Pair` 和 `Unpair` 期间的丢失。其选择器仅在匹配的指令执行后运行；`p=0` 不移除任何原子，也不改变装载规则。其他门级模拟器均不接受 `Loss`。如果一个原本有效的已配对 `CZ` 遇到原子缺失，就会跳过纠缠门；未配对的 `CZ` 仍会在执行前失败。'
+  status: machine
+- id: f4402208f155c77f
+  en: Noise channels can act on only one qubit. For a two-qubit operation, add noise for each qubit separately, using `target_positions` to select it. If one atom is missing, the gate is skipped, but noise still applies to the remaining atom. `Loss` can act on multiple atoms.
+  zh: '噪声信道只能作用于单个量子比特。对于双量子比特指令，使用 `target_positions` 分别为两个量子比特添加噪声。如果一个原子缺失，量子门会被跳过，但噪声仍作用于剩余原子。`Loss` 可以作用于多个原子。'
   status: machine
