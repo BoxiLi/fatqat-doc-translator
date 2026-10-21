@@ -92,7 +92,7 @@
   status: machine
 - id: 22d9daa28a5e204c
   en: Simulator translation
-  zh: "转换为 Simulator 输入"
+  zh: 转换为 Simulator 输入
   status: machine
 - id: 5d564287e3eafeea
   en: Use these functions when working with a final compiler IR that was constructed or modified directly. Results returned by the normal compile functions are already ready for simulation.
@@ -116,13 +116,13 @@
   status: machine
 - id: 775c8b2bafa8fa6b
   en: 'Build a circuit with `LogicalProgram`, then provide either an [SC target](sc-target.md) or a neutral-atom architecture. Run an SC result on a simulator that provides the sites and couplings it uses:'
-  zh: '使用 `LogicalProgram` 构建电路，再提供 [SC 编译目标](sc-target.md)或中性原子架构。在具备编译结果所用位点与耦合的模拟器上运行 SC 编译结果：'
+  zh: 使用 `LogicalProgram` 构建电路，再提供 [SC 编译目标](sc-target.md)或中性原子架构。在具备编译结果所用位点与耦合的模拟器上运行 SC 编译结果：
   status: machine
 - id: 7165119da4d40aef
   en: You can also pass an `SCQubitSimulator` in place of the target. The compiler then uses its sites and couplings and checks the emitted gates against its implementation map.
-  zh: '也可以传入 `SCQubitSimulator` 来代替编译目标。此时，编译器使用模拟器的位点与耦合，并根据其实现映射检查生成的量子门。'
+  zh: 也可以传入 `SCQubitSimulator` 来代替编译目标。此时，编译器使用模拟器的位点与耦合，并根据其实现映射检查生成的量子门。
   status: machine
 - id: e120b05f9137892b
   en: A compiler created with `create_sc_pipeline()` or `create_na_pipeline()` returns a `CompilationResult` at every boundary, including the final one. Convert a final-boundary `output` with the [simulator translation](#simulator-translation) functions before running it.
-  zh: '通过 `create_sc_pipeline()` 或 `create_na_pipeline()` 创建的编译器在每个阶段边界（包括最终边界）都返回 `CompilationResult`。运行前，先用[模拟器转换](#simulator-translation)函数转换最终边界的 `output`。'
+  zh: 通过 `create_sc_pipeline()` 或 `create_na_pipeline()` 创建的编译器在每个阶段边界（包括最终边界）都返回 `CompilationResult`。运行前，先用[模拟器转换](#simulator-translation)函数转换最终边界的 `output`。
   status: machine
