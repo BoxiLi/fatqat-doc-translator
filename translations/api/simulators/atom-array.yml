@@ -120,7 +120,7 @@
   status: machine
 - id: f58814884b104747
   en: Program size, mapping, and native operations
-  zh: "Program 规模、映射与原生操作"
+  zh: Program 规模、映射与原生操作
   status: machine
 - id: 1d9e37fc50bf9906
   en: The quantum resources in each program define the array size, so the backend needs no separate site-count or capacity setting. Registers map to integer device labels in declaration order. A [`GridRegister`][fatqat.GridRegister] is flattened because its coordinates have no physical meaning on this backend.
@@ -160,7 +160,7 @@
   status: machine
 - id: 7224480823a92682
   en: Occupancy is tracked outside the quantum-state representation. Final statevectors and density matrices still include one qubit subsystem per declared site, whether or not an atom is present. With the default initial state, a never-loaded site is represented by `|0>`, but measuring it returns `2`. These quantum-state exports cannot reveal whether a site is occupied; use measurements and counts for that distinction.
-  zh: '占据状态独立于量子态表示进行跟踪。最终态矢量和密度矩阵仍为每个声明的位点保留一个量子比特子系统，无论该位点是否存在原子。使用默认初态时，从未装载的位点以 `|0>` 表示，但测量它会返回 `2`。这些导出的量子态无法反映位点是否被占据；请用测量结果和计数来区分。'
+  zh: 占据状态独立于量子态表示进行跟踪。最终态矢量和密度矩阵仍为每个声明的位点保留一个量子比特子系统，无论该位点是否存在原子。使用默认初态时，从未装载的位点以 `|0>` 表示，但测量它会返回 `2`。这些导出的量子态无法反映位点是否被占据；请用测量结果和计数来区分。
   status: machine
 - id: ddcedf9103f9c8b4
   en: '[`Estimator`][fatqat.Estimator] supports loss-free programs only. It preserves both quantum state and occupancy when reusing a base execution. An observable targeting an unloaded site raises [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] before execution.'
@@ -172,5 +172,5 @@
   status: machine
 - id: f4402208f155c77f
   en: Noise channels can act on only one qubit. For a two-qubit operation, add noise for each qubit separately, using `target_positions` to select it. If one atom is missing, the gate is skipped, but noise still applies to the remaining atom. `Loss` can act on multiple atoms.
-  zh: '噪声信道只能作用于单个量子比特。对于双量子比特指令，使用 `target_positions` 分别为两个量子比特添加噪声。如果一个原子缺失，量子门会被跳过，但噪声仍作用于剩余原子。`Loss` 可以作用于多个原子。'
+  zh: 噪声信道只能作用于单个量子比特。对于双量子比特指令，使用 `target_positions` 分别为两个量子比特添加噪声。如果一个原子缺失，量子门会被跳过，但噪声仍作用于剩余原子。`Loss` 可以作用于多个原子。
   status: machine

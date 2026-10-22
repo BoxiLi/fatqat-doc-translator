@@ -1,42 +1,42 @@
 - id: 7bdca6e7fee98fd6
   en: Run a surface-code memory-Z experiment
-  zh: '运行表面码 memory-Z 存储实验'
+  zh: 运行表面码 memory-Z 存储实验
   status: machine
 - id: 70373c70db071b72
   en: Build a noisy surface-code memory-Z experiment with SCQubitSimulator, decode repeated stabilizer measurements, and fit the logical error rate per cycle.
-  zh: '使用 SCQubitSimulator 构建含噪声的表面码 memory-Z 存储实验，对重复稳定子测量进行译码，并拟合每个周期的逻辑错误率。'
+  zh: 使用 SCQubitSimulator 构建含噪声的表面码 memory-Z 存储实验，对重复稳定子测量进行译码，并拟合每个周期的逻辑错误率。
   status: machine
 - id: 5828b43b350ca6ba
   en: Seventeen-qubit surface-code patch with nine data qubits, four X checks, four Z checks, and the logical Z support
-  zh: '由九个数据量子比特、四个 X 校验、四个 Z 校验及逻辑 Z 的支撑集组成的十七量子比特表面码布局'
+  zh: 由九个数据量子比特、四个 X 校验、四个 Z 校验及逻辑 Z 的支撑集组成的十七量子比特表面码布局
   status: machine
 - id: ca52a9286b9baa65
   en: Z-check detection-event frequencies during eighteen noisy QEC cycles and the final data readout
-  zh: '十八个含噪声 QEC 周期及最终数据读出中的 Z 校验检测事件频率'
+  zh: 十八个含噪声 QEC 周期及最终数据读出中的 Z 校验检测事件频率
   status: machine
 - id: f4db69e77205249f
   en: Decoded logical error versus QEC cycles, with 128 shots per point, symmetric one-standard-error bars, and a fitted logical error rate per cycle
-  zh: '译码后的逻辑错误率随 QEC 周期数的变化：每个点采样 128 次，带对称的一个标准误差棒，以及拟合的每周期逻辑错误率'
+  zh: 译码后的逻辑错误率随 QEC 周期数的变化：每个点采样 128 次，带对称的一个标准误差棒，以及拟合的每周期逻辑错误率
   status: machine
 - id: 57e89265ee01f78e
   en: Written by Zhi ZENG, The Chinese University of Hong Kong.
-  zh: '作者：香港中文大学 Zhi ZENG。'
+  zh: 作者：香港中文大学 Zhi ZENG。
   status: machine
 - id: 142076b94e9ce3f6
   en: A surface code uses data qubits to store information and ancilla qubits to detect errors through stabilizer measurements. In this tutorial, we use FatQat to study a distance-three surface-code memory-Z experiment with nine data qubits and eight ancilla qubits.
-  zh: '表面码使用数据量子比特存储信息，使用辅助量子比特通过稳定子测量检测错误。本教程使用 FatQat 研究一个码距为三的表面码 memory-Z 存储实验，其中包含九个数据量子比特和八个辅助量子比特。'
+  zh: 表面码使用数据量子比特存储信息，使用辅助量子比特通过稳定子测量检测错误。本教程使用 FatQat 研究一个码距为三的表面码 memory-Z 存储实验，其中包含九个数据量子比特和八个辅助量子比特。
   status: machine
 - id: aa2e528da5e398e5
   en: We will show how repeated stabilizer measurements provide information for decoding the final logical Z readout. You will learn how to construct a noisy syndrome-extraction circuit, interpret detection events, and apply a classical decoder. Finally, we will examine how the decoded logical error rate changes with the number of QEC cycles and fit an effective error rate per cycle.
-  zh: '我们将展示重复的稳定子测量如何为最终逻辑 Z 读出的译码提供信息。你将学习构建含噪声的综合征提取电路、理解检测事件，以及应用经典译码器。最后，我们会考察译码后的逻辑错误率如何随 QEC 周期数变化，并拟合每个周期的有效错误率。'
+  zh: 我们将展示重复的稳定子测量如何为最终逻辑 Z 读出的译码提供信息。你将学习构建含噪声的综合征提取电路、理解检测事件，以及应用经典译码器。最后，我们会考察译码后的逻辑错误率如何随 QEC 周期数变化，并拟合每个周期的有效错误率。
   status: machine
 - id: ee7eb41e9c4a3ed2
   en: 1. Specify the code and initial state
-  zh: '1. 指定纠错码与初态'
+  zh: 1. 指定纠错码与初态
   status: machine
 - id: 39a87391405846da
   en: Data qubits 0 through 8 form a row-major $3\times3$ square. Each ancilla qubit measures the product of X or Z on its neighbouring data qubits. $H_X$ and $H_Z$ record those stabilizers as binary matrices and the commutation relation requires $H_X H_Z^T=0\pmod2$. The chosen logical operators are $Z_L=Z_0Z_3Z_6$ and $X_L=X_0X_1X_2$.
-  zh: '数据量子比特 0 到 8 按行优先顺序组成一个 $3\times3$ 正方形。每个辅助量子比特测量相邻数据量子比特上的 X 或 Z 算符乘积。$H_X$ 和 $H_Z$ 以二进制矩阵记录这些稳定子，对易关系要求 $H_X H_Z^T=0\pmod2$。选取的逻辑算符为 $Z_L=Z_0Z_3Z_6$ 和 $X_L=X_0X_1X_2$。'
+  zh: 数据量子比特 0 到 8 按行优先顺序组成一个 $3\times3$ 正方形。每个辅助量子比特测量相邻数据量子比特上的 X 或 Z 算符乘积。$H_X$ 和 $H_Z$ 以二进制矩阵记录这些稳定子，对易关系要求 $H_X H_Z^T=0\pmod2$。选取的逻辑算符为 $Z_L=Z_0Z_3Z_6$ 和 $X_L=X_0X_1X_2$。
   status: machine
 - id: 4f70050f8a4088ce
   en: '`POSITIONS` assigns dimensionless coordinates to this code diagram. These coordinates are used to draw the patch and generate the four ordered CNOT layers in `cx_layers()` below.'
@@ -44,185 +44,185 @@
   status: machine
 - id: b41aaa548423e869
   en: The simulator starts every shot with all 17 qubits in the computational zero state. The data therefore start in $|0\rangle^{\otimes9}$ and all ancillas in $|0\rangle$. The initial Z-check parities and logical Z parity are zero. This product state is not the fully encoded logical state $|0_L\rangle$, since it is not an eigenstate of all X stabilizers. X stabilizers commute with the Z stabilizers and $Z_L$, so they preserve the initial logical Z value. This experiment tracks that value without requiring all X-check signs to be $+1$.
-  zh: '模拟器在每次采样开始时将全部 17 个量子比特置于计算基零态。因此，数据量子比特从 $|0\rangle^{\otimes9}$ 开始，所有辅助量子比特从 $|0\rangle$ 开始。初始 Z 校验奇偶值和逻辑 Z 奇偶值均为零。此直积态并非完全编码的逻辑态 $|0_L\rangle$，因为它不是所有 X 稳定子的本征态。X 稳定子与 Z 稳定子及 $Z_L$ 对易，因此会保留初始逻辑 Z 值。本实验跟踪该值，而不要求所有 X 校验的符号均为 $+1$。'
+  zh: 模拟器在每次采样开始时将全部 17 个量子比特置于计算基零态。因此，数据量子比特从 $|0\rangle^{\otimes9}$ 开始，所有辅助量子比特从 $|0\rangle$ 开始。初始 Z 校验奇偶值和逻辑 Z 奇偶值均为零。此直积态并非完全编码的逻辑态 $|0_L\rangle$，因为它不是所有 X 稳定子的本征态。X 稳定子与 Z 稳定子及 $Z_L$ 对易，因此会保留初始逻辑 Z 值。本实验跟踪该值，而不要求所有 X 校验的符号均为 $+1$。
   status: machine
 - id: 9e57497bf32e1814
   en: The following small exhaustive check verifies that each check matrix has rank four and that a Pauli error with no syndrome but a flipped logical observable has minimum weight three.
-  zh: '下面的小规模穷举检查验证：每个校验矩阵的秩均为四；不产生综合征、却翻转逻辑可观测量的 Pauli 错误，其最小权重为三。'
+  zh: 下面的小规模穷举检查验证：每个校验矩阵的秩均为四；不产生综合征、却翻转逻辑可观测量的 Pauli 错误，其最小权重为三。
   status: machine
 - id: 9da499a4386acaf8
   en: 2. Construct the backend and noise model
-  zh: '2. 构造后端与噪声模型'
+  zh: 2. 构造后端与噪声模型
   status: machine
 - id: 6f6359ed8e96fec1
   en: We use illustrative noise parameters to model gate errors, relaxation, dephasing, and readout errors. All qubits share the same coherence times and readout probabilities, and gates of each type share the same fidelity. We set $T_1=40\,\mu\mathrm{s}$ and $T_2=10\,\mu\mathrm{s}$.
-  zh: '我们使用示例噪声参数来模拟门错误、弛豫、退相位和读出错误。所有量子比特具有相同的相干时间与读出概率，同类门具有相同的保真度。设置 $T_1=40\,\mu\mathrm{s}$ 和 $T_2=10\,\mu\mathrm{s}$。'
+  zh: 我们使用示例噪声参数来模拟门错误、弛豫、退相位和读出错误。所有量子比特具有相同的相干时间与读出概率，同类门具有相同的保真度。设置 $T_1=40\,\mu\mathrm{s}$ 和 $T_2=10\,\mu\mathrm{s}$。
   status: machine
 - id: 8bf44322e6cce6a6
   en: Here we use a $d$-dimensional depolarizing channel
-  zh: '这里使用 $d$ 维退极化信道'
+  zh: 这里使用 $d$ 维退极化信道
   status: machine
 - id: 2bd714537af12e95
   en: given gate fidelity $F_{\rm avg}$,
-  zh: '给定门保真度 $F_{\rm avg}$，'
+  zh: 给定门保真度 $F_{\rm avg}$，
   status: machine
 - id: da1717c23bcb0148
   en: Each X or SX receives one single-qubit channel, and each CZ receives one joint two-qubit channel. RZ is virtual and noiseless. During each gate layer, idle qubits undergo amplitude damping and pure dephasing for the duration of that layer, which is 20 ns for a single-qubit gate layer and 40 ns for a CZ layer. These idle intervals are represented by identity operations with the corresponding noise channels. All nine data qubits also experience 600 ns of idle decoherence during each ancilla measurement.
-  zh: '每个 X 或 SX 门附加一个单量子比特信道，每个 CZ 门附加一个联合双量子比特信道。RZ 为无噪声的虚拟门。在每层门执行期间，空闲量子比特经历与该层持续时间相同的振幅阻尼和纯退相位：单量子比特门层为 20 ns，CZ 门层为 40 ns。这些空闲区间由附加相应噪声信道的恒等指令表示。每次辅助量子比特测量期间，全部九个数据量子比特还会经历 600 ns 的空闲退相干。'
+  zh: 每个 X 或 SX 门附加一个单量子比特信道，每个 CZ 门附加一个联合双量子比特信道。RZ 为无噪声的虚拟门。在每层门执行期间，空闲量子比特经历与该层持续时间相同的振幅阻尼和纯退相位：单量子比特门层为 20 ns，CZ 门层为 40 ns。这些空闲区间由附加相应噪声信道的恒等指令表示。每次辅助量子比特测量期间，全部九个数据量子比特还会经历 600 ns 的空闲退相干。
   status: machine
 - id: 67289f91c8525679
   en: Idle decoherence is modeled as Markovian amplitude damping and pure dephasing, with rates derived from $T_1$ and $T_2$. We assume a 600 ns ancilla readout time. A true outcome of 0 is reported as 1 with probability $1-F_{00}$, while a true outcome of 1 is reported as 0 with probability $1-F_{11}$. Reset prepares every ancilla in $|0\rangle$ with zero duration and no error, independently of its reported measurement bit. The measurement window adds decoherence only to the data qubits. Leakage, crosstalk, and dynamical decoupling are not included. Initialization is ideal, so no additional state-preparation error is applied to the default all-zero state.
-  zh: '空闲退相干被建模为马尔可夫振幅阻尼与纯退相位，速率由 $T_1$ 和 $T_2$ 推导。假设辅助量子比特读出耗时 600 ns。真实结果 0 以概率 $1-F_{00}$ 被报告为 1，真实结果 1 以概率 $1-F_{11}$ 被报告为 0。重置以零耗时、无错误的方式将每个辅助量子比特制备为 $|0\rangle$，不依赖其报告的测量比特。测量窗口仅为数据量子比特增加退相干。模型不包含泄漏、串扰和动力学解耦。初始化为理想过程，因此不对默认全零态施加额外的态制备错误。'
+  zh: 空闲退相干被建模为马尔可夫振幅阻尼与纯退相位，速率由 $T_1$ 和 $T_2$ 推导。假设辅助量子比特读出耗时 600 ns。真实结果 0 以概率 $1-F_{00}$ 被报告为 1，真实结果 1 以概率 $1-F_{11}$ 被报告为 0。重置以零耗时、无错误的方式将每个辅助量子比特制备为 $|0\rangle$，不依赖其报告的测量比特。测量窗口仅为数据量子比特增加退相干。模型不包含泄漏、串扰和动力学解耦。初始化为理想过程，因此不对默认全零态施加额外的态制备错误。
   status: machine
 - id: a44a386a636ab6af
   en: 3. Build the syndrome extraction circuit
-  zh: '3. 构建综合征提取电路'
+  zh: 3. 构建综合征提取电路
   status: machine
 - id: 17506ac887b88700
   en: Z-type stabilizers are measured using CNOT gates with the data qubits as controls and the ancilla as the target. For X-type stabilizers, the ancilla acts as the control and the data qubits as targets. A Hadamard gate is applied to each X-check ancilla before and after its CNOT sequence. All ancillas are then measured in the Z basis.
-  zh: '测量 Z 型稳定子时，CNOT 门以数据量子比特为控制位、辅助量子比特为目标位。对于 X 型稳定子，辅助量子比特为控制位，数据量子比特为目标位。每个 X 校验辅助量子比特在其 CNOT 序列前后各施加一个 Hadamard 门。随后在 Z 基下测量全部辅助量子比特。'
+  zh: 测量 Z 型稳定子时，CNOT 门以数据量子比特为控制位、辅助量子比特为目标位。对于 X 型稳定子，辅助量子比特为控制位，数据量子比特为目标位。每个 X 校验辅助量子比特在其 CNOT 序列前后各施加一个 Hadamard 门。随后在 Z 基下测量全部辅助量子比特。
   status: machine
 - id: 161ea463465951c7
   en: The CNOT gates are scheduled in four layers. Each Z-check ancilla interacts with its neighbouring data qubits in the order northwest, northeast, southwest, southeast. Each X-check ancilla uses the order northwest, southwest, northeast, southeast. These directions refer to the positions of data qubits relative to the ancilla in the patch diagram. Missing neighbours at the boundaries are skipped. Each layer contains six CNOT gates acting on disjoint qubit pairs. The ordering controls how ancilla faults propagate into correlated data errors. Any alternative schedule should be checked for correct stabilizer extraction and hook-error propagation. See [Tomita and Svore](https://arxiv.org/abs/1404.3747).
-  zh: 'CNOT 门分为四层。每个 Z 校验辅助量子比特按西北、东北、西南、东南的顺序与相邻数据量子比特相互作用；每个 X 校验辅助量子比特则按西北、西南、东北、东南的顺序。这些方向表示码块图中数据量子比特相对于辅助量子比特的位置。边界处缺失的邻居会被跳过。每层包含六个作用于互不重叠量子比特对的 CNOT 门。该顺序决定辅助量子比特故障如何传播为相关的数据错误。采用其他时序时，应检查稳定子提取是否正确，以及钩状错误的传播情况。参见 [Tomita 和 Svore](https://arxiv.org/abs/1404.3747)。'
+  zh: CNOT 门分为四层。每个 Z 校验辅助量子比特按西北、东北、西南、东南的顺序与相邻数据量子比特相互作用；每个 X 校验辅助量子比特则按西北、西南、东北、东南的顺序。这些方向表示码块图中数据量子比特相对于辅助量子比特的位置。边界处缺失的邻居会被跳过。每层包含六个作用于互不重叠量子比特对的 CNOT 门。该顺序决定辅助量子比特故障如何传播为相关的数据错误。采用其他时序时，应检查稳定子提取是否正确，以及钩状错误的传播情况。参见 [Tomita 和 Svore](https://arxiv.org/abs/1404.3747)。
   status: machine
 - id: 66cf48e006d868ec
   en: Each QEC cycle measures all eight ancillas in parallel over a 600 ns window, then resets them to $|0\rangle$. The last cycle includes the same measurement window and reset before the final Z-basis data readout.
-  zh: '每个 QEC 周期在 600 ns 窗口内并行测量全部八个辅助量子比特，随后将它们重置为 $|0\rangle$。最后一个周期在最终 Z 基数据读出之前，也包含相同的测量窗口与重置过程。'
+  zh: 每个 QEC 周期在 600 ns 窗口内并行测量全部八个辅助量子比特，随后将它们重置为 $|0\rangle$。最后一个周期在最终 Z 基数据读出之前，也包含相同的测量窗口与重置过程。
   status: machine
 - id: 12debd0647840034
   en: 4. Construct detection events
-  zh: '4. 构造检测事件'
+  zh: 4. 构造检测事件
   status: machine
 - id: 2029d86b62f7e100
   en: With every ancilla initialized or reset to $|0\rangle$ before extraction, an ideal measurement directly returns the stabilizer bit $s_t$. A reported bit $m_t=s_t\oplus e_t$ may contain a classical readout error. For the R cycles, indexed $t=0,\ldots,R-1$, define
-  zh: '每次提取前，所有辅助量子比特均被初始化或重置为 $|0\rangle$，因此理想测量直接返回稳定子比特 $s_t$。报告的比特 $m_t=s_t\oplus e_t$ 可能包含经典读出错误。对于编号为 $t=0,\ldots,R-1$ 的 R 个周期，定义'
+  zh: 每次提取前，所有辅助量子比特均被初始化或重置为 $|0\rangle$，因此理想测量直接返回稳定子比特 $s_t$。报告的比特 $m_t=s_t\oplus e_t$ 可能包含经典读出错误。对于编号为 $t=0,\ldots,R-1$ 的 R 个周期，定义
   status: machine
 - id: 33f4b760b91a38f4
   en: The initial data have all-positive Z-check signs, so their reference bits are zero. A single classical ancilla-readout flip produces events at two adjacent times, t and t+1. For the last ancilla readout, the second event lies on the final data boundary.
-  zh: '初始数据的 Z 校验符号均为正，因此参考比特均为零。一次经典的辅助量子比特读出翻转会在相邻的 t 和 t+1 两个时刻产生事件。对于最后一次辅助量子比特读出，第二个事件位于最终数据边界。'
+  zh: 初始数据的 Z 校验符号均为正，因此参考比特均为零。一次经典的辅助量子比特读出翻转会在相邻的 t 和 t+1 两个时刻产生事件。对于最后一次辅助量子比特读出，第二个事件位于最终数据边界。
   status: machine
 - id: 21e263021939989b
   en: The final reported data bits $b$ provide four additional Z-check parities, $s_{\mathrm{data}}=H_Zb$. Close the detector history with
-  zh: '最终报告的数据比特 $b$ 提供四个额外的 Z 校验奇偶值，即 $s_{\mathrm{data}}=H_Zb$。用下式闭合检测历史：'
+  zh: 最终报告的数据比特 $b$ 提供四个额外的 Z 校验奇偶值，即 $s_{\mathrm{data}}=H_Zb$。用下式闭合检测历史：
   status: machine
 - id: 281ea73c39b7e3df
   en: The resulting Z-detector array has shape `(R + 1, 4)`. For R=0, it consists only of $H_Zb$. These checks come from the actual noisy data readout. A final Z-basis readout does not supply terminal X-check values. Data errors during the last 600 ns measurement window can therefore appear on this terminal boundary even when the last ancilla outcomes were correct.
-  zh: '得到的 Z 检测器数组形状为 `(R + 1, 4)`。当 R=0 时，它仅包含 $H_Zb$。这些校验来自实际的含噪声数据读出。最终 Z 基读出无法提供末端的 X 校验值。因此，即使最后一次辅助量子比特测量结果正确，最后 600 ns 测量窗口内的数据错误也可能在此末端边界显现。'
+  zh: 得到的 Z 检测器数组形状为 `(R + 1, 4)`。当 R=0 时，它仅包含 $H_Zb$。这些校验来自实际的含噪声数据读出。最终 Z 基读出无法提供末端的 X 校验值。因此，即使最后一次辅助量子比特测量结果正确，最后 600 ns 测量窗口内的数据错误也可能在此末端边界显现。
   status: machine
 - id: dc557f36083faaa1
   en: 5. Predict the logical correction from the syndrome
-  zh: '5. 根据综合征预测逻辑修正'
+  zh: 5. 根据综合征预测逻辑修正
   status: machine
 - id: 3d0363350d7a3238
   en: An X error on a data qubit reverses the sign of each Z stabilizer acting on that qubit. The decoder uses the resulting detection events to infer a Pauli-X recovery. If the recovery anticommutes with the chosen $Z_L$, the final logical readout must be flipped. Both stabilizer types are measured in the circuit, but this decoder uses only the Z-check history.
-  zh: '数据量子比特上的 X 错误会翻转作用于该量子比特的每个 Z 稳定子的符号。译码器利用由此产生的检测事件推断 Pauli-X 恢复操作。如果恢复操作与选定的 $Z_L$ 反对易，就必须翻转最终逻辑读出。电路测量两类稳定子，但此译码器仅使用 Z 校验历史。'
+  zh: 数据量子比特上的 X 错误会翻转作用于该量子比特的每个 Z 稳定子的符号。译码器利用由此产生的检测事件推断 Pauli-X 恢复操作。如果恢复操作与选定的 $Z_L$ 反对易，就必须翻转最终逻辑读出。电路测量两类稳定子，但此译码器仅使用 Z 校验历史。
   status: machine
 - id: b11f4ffe7fcab6e7
   en: We approximate the noise by independent data X errors and ancilla readout errors. In the corresponding spacetime graph, a data error connects the affected Z checks within one time layer. An error detected by only one check connects that check to a spatial code boundary. An ancilla readout error changes one reported result and produces detection events at two successive times on the same check.
-  zh: '我们用独立的数据 X 错误和辅助量子比特读出错误来近似噪声。在对应的时空图中，数据错误连接同一时间层内受影响的 Z 校验。只被一个校验检测到的错误，将该校验连接到纠错码的空间边界。辅助量子比特读出错误改变一个报告结果，并在同一校验的两个连续时刻产生检测事件。'
+  zh: 我们用独立的数据 X 错误和辅助量子比特读出错误来近似噪声。在对应的时空图中，数据错误连接同一时间层内受影响的 Z 校验。只被一个校验检测到的错误，将该校验连接到纠错码的空间边界。辅助量子比特读出错误改变一个报告结果，并在同一校验的两个连续时刻产生检测事件。
   status: machine
 - id: 1350481784637be4
   en: The model has R+1 intervals for data errors, from before the first syndrome extraction to after the last. Data decoherence during each 600 ns ancilla measurement is assigned to the interval following that extraction. In the final interval, an X error before data measurement and a flipped data readout bit have the same effect on both the syndrome and logical readout. The two mechanisms share an edge in the decoding graph. The final data parities close the syndrome history at the last time boundary.
-  zh: '模型包含 R+1 个数据错误区间，从第一次综合征提取之前延伸到最后一次提取之后。每个 600 ns 辅助量子比特测量期间的数据退相干，被归入该次提取之后的区间。在最后一个区间中，数据测量前的 X 错误与数据读出比特翻转，对综合征和逻辑读出的影响相同。这两种机制共用译码图中的一条边。最终数据奇偶值在最后的时间边界闭合综合征历史。'
+  zh: 模型包含 R+1 个数据错误区间，从第一次综合征提取之前延伸到最后一次提取之后。每个 600 ns 辅助量子比特测量期间的数据退相干，被归入该次提取之后的区间。在最后一个区间中，数据测量前的 X 错误与数据读出比特翻转，对综合征和逻辑读出的影响相同。这两种机制共用译码图中的一条边。最终数据奇偶值在最后的时间边界闭合综合征历史。
   status: machine
 - id: 65bd0374e363ee6a
   en: The decoder selects a minimum-weight error history consistent with the observed detection events. Each elementary error has weight $w=\log[(1-p)/p]$. We set `data_error=readout_error=0.01`, so both error types have equal weight and the decoder favours histories with fewer faults.
-  zh: '译码器选择与观测到的检测事件一致、且权重最小的错误历史。每个基本错误的权重为 $w=\log[(1-p)/p]$。这里设置 `data_error=readout_error=0.01`，因此两类错误的权重相同，译码器倾向于选择故障更少的历史。'
+  zh: 译码器选择与观测到的检测事件一致、且权重最小的错误历史。每个基本错误的权重为 $w=\log[(1-p)/p]$。这里设置 `data_error=readout_error=0.01`，因此两类错误的权重相同，译码器倾向于选择故障更少的历史。
   status: machine
 - id: c08141e14adc8512
   en: Let $x_t$ describe the data X errors in interval $t$, and let $e_{t-1}$ and $e_t$ describe readout errors in the adjacent ancilla measurements. These are binary vectors with nine and four components, respectively. The true Z-syndrome change is $H_Zx_t$. The observed change $d_t$ also contains the readout errors from both measurements, giving the constraint
-  zh: '令 $x_t$ 表示区间 $t$ 内的数据 X 错误，$e_{t-1}$ 和 $e_t$ 表示相邻辅助量子比特测量中的读出错误。它们分别是九维和四维二进制向量。真实的 Z 综合征变化为 $H_Zx_t$。观测到的变化 $d_t$ 还包含两次测量的读出错误，因此满足约束'
+  zh: 令 $x_t$ 表示区间 $t$ 内的数据 X 错误，$e_{t-1}$ 和 $e_t$ 表示相邻辅助量子比特测量中的读出错误。它们分别是九维和四维二进制向量。真实的 Z 综合征变化为 $H_Zx_t$。观测到的变化 $d_t$ 还包含两次测量的读出错误，因此满足约束
   status: machine
 - id: 913a9559aaf984d8
   en: We enumerate the 512 possible data X errors and retain a minimum-weight error for each of the 16 Z syndromes. Denote this weight by $g(s)$. We then follow the syndrome history using dynamic programming. Define $V_t(e_t)$ as the minimum accumulated weight through layer $t$, with ancilla readout errors $e_t$ in that layer. Comparing the 16 possible readout-error configurations in the preceding layer gives
-  zh: '我们枚举 512 种可能的数据 X 错误，并为 16 种 Z 综合征分别保留一个最小权重错误。将该权重记为 $g(s)$。然后使用动态规划跟踪综合征历史。定义 $V_t(e_t)$ 为截至第 $t$ 层、且该层辅助量子比特读出错误为 $e_t$ 时的最小累积权重。比较前一层的 16 种可能读出错误配置，得到'
+  zh: 我们枚举 512 种可能的数据 X 错误，并为 16 种 Z 综合征分别保留一个最小权重错误。将该权重记为 $g(s)$。然后使用动态规划跟踪综合征历史。定义 $V_t(e_t)$ 为截至第 $t$ 层、且该层辅助量子比特读出错误为 $e_t$ 时的最小累积权重。比较前一层的 16 种可能读出错误配置，得到
   status: machine
 - id: 27ada2123ccf08c1
   en: where $|e_t|$ counts incorrect ancilla readout bits. Each candidate adds the weight of the current readout errors and the least costly data error compatible with the observed syndrome change.
-  zh: '其中 $|e_t|$ 表示错误的辅助量子比特读出比特数。每个候选方案加上当前读出错误的权重，以及与观测综合征变化相容的数据错误的最小权重。'
+  zh: 其中 $|e_t|$ 表示错误的辅助量子比特读出比特数。每个候选方案加上当前读出错误的权重，以及与观测综合征变化相容的数据错误的最小权重。
   status: machine
 - id: aa4b766a04d7bac9
   en: The known initial Z-stabilizer values impose $e_{-1}=0$. At the final boundary we set $e_R=0$, since noisy data readout is already included in $x_R$. Multiplying the inferred X corrections along the selected history gives the net recovery, stored as a nine-bit mask. Its overlap parity with `LOGICAL_Z` determines the classical correction to the logical readout. For these four checks, the decoding time grows linearly with the number of QEC cycles.
-  zh: '已知的初始 Z 稳定子值要求 $e_{-1}=0$。在最终边界设置 $e_R=0$，因为含噪声的数据读出已计入 $x_R$。将所选历史中推断出的 X 修正相乘，得到净恢复操作，并以九位掩码存储。它与 `LOGICAL_Z` 的重叠奇偶性决定对逻辑读出的经典修正。对于这四个校验，译码时间随 QEC 周期数线性增长。'
+  zh: 已知的初始 Z 稳定子值要求 $e_{-1}=0$。在最终边界设置 $e_R=0$，因为含噪声的数据读出已计入 $x_R$。将所选历史中推断出的 X 修正相乘，得到净恢复操作，并以九位掩码存储。它与 `LOGICAL_Z` 的重叠奇偶性决定对逻辑读出的经典修正。对于这四个校验，译码时间随 QEC 周期数线性增长。
   status: machine
 - id: 04ab57f02d1d0b51
   en: Different Pauli errors can produce the same syndrome history while having opposite effects on the logical Z readout. The decoder chooses a recovery using the detection events and the assumed error weights. The measured logical bit is not passed to `decode()`, so identical syndrome histories always receive the same recovery prediction.
-  zh: '不同的 Pauli 错误可能产生相同的综合征历史，却对逻辑 Z 读出产生相反的影响。译码器根据检测事件和假定的错误权重选择恢复操作。测得的逻辑比特不会传给 `decode()`，因此相同的综合征历史总会得到相同的恢复预测。'
+  zh: 不同的 Pauli 错误可能产生相同的综合征历史，却对逻辑 Z 读出产生相反的影响。译码器根据检测事件和假定的错误权重选择恢复操作。测得的逻辑比特不会传给 `decode()`，因此相同的综合征历史总会得到相同的恢复预测。
   status: machine
 - id: 14d86c78d511dcfb
   en: Larger code distances
-  zh: '更大的码距'
+  zh: 更大的码距
   status: machine
 - id: b1a90fc0ac9b01e9
   en: For larger code distances, consider sampling with FatQat, constructing a compatible detector error model with [Stim](https://github.com/quantumlib/Stim), and decoding with [PyMatching](https://github.com/oscarhiggott/PyMatching). The reference model should match the experiment's circuit and measurement protocol.
-  zh: '对于更大的码距，可以考虑使用 FatQat 采样，用 [Stim](https://github.com/quantumlib/Stim) 构建兼容的检测器错误模型，并用 [PyMatching](https://github.com/oscarhiggott/PyMatching) 译码。参考模型应与实验电路和测量协议一致。'
+  zh: 对于更大的码距，可以考虑使用 FatQat 采样，用 [Stim](https://github.com/quantumlib/Stim) 构建兼容的检测器错误模型，并用 [PyMatching](https://github.com/oscarhiggott/PyMatching) 译码。参考模型应与实验电路和测量协议一致。
   status: machine
 - id: 30040fc8eafeb68c
   en: 6. Measure logical error after decoding
-  zh: '6. 测量译码后的逻辑错误'
+  zh: 6. 测量译码后的逻辑错误
   status: machine
 - id: 607eb1f6c5e355c7
   en: At the end of each shot, all nine data qubits are measured in the Z basis, giving the reported bits $b_0,\ldots,b_8$. The measurement outcome of the chosen logical operator $Z_L$ is $(-1)^\ell$, where
-  zh: '每次采样结束时，在 Z 基下测量全部九个数据量子比特，得到报告的比特 $b_0,\ldots,b_8$。所选逻辑算符 $Z_L$ 的测量结果为 $(-1)^\ell$，其中'
+  zh: 每次采样结束时，在 Z 基下测量全部九个数据量子比特，得到报告的比特 $b_0,\ldots,b_8$。所选逻辑算符 $Z_L$ 的测量结果为 $(-1)^\ell$，其中
   status: machine
 - id: ea5aab868829cdc7
   en: The initial state $|0\rangle^{\otimes9}$ has logical Z eigenvalue $+1$, so the expected logical bit is zero. From the Z-check detection events, the decoder selects a Pauli-X recovery represented by the binary vector $x(d)$. Its predicted logical flip is $\hat\ell(d)=x_0(d)\oplus x_3(d)\oplus x_6(d)$. The measured logical bit is used only to evaluate the recovery. A shot fails when the corrected logical Z outcome is $-1$. After $R$ cycles, we estimate this probability as
-  zh: '初态 $|0\rangle^{\otimes9}$ 的逻辑 Z 本征值为 $+1$，因此预期逻辑比特为零。译码器根据 Z 校验检测事件选择 Pauli-X 恢复操作，用二进制向量 $x(d)$ 表示。它预测的逻辑翻转为 $\hat\ell(d)=x_0(d)\oplus x_3(d)\oplus x_6(d)$。测得的逻辑比特仅用于评估恢复效果。修正后的逻辑 Z 结果为 $-1$ 时，该次采样判为失败。经过 $R$ 个周期后，我们将此概率估计为'
+  zh: 初态 $|0\rangle^{\otimes9}$ 的逻辑 Z 本征值为 $+1$，因此预期逻辑比特为零。译码器根据 Z 校验检测事件选择 Pauli-X 恢复操作，用二进制向量 $x(d)$ 表示。它预测的逻辑翻转为 $\hat\ell(d)=x_0(d)\oplus x_3(d)\oplus x_6(d)$。测得的逻辑比特仅用于评估恢复效果。修正后的逻辑 Z 结果为 $-1$ 时，该次采样判为失败。经过 $R$ 个周期后，我们将此概率估计为
   status: machine
 - id: 7c3b2e17cdf260b2
   en: The indicator counts shots whose corrected logical bit is one. The recovery is applied through classical post-processing of the measurement record. The value stored as `logical_error` is the fraction of shots that have an incorrect decoded logical readout.
-  zh: '指示函数统计修正后逻辑比特为一的采样次数。恢复通过对测量记录进行经典后处理来实现。`logical_error` 存储译码后逻辑读出错误的采样比例。'
+  zh: 指示函数统计修正后逻辑比特为一的采样次数。恢复通过对测量记录进行经典后处理来实现。`logical_error` 存储译码后逻辑读出错误的采样比例。
   status: machine
 - id: aab85841e6297fa1
   en: The following data are the decoded failure counts and the Z-check detection-event counts from a simulation with base seed `20260925`, 128 shots per point, and four shot workers. They are stored explicitly so the plots and fit can be reproduced without sampling.
-  zh: '以下数据是一次模拟得到的译码失败计数与 Z 校验检测事件计数，该模拟使用基础种子 `20260925`，每个点采样 128 次，并使用四个采样工作进程。数据显式存储在代码中，因此无需重新采样即可复现图表与拟合。'
+  zh: 以下数据是一次模拟得到的译码失败计数与 Z 校验检测事件计数，该模拟使用基础种子 `20260925`，每个点采样 128 次，并使用四个采样工作进程。数据显式存储在代码中，因此无需重新采样即可复现图表与拟合。
   status: machine
 - id: 40eb1c09eb07263d
   en: To generate new measurement records, uncomment and run the next cell, then rerun the plotting cells. It replaces `summaries` with the new results.
-  zh: '要生成新的测量记录，请取消下一个代码单元的注释并运行，再重新运行绘图单元。这会用新结果替换 `summaries`。'
+  zh: 要生成新的测量记录，请取消下一个代码单元的注释并运行，再重新运行绘图单元。这会用新结果替换 `summaries`。
   status: machine
 - id: 113894330bb10d61
   en: When rerunning the simulation, each cycle count uses 128 independent noisy shots. Each measurement record contributes according to its observed frequency. Up to four workers sample shots, with serial numerical kernels within each shot. Use `shot_parallelism="serial"` when only one worker is available. Fixed seeds reproduce counts for the same runtime, parallelism settings, and result requests.
-  zh: '重新运行模拟时，每个周期数使用 128 次独立的含噪声采样。每条测量记录按其观测频率计入结果。最多使用四个工作进程进行采样，每次采样内部的数值内核串行执行。只有一个工作进程可用时，请使用 `shot_parallelism="serial"`。在运行时、并行设置和结果请求相同的情况下，固定种子可以复现计数。'
+  zh: 重新运行模拟时，每个周期数使用 128 次独立的含噪声采样。每条测量记录按其观测频率计入结果。最多使用四个工作进程进行采样，每次采样内部的数值内核串行执行。只有一个工作进程可用时，请使用 `shot_parallelism="serial"`。在运行时、并行设置和结果请求相同的情况下，固定种子可以复现计数。
   status: machine
 - id: be59a677bf2f37bb
   en: 7. Fit logical error per cycle
-  zh: '7. 拟合每周期逻辑错误率'
+  zh: 7. 拟合每周期逻辑错误率
   status: machine
 - id: 7b0f932748dd2d7b
   en: The detector map shows changes in the measured Z-stabilizer parities during storage. Its final column compares the last ancilla results with the Z-check parities reconstructed from noisy data readout. Both X and Z stabilizers are measured in every QEC cycle, but this decoder uses only the Z-check history. Pauli-Z corrections commute with $Z_L$ and do not change its measurement outcome.
-  zh: '检测器图显示存储期间测得的 Z 稳定子奇偶值变化。最后一列将最后一次辅助量子比特结果，与含噪声数据读出重建的 Z 校验奇偶值进行比较。每个 QEC 周期都测量 X 和 Z 稳定子，但此译码器仅使用 Z 校验历史。Pauli-Z 修正与 $Z_L$ 对易，不会改变其测量结果。'
+  zh: 检测器图显示存储期间测得的 Z 稳定子奇偶值变化。最后一列将最后一次辅助量子比特结果，与含噪声数据读出重建的 Z 校验奇偶值进行比较。每个 QEC 周期都测量 X 和 Z 稳定子，但此译码器仅使用 Z 校验历史。Pauli-Z 修正与 $Z_L$ 对易，不会改变其测量结果。
   status: machine
 - id: 1e008c17b7eed4bc
   en: The detection probabilities are the event counts divided by the number of shots.
-  zh: '检测概率为事件计数除以采样次数。'
+  zh: 检测概率为事件计数除以采样次数。
   status: machine
 - id: e369d90a358f2405
   en: The data points estimate the logical error rate after $R$ cycles. To extract a rate per cycle, assume that each cycle independently flips the logical Z value with probability $\epsilon_L$. An odd number of flips reverses the stored value, while an even number leaves it unchanged. Thus
-  zh: '数据点估计经过 $R$ 个周期后的逻辑错误率。为提取每周期错误率，假设每个周期以概率 $\epsilon_L$ 独立翻转逻辑 Z 值。奇数次翻转会反转存储值，偶数次则保持不变。因此'
+  zh: 数据点估计经过 $R$ 个周期后的逻辑错误率。为提取每周期错误率，假设每个周期以概率 $\epsilon_L$ 独立翻转逻辑 Z 值。奇数次翻转会反转存储值，偶数次则保持不变。因此
   status: machine
 - id: 1f8c481932d53bca
   en: We fit $\epsilon_L$ to the observed failure counts $k_R$ out of $N=128$ shots at each cycle count. Maximizing their binomial likelihood is equivalent to minimizing
-  zh: '我们根据每个周期数下 $N=128$ 次采样中观测到的失败次数 $k_R$ 拟合 $\epsilon_L$。最大化其二项似然等价于最小化'
+  zh: 我们根据每个周期数下 $N=128$ 次采样中观测到的失败次数 $k_R$ 拟合 $\epsilon_L$。最大化其二项似然等价于最小化
   status: machine
 - id: f3dfdda9246d4a1b
   en: where terms independent of $\epsilon_L$ are omitted. Fitting the counts directly accommodates zero observed failures and measured fractions above one half due to sampling fluctuations. The symmetric error bars show one estimated binomial standard error, $\sigma_R=\sqrt{\hat p_R(1-\hat p_R)/N}$, above and below each measured rate $\hat p_R=k_R/N$. These bars describe sampling uncertainty at each point.
-  zh: '其中省略了与 $\epsilon_L$ 无关的项。直接拟合计数，可以处理未观测到失败的情况，以及因采样波动而超过二分之一的测量比例。对称误差棒在每个测得的错误率 $\hat p_R=k_R/N$ 上下各延伸一个估计的二项标准误差，即 $\sigma_R=\sqrt{\hat p_R(1-\hat p_R)/N}$。这些误差棒描述各点的采样不确定性。'
+  zh: 其中省略了与 $\epsilon_L$ 无关的项。直接拟合计数，可以处理未观测到失败的情况，以及因采样波动而超过二分之一的测量比例。对称误差棒在每个测得的错误率 $\hat p_R=k_R/N$ 上下各延伸一个估计的二项标准误差，即 $\sigma_R=\sqrt{\hat p_R(1-\hat p_R)/N}$。这些误差棒描述各点的采样不确定性。
   status: machine
 - id: 00c1bfff890ce977
   en: The fit assumes identical cycles and fixes $p_L(0)=0$. Final-readout errors and the finite syndrome history also affect the measured failure probability. The fitted $\epsilon_L$ therefore describes an effective rate over the chosen cycle range.
-  zh: '拟合假设各周期相同，并固定 $p_L(0)=0$。最终读出错误和有限的综合征历史也会影响测得的失败概率。因此，拟合出的 $\epsilon_L$ 描述的是所选周期范围内的有效错误率。'
+  zh: 拟合假设各周期相同，并固定 $p_L(0)=0$。最终读出错误和有限的综合征历史也会影响测得的失败概率。因此，拟合出的 $\epsilon_L$ 描述的是所选周期范围内的有效错误率。
   status: machine
 - id: 63e438e3a7d6a4d9
   en: Detection events reveal changes in stabilizer outcomes. A readout error can trigger a detector without changing the data state, while a logical X error can reverse the stored logical Z value without producing a syndrome. Decoding can also select a recovery in the wrong logical class. This decoder approximates gate-level and correlated faults with independent data-X and ancilla-readout errors.
-  zh: '检测事件揭示稳定子结果的变化。读出错误可能触发检测器，却不改变量子数据态；逻辑 X 错误则可能反转存储的逻辑 Z 值，却不产生综合征。译码也可能选中错误逻辑类别的恢复操作。此译码器用独立的数据 X 错误和辅助量子比特读出错误，近似门级故障与相关故障。'
+  zh: 检测事件揭示稳定子结果的变化。读出错误可能触发检测器，却不改变量子数据态；逻辑 X 错误则可能反转存储的逻辑 Z 值，却不产生综合征。译码也可能选中错误逻辑类别的恢复操作。此译码器用独立的数据 X 错误和辅助量子比特读出错误，近似门级故障与相关故障。
   status: machine
 - id: 73f3f7322172d35d
   en: This memory-Z experiment tests preservation of the logical Z value after decoding. Logical phase errors are invisible to this readout. A complementary memory-X experiment tests preservation of the logical X value. Both experiments measure all stabilizers during storage, but they do not fully characterize an arbitrary logical noise channel.
-  zh: '这个 memory-Z 存储实验检验译码后逻辑 Z 值的保持情况。逻辑相位错误在此读出中不可见。互补的 memory-X 存储实验则检验逻辑 X 值的保持情况。两个实验都在存储期间测量全部稳定子，但它们不能完整表征任意逻辑噪声信道。'
+  zh: 这个 memory-Z 存储实验检验译码后逻辑 Z 值的保持情况。逻辑相位错误在此读出中不可见。互补的 memory-X 存储实验则检验逻辑 X 值的保持情况。两个实验都在存储期间测量全部稳定子，但它们不能完整表征任意逻辑噪声信道。
   status: machine
 - id: edd0d2877e12a1a9
   en: A full characterization can use logical process tomography, with an informationally complete set of encoded inputs and measurements of the recovered logical X, Y, and Z observables. This requires more preparation and measurement settings. For quantitative comparisons, increase the shot count and use a decoder matched to the circuit noise. Multiple code distances are needed to study suppression with distance.
-  zh: '完整表征可使用逻辑过程层析：制备一组信息完备的编码输入，并测量恢复后的逻辑 X、Y 和 Z 可观测量。这需要更多制备与测量设置。进行定量比较时，应增加采样次数，并使用与电路噪声匹配的译码器。研究错误率随码距增大而受到抑制的情况，需要考察多个码距。'
+  zh: 完整表征可使用逻辑过程层析：制备一组信息完备的编码输入，并测量恢复后的逻辑 X、Y 和 Z 可观测量。这需要更多制备与测量设置。进行定量比较时，应增加采样次数，并使用与电路噪声匹配的译码器。研究错误率随码距增大而受到抑制的情况，需要考察多个码距。
   status: machine
