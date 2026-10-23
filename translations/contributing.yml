@@ -1,14 +1,14 @@
 - id: b2489f5131a2877b
   en: Ask useful questions, review designs, and improve FatQat through real experience in the AI era.
-  zh: '如何通过使用反馈、设计讨论和代码评审参与 FatQat，及使用 AI 辅助开发时需要注意的事。'
-  status: machine
+  zh: 如何通过使用反馈、设计讨论和代码评审参与 FatQat，及使用 AI 辅助开发时需要注意的事。
+  status: retired
 - id: 3b4cdc3dac476229
   en: How to contribute
-  zh: '参与贡献'
+  zh: 参与贡献
   status: machine
 - id: a5e9125c25fd0607
   en: If AI can write the code, where can I make the biggest difference?
-  zh: 'AI 能写代码了，我们还能做些什么？'
+  zh: AI 能写代码了，我们还能做些什么？
   status: machine
 - id: 7205a8d12744e648
   en: '**By asking a question worth answering.**'
@@ -16,103 +16,103 @@
   status: machine
 - id: 17f81519706562d7
   en: AI has made it easier to turn an idea into code. That makes deciding **what to build, why it matters, and how it fits** increasingly important. A valuable question grounded in real use can contribute more than a ready-made implementation.
-  zh: '有了 AI，把想法写成代码容易了不少。但**做什么、为什么做、怎样放进现有项目**，还得由人来判断。我们很想听听你在使用中遇到了什么：一个具体的问题，有时比一份写好的实现更能帮上忙。'
+  zh: 有了 AI，把想法写成代码容易了不少。但**做什么、为什么做、怎样放进现有项目**，还得由人来判断。我们很想听听你在使用中遇到了什么：一个具体的问题，有时比一份写好的实现更能帮上忙。
   status: machine
 - id: d1f30eb4be628fad
   en: Perhaps a result surprised you. You or your agent struggled with an explanation or needed a complicated workaround. Or you looked at a pull request and saw a simpler approach. A useful question, a clearer example, or a thoughtful review can all move the project forward.
-  zh: '比如，算出来的结果和预想的不一样；一段文档，你和 Agent看了几遍还是没弄明白；一个看似简单的需求，却要补不少代码才能完成。又或者，你读到某个 PR，想到了一种更简单的写法。这些都值得拿出来聊，也可以从补一个例子、提一条评审意见开始。'
+  zh: 比如，算出来的结果和预想的不一样；一段文档，你和 Agent看了几遍还是没弄明白；一个看似简单的需求，却要补不少代码才能完成。又或者，你读到某个 PR，想到了一种更简单的写法。这些都值得拿出来聊，也可以从补一个例子、提一条评审意见开始。
   status: machine
 - id: 4d1f71a5c3ccb010
   en: You don't need a patch to contribute
-  zh: '不必先写好代码'
+  zh: 不必先写好代码
   status: machine
 - id: 4ac4ddadce561465
   en: Share a question, investigate an obstacle, or help review an approach. Helping the community decide what deserves attention is valuable work.
-  zh: '还没想出怎么改，也可以先说说疑问。帮忙查查原因、看看方案，同样能让我们知道哪些问题应该优先解决。'
+  zh: 还没想出怎么改，也可以先说说疑问。帮忙查查原因、看看方案，同样能让我们知道哪些问题应该优先解决。
   status: machine
 - id: 7f3de9edbe110277
   en: What have you built with FatQat?
-  zh: '说说你用 FatQat 做了什么'
+  zh: 说说你用 FatQat 做了什么
   status: machine
 - id: 118ab1da8d918eb5
   en: Have you reproduced a result from a paper, explored a new physical model, or used FatQat in a way our examples do not cover? Share it. Your workflow could help someone else get started and show the community where the package could grow.
-  zh: '你用 FatQat 复现过哪篇论文？试过什么新的物理模型？有没有哪种用法，是现有示例还没写到的？欢迎分享。你做过的实验，也许正好能帮下一位用户入门；遇到的限制，也能让我们知道哪里还需要完善。'
+  zh: 你用 FatQat 复现过哪篇论文？试过什么新的物理模型？有没有哪种用法，是现有示例还没写到的？欢迎分享。你做过的实验，也许正好能帮下一位用户入门；遇到的限制，也能让我们知道哪里还需要完善。
   status: machine
 - id: 1f2f0075af1ee2a0
   en: A small example, a tutorial, or a walkthrough of your own work can all be valuable contributions. Explain the question you explored, how you used FatQat, and what the results mean. Include enough code and context for someone else to follow, and credit the papers or other work you build on.
-  zh: '一个小例子、一篇教程，或一份介绍自己工作的笔记，都可以。讲讲你想研究什么、怎样用 FatQat 完成计算、结果说明了什么，再附上必要的代码和背景，让别人也能跟着试一试。如果参考了论文或他人的工作，记得注明来源。'
+  zh: 一个小例子、一篇教程，或一份介绍自己工作的笔记，都可以。讲讲你想研究什么、怎样用 FatQat 完成计算、结果说明了什么，再附上必要的代码和背景，让别人也能跟着试一试。如果参考了论文或他人的工作，记得注明来源。
   status: machine
 - id: 99fcd07c4c1ccbaa
   en: '**You don''t need a polished tutorial to start the conversation.** If you have a new use case or an example you would like to share, [open an issue](https://github.com/spaceqat/fatqat/issues) and tell us about it. We can discuss how it might fit into the examples or [tutorial collection](tutorials/index.md).'
   zh: '**不用等教程写完再来交流。** 有新的用法或想分享的例子，可以先[开一个 issue](https://github.com/spaceqat/fatqat/issues)，我们再一起看看，怎样整理成示例或加入[教程集](tutorials/index.md)。'
-  status: machine
+  status: retired
 - id: 2c35b7592e40c275
   en: Using FatQat through an agent? Follow the friction.
-  zh: '和 AI 一起用 FatQat 时，留意卡住的地方'
+  zh: 和 AI 一起用 FatQat 时，留意卡住的地方
   status: machine
 - id: c9e5e8896289fe2e
   en: You may ask an agent to reproduce a paper, implement an algorithm, or explore a physical model. Even when it writes most of the code, your goals and judgment guide the work and can reveal opportunities to improve FatQat.
-  zh: '你可能会让 Agent复现论文、实现算法，或试一试某个物理模型。即使大部分代码由它来写，想研究什么、结果是否说得通，仍然需要你判断。过程中哪些地方费了周折，也不妨记下来，看看 FatQat 能否让这一步更省事。'
+  zh: 你可能会让 Agent复现论文、实现算法，或试一试某个物理模型。即使大部分代码由它来写，想研究什么、结果是否说得通，仍然需要你判断。过程中哪些地方费了周折，也不妨记下来，看看 FatQat 能否让这一步更省事。
   status: machine
 - id: 739fc41d3ed4d429
   en: Start from those experiences. A broad request to "find improvements in the codebase" gives an agent little basis for deciding what matters. A concrete experiment gives it a purpose and constraints.
-  zh: '不妨从正在做的实验问起。只让 AI“找找代码库有什么可以改进”，它很难知道什么对你有用。告诉它要完成的计算和必须满足的条件，讨论就会具体得多。'
+  zh: 不妨从正在做的实验问起。只让 AI“找找代码库有什么可以改进”，它很难知道什么对你有用。告诉它要完成的计算和必须满足的条件，讨论就会具体得多。
   status: machine
 - id: 24ee3fdf1c825e2f
   en: 'Try these questions during your next task:'
-  zh: '遇到下面这些情况，可以再多问一步：'
+  zh: 遇到下面这些情况，可以再多问一步：
   status: machine
 - id: 3aa0a5643a448e64
   en: A workaround appeared
-  zh: '得自己补一段代码'
+  zh: 得自己补一段代码
   status: machine
 - id: bb014b0c3e43b4fa
   en: '"Which parts required custom code, and why?"'
-  zh: '“哪些地方是我们额外写的？为什么需要这些代码？”'
+  zh: “哪些地方是我们额外写的？为什么需要这些代码？”
   status: machine
 - id: 39ae72b55f55dd44
   en: '"Is the capability missing, or did we struggle to find and use it?"'
-  zh: '“是缺少功能，还是已有功能不好找、不好用？”'
+  zh: “是缺少功能，还是已有功能不好找、不好用？”
   status: machine
 - id: e35768e5785beed3
   en: A run is too slow
-  zh: '跑得比预想慢'
+  zh: 跑得比预想慢
   status: machine
 - id: 3021168daae69605
   en: '"Where is the runtime going? Can we measure it?"'
-  zh: '“时间都花在哪一步了？能不能测一下？”'
+  zh: “时间都花在哪一步了？能不能测一下？”
   status: machine
 - id: 133b6b90616f69fa
   en: '"Can we improve performance while preserving the physical model and required accuracy?"'
-  zh: '“保持物理模型和所需精度不变，能不能跑得更快？”'
+  zh: “保持物理模型和所需精度不变，能不能跑得更快？”
   status: machine
 - id: e6f49eaf85b3e32e
   en: A result is hard to interpret
-  zh: '结果出来了，却看不明白'
+  zh: 结果出来了，却看不明白
   status: machine
 - id: 76895a764d060f82
   en: '"What do we need to know to interpret this result, and does FatQat explain it clearly? For example, are the units and basis ordering clear?"'
-  zh: '“要看懂这个结果，还缺什么信息？比如单位是什么、基按什么顺序排列，FatQat 说明白了吗？”'
+  zh: “要看懂这个结果，还缺什么信息？比如单位是什么、基按什么顺序排列，FatQat 说明白了吗？”
   status: machine
 - id: 2330edd452264073
   en: '"What would help the next user: a clearer explanation, a worked example, or more information in the output?"'
-  zh: '“补一段说明、给一个完整例子，还是在输出里多加些信息，能让下一个人少费些功夫？”'
+  zh: “补一段说明、给一个完整例子，还是在输出里多加些信息，能让下一个人少费些功夫？”
   status: machine
 - id: 59a83546e4a2d6cb
   en: If you and your agent had to work out a convention, inspect private internals, or write extra code to understand an output, describe that step. It may reveal a useful improvement even when the result is correct.
-  zh: '为了看懂一个输出，你和 Agent可能翻过内部代码、另写过一段验证程序，或猜测某个约定后再去确认。反馈时，也请讲讲这些经过。结果算对了，这段弯路仍可能值得改进。'
+  zh: 为了看懂一个输出，你和 Agent可能翻过内部代码、另写过一段验证程序，或猜测某个约定后再去确认。反馈时，也请讲讲这些经过。结果算对了，这段弯路仍可能值得改进。
   status: machine
 - id: 110f0fa8587a3943
   en: Treat the answers as leads to investigate. Check the documentation and the evidence.
-  zh: '先把这些回答当作线索，再查文档、对照实际结果，确认问题出在哪里。'
+  zh: 先把这些回答当作线索，再查文档、对照实际结果，确认问题出在哪里。
   status: machine
 - id: f5d25f412651c2ac
   en: Found something? Help others see it.
-  zh: '让别人也看明白你遇到了什么'
+  zh: 让别人也看明白你遇到了什么
   status: machine
 - id: 738e0cf051fb603e
   en: 'Help someone who has not seen your experiment understand where you got stuck. Start with what you wanted to achieve, then walk them through what happened. These questions can help:'
-  zh: '读反馈的人没有跟着你做实验，可能还不知道你卡在了哪一步。先讲想做什么，再讲实际发生了什么，会更容易接上话。可以从这几方面说起：'
+  zh: 读反馈的人没有跟着你做实验，可能还不知道你卡在了哪一步。先讲想做什么，再讲实际发生了什么，会更容易接上话。可以从这几方面说起：
   status: machine
 - id: 08a1dda7e25d4f8e
   en: '**What were you trying to do?** Describe the calculation, paper, or workflow that led you here. This helps others understand why the problem matters.'
@@ -132,23 +132,23 @@
   status: machine
 - id: 495021c8b69bfcd4
   en: The useful details depend on the question. For a scientific result, a reference and the physical assumptions help others assess the comparison. For a slow simulation, the workload and how you measured runtime help them investigate the cost. Share your experience in an [issue](https://github.com/spaceqat/fatqat/issues) or a relevant ongoing conversation; you do not need to diagnose the cause or implement a fix first.
-  zh: '如果是在比较科学计算结果，附上参考文献和物理假设，别人就更容易判断差异从何而来；如果是模拟太慢，计算规模和计时方法会更有帮助。可以在 [issue](https://github.com/spaceqat/fatqat/issues) 或已有讨论中说说这些情况，不用等到原因查清、问题修好才反馈。'
+  zh: 如果是在比较科学计算结果，附上参考文献和物理假设，别人就更容易判断差异从何而来；如果是模拟太慢，计算规模和计时方法会更有帮助。可以在 [issue](https://github.com/spaceqat/fatqat/issues) 或已有讨论中说说这些情况，不用等到原因查清、问题修好才反馈。
   status: machine
 - id: 61ad132938ad9214
   en: What might a useful report sound like?
-  zh: '比如，可以这样描述'
+  zh: 比如，可以这样描述
   status: machine
 - id: a1bf2dbf7e25a2ac
   en: '"While reproducing this paper''s parameter sweep, we measured most of the runtime in repeated setup. Here is a reduced example and timings for two sweep sizes. We tried this existing option, but it did not address the repeated work. Is there a supported way to reuse the setup?"'
-  zh: '“我们在复现这篇论文的参数扫描时测了耗时，发现大部分时间花在重复的准备步骤上。下面附了一个简化例子，以及两种扫描规模的计时结果。试过已有的这个选项，但这些步骤还是会重复执行。有没有办法把前一次的准备结果用起来？”'
+  zh: “我们在复现这篇论文的参数扫描时测了耗时，发现大部分时间花在重复的准备步骤上。下面附了一个简化例子，以及两种扫描规模的计时结果。试过已有的这个选项，但这些步骤还是会重复执行。有没有办法把前一次的准备结果用起来？”
   status: machine
 - id: 2e70094b9c97bbdd
   en: A small example and the actual timings let someone investigate this question without first reconstructing the whole study.
-  zh: '有了例子和计时数据，别人就有地方入手，不必先把你的整个研究重新做一遍。'
+  zh: 有了例子和计时数据，别人就有地方入手，不必先把你的整个研究重新做一遍。
   status: machine
 - id: baa877f973e5da50
   en: Have an approach? Discuss it before spending the tokens.
-  zh: '准备大改之前，先聊聊方案'
+  zh: 准备大改之前，先聊聊方案
   status: machine
 - id: b30c212387c3823c
   en: For substantial changes, **we strongly encourage discussing the direction before implementation**. Join an existing relevant issue or discussion, or open an issue if there isn't one.
@@ -156,7 +156,7 @@
   status: machine
 - id: e79f970370119f2d
   en: Explain the intended behavior and sketch the approach. Discuss the proposed API, where the behavior belongs, numerical methods and their assumptions, and trade-offs in accuracy, performance, or compatibility as relevant.
-  zh: '先说想实现什么，再讲大致打算怎么做。接口怎么设计，功能放在哪个组件，数值方法有什么假设，精度、性能和兼容性之间需要怎样取舍，都可以按具体情况展开。'
+  zh: 先说想实现什么，再讲大致打算怎么做。接口怎么设计，功能放在哪个组件，数值方法有什么假设，精度、性能和兼容性之间需要怎样取舍，都可以按具体情况展开。
   status: machine
 - id: 15871594a8901a1c
   en: '> "I''m reproducing this calculation, and this step requires a workaround. > I''m considering an interface like this, with two possible numerical > approaches. Does this fit FatQat''s direction? Is there existing > functionality I should build on?"'
@@ -164,11 +164,11 @@
   status: machine
 - id: 5bf16b21599c61a2
   en: This conversation is itself a contribution. It helps contributors and maintainers uncover constraints and consider alternatives before investing time or AI tokens in code. An unfinished design with clear questions is enough to begin. Small, obvious corrections can usually go straight to a pull request.
-  zh: '先聊一聊，双方就有机会把限制条件和不同方案摆出来，再决定把时间和 AI token 花在哪里。设计没想完整也没关系，知道自己想问什么，就可以开始讨论。这样的交流本身就能帮上忙。简单明确的小修正，通常直接提交 PR 就好。'
+  zh: 先聊一聊，双方就有机会把限制条件和不同方案摆出来，再决定把时间和 AI token 花在哪里。设计没想完整也没关系，知道自己想问什么，就可以开始讨论。这样的交流本身就能帮上忙。简单明确的小修正，通常直接提交 PR 就好。
   status: machine
 - id: da4f21df0ba21f9b
   en: Writing code is easier. Thoughtful review matters more than ever.
-  zh: '也欢迎来看看别人的代码'
+  zh: 也欢迎来看看别人的代码
   status: machine
 - id: d6f2366cb58b605e
   en: '**Reviewing a change can be more valuable than writing it.** As AI makes implementations easier to produce, the community needs people who can judge whether they solve the right problem, fit the architecture, and remain understandable.'
@@ -180,7 +180,7 @@
   status: machine
 - id: eac40cd4e3525d2e
   en: 'AI can assist with local correctness checks, but correctness still needs verification. Review also asks:'
-  zh: 'AI 可以帮忙检查局部代码，但检查结果也要核实。评审时，除了看它算得对不对，还可以留意：'
+  zh: AI 可以帮忙检查局部代码，但检查结果也要核实。评审时，除了看它算得对不对，还可以留意：
   status: machine
 - id: 5ba34cc39ce7d551
   en: '**Does it fit the architecture?** Does the responsibility belong in this component, with a clear separation from other components?'
@@ -204,35 +204,35 @@
   status: machine
 - id: f66f0e04df29c579
   en: Turn a concern into a constructive comment
-  zh: '有疑问时，可以这样问'
+  zh: 有疑问时，可以这样问
   status: machine
 - id: 6fa389bf9c147a83
   en: '"This creates a second place that decides which operations are supported. Could we reuse the existing validation so the two paths cannot drift apart?"'
-  zh: '“这里又加了一处判断支持哪些指令的逻辑。能不能用已有的验证？免得以后改了一处，另一处没跟上。”'
+  zh: “这里又加了一处判断支持哪些指令的逻辑。能不能用已有的验证？免得以后改了一处，另一处没跟上。”
   status: machine
 - id: 6128a19c2380fde2
   en: '"What situation requires this fallback? If that state should be impossible, would reporting an error make the behavior clearer?"'
-  zh: '“什么情况下会走到这个回退逻辑？如果这种状态本来就不该出现，直接报错会不会更清楚？”'
+  zh: “什么情况下会走到这个回退逻辑？如果这种状态本来就不该出现，直接报错会不会更清楚？”
   status: machine
 - id: 7fd5e41ddc97db64
   en: '"I''m having trouble tracing when this private hook runs. Could the caller pass the information explicitly, or could the behavior stay inside the component that owns it?"'
-  zh: '“我没看明白这个私有钩子什么时候会执行。能否让调用方显式传入信息，或者把这段逻辑留在负责它的组件里？”'
+  zh: “我没看明白这个私有钩子什么时候会执行。能否让调用方显式传入信息，或者把这段逻辑留在负责它的组件里？”
   status: machine
 - id: fd0d27d8a7dd0c08
   en: Explain the consequence, invite discussion, and remain open to constraints you may have missed. You can improve a design without supplying its replacement. Browse the [open pull requests](https://github.com/spaceqat/fatqat/pulls) to find a conversation you can help with.
-  zh: '尽量说清楚你担心什么、可能有什么影响，也听听作者为什么这样写：有些限制，你可能还不了解。没有更好的方案也可以提问。看看[尚未合并的 PR](https://github.com/spaceqat/fatqat/pulls)，从自己熟悉的部分开始就好。'
+  zh: 尽量说清楚你担心什么、可能有什么影响，也听听作者为什么这样写：有些限制，你可能还不了解。没有更好的方案也可以提问。看看[尚未合并的 PR](https://github.com/spaceqat/fatqat/pulls)，从自己熟悉的部分开始就好。
   status: machine
 - id: f92e0f434de12148
   en: Ready to make a change?
-  zh: '动手改一改'
+  zh: 动手改一改
   status: machine
 - id: 6b4ef6f5301a6ffd
   en: Keep it focused, verify the relevant behavior, and explain the reasoning. Use AI to assist investigation and implementation while taking responsibility for the claims and changes you submit. Read and understand generated material before sharing it; lead the project conversation yourself.
-  zh: '每次改动尽量围绕一个问题，验证相关功能，再说明为什么这样改。可以请 AI 帮忙查问题、写代码，但提交的内容和结论仍由你负责。生成的代码和文字，先读懂再分享；与项目成员的讨论，也请由你本人来主导。'
+  zh: 每次改动尽量围绕一个问题，验证相关功能，再说明为什么这样改。可以请 AI 帮忙查问题、写代码，但提交的内容和结论仍由你负责。生成的代码和文字，先读懂再分享；与项目成员的讨论，也请由你本人来主导。
   status: machine
 - id: b26371c60cb57247
   en: For development setup, validation steps, and contribution guidelines, see [CONTRIBUTING.md](https://github.com/spaceqat/fatqat/blob/main/CONTRIBUTING.md).
-  zh: '开发环境、验证步骤和提交要求见 [CONTRIBUTING.md](https://github.com/spaceqat/fatqat/blob/main/CONTRIBUTING.md)。'
+  zh: 开发环境、验证步骤和提交要求见 [CONTRIBUTING.md](https://github.com/spaceqat/fatqat/blob/main/CONTRIBUTING.md)。
   status: machine
 - id: b9c0b41b5efcba28
   en: '**Bring your questions. Share your evidence. Help review an approach.** You do not need a finished implementation to move FatQat forward. Helping the community decide what to build and how to build it well is a contribution in its own right.'
