@@ -12,7 +12,7 @@
   status: machine
 - id: 1cb2f329da8e71d3
   en: The model supplies the physical levels, units, drift, channels, and coupling. A gate implementation map turns an ordinary gate into calibrated controls. A direct pulse supplies those controls explicitly. The following pages apply this shared workflow to transmons and atoms.
-  zh: "模型提供物理能级、单位、漂移、控制通道（control channel）和耦合。门实现映射把普通的门变成经过校准的控制。直接脉冲则显式提供这些控制。接下来的几页将这一共享工作流应用于 transmon 和原子。"
+  zh: 模型提供物理能级、单位、漂移、控制通道（control channel）和耦合。门实现映射把普通的门变成经过校准的控制。直接脉冲则显式提供这些控制。接下来的几页将这一共享工作流应用于 transmon 和原子。
   status: machine
 - id: 32e3064eeba6e018
   en: Run a calibrated gate
@@ -36,11 +36,11 @@
   status: machine
 - id: db7917a37985a929
   en: 'A direct pulse has three pieces: waveform samples, the physical channel they drive, and the duration of the control block. The code below builds them in that order as a [`SampledWaveform`][fatqat.emulator.SampledWaveform], a [`PulseControl`][fatqat.emulator.PulseControl], and finally a [`PulseOperation`][fatqat.operations.PulseOperation]:'
-  zh: "直接脉冲由三部分组成：波形样本、它们驱动的物理控制通道，以及控制块的时长。下面的代码按此顺序构建 [`SampledWaveform`][fatqat.emulator.SampledWaveform]、[`PulseControl`][fatqat.emulator.PulseControl]，最后是 [`PulseOperation`][fatqat.operations.PulseOperation]："
+  zh: 直接脉冲由三部分组成：波形样本、它们驱动的物理控制通道，以及控制块的时长。下面的代码按此顺序构建 [`SampledWaveform`][fatqat.emulator.SampledWaveform]、[`PulseControl`][fatqat.emulator.PulseControl]，最后是 [`PulseOperation`][fatqat.operations.PulseOperation]：
   status: machine
 - id: d935092160139fc2
   en: Notice that `direct_program.add(pulse)` has no logical target. The channel already names physical transmon `q0`, and a [`ResourceLayout`][fatqat.ResourceLayout] does not remap that address. The model and channel define the time and value units; the API reference records the exact domains for each emulator.
-  zh: "注意 `direct_program.add(pulse)` 没有逻辑目标。通道已经指明了物理 transmon `q0`，而 [`ResourceLayout`][fatqat.ResourceLayout] 不会重新映射该地址。模型和通道定义时间与数值单位；API 参考记录了每个仿真器的精确取值域。"
+  zh: 注意 `direct_program.add(pulse)` 没有逻辑目标。通道已经指明了物理 transmon `q0`，而 [`ResourceLayout`][fatqat.ResourceLayout] 不会重新映射该地址。模型和通道定义时间与数值单位；API 参考记录了每个仿真器的精确取值域。
   status: machine
 - id: bc074eb4e083958f
   en: Read a pulse as continuous evolution
@@ -80,7 +80,7 @@
   status: machine
 - id: e05bbc9366180a3e
   en: '`RX` remains an ordinary Program operation. At execution time, the emulator''s gate map obtains a pulse recipe from its calibration and binds that recipe to the model''s drive channel. The physical model has two qutrits, so the returned vector covers all $3^2$ basis states, including the second transmon. The Program still declares one two-level qubit. Each transmon''s third physical level lets the result show leakage out of its qubit states, `|0>` and `|1>`.'
-  zh: "`RX` 仍是Program 中的普通量子门。执行时，仿真器的门映射从校准中取得脉冲方案，并将其绑定到模型的驱动通道。物理模型有两个 qutrit，因此返回向量覆盖全部 $3^2$ 个基态，包括第二个 transmon。Program 仍只声明一个二能级量子比特。每个 transmon 的第三个物理能级使结果能够显示从量子比特态 `|0>` 和 `|1>` 中产生的泄漏。"
+  zh: '`RX` 仍是Program 中的普通量子门。执行时，仿真器的门映射从校准中取得脉冲方案，并将其绑定到模型的驱动通道。物理模型有两个 qutrit，因此返回向量覆盖全部 $3^2$ 个基态，包括第二个 transmon。Program 仍只声明一个二能级量子比特。每个 transmon 的第三个物理能级使结果能够显示从量子比特态 `|0>` 和 `|1>` 中产生的泄漏。'
   status: machine
 - id: 45f638a78c961d4a
   en: The three waveform samples above specify a drive over the full 20-unit interval. The emulator interpolates between them, combines the drive with drift and coupling terms, and integrates the physical state. The state covers every level in the physical model throughout the pulse, including levels that the Program did not declare.
@@ -88,7 +88,7 @@
   status: machine
 - id: 072ebeeb3ecb0bee
   en: All controls inside one `PulseOperation` share its interval; `start_offset` can move an individual waveform within that interval. Between operations, the schedule preserves source order for blocks that use the same physical resource and may overlap independent blocks. Choose `"ASAP"` or `"ALAP"` through `simulation_config` when that placement matters.
-  zh: "同一个 `PulseOperation` 中的所有控制共享该脉冲块的时间区间；`start_offset` 可以在区间内平移单个波形。不同脉冲块之间，调度保持共用物理资源的块的源程序顺序，而独立块可以重叠。如果时序安排影响结果，可通过 `simulation_config` 选择 `\"ASAP\"` 或 `\"ALAP\"`。"
+  zh: 同一个 `PulseOperation` 中的所有控制共享该脉冲块的时间区间；`start_offset` 可以在区间内平移单个波形。不同脉冲块之间，调度保持共用物理资源的块的源程序顺序，而独立块可以重叠。如果时序安排影响结果，可通过 `simulation_config` 选择 `"ASAP"` 或 `"ALAP"`。
   status: machine
 - id: a9369d5400c85395
   en: Drift and background continuous noise evolve throughout elapsed time. On an emulator that supports classical conditions, a false condition can skip a control block without deleting its duration, so the model still evolves during the interval. This lets you study the effect of elapsed time even when no control is active.

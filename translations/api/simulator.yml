@@ -141,7 +141,7 @@
 - id: 17c2187e67376e0c
   en: '| `seed` | `None` | Use a non-negative `int` or `None`; booleans are rejected. It controls measurement, reset, channel, loss, and readout sampling. A negative value is rejected when execution starts, so [`fatqat.Job.result`][fatqat.Job.result] raises `ValueError`. |'
   zh: '| `seed` | `None` | 使用非负 `int` 或 `None`；布尔值会被拒绝。它控制测量、复位、信道、丢失和读出的采样。负值在执行开始时才被拒绝，因此 [`fatqat.Job.result`][fatqat.Job.result] 会抛出 `ValueError`。 |'
-  status: machine
+  status: retired
 - id: db74d7e2688e87f7
   en: '| `shot_parallelism` | `"auto"` | `"auto"`, `"serial"`, `"threads"`, or `"processes"`. Explicit parallel modes require an eligible counts-only, per-shot run with at least two shots and workers. Threads require a compatible Numba statevector run. |'
   zh: '| `shot_parallelism` | `"auto"` | `"auto"`、`"serial"`、`"threads"` 或 `"processes"`。显式并行模式要求运行符合条件：仅请求计数、按 shot 独立执行，且 shot 数和工作单元数均不少于 2。线程模式要求兼容的 Numba 态矢量运行。 |'
@@ -157,7 +157,7 @@
 - id: 0f21d7cc610d7d62
   en: '| `fusion` | `False` | A `bool`. `True` combines compatible adjacent operations and is supported by Numba for `density_matrix`, `unitary`, and `superop`. |'
   zh: '| `fusion` | `False` | 一个 `bool`。`True` 会合并兼容的相邻操作，Numba 在 `density_matrix`、`unitary` 和 `superop` 方法下支持该功能。 |'
-  status: machine
+  status: retired
 - id: d4b5db093d6f0144
   en: '| `implementation_map` | Matrix rules for operations. `None` uses FATQAT''s built-in gate set. |'
   zh: '| `implementation_map` | 操作的矩阵规则。`None` 使用 FATQAT 的内置门集。 |'
@@ -221,7 +221,7 @@
 - id: df31c79f10dfb748
   en: '`run()` returns an eager [`Job`][fatqat.Job]. Program and option validation errors normally raise directly. Errors during execution or result assembly are stored on the job and re-raised by [`fatqat.Job.result`][fatqat.Job.result]. See [Result](result.md) for available fields, accessors, count ordering, and state-axis metadata.'
   zh: '`run()` 返回立即执行的 [`Job`][fatqat.Job]。程序和选项验证错误通常直接抛出。执行或结果组装期间的错误存储在任务中，并由 [`fatqat.Job.result`][fatqat.Job.result] 重新抛出。可用字段、访问方法、计数顺序与态轴元数据见 [Result](result.md)。'
-  status: machine
+  status: retired
 - id: 3a565e17aba21e5b
   en: Matrix simulation has no physical timeline. Built-in damping and depolarizing descriptors therefore use their probability form and apply at operation boundaries. [`AmplitudeDamping(p=...)`][fatqat.noise.AmplitudeDamping] is the conventional finite qubit channel. Use [`TransitionRelaxation(p=..., coefficients=...)`](noise/transition-relaxation.md) for one explicit finite-dimensional jump. Matching transition descriptors are applied sequentially in registration order.
   zh: 矩阵模拟没有物理时间线，因此内置阻尼和退极化描述符使用概率形式，并在操作边界处施加。[`AmplitudeDamping(p=...)`][fatqat.noise.AmplitudeDamping] 是常规的有限量子比特信道。使用 [`TransitionRelaxation(p=..., coefficients=...)`](noise/transition-relaxation.md) 可以指定一个显式的有限维跃迁。匹配的跃迁描述符按注册顺序依次施加。
@@ -233,4 +233,24 @@
 - id: 2b5aa00467c34bc5
   en: '[`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep] binds each row of a complete object-keyed parameter batch and returns one eager job containing an ordered `list[Result]`. The batch is validated once and the program is lowered once; each row then only re-realizes the matrices of its parameter-holding gates before execution, so layout resolution, implementation selection, and noise matching are not repeated per row. Batch and row validation errors raise directly; an execution failure produces a failed sweep job, and no partial result list is returned. It reuses a supplied seed for every row, so sampled errors can be correlated. See [Simulate a quantum program](../guide/simulation.md) for a guided example. Accepted batch shapes and validation rules are listed in the [`run_sweep`][fatqat.simulator.Simulator.run_sweep] reference below.'
   zh: '[`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep] 为以参数对象为键的完整参数批次逐行绑定，并返回一个立即执行的任务，其中包含有序的 `list[Result]`。批次只验证一次，程序也只降级转换一次；随后每一行只需在执行前重新生成含参数量子门的矩阵，无需逐行重复解析布局、选择实现和匹配噪声。批次及行验证错误直接抛出；执行失败会产生失败的扫描任务，不返回部分结果列表。每一行复用所提供的种子，因此采样误差可能相关。操作示例见[模拟量子程序](../guide/simulation.md)。可接受的批次形状及验证规则列于下方 [`run_sweep`][fatqat.simulator.Simulator.run_sweep] 参考文档。'
-  status: machine
+  status: retired
+- id: 496d6a0abe2d7d8e
+  en: '| `seed` | `None` | Use a non-negative `int` or `None`; booleans are rejected. It controls measurement, reset, channel, loss, and readout sampling. A negative value fails when execution starts and follows `error_handling`. |'
+  zh: ''
+  status: pending
+- id: f2b2f424f2948972
+  en: '| `error_handling` | `"raise"` | `"raise"` or `"capture"`; see the error-handling contract in [`Simulator.run`][fatqat.simulator.Simulator.run]. |'
+  zh: ''
+  status: pending
+- id: 0ea5c426b2c6f649
+  en: '| `fusion` | `False` | A `bool`. `True` combines compatible adjacent operations and is supported by Numba for `unitary` and `superop`. Statevector and density-matrix evolution do not support fusion. |'
+  zh: ''
+  status: pending
+- id: b6f6de7fc6981161
+  en: '`run()` returns an eager [`Job`][fatqat.Job]. Program and option validation errors raise directly. Execution and result-assembly errors follow `error_handling`, as specified in [`Simulator.run`][fatqat.simulator.Simulator.run]. See [Result](result.md) for available fields, accessors, count ordering, and state-axis metadata.'
+  zh: ''
+  status: pending
+- id: 42d3619ff5a424e2
+  en: '[`Simulator.run_sweep`][fatqat.simulator.Simulator.run_sweep] binds each row of a complete object-keyed parameter batch and returns one eager job containing an ordered `list[Result]`. The batch is validated once and the program is lowered once; each row then only re-realizes the matrices of its parameter-holding gates before execution, so layout resolution, implementation selection, and noise matching are not repeated per row. Batch and row validation errors raise directly; execution errors follow `error_handling`, and no partial result list is returned. It reuses a supplied seed for every row, so sampled errors can be correlated. See [Simulate a quantum program](../guide/simulation.md) for a guided example. Accepted batch shapes and validation rules are listed in the [`run_sweep`][fatqat.simulator.Simulator.run_sweep] reference below.'
+  zh: ''
+  status: pending
