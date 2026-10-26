@@ -37,7 +37,7 @@
 - id: cc1dd54634d640c0
   en: Attach every supported probability-form channel above to an operation; matrix backends reject background channels. A custom [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] can add a finite channel type or replace the rule for an existing one. It cannot override the rejection of built-in rate forms, background channels, or `ThermalRelaxation`. A custom type's parameter names are interpreted by its rule, whose result still represents one finite channel application. A supplied map replaces the default map and is copied when the backend is constructed.
   zh: 上述所有受支持的概率形式信道都要附加到操作上；矩阵后端拒绝背景信道。自定义的 [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] 可以添加有限信道类型，或替换已有类型的规则，但不能推翻对内置速率形式、背景信道或 `ThermalRelaxation` 的拒绝。自定义类型的参数名由其规则解释，该规则的结果仍表示一次有限信道作用。提供的映射会替换默认映射，并在后端构造时被复制。
-  status: machine
+  status: retired
 - id: ed8073b6663c451e
   en: Execution method also matters. `statevector` samples one Kraus trajectory per noisy shot, while `density_matrix` and `superop` apply probability-form channels exactly. `unitary` rejects any channel that matches the program. Only `statevector` and `density_matrix` support the AtomArray occupancy lifecycle; requesting a final state with loss requires `shots == 1`.
   zh: 执行方法同样重要。`statevector` 对每个含噪 shot 采样一条 Kraus 轨迹，而 `density_matrix` 与 `superop` 精确应用概率形式的信道。`unitary` 拒绝任何与程序匹配的信道。只有 `statevector` 与 `density_matrix` 支持 AtomArray 的占据生命周期；在存在损失的情况下请求最终状态要求 `shots == 1`。
@@ -142,3 +142,7 @@
   en: '`AtomArraySimulator` accepts only single-subsystem finite channels. Use `target_positions` to select an operand of a multi-subsystem operation; see [occupancy and loss](../simulators/atom-array.md#occupancy-and-loss) for an example and behavior when an atom is absent.'
   zh: '`AtomArraySimulator` 仅接受作用于单个子系统的有限信道。使用 `target_positions` 选择多子系统指令中的一个作用对象；示例及原子缺失时的行为见[占据与丢失](../simulators/atom-array.md#occupancy-and-loss)。'
   status: machine
+- id: 82c7c42462973cbf
+  en: Attach every supported probability-form channel above to an operation; matrix backends reject background channels. A custom [`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] can add a finite channel type or replace the rule for an existing one. It cannot override the rejection of built-in rate forms, background channels, or `ThermalRelaxation`. A custom type's parameter names are interpreted by its rule, whose result still represents one finite channel application. A supplied map replaces the default map and is copied when the backend is constructed.
+  zh: ''
+  status: pending

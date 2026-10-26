@@ -69,7 +69,7 @@
 - id: 31bdcdfdbcff3d5a
   en: 'Two constraints decided the approach. First, the pulse emulators always start from $|g\ldots g\rangle$ and only offer global controls, so a quench from $|Z_2\rangle$ is simply not expressible there; the gate-level [`Simulator`][fatqat.simulator.Simulator], on the other hand, happily accepts an `initial_state`. Second, no native gate set contains a PXP term -- but that is exactly what fatqat''s custom-operation extension point is for: [`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] resolves any fixed-arity operation family to a local matrix at execution time.'
   zh: 两个约束决定了这里的做法。第一，脉冲仿真器总是从 $|g\ldots g\rangle$ 出发且只提供全局控制，因此从 $|Z_2\rangle$ 出发的猝灭在那里根本无法表达；而门级 [`Simulator`][fatqat.simulator.Simulator] 则乐于接受 `initial_state`。第二，没有任何原生门集合包含 PXP 项——但这正是 fatqat 自定义操作扩展点的用武之地：[`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] 会在执行时把任意固定元数的操作族解析为一个局部矩阵。
-  status: machine
+  status: retired
 - id: 3844729635724a7b
   en: The exponentials we need are easy to write down. With $M=PXP$ and $M^2=P\otimes I\otimes P$,
   zh: 我们需要的指数很容易写出。取 $M=PXP$，且 $M^2=P\otimes I\otimes P$，

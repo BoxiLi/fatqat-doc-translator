@@ -42,3 +42,7 @@
   en: The pulse control module is under active development. Its interfaces and supported behavior may change between releases. Pin an exact FatQat version when reproducibility matters.
   zh: 脉冲控制模块正在积极开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的确切版本。
   status: machine
+- id: d513be446bd35769
+  en: Both modes accept `num_subsystems=None`; device-specific tuples may then have different lengths. Otherwise, each tuple must match the declared target count.
+  zh: ''
+  status: pending

@@ -8,12 +8,12 @@
   status: machine
 - id: eba3bd7e42ac6531
   en: Simulator implementation map
-  zh: "Simulator 实现映射"
-  status: machine
+  zh: Simulator 实现映射
+  status: retired
 - id: ecdec387b694378c
   en: A [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] rule receives `(channel, *, targets)`, where `targets` is the ordered tuple of program [`RegisterRef`][fatqat.RegisterRef] objects, and returns a nonempty tuple of Kraus matrices acting on the combined target space. It represents one finite channel application; it is not used as a pulse-emulator Lindblad fallback.
   zh: '[`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] 规则接收 `(channel, *, targets)`，其中 `targets` 是由程序的 [`RegisterRef`][fatqat.RegisterRef] 对象组成的有序元组；规则返回作用于合并目标空间的非空 Kraus 矩阵元组。它表示一次有限的信道应用，不会用作脉冲仿真器的 Lindblad 回退。'
-  status: machine
+  status: retired
 - id: d7c2eb84ee360300
   en: Define a custom noise type
   zh: 定义自定义噪声类型
@@ -25,7 +25,7 @@
 - id: be2d3d5cf1753d8a
   en: The map uses exact concrete types. Given `type(channel) is MyChannel`, only a rule registered with `add(MyChannel, rule)` matches. Registering `Channel` or another base class does not implement its subclasses. This keeps backend support explicit and prevents a new subclass from silently inheriting an incompatible numerical rule.
   zh: 该映射使用精确的具体类型。当 `type(channel) is MyChannel` 时，只有通过 `add(MyChannel, rule)` 注册的规则才会匹配。注册 `Channel` 或其他基类并不会为其子类提供实现。这使后端支持保持显式，并防止新的子类悄然继承不兼容的数值规则。
-  status: machine
+  status: retired
 - id: e4305affe773ab71
   en: Register and reuse rules
   zh: 注册与复用规则
@@ -33,19 +33,19 @@
 - id: 44dd0815d594473b
   en: 'The public map class has these registration operations:'
   zh: 公开的映射类提供以下注册操作：
-  status: machine
+  status: retired
 - id: ab73caa6af5ebeb5
   en: '**Registration operations**'
   zh: '**注册操作**'
-  status: machine
+  status: retired
 - id: 2164f7b527ede062
   en: Simulator rules
-  zh: "Simulator 规则"
+  zh: Simulator 规则
   status: machine
 - id: 29e3c9f91b482299
   en: 'A matrix rule returns Kraus operators for the matching operation:'
   zh: 矩阵规则为匹配的操作返回 Kraus 算符：
-  status: machine
+  status: retired
 - id: f7ff3c774f44593c
   en: If the ordered targets have dimensions `d_0, d_1, ...`, their combined dimension is `D = d_0 * d_1 * ...`. The result must be nonempty, and every element must be a NumPy array with shape `(D, D)`. FATQAT checks only those structural requirements. It does not verify complete positivity, trace preservation, Hermiticity preservation, or any parameter convention for a custom rule.
   zh: 若有序目标的维度为 `d_0, d_1, ...`，其合并维度为 `D = d_0 * d_1 * ...`。结果必须非空，且每个元素都必须是形状为 `(D, D)` 的 NumPy 数组。FATQAT 只检查这些结构性要求，不会验证自定义规则的完全正性、保迹性、保厄米性或任何参数约定。
@@ -53,7 +53,7 @@
 - id: 90da596f7851b717
   en: Start with [`default_channel_implementation_map`][fatqat.noise.default_channel_implementation_map] when you want to keep FATQAT's built-in simulator rules. See [Simulators](backend-support.md#noise-simulator-support) for backend limits.
   zh: 若要保留 FATQAT 的内置模拟器规则，请从 [`default_channel_implementation_map`][fatqat.noise.default_channel_implementation_map] 开始。后端限制参见[模拟器](backend-support.md#noise-simulator-support)。
-  status: machine
+  status: retired
 - id: 68e86d76920db277
   en: Minimal example
   zh: 最小示例
@@ -61,28 +61,52 @@
 - id: 1c78edf0f7da7368
   en: 'This custom qubit channel and rule add bit-flip noise while retaining all built-in channel implementations:'
   zh: 下面的自定义量子比特信道及其规则在保留全部内置信道实现的同时添加比特翻转噪声：
-  status: machine
+  status: retired
 - id: 77839e213e980a1c
   en: Simulator types
-  zh: "Simulator 类型"
+  zh: Simulator 类型
   status: machine
 - id: 6123a79a5c2b97ef
   en: '| Method | Contract |'
   zh: '| 方法 | 契约 |'
-  status: machine
+  status: retired
 - id: b179977e0f8a6d46
   en: '| [`add`][fatqat.noise.ChannelImplementationMap.add] | Stores the callable for exactly `channel_type`. Adding the type again replaces its rule. FATQAT checks the type and callability immediately, then checks the rule''s signature and output when a backend uses it. |'
   zh: '| [`add`][fatqat.noise.ChannelImplementationMap.add] | 为且仅为 `channel_type` 存储该可调用对象。再次添加同一类型会替换其规则。FATQAT 会立即检查类型和可调用性，并在后端使用规则时检查其签名与输出。 |'
-  status: machine
+  status: retired
 - id: 6b716b3067b97594
   en: '| [`get`][fatqat.noise.ChannelImplementationMap.get] | Returns the callable registered for exactly that type, or `None`. There is no base-class fallback. |'
   zh: '| [`get`][fatqat.noise.ChannelImplementationMap.get] | 返回为该确切类型注册的可调用对象，若无则返回 `None`。不存在基类回退。 |'
-  status: machine
+  status: retired
 - id: 730161b51fa7eddc
   en: '| [`supported_channels`][fatqat.noise.ChannelImplementationMap.supported_channels] | Returns an immutable `frozenset` snapshot of the registered types. |'
   zh: '| [`supported_channels`][fatqat.noise.ChannelImplementationMap.supported_channels] | 返回已注册类型的不可变 `frozenset` 快照。 |'
-  status: machine
+  status: retired
 - id: 215b1224e02a0199
   en: '| [`copy`][fatqat.noise.ChannelImplementationMap.copy] | Returns a map whose registrations can be changed independently. |'
   zh: '| [`copy`][fatqat.noise.ChannelImplementationMap.copy] | 返回一个可独立修改注册项的映射。 |'
-  status: machine
+  status: retired
+- id: 84a48b6d4f821e66
+  en: Register each concrete channel class; a base-class registration does not cover subclasses.
+  zh: ''
+  status: pending
+- id: e7adb32d9c350281
+  en: Use the same [implementation map](../implementation.md) for gates, custom operations, and channels. `add(ChannelType, rule)` registers a uniform rule; `device_operands=` restricts it to an exact ordered device tuple. These are the channel's selected targets, which can be a subset of the matching gate's targets.
+  zh: ''
+  status: pending
+- id: 1aa665077b125267
+  en: '`implementation_for` retrieves a rule, `supported_channels` lists channel types, and `copy` makes an independently editable map.'
+  zh: ''
+  status: pending
+- id: 44a4b484920f1746
+  en: 'A channel rule receives the channel and an ordered tuple of program [`RegisterRef`][fatqat.RegisterRef] targets. It returns Kraus operators acting on their combined space for one finite channel application:'
+  zh: ''
+  status: pending
+- id: b0426ebe47776df8
+  en: Start with [`default_matrix_implementation_map`][fatqat.implementation.default_matrix_implementation_map] when you want to keep FATQAT's built-in simulator rules. See [Simulators](backend-support.md#noise-simulator-support) for backend limits.
+  zh: ''
+  status: pending
+- id: e432d162ee5b8226
+  en: 'This custom qubit channel and rule add bit-flip noise while retaining all built-in gate and channel implementations:'
+  zh: ''
+  status: pending

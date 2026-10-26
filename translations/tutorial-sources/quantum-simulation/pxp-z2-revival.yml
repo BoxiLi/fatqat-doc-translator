@@ -1,0 +1,4 @@
+- id: f8c161b6503ae29e
+  en: Two constraints decided the approach. First, the pulse emulators always start from $|g\ldots g\rangle$ and only offer global controls, so a quench from $|Z_2\rangle$ is simply not expressible there; the gate-level [`Simulator`][fatqat.simulator.Simulator], on the other hand, happily accepts an `initial_state`. Second, no native gate set contains a PXP term, so we use [`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] to supply a local matrix for each PXP operation.
+  zh: ''
+  status: pending

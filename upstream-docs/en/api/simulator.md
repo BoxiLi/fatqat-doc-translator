@@ -89,11 +89,12 @@ values are case-sensitive.
 
 | Key | Default | Accepted values and effect |
 | --- | --- | --- |
-| `seed` | `None` | Use a non-negative `int` or `None`; booleans are rejected. It controls measurement, reset, channel, loss, and readout sampling. A negative value is rejected when execution starts, so [`fatqat.Job.result`][fatqat.Job.result] raises `ValueError`. |
+| `seed` | `None` | Use a non-negative `int` or `None`; booleans are rejected. It controls measurement, reset, channel, loss, and readout sampling. A negative value fails when execution starts and follows `error_handling`. |
 | `shot_parallelism` | `"auto"` | `"auto"`, `"serial"`, `"threads"`, or `"processes"`. Explicit parallel modes require an eligible counts-only, per-shot run with at least two shots and workers. Threads require a compatible Numba statevector run. |
 | `kernel_parallelism` | `"auto"` | `"auto"`, `"serial"`, or `"threads"`. Threads require Numba and cannot be requested together with parallel shots. |
 | `max_workers` | `None` | `None` or a positive `int`. It caps the selected parallel mode; `1` conflicts with an explicitly parallel request. |
-| `fusion` | `False` | A `bool`. `True` combines compatible adjacent operations and is supported by Numba for `density_matrix`, `unitary`, and `superop`. |
+| `error_handling` | `"raise"` | `"raise"` or `"capture"`; see the error-handling contract in [`Simulator.run`][fatqat.simulator.Simulator.run]. |
+| `fusion` | `False` | A `bool`. `True` combines compatible adjacent operations and is supported by Numba for `unitary` and `superop`. Statevector and density-matrix evolution do not support fusion. |
 
 Automatic selection uses at most one parallel axis. An explicit unsupported
 choice raises an error instead of falling back. A run is eligible for explicit
@@ -123,9 +124,8 @@ The constructor also accepts:
 
 | Argument | Meaning |
 | --- | --- |
-| `implementation_map` | Matrix rules for operations. `None` uses FATQAT's built-in gate set. |
+| `implementation_map` | Matrix, channel, and [custom-operation implementations](simulators/custom-operations.md). `None` uses FATQAT's built-in rules. |
 | `noise` | A [`NoiseModel`][fatqat.NoiseModel] used by every run. `None` is ideal. |
-| `channel_implementation_map` | Rules that turn supported channel descriptors into finite channels. `None` uses FATQAT's built-in rules. |
 
 ## Run inputs and results
 
@@ -138,10 +138,12 @@ Besides `simulation_config`, [`Simulator.run`][fatqat.simulator.Simulator.run] a
 | --- | --- | --- |
 | `shots` | `1024` | Samples used for counts or a stochastic final state. A deterministic state-only or operator result does not use this value. |
 | `resource_layout` | `None` | Assigns every program quantum reference to a device label. The generic simulator uses integer labels in declaration order. A supplied layout must be complete, one-to-one, and compatible with the backend. |
-| `initial_state` | `None` | Starts every shot from this state rather than the all-zero state. It uses the public most-significant-first basis. `statevector` accepts shape `(D,)`; `density_matrix` accepts `(D,)` or `(D, D)`. Operator methods reject it. |
+| `initial_state` | `None` | Quantum array or [`EvolutionState`][fatqat.simulator.EvolutionState] supplying quantum and classical data for each shot. `None` selects the ground state. Operator methods reject an initial state. |
 
-Only the initial state's shape is checked. You are responsible for
-normalization and, for density matrices, Hermiticity and positivity.
+Quantum input uses the public most-significant-first basis. `statevector` accepts
+shape `(D,)`; `density_matrix` accepts `(D,)` or `(D, D)`. Only the quantum shape is
+checked; you are responsible for normalization and, for density matrices,
+Hermiticity and positivity.
 
 `result_config` has two keys. Each accepts `True`, `False`, or `None`;
 an omitted or `None` value uses the default shown below.
@@ -158,8 +160,8 @@ The concrete final-state field is named `statevector`, `density_matrix`,
 reading a field that may not have been requested.
 
 `run()` returns an eager [`Job`][fatqat.Job]. Program and option validation
-errors normally raise directly. Errors during execution or result assembly are
-stored on the job and re-raised by [`fatqat.Job.result`][fatqat.Job.result]. See
+errors raise directly. Execution and result-assembly errors follow
+`error_handling`, as specified in [`Simulator.run`][fatqat.simulator.Simulator.run]. See
 [Result](result.md) for available fields, accessors, count ordering, and
 state-axis metadata.
 
@@ -197,7 +199,7 @@ parameter batch and returns one eager job containing an ordered
 each row then only re-realizes the matrices of its parameter-holding gates
 before execution, so layout resolution, implementation selection, and noise
 matching are not repeated per row. Batch and row validation errors raise
-directly; an execution failure produces a failed sweep job, and no partial
+directly; execution errors follow `error_handling`, and no partial
 result list is returned.
 It reuses a supplied seed for every row, so sampled errors can be correlated.
 See [Simulate a quantum program](../guide/simulation.md) for a guided example.
