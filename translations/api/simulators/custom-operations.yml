@@ -1,0 +1,56 @@
+- id: f0c620aca972d170
+  en: Custom operations
+  zh: ''
+  status: pending
+- id: b7130dde76d73ae6
+  en: Use a custom operation to update quantum and classical data together or keep additional data for each shot. Define the operation as a `CustomOperation` and register a `CustomOperationImplementation` with the simulator's [`MatrixImplementationMap`](../implementation.md).
+  zh: ''
+  status: pending
+- id: 05c75667c0afab29
+  en: Define and register an operation
+  zh: ''
+  status: pending
+- id: 9d62c46e449a77c9
+  en: 'This classical-only operation counts its calls and writes the count to the first classical register entry:'
+  zh: ''
+  status: pending
+- id: 92320e4c55d001d2
+  en: For an operation that also changes quantum state and occupancy, see [`examples/custom_loss.py`](https://github.com/spaceqat/fatqat/blob/main/examples/custom_loss.py). To extend the atom-array profile, start with `AtomArraySimulator().implementation_map`.
+  zh: ''
+  status: pending
+- id: ecaa2a00f52146cb
+  en: State and execution
+  zh: ''
+  status: pending
+- id: 70eda70c9e8b6015
+  en: '`execute(operation, state, context)` must return the updated state or a replacement `EvolutionState`. Keep shot-specific data in `state.classical`, rather than on the operation or implementation object, which may be reused across shots. User data is not included in counts; write reported values to `clbits` as in the example.'
+  zh: ''
+  status: pending
+- id: ed1ef66e51dafbe7
+  en: Use `context.targets` to locate quantum operands and `context.rng` for random draws that respect the simulation seed. Field meanings, target ordering, and initialization defaults are described in the API reference below.
+  zh: ''
+  status: pending
+- id: 24e4e7e46e3be2c4
+  en: Classical conditions are evaluated before `execute`. On the atom-array profile, custom operations handle absent atoms and pairing requirements themselves. Attached noise runs afterward and evaluates conditions against the updated classical register.
+  zh: ''
+  status: pending
+- id: e099dc81ba737d77
+  en: Supported usage
+  zh: ''
+  status: pending
+- id: 271c559e1b1673e6
+  en: '`Simulator` and `AtomArraySimulator` support custom operations with statevector and density-matrix methods on both NumPy and Numba.'
+  zh: ''
+  status: pending
+- id: 9fe4b5853b548475
+  en: '`run_sweep`, unitary/superoperator methods, and expectation calculations do not support custom operations.'
+  zh: ''
+  status: pending
+- id: 026d241f74518b14
+  en: 'Final-state output requires `shots=1` and `result_config={"final_state": True}`. Counts without measurements require `result_config={"counts": True}`.'
+  zh: ''
+  status: pending
+- id: a7131e2ab82db613
+  en: Process execution requires serializable operations, implementations, and initial data. Define classes at module level when using it.
+  zh: ''
+  status: pending

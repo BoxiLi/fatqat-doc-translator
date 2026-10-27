@@ -1,0 +1,12 @@
+- id: 5cc9274a3f307710
+  en: Contributing in the AI era
+  zh: ''
+  status: pending
+- id: 31d69a6dc23e4e2c
+  en: '**You don''t need a polished tutorial to start the conversation.** If you have a new use case or an example you would like to share, [open an issue](https://github.com/spaceqat/fatqat/issues) and tell us about it. We can discuss how it might fit into the examples or [tutorial collection](../tutorials/index.md).'
+  zh: ''
+  status: pending
+- id: 00b5a5abfc7babd6
+  en: For a guided path through investigating an issue, choosing a design, and opening a PR, read [How to work on an issue](how-to-work-on-an-issue.md).
+  zh: ''
+  status: pending
