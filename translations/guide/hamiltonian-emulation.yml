@@ -1,6 +1,6 @@
 - id: 029b3729b776c140
   en: Follow a Program into physical dynamics
-  zh: 跟随 Program 进入物理动力学
+  zh: "用 Program 模拟物理动力学"
   status: machine
 - id: 64602d873716688f
   en: A FatQat emulator still accepts a [`Program`][fatqat.Program], but it changes what execution means. Instead of applying discrete gate transformations, it builds a physical schedule and integrates a time-dependent Hamiltonian (and, when requested, Lindblad evolution).
@@ -8,11 +8,11 @@
   status: retired
 - id: 9e82fb5edc155f3b
   en: 'Two authoring paths meet at that same schedule:'
-  zh: 两条编写路径汇聚到同一份调度：
+  zh: "无论使用校准门还是直接编写脉冲，最终都会生成同一类物理调度："
   status: machine
 - id: 1cb2f329da8e71d3
   en: The model supplies the physical levels, units, drift, channels, and coupling. A gate implementation map turns an ordinary gate into calibrated controls. A direct pulse supplies those controls explicitly. The following pages apply this shared workflow to transmons and atoms.
-  zh: "模型提供物理能级、单位、漂移、控制通道（control channel）和耦合。门实现映射把普通的门变成经过校准的控制。直接脉冲则显式提供这些控制。接下来的几页将这一共享工作流应用于 transmon 和原子。"
+  zh: "模型定义物理能级、单位、漂移、控制通道（control channel）和耦合。门实现映射将普通量子门转换成校准后的控制信号；直接脉冲则由用户给出这些信号。后续页面会分别介绍如何将这一流程用于 transmon 和原子系统。"
   status: machine
 - id: 32e3064eeba6e018
   en: Run a calibrated gate
@@ -20,7 +20,7 @@
   status: machine
 - id: ab22e1776ac34659
   en: 'Use a packaged physical model as a reproducible baseline, then construct its emulator. Here a one-qubit Program is realized on a model containing two three-level transmons:'
-  zh: 使用打包的物理模型作为可复现的基线，然后构建它的仿真器。这里，一个单量子比特 Program 在包含两个三能级 transmon 的模型上实现：
+  zh: "先用内置物理模型建立可复现的基准，再创建仿真器。下面的 Program 只声明一个量子比特，但运行所用的物理模型包含两个三能级 transmon："
   status: machine
 - id: 035fa28c8323af7f
   en: '`RX` remains an ordinary Program operation. At execution time, the emulator''s gate map obtains a pulse recipe from its calibration and binds that recipe to the model''s drive channel. The physical model has two qutrits, so the returned vector covers all $3^2$ basis states, including the unaddressed second transmon. This physical qutrit state is not a logical qutrit Program.'
@@ -28,7 +28,7 @@
   status: retired
 - id: c1aa9ad6278fd40e
   en: Packaged models and calibrations are reference snapshots. Supply a validated model document and implementation map when the physical system or calibration changes; do not interpret the packaged data as a live-device calibration.
-  zh: 打包的模型和校准是参考快照。当物理系统或校准发生变化时，请提供经过验证的模型文档和实现映射；不要把打包数据当作在线设备的校准。
+  zh: "内置模型和校准是供参考的固定数据。物理系统或校准发生变化时，应提供经过验证的模型文档和实现映射；内置数据不代表实际设备的当前校准。"
   status: machine
 - id: 697dc50b09c3d990
   en: Add a pulse directly
@@ -52,7 +52,7 @@
   status: retired
 - id: e428f989cfeba0ac
   en: 'The next chapter turns this mechanism into a concrete transmon experiment: it compares a calibrated rotation with a direct drive and makes the resulting leakage visible.'
-  zh: 下一章将把这一机制变成具体的 transmon 实验：它比较校准旋转与直接驱动，并让由此产生的泄漏清晰可见。
+  zh: "下一章将通过具体的 transmon 实验，比较校准旋转与直接驱动，并观察两者产生的泄漏。"
   status: machine
 - id: eb74b3ff33415145
   en: Understand scheduling
@@ -80,7 +80,7 @@
   status: machine
 - id: e05bbc9366180a3e
   en: '`RX` remains an ordinary Program operation. At execution time, the emulator''s gate map obtains a pulse recipe from its calibration and binds that recipe to the model''s drive channel. The physical model has two qutrits, so the returned vector covers all $3^2$ basis states, including the second transmon. The Program still declares one two-level qubit. Each transmon''s third physical level lets the result show leakage out of its qubit states, `|0>` and `|1>`.'
-  zh: "`RX` 仍是Program 中的普通量子门。执行时，仿真器的门映射从校准中取得脉冲方案，并将其绑定到模型的驱动通道。物理模型有两个 qutrit，因此返回向量覆盖全部 $3^2$ 个基态，包括第二个 transmon。Program 仍只声明一个二能级量子比特。每个 transmon 的第三个物理能级使结果能够显示从量子比特态 `|0>` 和 `|1>` 中产生的泄漏。"
+  zh: "`RX` 仍是 Program 中的普通量子门。执行时，仿真器的门映射从校准中取得脉冲方案，并将其绑定到模型的驱动通道。物理模型有两个 qutrit，因此返回向量覆盖全部 $3^2$ 个基态，包括第二个 transmon。Program 仍只声明一个二能级量子比特。每个 transmon 的第三个物理能级使结果能够显示从量子比特态 `|0>` 和 `|1>` 中产生的泄漏。"
   status: machine
 - id: 45f638a78c961d4a
   en: The three waveform samples above specify a drive over the full 20-unit interval. The emulator interpolates between them, combines the drive with drift and coupling terms, and integrates the physical state. The state covers every level in the physical model throughout the pulse, including levels that the Program did not declare.
@@ -92,5 +92,5 @@
   status: machine
 - id: a9369d5400c85395
   en: Drift and background continuous noise evolve throughout elapsed time. On an emulator that supports classical conditions, a false condition can skip a control block without deleting its duration, so the model still evolves during the interval. This lets you study the effect of elapsed time even when no control is active.
-  zh: 漂移与背景连续噪声在整个经过的时间内持续演化。在支持经典条件的仿真器上，条件为假可以跳过控制块，但不会删掉其时长，因此模型仍在该区间内演化。这样即使没有激活控制，也能研究经过时间的影响。
+  zh: "漂移和背景连续噪声在整个仿真时段内持续作用。对于支持经典条件的仿真器，条件为假时会跳过控制信号，但仍保留该控制块的时长，模型也会在这段时间内继续演化。因此，即使没有施加控制，也能研究等待时间的影响。"
   status: machine

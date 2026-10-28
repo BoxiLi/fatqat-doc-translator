@@ -4,7 +4,7 @@
   status: machine
 - id: 290ebe4ca0c42961
   en: A transmon is operated as a qubit but modeled with at least three levels. [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] keeps the third level so that pulse-induced leakage remains visible, alongside timing and coupling effects. It uses the shared [Hamiltonian-emulation workflow](hamiltonian-emulation.md).
-  zh: transmon 作为量子比特来操作，但建模时至少要有三个能级。[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 保留第三能级，使脉冲引起的泄漏以及时序和耦合效应保持可见。它使用共享的[哈密顿量仿真工作流](hamiltonian-emulation.md)。
+  zh: "transmon 可用作量子比特，但物理模型至少需要保留三个能级。[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 保留第三能级，以便观察脉冲导致的泄漏，以及时序和耦合的影响。它采用通用的[哈密顿量仿真流程](hamiltonian-emulation.md)。"
   status: machine
 - id: 02456a4f53b8568f
   en: Load a reproducible baseline
@@ -52,7 +52,7 @@
   status: machine
 - id: 29f1e267358dec67
   en: Know when more physics changes the answer
-  zh: 知道何时更多的物理会改变答案
+  zh: "哪些物理细节会影响结果"
   status: machine
 - id: 238a7287cbbf5a6a
   en: '**Coupling:** two-transmon gates are available only on coupling edges in the model, and an unaddressed neighbour is still part of the Hamiltonian.'
@@ -72,7 +72,7 @@
   status: machine
 - id: caacdbf1f285f7cf
   en: 'The packaged document describes one physical transmon. It is a simulation baseline, not a live calibration from a named device:'
-  zh: 打包文档描述一个物理 transmon。它是一个模拟基线，而不是来自某台具名设备的在线校准：
+  zh: "内置模型文档描述一个物理 transmon，用于建立模拟基准，不代表某台实际设备的当前校准："
   status: machine
 - id: ded7962db83deb0d
   en: Start with a transmon grid

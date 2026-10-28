@@ -12,5 +12,5 @@
   status: machine
 - id: 98a03d4e150ad576
   en: The Job API is under active development. Its interfaces and supported behavior may change between releases. Pin an exact FatQat version when reproducibility matters.
-  zh: Job API 正在积极开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的确切版本。
+  zh: "Job API 仍在持续开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的具体版本。"
   status: machine

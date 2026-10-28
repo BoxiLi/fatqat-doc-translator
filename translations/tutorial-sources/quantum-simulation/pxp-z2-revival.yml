@@ -1,0 +1,4 @@
+- id: f8c161b6503ae29e
+  en: Two constraints decided the approach. First, the pulse emulators always start from $|g\ldots g\rangle$ and only offer global controls, so a quench from $|Z_2\rangle$ is simply not expressible there; the gate-level [`Simulator`][fatqat.simulator.Simulator], on the other hand, happily accepts an `initial_state`. Second, no native gate set contains a PXP term, so we use [`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] to supply a local matrix for each PXP operation.
+  zh: 这里的方案由两个限制决定。首先，脉冲仿真器总是从 $|g\ldots g\rangle$ 出发，而且只提供全局控制，因此无法表示从 $|Z_2\rangle$ 开始的淬火过程；门级 [`Simulator`][fatqat.simulator.Simulator] 则可以通过 `initial_state` 指定初态。其次，原生门集中没有 PXP 项，所以我们用 [`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] 为每个 PXP Operation 提供局部矩阵。
+  status: machine

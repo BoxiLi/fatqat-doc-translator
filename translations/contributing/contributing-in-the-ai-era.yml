@@ -1,0 +1,12 @@
+- id: 5cc9274a3f307710
+  en: Contributing in the AI era
+  zh: AI 时代如何参与贡献
+  status: machine
+- id: 31d69a6dc23e4e2c
+  en: '**You don''t need a polished tutorial to start the conversation.** If you have a new use case or an example you would like to share, [open an issue](https://github.com/spaceqat/fatqat/issues) and tell us about it. We can discuss how it might fit into the examples or [tutorial collection](../tutorials/index.md).'
+  zh: '**不用等教程写完再来交流。** 有新的用法或想分享的例子，可以先[开一个 issue](https://github.com/spaceqat/fatqat/issues)，我们再一起看看，怎样整理成示例或加入[教程集](../tutorials/index.md)。'
+  status: machine
+- id: 00b5a5abfc7babd6
+  en: For a guided path through investigating an issue, choosing a design, and opening a PR, read [How to work on an issue](how-to-work-on-an-issue.md).
+  zh: 从调查 issue、选择方案到提交 PR，具体步骤见[如何着手解决一个 issue](how-to-work-on-an-issue.md)。
+  status: machine

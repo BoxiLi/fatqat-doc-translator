@@ -1,14 +1,14 @@
 - id: d07fb82dc004c488
   en: Diagnose a Program workflow
-  zh: 诊断 Program 工作流
+  zh: "排查 Program 运行问题"
   status: machine
 - id: 8636df5374a4ad47
   en: 'Most first-run problems occur at one of four boundaries:'
-  zh: 大多数首次运行的问题出现在四个边界之一：
+  zh: "首次运行遇到的问题，大多出在以下四个环节："
   status: machine
 - id: f34ebdd30c568a6b
   en: Start with the symptom below. You should not need to inspect FatQat's internal execution engine.
-  zh: 从下面的症状开始排查。你应当无需深入检查 FatQat 的内部执行引擎。
+  zh: "可以根据下面的现象逐项排查，通常无需深入 FatQat 的内部执行引擎。"
   status: machine
 - id: e04f9228880ac7fd
   en: Writing the Program
@@ -56,7 +56,7 @@
   status: machine
 - id: f9546d1afd71b66a
   en: That usually means the selected hardware profile or emulator cannot realize the instruction as written. The general simulator accepts a wider logical operation set; constrained targets intentionally do not.
-  zh: 这通常意味着所选的硬件配置文件或仿真器无法按原样实现该指令。通用模拟器接受更宽的逻辑操作集；受约束的目标有意不这样做。
+  zh: "这通常表示所选硬件配置或仿真器无法执行该指令。通用模拟器支持的逻辑操作更广，而硬件和物理模型会按各自的约束限制支持范围。"
   status: machine
 - id: cfad2968f94182a6
   en: 'Check the target''s supported operations and ask which detail you meant to study:'
@@ -64,27 +64,27 @@
   status: machine
 - id: 3ab3fd0488fc5cb3
   en: return to the general simulator for unrestricted algorithm behavior;
-  zh: 回到通用模拟器以获得不受限制的算法行为；
+  zh: "只关心算法行为时，改用通用模拟器；"
   status: machine
 - id: a9db0a2b3ba38c9f
   en: rewrite the Program in the profile's native operations when hardware constraints are the point; or
-  zh: 当硬件约束正是研究重点时，用配置文件的原生操作重写 Program；或者
+  zh: "当硬件约束正是研究重点时，用该配置的原生操作重写 Program；或者"
   status: machine
 - id: 11c7bd34cccf14fc
   en: supply an implementation/calibration only if you are deliberately extending the target.
-  zh: 仅在有意扩展目标时才提供实现/校准。
+  zh: "需要扩展目标的支持范围时，再提供相应的实现或校准。"
   status: machine
 - id: ba31eaa138b909a3
   en: FatQat does not silently transpile or route the Program. See [Choose how much physics to model](execution-models.md).
-  zh: FatQat 不会悄悄地转译或路由 Program。参见[选择建模多少物理](execution-models.md)。
+  zh: "FatQat 不会悄悄地转译或路由 Program。参见[选择需要建模的物理细节](execution-models.md)。"
   status: machine
 - id: 0548d37a3281f7c8
   en: A two-resource gate fails because of placement
-  zh: 双资源门因布局而失败
+  zh: "双目标门因布局不匹配而报错"
   status: machine
 - id: 92152188b5a272ec
   en: The operation can be native while its two physical locations are not connected. Inspect or choose a [`ResourceLayout`][fatqat.ResourceLayout] and keep the ordered logical targets distinct from their device labels. The worked failure-and-fix is in [Test a Program against a hardware profile](hardware-profile-simulation.md).
-  zh: "量子门本身可以是原生的，但它的两个物理位置并不相连。请检查或选择 [`ResourceLayout`][fatqat.ResourceLayout]，并把有序的逻辑目标与它们的设备标号区分开。完整的失败与修复示例见[用硬件配置文件检验 Program](hardware-profile-simulation.md)。"
+  zh: "量子门本身可以是原生的，但它的两个物理位置并不相连。请检查或选择 [`ResourceLayout`][fatqat.ResourceLayout]，并把有序的逻辑目标与它们的设备标号区分开。完整的失败与修复示例见[用硬件配置检验 Program](hardware-profile-simulation.md)。"
   status: machine
 - id: 81ebaa3fc23e5356
   en: A direct control is rejected by an emulator
@@ -92,7 +92,7 @@
   status: machine
 - id: c65497b61f8c09e0
   en: Each pulse channel comes from a particular physical model and identifies one of that model's resources. Build the control from the same model used by the emulator. Then check that the waveform uses the model's time and control units, that its values are allowed, and that the operation duration covers every control. [Follow a Program into physical dynamics](hamiltonian-emulation.md) builds this chain one piece at a time.
-  zh: "每个脉冲控制通道都来自特定的物理模型，并标识该模型的某个资源。请从仿真器所用的同一模型构建控制。然后检查波形是否使用该模型的时间和控制单位、其数值是否被允许，以及脉冲块时长是否覆盖每个控制。[跟随 Program 进入物理动力学](hamiltonian-emulation.md)逐步构建了这条链路。"
+  zh: "每个脉冲控制通道都来自特定的物理模型，并标识该模型的某个资源。请从仿真器所用的同一模型构建控制。然后检查波形是否使用该模型的时间和控制单位、其数值是否被允许，以及脉冲块时长是否覆盖每个控制。[用 Program 模拟物理动力学](hamiltonian-emulation.md)逐步构建了这条链路。"
   status: machine
 - id: f78c928a5db65fdb
   en: Configuring the run
@@ -116,7 +116,7 @@
   status: machine
 - id: 3b7bb637f15070e0
   en: After measurement, reset, or trajectory noise, one statevector is only one sampled history. Request it with `shots=1` when that single history is what you want. Use density-matrix simulation for an exact mixed state.
-  zh: 在测量、重置或轨迹噪声之后，单个态矢量只是一条采样出的历史。当你想要的正是这条单一历史时，用 `shots=1` 请求它。要得到精确的混合态，请使用密度矩阵模拟。
+  zh: "经过测量、重置或随机噪声轨迹后，一个态矢量只代表其中一次采样的演化过程。若需要查看这条轨迹，可设置 `shots=1` 并请求最终态；若需要精确的混合态，则使用密度矩阵模拟。"
   status: machine
 - id: 1bc9ce1555eccd79
   en: The first Numba run is unexpectedly slow
@@ -124,7 +124,7 @@
   status: machine
 - id: 8ba9327679552d33
   en: Numba compiles kernels lazily. Warm the workload before measuring repeated runtime, or choose NumPy when predictable one-off latency matters more. The benchmark pattern is in [Performance and scaling](performance.md).
-  zh: Numba 采用惰性方式编译内核。在测量重复运行时间之前先预热工作负载，或者当可预测的一次性延迟更重要时选择 NumPy。基准测试模式见[性能与扩展性](performance.md)。
+  zh: "Numba 在首次用到数值内核时才编译。比较重复运行的耗时时，应先运行一次完成预热；若只运行一次、希望避免编译带来的延迟，可以选 NumPy。基准测试方法见[性能与扩展性](performance.md)。"
   status: machine
 - id: 08d5f76d290cfb6d
   en: Reading the Result
@@ -136,7 +136,7 @@
   status: machine
 - id: f7ef98d3e7318315
   en: 'Runs contain only the data that the selected execution method produced and that you requested. Inspect the result before choosing an accessor:'
-  zh: 运行只包含所选执行方法产生且你请求了的数据。在选择访问器之前先检查结果：
+  zh: "Result 只保存所选方法能够产生、且本次运行请求了的数据。调用访问方法前，先检查结果包含哪些字段："
   status: machine
 - id: 824dcd52fa1db4ef
   en: '[Ask questions of a run](interpret-results.md) connects each output to the question it answers.'
@@ -152,7 +152,7 @@
   status: retired
 - id: d3cff453d8563cde
   en: Reduce the problem without losing the clue
-  zh: 在不丢失线索的前提下缩小问题
+  zh: "逐步缩小复现示例"
   status: machine
 - id: 2999b803a7af68ed
   en: 'If none of those matches, make a copy of the failing workflow and reduce it:'
@@ -172,7 +172,7 @@
   status: machine
 - id: b5a9b2225f298a28
   en: switch to the intended profile or emulator; and
-  zh: 切换到目标配置文件或仿真器；然后
+  zh: "切换到目标硬件配置或仿真器；然后"
   status: machine
 - id: f01c2ebce4dc4155
   en: restore operations one at a time.
@@ -180,7 +180,7 @@
   status: machine
 - id: d68a13ad257b7859
   en: The step where it changes tells you which boundary to inspect. Preserve the small reproducer—it is also the most useful starting point for a bug report.
-  zh: 发生变化的那一步会告诉你应检查哪个边界。请保留这个小型复现示例——它也是提交缺陷报告时最有用的起点。
+  zh: "在哪一步开始出错，就重点检查哪个环节。保留这个最小复现示例，提交缺陷报告时也能直接使用。"
   status: machine
 - id: 488f301da9f1d419
   en: The [Result reference](../api/result.md) lists the available fields, their accessors, and which runs produce them.

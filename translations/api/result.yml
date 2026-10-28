@@ -36,7 +36,7 @@
   status: retired
 - id: 40369ad6f52e64a0
   en: '| Field | Accessor | Produced by |'
-  zh: '| 字段 | 访问器 | 产生自 |'
+  zh: "| 字段 | 访问器 | 何时产生 |"
   status: machine
 - id: 233d89ec76db9dfc
   en: '| `"counts"` | [`get_counts`][fatqat.Result.get_counts] or [`get_counts_as_tuples`][fatqat.Result.get_counts_as_tuples] | A backend run with measurement counts |'
@@ -101,4 +101,8 @@
 - id: 7cf6f6278f245f67
   en: The default `stat="counts"` plots raw occurrences. `stat="frequencies"` divides each value by the total number of shots. FATQAT supplies the default categorical palette and preserves an explicitly configured Matplotlib color cycle and other `rcParams`. `number_to_keep` retains the most frequent outcomes and combines the remainder into an `other` bar.
   zh: 默认的 `stat="counts"` 绘制原始出现次数。`stat="frequencies"` 将各值除以总采样次数。FATQAT 提供默认分类配色，并保留显式配置的 Matplotlib 颜色循环及其他 `rcParams`。`number_to_keep` 保留最常出现的结果，并将其余结果合并为一个 `other` 柱。
+  status: machine
+- id: 802d880cb8bddaca
+  en: '| `"classical_state"` | [`get_classical_state`][fatqat.Result.get_classical_state] | A state-method simulator run with `result_config={"final_classical_state": True}` |'
+  zh: '| `"classical_state"` | [`get_classical_state`][fatqat.Result.get_classical_state] | 使用量子态演化方法运行模拟器，并设置 `result_config={"final_classical_state": True}` |'
   status: machine

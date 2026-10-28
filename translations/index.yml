@@ -88,7 +88,7 @@
   status: machine
 - id: 8996a60b9917127d
   en: Every path starts from the same [`Program`][fatqat.Program] and returns familiar `Job` and `Result` objects. Choose the least physical detail that can answer the question in front of you.
-  zh: 每条路径都从同一个 [`Program`][fatqat.Program] 出发，并返回熟悉的 `Job` 和 `Result` 对象。选择能回答眼前问题的最少物理细节即可。
+  zh: "各条路径都接受同一个 [`Program`][fatqat.Program]，并返回相同类型的 `Job` 和 `Result`。根据当前问题，选择能满足需要的最简物理模型即可。"
   status: machine
 - id: 87698054e77679b1
   en: :material-chart-box-outline:{ .lg .middle } **General simulation**
@@ -212,7 +212,7 @@
   status: machine
 - id: 40d9e61b7aa34a99
   en: '[:octicons-arrow-right-24: Track occupancy, pairing, and loss](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)'
-  zh: '[:octicons-arrow-right-24: 跟踪占据、配对与损失](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)'
+  zh: "[:octicons-arrow-right-24: 跟踪占据、配对与丢失](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)"
   status: machine
 - id: 218012b043fe7425
   en: Explore the documentation
@@ -260,7 +260,7 @@
   status: machine
 - id: 7f98c8b333de3c4c
   en: Find exact signatures and validation contracts.
-  zh: 查找精确的签名与校验契约。
+  zh: "查询函数签名与验证规则。"
   status: machine
 - id: b242595bbda9459f
   en: '[:octicons-arrow-right-24: Look up an API](api/index.md)'
@@ -392,11 +392,11 @@
   status: machine
 - id: dc1d0b2c29a59bd3
   en: Under active development
-  zh: 正在积极开发中
+  zh: "开发中"
   status: machine
 - id: ebb1cef8f27a9148
   en: FatQat is under active development, and its interfaces may change between releases. **Pin an exact version when reproducibility matters.**
-  zh: FatQat 正在积极开发，其接口可能随版本变化。**如果需要可复现性，请固定确切版本。**
+  zh: "FatQat 仍在持续开发，接口可能随版本变化。**如需复现实验，请固定具体版本。**"
   status: machine
 - id: fa32672227a9ed82
   en: '![The SCQubitSimulator result gives the target outcome 101 a probability of 81.65 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
@@ -412,7 +412,7 @@
   status: machine
 - id: c0722ef9790a984b
   en: Calibrated pulses, three physical levels, and the same coherence times return `101` with about **64.05%** probability; physical leakage is **0.0649%**. This run realizes the compiled X/SX/RZ/CZ gates with calibrated pulses.
-  zh: "校准脉冲、三个物理能级和相同的相干时间以约 **64.05%** 的概率返回 `101`；物理泄漏为 **0.0649%**。这次运行用校准脉冲实现编译后的 X/SX/RZ/CZ 门。"
+  zh: "使用校准脉冲、三个物理能级和相同的相干时间时，得到 `101` 的概率约为 **64.05%**，物理泄漏为 **0.0649%**。这次运行以校准脉冲实现编译后的 X/SX/RZ/CZ 门。"
   status: machine
 - id: 7b314aaff7ff66e9
   en: With the fixed routing seed, compilation produces **51 CZ**, **172 SX**, and **383 RZ** gates. These results use the same compiled circuit for both hardware models; the SC noise channels and the Transmon pulse dynamics model different physical effects. The Transmon model also uses 60 ns CZ pulses, while the SC coherence channels use a 50 ns CZ duration. Compilation preserves ideal algorithm behavior, but the gate decomposition and routing affect noisy results.

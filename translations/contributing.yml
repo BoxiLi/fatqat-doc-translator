@@ -1,7 +1,7 @@
 - id: b2489f5131a2877b
   en: Ask useful questions, review designs, and improve FatQat through real experience in the AI era.
   zh: '如何通过使用反馈、设计讨论和代码评审参与 FatQat，及使用 AI 辅助开发时需要注意的事。'
-  status: machine
+  status: retired
 - id: 3b4cdc3dac476229
   en: How to contribute
   zh: '参与贡献'
@@ -45,7 +45,7 @@
 - id: 99fcd07c4c1ccbaa
   en: '**You don''t need a polished tutorial to start the conversation.** If you have a new use case or an example you would like to share, [open an issue](https://github.com/spaceqat/fatqat/issues) and tell us about it. We can discuss how it might fit into the examples or [tutorial collection](tutorials/index.md).'
   zh: '**不用等教程写完再来交流。** 有新的用法或想分享的例子，可以先[开一个 issue](https://github.com/spaceqat/fatqat/issues)，我们再一起看看，怎样整理成示例或加入[教程集](tutorials/index.md)。'
-  status: machine
+  status: retired
 - id: 2c35b7592e40c275
   en: Using FatQat through an agent? Follow the friction.
   zh: '和 AI 一起用 FatQat 时，留意卡住的地方'

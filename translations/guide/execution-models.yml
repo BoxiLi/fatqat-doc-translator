@@ -1,6 +1,6 @@
 - id: f180315ca93c1b46
   en: Choose how much physics to model
-  zh: 选择建模多少物理细节
+  zh: "选择需要建模的物理细节"
   status: machine
 - id: 4cd4a8d10171803c
   en: A backend is more than a place to send a program. It decides what FatQat means by “run this.” The general simulator follows logical circuit evolution; a hardware profile adds device rules; an emulator follows a physical model in time.
@@ -24,7 +24,7 @@
   status: retired
 - id: 8e2a7685bdbb5b7f
   en: Hardware profile
-  zh: 硬件配置文件
+  zh: "硬件配置"
   status: machine
 - id: 9367753b7945f1d0
   en: 'A hardware-profile simulator still evolves gates at circuit level, but first checks that the program is native and physically placeable. `RX` is native to the Google-style profile used here:'
@@ -144,7 +144,7 @@
   status: machine
 - id: b5d0b180c2c28030
   en: The Program declares one qubit with two basis states. The reference model contains two physical transmons with three levels each, so the returned state has nine amplitudes. Reshaping it gives populations indexed by the levels of `q0` and `q1`; summing over `q1` leaves the three populations on `q0` shown above.
-  zh: Program 声明一个具有两个基态的量子比特。参考模型包含两个物理 transmon，每个有三个能级，因此返回态有九个振幅。重塑后得到以 `q0` 和 `q1` 能级为索引的布居；对 `q1` 求和后，剩下的就是上面显示的 `q0` 三个能级布居。
+  zh: "Program 声明了一个量子比特，对应两个基矢。参考模型则包含两个物理 transmon，每个有三个能级，因此返回的量子态共有九个振幅。调整数组形状后，可按 `q0` 和 `q1` 的能级计算布居；沿 `q1` 求和，就得到上面显示的 `q0` 三个能级的布居。"
   status: machine
 - id: ea4c36e4a8340d3e
   en: Level `|2>` represents leakage out of the qubit's `|0>`, `|1>` subspace. Retaining that physical level does not make the Program a qutrit program. The second transmon also remains in the state even though this Program does not address it. For this reference pulse, the final populations are close to the ideal values and the leakage rounds to zero at this precision. The packaged calibration supplies a reproducible simulation example, not a current hardware characterization.

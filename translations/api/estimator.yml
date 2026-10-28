@@ -45,7 +45,7 @@
 - id: 7a5010a7c2a3e305
   en: Configure the simulation method, runtime, and noise on the backend. Invalid programs, observable widths, and shot values raise [`BackendValidationError`][fatqat.errors.BackendValidationError] before a job is returned; unsupported observable types raise `TypeError`. Later failures are raised by [`result`][fatqat.Job.result].
   zh: 在后端上配置模拟方法、运行时与噪声。无效的程序、可观测量宽度和 shots 值会在作业返回之前抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]；不支持的可观测量类型抛出 `TypeError`。之后的失败由 [`result`][fatqat.Job.result] 抛出。
-  status: machine
+  status: retired
 - id: 0ce51498bfb25291
   en: Use a density-matrix backend when the program resets qubits or channel noise applies.
   zh: 当程序重置量子比特或存在信道噪声时，使用密度矩阵后端。
@@ -65,7 +65,7 @@
 - id: 3a37a2050aedc2d7
   en: '[`run_sweep`][fatqat.Estimator.run_sweep] evaluates binding rows in input order. Validation errors raise directly; other row failures are raised by [`result`][fatqat.Job.result]. No partial result list is returned. See [Simulate a quantum program](../guide/simulation.md) for a guided parameter sweep; accepted binding shapes and seed behavior are specified here.'
   zh: '[`run_sweep`][fatqat.Estimator.run_sweep] 按输入顺序求值各绑定行。校验错误直接抛出；其他行的失败由 [`result`][fatqat.Job.result] 抛出。不会返回部分结果列表。有关引导式参数扫描，参见[模拟量子程序](../guide/simulation.md)；接受的绑定形状与种子行为以本页规定为准。'
-  status: machine
+  status: retired
 - id: 0512da99303af84f
   en: Detailed reference
   zh: 详细参考
@@ -109,4 +109,12 @@
 - id: 0e151e0dd50ee7d2
   en: 'Read estimator results with [`get_expectation`][fatqat.Result.get_expectation] and [`get_standard_error`][fatqat.Result.get_standard_error]. Run the backend separately if you also need its final state. Estimator metadata is intentionally compact: backend name, method, runtime, and shots, plus the pulse solver when an actual pulse execution reports one.'
   zh: "使用 [`get_expectation`][fatqat.Result.get_expectation] 和 [`get_standard_error`][fatqat.Result.get_standard_error] 读取 Estimator 的结果。如果还需要最终态，请单独运行后端。Estimator 元数据保持精简：包含后端名称、方法、运行时和采样次数，以及实际脉冲执行所报告的脉冲求解器。"
+  status: machine
+- id: 22eaf90e16834482
+  en: Configure the simulation method, runtime, and noise on the backend. Invalid programs, observable widths, and shot values raise [`BackendValidationError`][fatqat.errors.BackendValidationError] before a job is returned; unsupported observable types raise `TypeError`. Execution errors follow the backend's error-handling policy.
+  zh: 模拟方法、运行时和噪声都在后端配置。程序、可观测量的位宽或 shots 取值不合法时，会在返回 Job 之前抛出 [`BackendValidationError`][fatqat.errors.BackendValidationError]；可观测量类型不受支持时则抛出 `TypeError`。执行阶段的错误按后端的错误处理策略处理。
+  status: machine
+- id: dc46617b715c12de
+  en: '[`run_sweep`][fatqat.Estimator.run_sweep] evaluates binding rows in input order. Validation errors raise directly; execution errors follow the backend''s error-handling policy. No partial result list is returned. See [Simulate a quantum program](../guide/simulation.md) for a guided parameter sweep; accepted binding shapes and seed behavior are specified here.'
+  zh: '[`run_sweep`][fatqat.Estimator.run_sweep] 按输入顺序计算每一行参数绑定。验证错误会直接抛出；执行错误按后端的错误处理策略处理，失败时不会返回部分结果。参数扫描的完整示例见[模拟量子程序](../guide/simulation.md)；可接受的参数形状和随机种子的行为见本页说明。'
   status: machine

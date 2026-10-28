@@ -8,7 +8,7 @@
   status: machine
 - id: 7f15acf255570f6a
   en: FATQAT provides drawing methods on the object that owns the data. A [`Program`][fatqat.Program] draws its circuit or derives a logical interaction summary, while a [`Result`][fatqat.Result] draws the measurement outcomes from one run.
-  zh: FATQAT 在拥有数据的对象上提供绘图方法。[`Program`][fatqat.Program] 可以绘制其电路或导出逻辑相互作用摘要，而 [`Result`][fatqat.Result] 绘制一次运行的测量结果。
+  zh: "FATQAT 将绘图方法放在对应的数据对象上：[`Program`][fatqat.Program] 负责绘制电路和导出逻辑相互作用汇总，[`Result`][fatqat.Result] 负责绘制一次运行的测量结果。"
   status: machine
 - id: dd47988b226ad49c
   en: Draw a circuit
@@ -28,11 +28,11 @@
   status: machine
 - id: 3d2314df491fef4c
   en: Passing `ax=` embeds the circuit in a Matplotlib layout owned by the caller.
-  zh: 传入 `ax=` 会把电路嵌入由调用方拥有的 Matplotlib 布局中。
+  zh: "传入 `ax=`，即可将电路画到你已有的 Matplotlib 布局中。"
   status: machine
 - id: 214c482f6b8fdaad
   en: The same composition pattern works for the FATQAT-owned Matplotlib visualizations below.
-  zh: 同样的组合模式也适用于下面由 FATQAT 拥有的 Matplotlib 可视化。
+  zh: "下文其他基于 Matplotlib 的 FATQAT 绘图方法也支持这种用法。"
   status: machine
 - id: b41a7567e8b288a6
   en: Draw logical interaction frequency

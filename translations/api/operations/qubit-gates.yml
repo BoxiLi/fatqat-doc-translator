@@ -100,31 +100,31 @@
   status: machine
 - id: 254da98737f33b1b
   en: '| [`I`][fatqat.operations.I] | Leaves $\|0\rangle$ and $\|1\rangle$ unchanged. |'
-  zh: '| [`I`][fatqat.operations.I] | 保持 $\ | 0\rangle$ 和 $\ | 1\rangle$ 不变。 |'
+  zh: "| [`I`][fatqat.operations.I] | 保持 $\\|0\\rangle$ 和 $\\|1\\rangle$ 不变。 |"
   status: machine
 - id: 99b895100ba7e87a
   en: '| [`H`][fatqat.operations.H] | Maps $\|0\rangle$ to $(\|0\rangle+\|1\rangle)/\sqrt{2}$ and $\|1\rangle$ to $(\|0\rangle-\|1\rangle)/\sqrt{2}$. |'
-  zh: '| [`H`][fatqat.operations.H] | 将 $\ | 0\rangle$ 映射为 $(\ | 0\rangle+\ | 1\rangle)/\sqrt{2}$，并将 $\ | 1\rangle$ 映射为 $(\ | 0\rangle-\ | 1\rangle)/\sqrt{2}$。 |'
+  zh: "| [`H`][fatqat.operations.H] | 将 $\\|0\\rangle$ 映射为 $(\\|0\\rangle+\\|1\\rangle)/\\sqrt{2}$，并将 $\\|1\\rangle$ 映射为 $(\\|0\\rangle-\\|1\\rangle)/\\sqrt{2}$。 |"
   status: machine
 - id: d68ed51817edce34
   en: '| [`X`][fatqat.operations.X] | Exchanges $\|0\rangle$ and $\|1\rangle$. |'
-  zh: '| [`X`][fatqat.operations.X] | 交换 $\ | 0\rangle$ 和 $\ | 1\rangle$。 |'
+  zh: "| [`X`][fatqat.operations.X] | 交换 $\\|0\\rangle$ 和 $\\|1\\rangle$。 |"
   status: machine
 - id: 873dc47d62a7441f
   en: '| [`Y`][fatqat.operations.Y] | Maps $\|0\rangle$ to $i\|1\rangle$ and $\|1\rangle$ to $-i\|0\rangle$. |'
-  zh: '| [`Y`][fatqat.operations.Y] | 将 $\ | 0\rangle$ 映射为 $i\ | 1\rangle$，并将 $\ | 1\rangle$ 映射为 $-i\ | 0\rangle$。 |'
+  zh: "| [`Y`][fatqat.operations.Y] | 将 $\\|0\\rangle$ 映射为 $i\\|1\\rangle$，并将 $\\|1\\rangle$ 映射为 $-i\\|0\\rangle$。 |"
   status: machine
 - id: 12e09223ec1a305f
   en: '| [`Z`][fatqat.operations.Z] | Maps $\|1\rangle$ to $-\|1\rangle$. |'
-  zh: '| [`Z`][fatqat.operations.Z] | 将 $\ | 1\rangle$ 映射为 $-\ | 1\rangle$。 |'
+  zh: "| [`Z`][fatqat.operations.Z] | 将 $\\|1\\rangle$ 映射为 $-\\|1\\rangle$。 |"
   status: machine
 - id: 848034f1f6be5d2b
   en: '| [`S`][fatqat.operations.S] | Maps $\|1\rangle$ to $i\|1\rangle$. |'
-  zh: '| [`S`][fatqat.operations.S] | 将 $\ | 1\rangle$ 映射为 $i\ | 1\rangle$。 |'
+  zh: "| [`S`][fatqat.operations.S] | 将 $\\|1\\rangle$ 映射为 $i\\|1\\rangle$。 |"
   status: machine
 - id: 5ae4f1e60bb0f911
   en: '| [`Sdg`][fatqat.operations.Sdg] | Maps $\|1\rangle$ to $-i\|1\rangle$. |'
-  zh: '| [`Sdg`][fatqat.operations.Sdg] | 将 $\ | 1\rangle$ 映射为 $-i\ | 1\rangle$。 |'
+  zh: "| [`Sdg`][fatqat.operations.Sdg] | 将 $\\|1\\rangle$ 映射为 $-i\\|1\\rangle$。 |"
   status: machine
 - id: 5cc89a5ab388590a
   en: '| [`SX`][fatqat.operations.SX] | Two applications have the same action as X. |'
@@ -132,11 +132,11 @@
   status: machine
 - id: 3096793f1b42c9ab
   en: '| [`T`][fatqat.operations.T] | Maps $\|1\rangle$ to $e^{i\pi/4}\|1\rangle$. |'
-  zh: '| [`T`][fatqat.operations.T] | 将 $\ | 1\rangle$ 映射为 $e^{i\pi/4}\ | 1\rangle$。 |'
+  zh: "| [`T`][fatqat.operations.T] | 将 $\\|1\\rangle$ 映射为 $e^{i\\pi/4}\\|1\\rangle$。 |"
   status: machine
 - id: 567c4748eb54d919
   en: '| [`Tdg`][fatqat.operations.Tdg] | Maps $\|1\rangle$ to $e^{-i\pi/4}\|1\rangle$. |'
-  zh: '| [`Tdg`][fatqat.operations.Tdg] | 将 $\ | 1\rangle$ 映射为 $e^{-i\pi/4}\ | 1\rangle$。 |'
+  zh: "| [`Tdg`][fatqat.operations.Tdg] | 将 $\\|1\\rangle$ 映射为 $e^{-i\\pi/4}\\|1\\rangle$。 |"
   status: machine
 - id: eb7b260472eb3742
   en: '| Value | Target order | Basis action |'
@@ -144,19 +144,19 @@
   status: machine
 - id: 41c9b1a913de05c7
   en: '| [`CX`][fatqat.operations.CX] | `(control, target)` | Applies X to the target when the control is `\|1>`. |'
-  zh: '| [`CX`][fatqat.operations.CX] | `(control, target)` | 对目标应用 X，条件是控制位为 `\ | 1>`. |'
+  zh: "| [`CX`][fatqat.operations.CX] | `(control, target)` | 控制位为 `\\|1>` 时，对目标施加 X。 |"
   status: machine
 - id: 1aedaa43b567b36f
   en: '| [`CY`][fatqat.operations.CY] | `(control, target)` | Applies Y to the target when the control is `\|1>`. |'
-  zh: '| [`CY`][fatqat.operations.CY] | `(control, target)` | 对目标应用 Y，条件是控制位为 `\ | 1>`. |'
+  zh: "| [`CY`][fatqat.operations.CY] | `(control, target)` | 控制位为 `\\|1>` 时，对目标施加 Y。 |"
   status: machine
 - id: 10e2634210013478
   en: '| [`CZ`][fatqat.operations.CZ] | `(control, target)` | Negates `\|11>`. |'
-  zh: '| [`CZ`][fatqat.operations.CZ] | `(control, target)` | 将负号施加于 `\ | 11>`. |'
+  zh: "| [`CZ`][fatqat.operations.CZ] | `(control, target)` | 将 `\\|11>` 的振幅乘以负一。 |"
   status: machine
 - id: 94e2cdc02337b62b
   en: '| [`CS`][fatqat.operations.CS] | `(control, target)` | Applies S to the target when the control is `\|1>`. |'
-  zh: '| [`CS`][fatqat.operations.CS] | `(control, target)` | 对目标应用 S，条件是控制位为 `\ | 1>`. |'
+  zh: "| [`CS`][fatqat.operations.CS] | `(control, target)` | 控制位为 `\\|1>` 时，对目标施加 S。 |"
   status: machine
 - id: d81e14bdf000ca22
   en: '| [`Swap`][fatqat.operations.Swap] | `(target0, target1)` | Exchanges the two target states. |'
@@ -164,15 +164,15 @@
   status: machine
 - id: b3082ec7e83f4164
   en: '| [`iSwap`][fatqat.operations.iSwap] | `(target0, target1)` | Maps `\|01>` to `i\|10>` and `\|10>` to `i\|01>`. |'
-  zh: '| [`iSwap`][fatqat.operations.iSwap] | `(target0, target1)` | 将 `\ | 01>` 映射为 `i\ | 10>` and `\ | 10>` 映射为 `i\ | 01>`. |'
+  zh: "| [`iSwap`][fatqat.operations.iSwap] | `(target0, target1)` | 将 `\\|01>` 映射为 `i\\|10>`，将 `\\|10>` 映射为 `i\\|01>`。 |"
   status: machine
 - id: 6a34e74aeaabdf5b
   en: '| [`CCX`][fatqat.operations.CCX] | `(control0, control1, target)` | Toffoli: applies X when both controls are `\|1>`. |'
-  zh: '| [`CCX`][fatqat.operations.CCX] | `(control0, control1, target)` | Toffoli 门：应用 X，条件是两个控制位均为 `\ | 1>`. |'
+  zh: "| [`CCX`][fatqat.operations.CCX] | `(control0, control1, target)` | Toffoli 门：两个控制位均为 `\\|1>` 时，对目标施加 X。 |"
   status: machine
 - id: bd1628539218f6c8
   en: '| [`CSwap`][fatqat.operations.CSwap] | `(control, target0, target1)` | Fredkin: exchanges the two targets when the control is `\|1>`. |'
-  zh: '| [`CSwap`][fatqat.operations.CSwap] | `(control, target0, target1)` | Fredkin 门：交换两个目标，条件是控制位为 `\ | 1>`. |'
+  zh: "| [`CSwap`][fatqat.operations.CSwap] | `(control, target0, target1)` | Fredkin 门：控制位为 `\\|1>` 时，交换两个目标。 |"
   status: machine
 - id: adb2d3d8f0948393
   en: '| Constructor | Targets | Definition |'
@@ -212,5 +212,5 @@
   status: machine
 - id: fff46ca18fb46b1c
   en: '| [`CPhase`][fatqat.operations.CPhase] `(theta)` | `(control, target)` scalars or compatible views | Multiplies $\|11\rangle$ by $e^{i\theta}$. |'
-  zh: '| [`CPhase`][fatqat.operations.CPhase] `(theta)` | `(control, target)` 标量或兼容视图 | 将 $\ | 11\rangle$ 乘以 $e^{i\theta}$。 |'
+  zh: "| [`CPhase`][fatqat.operations.CPhase] `(theta)` | `(control, target)` 标量或兼容视图 | 将 $\\|11\\rangle$ 乘以 $e^{i\\theta}$。 |"
   status: machine

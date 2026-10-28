@@ -4,7 +4,7 @@
   status: machine
 - id: e95ed5b74d9a4eb0
   en: The [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] runs a [`Program`][fatqat.Program] against a three-level transmon model. It evolves sampled controls over the full physical model, and `run()` returns an eager [`Job`][fatqat.Job].
-  zh: '[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 在三能级 transmon 模型上运行 [`Program`][fatqat.Program]。它在完整物理模型上演化采样控制，`run()` 返回一个立即执行的 [`Job`][fatqat.Job]。'
+  zh: "[`TransmonEmulator`][fatqat.emulator.TransmonEmulator] 在三能级 transmon 模型上运行 [`Program`][fatqat.Program]，根据采样控制信号演化完整的物理系统。`run()` 返回的 [`Job`][fatqat.Job] 已执行完毕。"
   status: machine
 - id: 4b802a73f4d6d01d
   en: See [Emulate a superconducting system](../guide/transmon-emulation.md) for a walkthrough covering calibrated gates and direct drive.
@@ -76,7 +76,7 @@
   status: machine
 - id: 3ceda4af0af1b9b9
   en: The unitary uses per-subsystem near-resonant rotating frames and may differ from a conventional qubit `RZ` by global phase; compare ideal operators up to global phase.
-  zh: 该酉矩阵使用每个子系统的近共振旋转帧，可能与常规量子比特 `RZ` 相差一个全局相位；请在忽略全局相位的意义下比较理想算符。
+  zh: "该酉矩阵使用每个子系统的近共振旋转参考系，可能与常规量子比特 `RZ` 相差一个全局相位；请在忽略全局相位的意义下比较理想算符。"
   status: machine
 - id: 00d60e31a4e6b834
   en: Run
@@ -124,7 +124,7 @@
   status: machine
 - id: bc91da2e9721d999
   en: Control and frame addresses name model resources. Invalid addresses are reported when you call `run()`.
-  zh: 控制地址与帧地址指向模型资源。无效地址会在调用 `run()` 时报告。
+  zh: "控制地址与参考系地址指向模型资源。无效地址会在调用 `run()` 时报告。"
   status: machine
 - id: 5b197474f2eec228
   en: The built-in model contains fixed qutrit transmons and an arbitrary undirected coupling graph. A coupling declares where controlled exchange operations may be driven; it is not a residual always-on exchange Hamiltonian. Frequencies define the implicit resonant carriers.
@@ -236,7 +236,7 @@
   status: machine
 - id: 0ef2508c620744d9
   en: '| `gate_implementation_map` | A [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap] mapping operation families and device labels to pulse definitions. `None` uses the built-in map. |'
-  zh: '| `gate_implementation_map` | 一个 [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap]，将操作家族与设备标签映射到脉冲定义。`None` 表示使用内置映射。 |'
+  zh: "| `gate_implementation_map` | 一个 [`PulseImplementationMap`][fatqat.emulator.PulseImplementationMap]，将操作类型与设备标签映射到脉冲定义。`None` 表示使用内置映射。 |"
   status: machine
 - id: 5f37f344fda5a939
   en: '| Method | Result accessor | Shape for `m` transmons | Meaning |'
@@ -272,7 +272,7 @@
   status: machine
 - id: 241dbd771c8b957e
   en: 'All three representations cover the complete physical qutrit model, not just the resources declared by the program. They use the same canonical model basis: terminal virtual-frame changes are composed into every returned state or operator. This does not convert the effective RWA model to a laboratory frame. `result_config` controls whether the method-native value is returned; it does not expose the solver''s internal rotating-frame coordinates. Pulse emulators do not expose `superop` or internal solver names as methods.'
-  zh: 三种表示都覆盖完整的物理 qutrit 模型，而不仅是程序声明的资源。它们使用相同的规范模型基：终端虚拟帧变换会被合成到每个返回的态或算符中。这并不会将有效的 RWA 模型转换到实验室参考系。`result_config` 控制是否返回方法原生的值；它不公开求解器内部的旋转帧坐标。脉冲仿真器不会将 `superop` 或内部求解器名称作为方法公开。
+  zh: "三种表示都覆盖完整的物理 qutrit 模型，而不仅是程序声明的资源。它们使用相同的规范模型基：终端虚拟参考系变换会被合成到每个返回的态或算符中。这并不会将有效的 RWA 模型转换到实验室参考系。`result_config` 控制是否返回方法原生的值；它不公开求解器内部的旋转参考系坐标。脉冲仿真器不会将 `superop` 或内部求解器名称作为方法公开。"
   status: machine
 - id: 44d668b49fe2b6bc
   en: These are the only two keys for `TransmonEmulator`. Pulse emulators reject the matrix backend's `shot_parallelism`, `kernel_parallelism`, `max_workers`, and `fusion` settings.

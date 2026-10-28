@@ -36,7 +36,7 @@
   status: retired
 - id: d24245b1fe2c7c94
   en: '[Open hardware-profile simulation :material-arrow-right:](hardware-profile-simulation.md)'
-  zh: '[打开硬件配置文件模拟 :material-arrow-right:](hardware-profile-simulation.md)'
+  zh: "[了解硬件配置模拟 :material-arrow-right:](hardware-profile-simulation.md)"
   status: machine
 - id: 1dd7f779f3bf5ef4
   en: '![Driven-atom spectroscopy heatmap](../assets/generated/guide/guide-path-physics.png){ loading=lazy width="639" height="418" }'
@@ -44,7 +44,7 @@
   status: machine
 - id: da25ed4fe7d38c9c
   en: ':material-atom: **Follow the physics**'
-  zh: ':material-atom: **跟随物理**'
+  zh: ":material-atom: **研究物理动力学**"
   status: machine
 - id: 82f31475a823abd7
   en: Resolve calibrated gates and direct pulse controls into continuous dynamics for transmons and neutral atoms.
@@ -76,7 +76,7 @@
   status: machine
 - id: b178c070c1fed1bf
   en: The guide teaches complete workflows and the reasoning behind them. Follow a link to the [API reference](../api/index.md) when you need a precise signature or contract. The [tutorials](../tutorials/index.md) are longer case studies built on the same features.
-  zh: 本指南讲授完整的工作流及其背后的推理。当你需要精确的签名或契约时，请通过链接查阅 [API 参考](../api/index.md)。[教程](../tutorials/index.md)是基于相同功能的更长篇案例研究。
+  zh: "本指南介绍完整的使用流程，并说明为什么这样做。需要查询函数签名或具体行为约定时，请查阅 [API 参考](../api/index.md)。[教程](../tutorials/index.md)则通过更完整的案例展示这些功能。"
   status: machine
 - id: 1080a3d338cf5d1d
   en: '| Question | Execution target | Typical answer |'

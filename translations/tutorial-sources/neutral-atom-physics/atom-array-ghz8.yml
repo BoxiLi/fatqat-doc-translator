@@ -28,7 +28,7 @@
   status: machine
 - id: d75587ca82ded376
   en: A [`fatqat.Program`][fatqat.Program] is the backend-independent circuit description. Gate values live in [`fatqat.operations`](../api/operations.md). NumPy helps us tabulate expectation values, and Matplotlib supplies the captured runtime figure.
-  zh: '[`fatqat.Program`][fatqat.Program] 是与后端无关的电路描述。门的取值位于 [`fatqat.operations`](../api/operations.md) 中。NumPy 帮助我们把期望值制成表格，Matplotlib 则提供捕获的运行时图像。'
+  zh: "[`fatqat.Program`][fatqat.Program] 描述电路，不依赖具体后端。量子门对象位于 [`fatqat.operations`](../api/operations.md)。下面用 NumPy 整理期望值数据，用 Matplotlib 绘制运行结果。"
   status: machine
 - id: beb520b9b0176ac8
   en: The native gate set
@@ -48,7 +48,7 @@
   status: machine
 - id: f73480384b24871e
   en: 'We could grow the GHZ state with a chain of seven controlled-X gates, atom `0` reaching each neighbour in turn. Instead we use a *binary tree*, which reaches all eight atoms in only three layers and lets the gates within each layer run in parallel on independent atom pairs:'
-  zh: 我们本可以用七个受控 X 门组成的链来生长 GHZ 态，让原子 `0` 依次触达每个近邻。这里我们改用*二叉树*：只需三层就能触达全部八个原子，并让每一层内的门在相互独立的原子对上并行运行：
+  zh: "一种做法是串联七个受控 X 门，让原子 `0` 依次与各个邻居建立纠缠。这里采用*二叉树*结构，只需三层即可覆盖全部八个原子；同一层的门作用于互不重叠的原子对，可以并行执行："
   status: machine
 - id: 805a0d8122634fbe
   en: Every pair inside a layer is disjoint, so those controlled-X gates act on separate atoms and could be executed simultaneously by the hardware.

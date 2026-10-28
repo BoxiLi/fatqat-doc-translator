@@ -4,7 +4,7 @@
   status: machine
 - id: dc241ea4dca13af1
   en: '[`Loss`][fatqat.noise.Loss] removes physical carriers from an occupancy-aware simulation. It is not amplitude damping: amplitude damping keeps the subsystem in the modeled Hilbert space, while loss marks the carrier absent and discards its quantum correlations.'
-  zh: '[`Loss`][fatqat.noise.Loss] 从占据感知的模拟中移除物理载体。它不是振幅阻尼：振幅阻尼使子系统保持在所建模的 Hilbert 空间内，而丢失则将载体标记为缺失并丢弃其量子关联。'
+  zh: "[`Loss`][fatqat.noise.Loss] 用于在跟踪占据状态的模拟中移除物理载体。它与振幅阻尼不同：振幅阻尼后，子系统仍在所建模的 Hilbert 空间内；丢失则将载体标记为缺失，并丢弃其量子关联。"
   status: machine
 - id: e14bb4ecf9b048e9
   en: Where loss applies

@@ -100,7 +100,7 @@
   status: machine
 - id: 3958fc75a81809e7
   en: 'Add readout confusion to model incorrectly reported bits. In the matrix below, columns identify the true bit and rows identify the reported bit: a true `0` is reported as `1` with probability 0.02, and a true `1` as `0` with probability 0.04. Without a target selector, this applies to each measured qubit.'
-  zh: 添加读出混淆以建模误报的位。下方矩阵的列对应真实位，行对应报告位：真实 `0` 以 0.02 的概率被报告为 `1`，真实 `1` 以 0.04 的概率被报告为 `0`。不指定目标选择器时，它作用于每个被测量子比特。
+  zh: "添加读出混淆，模拟测量值被误报的情况。下方矩阵的列对应真实值，行对应报告值：真实 `0` 有 0.02 的概率被报为 `1`，真实 `1` 有 0.04 的概率被报为 `0`。不指定目标选择器时，它作用于所有被测量子比特。"
   status: machine
 - id: ffd76383c2484ce0
   en: 'Pass the noise model to another simulator:'

@@ -4,7 +4,7 @@
   status: machine
 - id: ed7d514f8879f0ff
   en: The neutral-atom pulse emulator follows the standard [`Simulator`][fatqat.simulator.Simulator] workflow. Pass a [`Program`][fatqat.Program] to `run()`, then call `job.result()` on the eager [`Job`][fatqat.Job] to get a [`Result`][fatqat.Result]. It is a pulse-resolved physical emulator rather than a mode of [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator].
-  zh: 中性原子脉冲仿真器遵循标准的 [`Simulator`][fatqat.simulator.Simulator] 工作流。将 [`Program`][fatqat.Program] 传给 `run()`，然后在急切执行的 [`Job`][fatqat.Job] 上调用 `job.result()` 以获取 [`Result`][fatqat.Result]。它是脉冲级分辨的物理仿真器，而不是 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 的一种模式。
+  zh: "中性原子脉冲仿真器沿用标准的 [`Simulator`][fatqat.simulator.Simulator] 调用流程：将 [`Program`][fatqat.Program] 传给 `run()`，再调用返回的 [`Job`][fatqat.Job] 的 `job.result()` 获取 [`Result`][fatqat.Result]。返回 Job 时执行已经完成。它对脉冲期间的物理过程进行仿真，是独立的后端，不是 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 的一种模式。"
   status: machine
 - id: ee1ecfd8b861cb83
   en: Use [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] for directly authored global controls in the physical `|g>, |r>` model. See [Choose and run a neutral-atom workflow](../guide/neutral-atom-emulation.md) for a complete executable example.
@@ -152,7 +152,7 @@
   status: machine
 - id: 15f2b26982144298
   en: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | A pure coherent state, or one sampled posterior/trajectory when the execution is stochastic. |'
-  zh: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | 纯相干态；当执行是随机的时，为采样得到的一条后验/轨迹。 |'
+  zh: "| `\"statevector\"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | 纯相干态；执行包含随机过程时，返回一次采样得到的后验态或轨迹。 |"
   status: machine
 - id: b2d0790c9a35b6fa
   en: '| `"density_matrix"` | [`get_density_matrix`][fatqat.Result.get_density_matrix] | `(d**N, d**N)` | The exact ensemble state under supported Lindblad evolution. |'

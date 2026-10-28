@@ -1,0 +1,132 @@
+- id: fb186e87e4fbc4c1
+  en: How to work on an issue
+  zh: 如何着手解决一个 issue
+  status: machine
+- id: 2dc1253f8d19e221
+  en: 'An interesting issue can be a doorway into a codebase. You do not need to understand all of FatQat to begin. This guide helps you take the next steps: understand the question, explore the relevant code, choose an approach, and share a change you can explain. AI tools are welcome throughout the process.'
+  zh: 遇到一个感兴趣的 issue，就可以从这里开始了解代码库，不必先熟悉整个 FatQat。这篇指南会带你弄清问题、阅读相关代码、选择方案，再提交一份自己能讲明白的改动。整个过程中都可以使用 AI 工具。
+  status: machine
+- id: 53ba013c3b6f4c9c
+  en: Give yourself the chance to learn
+  zh: 把学习的机会留给自己
+  status: machine
+- id: 1f271391b1cf5abe
+  en: Please resist the temptation to hand an issue to an AI agent and forward its patch straight to GitHub, or simply relay messages between the agent and reviewers. We have access to these tools too. What we value in your contribution is the understanding you develop and the judgment you bring to the design.
+  zh: 请不要把 issue 丢给 AI Agent，再将它生成的补丁原封不动地提交到 GitHub；也不要只在 Agent 和评审者之间转发消息。我们也能使用这些工具。我们更看重的是，你在探索中理解了什么，以及你对设计作出了怎样的判断。
+  status: machine
+- id: 4a64172f032825af
+  en: 1. Find a place to start
+  zh: 1. 找一个感兴趣的问题
+  status: machine
+- id: fc57dbde72215f0e
+  en: We deliberately leave some issues open for contributors and mark them with the `learning` label. These are opportunities to get to know FatQat by working on a real problem and helping shape its solution. The goal is to learn how FatQat works, why its interfaces are designed as they are, and how the code is structured.
+  zh: 我们会特意留下一些 issue，打上 `learning` 标签，供贡献者参与。你可以借解决实际问题的机会熟悉 FatQat，也参与决定方案怎么做。希望你在这个过程中了解它如何工作、接口为什么这样设计，以及代码是怎样组织的。
+  status: machine
+- id: 0f3be5ca99d2a44a
+  en: Choose one that interests you. You can start with limited knowledge of the package and build your understanding as you investigate. Some issues will take time to explore, even when the eventual change is small.
+  zh: 挑一个你感兴趣的问题就好。即使对这个包还不熟悉，也可以边调查边学习。有些问题最后只需改几行代码，但弄清楚它仍然需要时间。
+  status: machine
+- id: d7d7062829cd1eac
+  en: Begin by reading the issue and its discussion. What is someone trying to accomplish? Try the example if there is one, and ask questions when something is unclear. You do not need a solution yet. You just need a starting point for exploring together.
+  zh: 先读 issue 和已有讨论，弄清提问者想做什么。有示例就跑一跑，不清楚的地方可以直接问。现在不必急着拿出方案，先找到大家能一起往下查的起点。
+  status: machine
+- id: c09ac09aac295b36
+  en: The issue is a starting point for discovery
+  zh: Issue 是探索的起点
+  status: machine
+- id: e323d28a069c38e2
+  en: Sometimes we open an issue because we have spotted a problem, before we have worked out the right solution. A suggested implementation, including one from a maintainer, is something you can investigate and improve. Finding a better approach is a welcome contribution.
+  zh: 有时我们发现了问题就会先开一个 issue，还没有想好该怎么解决。里面建议的实现方式，即便来自维护者，也可以继续研究和改进。找到更好的方案，同样是我们欢迎的贡献。
+  status: machine
+- id: 5a266d9ac1c8d6ea
+  en: 2. Follow the example into the code
+  zh: 2. 顺着示例读代码
+  status: machine
+- id: 79f398685f0d8025
+  en: 'Start by asking your AI tool for a small map of the relevant code. A useful first prompt is:'
+  zh: 可以先请 AI 工具梳理一下相关代码。比如这样问：
+  status: machine
+- id: 71934947a38f6958
+  en: '> "Help me understand how this example runs. Explain what each component is > responsible for, and point me to related tests and documentation. Let''s > explore before making changes."'
+  zh: '> “帮我弄清楚这个示例是怎么运行的。说明各个组件负责什么，指出相关的测试和文档。先一起看懂，再考虑修改。”'
+  status: machine
+- id: e6699a9de0c3196c
+  en: Open the suggested files and follow one path from the public API to the implementation and back to the result. If a function is confusing, ask the tool to walk through it with an example, then check its explanation against the code.
+  zh: 打开它指出的文件，沿着一条调用路径，从公开 API 跟到具体实现，再看结果如何返回。遇到不好理解的函数，可以请工具结合示例解释，但要对照代码核实。
+  status: machine
+- id: 3cf1f39e6e326660
+  en: As the path becomes clearer, ask **why it was designed this way**. Nearby code, Git history, and earlier discussions can reveal constraints that are easy to miss when looking at one function. They can also show where an old decision no longer fits the current needs.
+  zh: 理清调用过程后，再问一问：**为什么这样设计？** 周边代码、Git 历史和早期讨论，可能揭示只看一个函数时容易漏掉的约束，也能帮助你发现哪些旧决定已经不适合当前需求。
+  status: machine
+- id: 74038f85c9e9bf96
+  en: 'A useful point to pause is when you can tell someone: "This component owns the behavior, these callers depend on it, and this is where the issue appears." You can keep investigating the parts you are still unsure about.'
+  zh: 当你能向别人说明“这部分功能由哪个组件负责，哪些调用方依赖它，问题出在哪一步”时，就可以先停下来整理思路。不确定的部分，再继续查。
+  status: machine
+- id: 7c0f0cc3b501c4cc
+  en: 3. Where would the change belong?
+  zh: 3. 这段改动应该放在哪里？
+  status: machine
+- id: 4aac187aed801ccd
+  en: 'Now consider how the solution would fit into what you have learned. Ask your tool to compare approaches with you, and look closely at the trade-offs:'
+  zh: 有了这些认识，再考虑方案如何融入现有代码。可以让工具和你一起比较几种做法，重点看看：
+  status: machine
+- id: 795efc4c6b3285ef
+  en: '**What can we reuse?** Look for existing functionality before adding a second place that does the same job.'
+  zh: '**有哪些现成的功能可以复用？** 先找一找，避免在另一个地方再实现一遍相同功能。'
+  status: machine
+- id: 623a818d882ce6ad
+  en: '**Who should own the behavior?** A clear responsibility makes the change easier to follow and helps keep unrelated components independent.'
+  zh: '**这件事该由谁负责？** 职责清楚，改动才容易理解，也能避免把不相关的组件绑在一起。'
+  status: machine
+- id: 54f590914e77c44f
+  en: '**Will this make future changes harder?** Consider whether a new option, special case, or fallback will make the code harder to understand, test, or extend over time.'
+  zh: '**以后会不会更难改？** 新增的选项、特殊处理或回退逻辑，会不会让代码越来越难理解、测试和扩展？'
+  status: machine
+- id: 0a1dfe56d14370e2
+  en: Clear interfaces and focused modules make it easier to understand one part without reconstructing the whole system. This helps both contributors and AI tools, which also work with limited context.
+  zh: 接口清晰、模块职责集中，读者才不必先理清整个系统，就能看懂其中一部分。这既方便贡献者，也方便同样受上下文限制的 AI 工具。
+  status: machine
+- id: 811308307580d2e5
+  en: 'Sometimes a seemingly small fix needs increasingly awkward workarounds. For example, passing the same information through several unrelated components may suggest that the responsibility belongs elsewhere. Pause and consider whether a modest restructuring would help. Compare it with a direct fix: what becomes clearer, what else must change, and could existing users be affected? Keep the restructuring focused on the problem.'
+  zh: 有时一个看似很小的修复，写着写着却需要越来越别扭的绕行办法。比如，同一份信息要穿过几个互不相关的组件，可能说明这项职责放错了地方。不妨停下来想想，小范围调整结构是否更合适。将它与直接修补比较：哪里会更清楚，还要连带改哪些地方，会不会影响已有用户？结构调整也应围绕当前问题展开。
+  status: machine
+- id: 85256b5fd04a0ff6
+  en: For substantial changes, discuss the direction in the issue before committing to a full implementation. Share what you have learned and invite others to fill in missing context. A small exploratory prototype can help answer a design question and give that discussion concrete evidence.
+  zh: 改动较大时，先在 issue 中讨论方向，再投入完整实现。分享你查到的情况，也请其他人补充你还不了解的背景。可以先做一个小原型，用它验证设计中的疑问，让讨论有具体依据。
+  status: machine
+- id: 10e90e9a2cc9004b
+  en: 4. Try the approach and check the behavior
+  zh: 4. 试着实现，再验证行为
+  status: machine
+- id: fd29905ccf3dec86
+  en: When trying an approach, choose a small example that will help you judge whether it fits. Ask your AI tool to help implement it, then examine and revise the result. Working code is evidence to consider, and the design still needs your judgment.
+  zh: 尝试方案时，选一个小例子，帮助自己判断设计是否合适。可以请 AI 工具协助实现，再仔细检查和修改结果。代码能跑通是一项证据，设计是否合理仍需自己判断。
+  status: machine
+- id: 082859de2ea2f08a
+  en: Work in small steps so you can see what each change does. When an agent drafts code, read the diff and trace your example through the changed path. If a decision surprises you, ask why it is needed and explore alternatives. If the implementation becomes awkward, revisit the design before adding more.
+  zh: 每次改动尽量小一些，才容易看清它改变了什么。Agent 写好代码后，阅读 diff，顺着修改后的路径走一遍示例。遇到意料之外的设计，问清为什么需要它，也考虑其他写法。如果实现越来越别扭，先重新审视设计，再继续添加代码。
+  status: machine
+- id: 0f448103e6ca44b9
+  en: Read the tests with the same care. You can ask your tools to help, but check what each test actually demonstrates. Would it catch the behavior going wrong? Would it still pass if the implementation changed while preserving that behavior? Passing tests are useful evidence when they protect the expectations that matter.
+  zh: 测试也要认真读。可以让工具帮忙，但要自己确认每个测试究竟证明了什么：行为出错时，它能发现吗？换一种实现、保持行为不变时，它还能通过吗？只有守住真正重要的预期，测试通过才有说服力。
+  status: machine
+- id: c88084f9704f4caf
+  en: When updating documentation, explain what users can do and what behavior they should expect. Review AI-generated prose for accuracy and clarity, and remove implementation details or development history that do not help users.
+  zh: 更新文档时，重点说清用户能做什么、会得到怎样的结果。检查 AI 生成的文字是否准确、易懂，删去对用户没有帮助的实现细节和开发经过。
+  status: machine
+- id: b82a4a0361f4bf2d
+  en: 5. Help reviewers follow your reasoning
+  zh: 5. 让评审者看懂你的思路
+  status: machine
+- id: bc47535de3d26225
+  en: A pull request (PR) invites others to examine your change with you. Explain the problem, why you chose this approach, and how you checked it in your own words. Give reviewers enough context to follow your reasoning even if they have not read the issue discussion.
+  zh: 提交 pull request（PR），是邀请别人和你一起检查改动。用自己的话说明问题是什么、为什么选择这个方案，以及做了哪些验证。即使评审者没有读过 issue 讨论，也应能根据这些背景理解你的思路。
+  status: machine
+- id: c92e50e1b0338636
+  en: Read and edit AI-generated summaries before sharing them. Keep details that help someone assess the change, and cut repetition and lengthy lists that obscure the reasoning. If a summary is too long for you to read carefully, it needs another edit before you ask reviewers to read it.
+  zh: AI 生成的摘要，先读过、改过，再分享。保留有助于判断改动的细节，删掉重复内容和掩盖重点的冗长清单。如果连你自己都不愿意仔细读完，就再改一遍，再请评审者阅读。
+  status: machine
+- id: 2fe22f5dd3aeba3c
+  en: Review is another chance to learn. A question may uncover a constraint you missed or help you explain a choice more clearly. You can use AI to investigate a comment, then check the answer and respond from your own understanding.
+  zh: 评审也是学习的机会。一个问题，可能让你发现遗漏的约束，也可能帮助你把某个选择解释得更清楚。可以借助 AI 调查评审意见，但要核实答案，再根据自己的理解回复。
+  status: machine

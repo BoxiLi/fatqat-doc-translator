@@ -32,7 +32,7 @@
   status: machine
 - id: c9366d3f412ef90e
   en: Support depends on the noise form, where it applies, and the backend. The [Backend support](noise/backend-support.md#noise-backend-support) tables show the built-in behavior and unsupported forms for each backend family. Pulse-emulator continuous-noise realizations are family-owned rather than user-replaceable.
-  zh: 支持情况取决于噪声形式、作用位置以及后端。[后端支持](noise/backend-support.md#noise-backend-support)中的表格展示了每个后端家族的内置行为与不受支持的形式。脉冲仿真器的连续噪声实现由各家族自行掌管，用户不可替换。
+  zh: "支持情况取决于噪声形式、作用位置以及后端。[后端支持](noise/backend-support.md#noise-backend-support)中的表格展示了每个后端类型的内置行为与不受支持的形式。脉冲仿真器的连续噪声实现由各类后端自行管理，用户不可替换。"
   status: machine
 - id: 0eb95fb6244c03f1
   en: Quick start
@@ -120,7 +120,7 @@
   status: retired
 - id: eebe1848a578f638
   en: '| [`Loss`][fatqat.noise.Loss] | Per-carrier probability `p` | Every selected carrier in a matched operation | Persistent carrier removal on an occupancy-aware backend |'
-  zh: '| [`Loss`][fatqat.noise.Loss] | 每个载体各自的概率 `p` | 匹配操作中每个被选中的载体 | 在感知占据状态的后端上持久移除载体 |'
+  zh: "| [`Loss`][fatqat.noise.Loss] | 每个载体各自的概率 `p` | 匹配操作中每个被选中的载体 | 在跟踪占据状态的后端上持久移除载体 |"
   status: machine
 - id: bfe822216ede4f67
   en: '| [`ReadoutConfusion`][fatqat.noise.ReadoutConfusion] | Column-stochastic report matrix | Each measured subsystem independently, or one selected subsystem | Classical resampling of the reported digit after physical collapse |'

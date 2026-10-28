@@ -32,7 +32,7 @@
   status: machine
 - id: 2a962cd046b64376
   en: 'FATQAT consumes the input and stores `PauliChannel.terms` as an immutable tuple. The identity term comes first; the other terms keep their input order:'
-  zh: FATQAT 会消耗输入并将 `PauliChannel.terms` 存储为不可变元组。恒等项排在最前，其余各项保持输入顺序：
+  zh: "FATQAT 读取输入后，将 `PauliChannel.terms` 保存为不可变元组。恒等项排在最前，其余项保持输入顺序："
   status: machine
 - id: 4b568d7c224c31e2
   en: After the identity weight has been filled in, the channel is

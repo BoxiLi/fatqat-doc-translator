@@ -24,11 +24,11 @@
   status: machine
 - id: 15f9e5f79f4b0467
   en: The atom-array simulator is the profile introduced in [Hardware-profile simulation](hardware-profile-simulation.md); it does not integrate a Hamiltonian. The physical emulator below uses the pulse workflow from [Hamiltonian emulation](hamiltonian-emulation.md).
-  zh: 原子阵列模拟器就是[硬件配置文件模拟](hardware-profile-simulation.md)中介绍的那个配置文件；它不对哈密顿量进行积分。下面的物理仿真器使用[哈密顿量仿真](hamiltonian-emulation.md)中的脉冲工作流。
+  zh: "原子阵列模拟器就是[硬件配置模拟](hardware-profile-simulation.md)中介绍的硬件模型，不对哈密顿量进行积分。下面的物理仿真器则采用[哈密顿量仿真](hamiltonian-emulation.md)中的脉冲流程。"
   status: machine
 - id: ff611845e5bdbb41
   en: Describe the sites once
-  zh: 一次性描述位点
+  zh: "定义原子位置"
   status: machine
 - id: 5df0c1bedf249775
   en: 'The physical emulator uses a fixed set of sites described by an [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Program resources map to those sites in declaration order by default:'
@@ -68,7 +68,7 @@
   status: machine
 - id: 5478bf9c31bd904b
   en: Continue with the tutorials for a [PXP revival](../tutorials/pxp-z2-revival.md), [antiferromagnetic chain](../tutorials/antiferromagnetic-chain.md), or [gate-level GHZ preparation](../tutorials/atom-array-ghz8.md). For model schemas, units, channel limits, and noise support, use the [neutral-atom emulator API](../api/atom-emulators.md).
-  zh: 接下来可以学习 [PXP 回复](../tutorials/pxp-z2-revival.md)、[反铁磁链](../tutorials/antiferromagnetic-chain.md)或[门级 GHZ 态制备](../tutorials/atom-array-ghz8.md)教程。有关模型模式、单位、信道限制和噪声支持，请使用[中性原子仿真器 API](../api/atom-emulators.md)。
+  zh: "接下来可以学习 [PXP 复苏](../tutorials/pxp-z2-revival.md)、[反铁磁链](../tutorials/antiferromagnetic-chain.md)或[门级 GHZ 态制备](../tutorials/atom-array-ghz8.md)教程。有关模型模式、单位、信道限制和噪声支持，请使用[中性原子仿真器 API](../api/atom-emulators.md)。"
   status: machine
 - id: 5823ac31dd84d4b3
   en: 'Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts. Set `simulation_config={"interaction_cutoff": distance}` on a particular `run()` to remove terms beyond that distance; this is a numerical Hamiltonian truncation rather than a blockade radius.'

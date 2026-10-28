@@ -1,26 +1,26 @@
 - id: 31d2c58fd635b788
   en: Revivals and entanglement growth in an open PXP chain
-  zh: 开放 PXP 链中的回复与纠缠增长
+  zh: "开放 PXP 链中的复苏与纠缠增长"
   status: machine
 - id: 70c934b81e8e5d92
   en: Trotterize the constrained PXP Hamiltonian and compare many-body revivals and half-chain entropy with an independent exact solve.
-  zh: 对受约束的 PXP 哈密顿量做 Trotter 分解，并把多体回复与半链熵同一次独立的精确求解进行比较。
+  zh: "对受约束的 PXP 哈密顿量做 Trotter 分解，并把多体复苏与半链熵同一次独立的精确求解进行比较。"
   status: machine
 - id: 8f1d2f5cada46915
   en: PXP revival fidelities, entanglement entropy, and site occupations
-  zh: PXP 回复保真度、纠缠熵与格点占据
+  zh: "PXP 复苏保真度、纠缠熵与格点占据"
   status: machine
 - id: 748713a02a43f493
   en: Push the Rydberg blockade to its strong-coupling extreme and you are left with the PXP model, and quenching it from the Neel state produces one of the strangest sights in many-body physics.
-  zh: 把里德堡阻塞推到强耦合极限，剩下的就是 PXP 模型；而从 Neel 态对它做猝灭，会产生多体物理中最奇特的景象之一。
+  zh: "在里德堡阻塞的强耦合极限下，可以得到 PXP 模型。从 Neel 态开始进行淬火，会出现一种引人关注的多体现象：量子态在演化中周期性地回到初态附近。"
   status: machine
 - id: af849073a702e725
   en: 'You would expect a ten-site chain to scramble and forget where it started. The PXP chain, for the most part, does exactly that -- except when it starts from $|Z_2\rangle = |r\,g\,r\,g\,\ldots\rangle$. That state keeps snapping back to itself at regular intervals, a phenomenon tied to quantum many-body scars (see [Turner et al., Nature Physics 14, 745 (2018)](https://doi.org/10.1038/s41567-018-0137-5)). Entanglement grows during the quench, but it is not a one-way street either: every revival comes with a visible dip in the half-chain entropy.'
-  zh: 你会以为一条十格点的链会扰乱信息并忘记初始状态。PXP 链在大多数情况下确实如此——除非它从 $|Z_2\rangle = |r\,g\,r\,g\,\ldots\rangle$ 出发。该态会以规则的时间间隔不断弹回到自身，这一现象与量子多体疤痕相关（参见 [Turner et al., Nature Physics 14, 745 (2018)](https://doi.org/10.1038/s41567-018-0137-5)）。纠缠在猝灭过程中增长，但也并非单向：每次回复都伴随着半链熵一次明显的下探。
+  zh: "你会以为一条十格点的链会扰乱信息并忘记初始状态。PXP 链在大多数情况下确实如此——除非它从 $|Z_2\\rangle = |r\\,g\\,r\\,g\\,\\ldots\\rangle$ 出发。该态会以规则的时间间隔不断弹回到自身，这一现象与量子多体疤痕相关（参见 [Turner et al., Nature Physics 14, 745 (2018)](https://doi.org/10.1038/s41567-018-0137-5)）。纠缠在淬火过程中增长，但也并非单向：每次复苏都伴随着半链熵一次明显的下探。"
   status: machine
 - id: 6c41b9609953591e
   en: 'One practical wrinkle: fatqat''s pulse emulators always start from the all-ground state and only offer global controls, so they cannot host a quench from $|Z_2\rangle$. The workaround below is to Trotterize the PXP Hamiltonian into small custom gates and run them on the gate-level simulator, which does accept an arbitrary `initial_state`. An independent QuTiP solve of the exact PXP model checks every curve along the way.'
-  zh: 一个实际的麻烦：fatqat 的脉冲仿真器总是从全基态出发，且只提供全局控制，因此无法承载从 $|Z_2\rangle$ 出发的猝灭。下面的变通做法是把 PXP 哈密顿量 Trotter 分解成小的自定义门，并在门级模拟器上运行——后者接受任意 `initial_state`。整个过程中，每条曲线都由 QuTiP 对精确 PXP 模型的一次独立求解来校验。
+  zh: "一个实际的麻烦：fatqat 的脉冲仿真器总是从全基态出发，且只提供全局控制，因此无法承载从 $|Z_2\\rangle$ 出发的淬火。下面的变通做法是把 PXP 哈密顿量 Trotter 分解成小的自定义门，并在门级模拟器上运行——后者接受任意 `initial_state`。整个过程中，每条曲线都由 QuTiP 对精确 PXP 模型的一次独立求解来校验。"
   status: machine
 - id: c31a31c48dd970bf
   en: '1. Where PXP comes from: the blockade limit of the Rydberg Hamiltonian'
@@ -36,7 +36,7 @@
   status: machine
 - id: f1ac339b77561635
   en: 'with open boundaries, meaning $P_{-1}=P_L=1$. Read each term out loud: site $i$ may flip, but only while both of its neighbours sit in $|g\rangle$. The bulk terms involve three sites; the two boundary terms, $X_0 P_1$ and $P_{L-2}X_{L-1}$, only two.'
-  zh: 边界为开放边界，即 $P_{-1}=P_L=1$。把每一项大声读出来：格点 $i$ 可以翻转，但仅当它的两个近邻都处于 $|g\rangle$ 时才行。体区的项涉及三个格点；两个边界项 $X_0 P_1$ 和 $P_{L-2}X_{L-1}$ 只涉及两个。
+  zh: "这里采用开放边界，即 $P_{-1}=P_L=1$。每一项的含义是：只有两个近邻都处于 $|g\\rangle$ 时，格点 $i$ 才能翻转。链内部的项涉及三个格点，边界项 $X_0 P_1$ 和 $P_{L-2}X_{L-1}$ 则只涉及两个。"
   status: machine
 - id: 9e082ebf36b0ef42
   en: 'A word on scope: this is an ideal model study. The constraint is imposed exactly (not approximated by a big-but-finite $U$), and there is no decoherence and no atom loss.'
@@ -44,7 +44,7 @@
   status: machine
 - id: e352925c0a507d77
   en: 2. The Z2 state and why it revives
-  zh: 2. Z2 态及其回复的原因
+  zh: "2. Z2 态及其复苏的原因"
   status: machine
 - id: b2684425cab669ef
   en: Two Neel configurations live inside the constrained subspace,
@@ -52,7 +52,7 @@
   status: machine
 - id: 5ef459440c9ded7a
   en: We prepare $|Z_2\rangle$, let it go, and watch the return probability $F(t)=|\langle Z_2|\psi(t)\rangle|^2$. A handful of special scarred eigenstates dominate this quench, so $F(t)$ oscillates with a period near $T\approx 4.7/g$, where $g=\Omega/2$ is the PXP coefficient. For the drive used below that means $T\approx 1.5$ us -- but rather than trusting the estimate, we will simply measure where the peaks actually land.
-  zh: 我们制备 $|Z_2\rangle$，放手让它演化，并观察返回概率 $F(t)=|\langle Z_2|\psi(t)\rangle|^2$。少数特殊的疤痕本征态主导了这次猝灭，因此 $F(t)$ 以接近 $T\approx 4.7/g$ 的周期振荡，其中 $g=\Omega/2$ 是 PXP 系数。对于下面使用的驱动，这意味着 $T\approx 1.5$ us——但与其相信这个估计，我们不如直接测量峰值实际落在哪里。
+  zh: "我们制备 $|Z_2\\rangle$，放手让它演化，并观察返回概率 $F(t)=|\\langle Z_2|\\psi(t)\\rangle|^2$。少数特殊的疤痕本征态主导了这次淬火，因此 $F(t)$ 以接近 $T\\approx 4.7/g$ 的周期振荡，其中 $g=\\Omega/2$ 是 PXP 系数。对于下面使用的驱动，这意味着 $T\\approx 1.5$ us——但与其相信这个估计，我们不如直接测量峰值实际落在哪里。"
   status: machine
 - id: a00b1f6295c53c7f
   en: Imports, constants, and the Z2 vector
@@ -69,7 +69,7 @@
 - id: 31bdcdfdbcff3d5a
   en: 'Two constraints decided the approach. First, the pulse emulators always start from $|g\ldots g\rangle$ and only offer global controls, so a quench from $|Z_2\rangle$ is simply not expressible there; the gate-level [`Simulator`][fatqat.simulator.Simulator], on the other hand, happily accepts an `initial_state`. Second, no native gate set contains a PXP term -- but that is exactly what fatqat''s custom-operation extension point is for: [`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] resolves any fixed-arity operation family to a local matrix at execution time.'
   zh: 两个约束决定了这里的做法。第一，脉冲仿真器总是从 $|g\ldots g\rangle$ 出发且只提供全局控制，因此从 $|Z_2\rangle$ 出发的猝灭在那里根本无法表达；而门级 [`Simulator`][fatqat.simulator.Simulator] 则乐于接受 `initial_state`。第二，没有任何原生门集合包含 PXP 项——但这正是 fatqat 自定义操作扩展点的用武之地：[`MatrixImplementationMap`][fatqat.implementation.MatrixImplementationMap] 会在执行时把任意固定元数的操作族解析为一个局部矩阵。
-  status: machine
+  status: retired
 - id: 3844729635724a7b
   en: The exponentials we need are easy to write down. With $M=PXP$ and $M^2=P\otimes I\otimes P$,
   zh: 我们需要的指数很容易写出。取 $M=PXP$，且 $M^2=P\otimes I\otimes P$，
@@ -100,7 +100,7 @@
   status: machine
 - id: b57c7ec9be57aa34
   en: 'Never trust a hand-built Trotter circuit without a second opinion. fatqat''s own physics tests check numerics against an independent oracle, so we do the same here: assemble the exact PXP Hamiltonian directly with QuTiP and solve it once over the whole time grid, starting from the same $|Z_2\rangle$ vector.'
-  zh: 永远不要在没有第二意见的情况下相信手工搭建的 Trotter 电路。fatqat 自己的物理测试就是用独立的对照来校验数值的，我们在这里也照做：直接用 QuTiP 组装精确的 PXP 哈密顿量，并从同一个 $|Z_2\rangle$ 向量出发，在整个时间网格上一次性求解。
+  zh: "手工构建的 Trotter 电路需要独立结果来核验。fatqat 的物理测试也采用这种方法：这里直接用 QuTiP 构造精确的 PXP 哈密顿量，从相同的 $|Z_2\\rangle$ 出发，一次求解整个时间网格，再与电路模拟比较。"
   status: machine
 - id: 7cc4caa86a408c3e
   en: '5. What to measure: fidelity and half-chain entropy'
@@ -108,7 +108,7 @@
   status: machine
 - id: 233adac0fddee8d5
   en: Two numbers tell the whole story. The fidelity $F(t)=|\langle Z_2|\psi(t)\rangle|^2$ says how much of the state comes back, and the fidelity to the twin branch tells us whether a revival lands on the *same* Neel orientation or the mirrored one. The half-chain von Neumann entropy
-  zh: 两个数字就能讲完整个故事。保真度 $F(t)=|\langle Z_2|\psi(t)\rangle|^2$ 表示态回来了多少，而对孪生分支的保真度告诉我们回复落在*同一个* Neel 取向上还是镜像取向上。半链 von Neumann 熵
+  zh: "主要看保真度和纠缠熵两个指标。保真度 $F(t)=|\\langle Z_2|\\psi(t)\\rangle|^2$ 衡量量子态返回初态的程度；与另一条分支的保真度则帮助判断，复苏时回到的是*相同的* Neel 取向，还是镜像取向。半链 von Neumann 熵为"
   status: machine
 - id: ece6693024fffa8c
   en: with $A$ the first five sites, tracks how entangled the two halves get. Both curves come from the same small helpers, so the fatqat and oracle numbers are directly comparable.
@@ -116,7 +116,7 @@
   status: machine
 - id: efff7dd531d18964
   en: 6. Run the quench and collect the time series
-  zh: 6. 运行猝灭并收集时间序列
+  zh: "6. 运行淬火并收集时间序列"
   status: machine
 - id: 0230d4ce555b5150
   en: For each grid time we rebuild the Trotter program (it grows with the duration) and evolve it once from $|Z_2\rangle$; the oracle hands us the corresponding exact state. It is a bit of a brute-force way to sample a time axis, but it keeps everything on the public API -- and the ten-site chain is small enough that it finishes in seconds.
@@ -124,15 +124,15 @@
   status: retired
 - id: a105df806941eff7
   en: Revival peaks are just local maxima of the fidelity after the initial decay. Notice that each peak lands on the *same* Neel branch -- the twin-branch fidelity stays negligible there, so the state really does come back to where it started.
-  zh: 回复峰不过是初始衰减之后保真度的局部极大值。注意每个峰都落在*同一个* Neel 分支上——孪生分支的保真度在那里始终可以忽略，因此态确实回到了它出发的地方。
+  zh: "复苏峰不过是初始衰减之后保真度的局部极大值。注意每个峰都落在*同一个* Neel 分支上——孪生分支的保真度在那里始终可以忽略，因此态确实回到了它出发的地方。"
   status: machine
 - id: 276c31b8dc599493
   en: 7. Read the revival and the entropy growth
-  zh: 7. 解读回复与熵增长
+  zh: "7. 解读复苏与熵增长"
   status: machine
 - id: 47bf563363e4b866
   en: 'The left panel is the money plot: three revivals around $t\approx 1.5, 3.0, 4.5$ us, each a little weaker than the last -- the fingerprint of PXP scars. The middle panel shows why these dynamics are not thermal: the half-chain entropy grows, but it *dips* at every revival, as if the state briefly remembered how to be a product state again. The right panel tells the same story in real space, with the Neel stripes melting during the quench and partially reassembling each time the fidelity peaks.'
-  zh: 左图是最关键的一张：三次回复出现在 $t\approx 1.5, 3.0, 4.5$ us 附近，一次比一次略弱——这是 PXP 疤痕的指纹。中图说明了这些动力学为何不是热化的：半链熵在增长，但在每次回复处都会*下探*，仿佛态短暂地想起了如何再次成为直积态。右图在实空间讲述同一个故事：Neel 条纹在猝灭中熔化，并在每次保真度达到峰值时部分重组。
+  zh: "左图显示了最主要的结果：在 $t\\approx 1.5, 3.0, 4.5$ us 附近出现三次逐渐减弱的复苏，这是 PXP 多体疤痕的典型特征。中图中，半链熵整体增长，却在每次复苏时*下降*，表明系统短暂地更接近直积态，这与通常的热化过程不同。右图从实空间展示同一过程：Neel 条纹在淬火演化中逐渐消失，并在保真度峰值附近部分恢复。"
   status: machine
 - id: 735ebb315bf89414
   en: 'Ten sites, working in rad/us and us units, and the familiar drive scale $\Omega=2\pi$ rad/us, so the PXP coefficient is $g=\pi$ rad/us. One convention to keep straight: FATQAT stores the amplitude of $|b_0\ldots b_9\rangle$ at index $\sum_i b_i 2^{N-1-i}$ (site 0 is the most significant bit), so each Neel state is a single basis vector -- just two index numbers to remember.'
@@ -140,9 +140,9 @@
   status: machine
 - id: 403d59f01d13d8cf
   en: In code, the forward pass is `for site in range(NUM_SITES)` -- left edge, then the bulk terms, then the right edge -- and the backward pass is the same loop in reverse. Each half-step exponent is $h_j\,dt/2$, and $h_j$ already carries $\Omega/2$, so every registered matrix uses the one angle $\theta=\Omega\,dt/4$. Repeating this symmetric step `round(duration / dt)` times walks the quench out to durations that are integer multiples of `dt`.
-  zh: 代码中，正向遍历为 `for site in range(NUM_SITES)`，依次经过左边界、体项和右边界；反向遍历则将同一循环倒序。每个半步的指数为 $h_j\,dt/2$，而 $h_j$ 已包含 $\Omega/2$，因此每个注册矩阵都使用同一个角度 $\theta=\Omega\,dt/4$。将这一对称步骤重复 `round(duration / dt)` 次，即可将骤变演化推进到 `dt` 整数倍的时长。
+  zh: "代码中，正向遍历为 `for site in range(NUM_SITES)`，依次经过左边界、体项和右边界；反向遍历则将同一循环倒序。每个半步的指数为 $h_j\\,dt/2$，而 $h_j$ 已包含 $\\Omega/2$，因此每个注册矩阵都使用同一个角度 $\\theta=\\Omega\\,dt/4$。将这一对称步骤重复 `round(duration / dt)` 次，即可将淬火演化推进到 `dt` 整数倍的时长。"
   status: machine
 - id: 54738af626f46c87
   en: Build one Trotter program for the interval between samples. Starting from $|Z_2\rangle$, pass each final state into the next run through `initial_state`. For this noiseless, time-independent quench, a uniform, Trotter-aligned grid gives the same ordered evolution at each sample as restarting from the initial state.
-  zh: 为相邻采样点的时间间隔构建一个 Trotter 程序。从 $|Z_2\rangle$ 出发，通过 `initial_state` 将每次的最终态传给下一次运行。对于这个无噪声、与时间无关的骤变过程，均匀且与 Trotter 步长对齐的网格，在每个采样点给出的有序演化与从初态重新运行相同。
+  zh: "为相邻采样点的时间间隔构建一个 Trotter 程序。从 $|Z_2\\rangle$ 出发，通过 `initial_state` 将每次的最终态传给下一次运行。对于这个无噪声、与时间无关的淬火过程，均匀且与 Trotter 步长对齐的网格，在每个采样点给出的有序演化与从初态重新运行相同。"
   status: machine

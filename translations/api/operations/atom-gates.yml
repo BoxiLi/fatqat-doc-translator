@@ -20,7 +20,7 @@
   status: retired
 - id: 40ef0cbd7b3555ae
   en: '`Pair` and `Unpair` update the connectivity used by later supported gates; they do not change the quantum state or make an unsupported gate available. In the built-in atom-array profile, [`CZ`][fatqat.operations.CZ] is native and requires a current pairing. The atom backend rejects a condition on either instruction with [`BackendValidationError`][fatqat.errors.BackendValidationError] when the program runs.'
-  zh: '`Pair` 和 `Unpair` 更新供后续受支持的门使用的连通性；它们不改变量子态，也不会使不受支持的门变为可用。在内置的原子阵列配置文件中，[`CZ`][fatqat.operations.CZ] 是原生门，且要求当前存在配对。程序运行时，原子后端会以 [`BackendValidationError`][fatqat.errors.BackendValidationError] 拒绝这两条指令上的条件。'
+  zh: "`Pair` 和 `Unpair` 更新供后续受支持的门使用的连通性；它们不改变量子态，也不会使不受支持的门变为可用。在内置的原子阵列配置中，[`CZ`][fatqat.operations.CZ] 是原生门，且要求当前存在配对。程序运行时，原子后端会以 [`BackendValidationError`][fatqat.errors.BackendValidationError] 拒绝这两条指令上的条件。"
   status: machine
 - id: 54df53c6613582e9
   en: '| Value | Scalar targets | Effect | Conditions | Attached noise |'
@@ -44,7 +44,7 @@
   status: machine
 - id: e7b64cec8c35e739
   en: '| [`Put`][fatqat.operations.Put] | One or more scalars, or one [`RegisterView`](../registers.md#fatqat.RegisterView) | Loads `\|0>` into each empty site; leaves occupied sites unchanged. | Allowed. | [`Loss`][fatqat.noise.Loss] only, after each enabled `Put` operation. |'
-  zh: '| [`Put`][fatqat.operations.Put] | 一个或多个标量，或一个 [`RegisterView`](../registers.md#fatqat.RegisterView) | 将 `\ | 0>` 装载到每个空位点；已占据的位点保持不变 | 允许 | 仅限 [`Loss`][fatqat.noise.Loss]，在每次生效的 `Put` 操作之后运行 |'
+  zh: "| [`Put`][fatqat.operations.Put] | 一个或多个标量，或一个 [`RegisterView`](../registers.md#fatqat.RegisterView) | 将 `\\|0>` 装载到每个空位点；已占据的位点保持不变 | 允许 | 仅限 [`Loss`][fatqat.noise.Loss]，在每次生效的 `Put` 操作之后运行 |"
   status: machine
 - id: 885cbfdeb0c6ed58
   en: '| [`Pair`][fatqat.operations.Pair] | Exactly two scalars | Adds their undirected connectivity edge; repeated pairing is a no-op. | Rejected. | [`Loss`][fatqat.noise.Loss] or a supported finite channel. |'

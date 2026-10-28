@@ -44,7 +44,7 @@
   status: machine
 - id: 87609141707bf8ea
   en: '`LogicalProgram` is for device-independent gates that can be lowered by the compiler. Use [`Program`](program.md) when you are constructing physical operations directly, such as atom placement, pairing, or pulse controls, or when you are adding custom operation types.'
-  zh: '`LogicalProgram` 用于可由编译器降级转换的设备无关量子门。如果要直接构建原子放置、配对或脉冲控制等物理操作，或者添加自定义操作类型，请使用 [`Program`](program.md)。'
+  zh: "`LogicalProgram` 用于描述不依赖设备、可由编译器转换为目标指令的量子门。若要直接添加原子放置、配对或脉冲控制等物理操作，或使用自定义 Operation 类型，请使用 [`Program`](program.md)。"
   status: machine
 - id: 04e41354faeb8034
   en: Classical conditions are available when simulating a `LogicalProgram` directly. The current compiler handles static circuits with terminal measurements; the [compiler guide](../guide/compiler.md#current-compiler-support) summarizes the supported inputs.

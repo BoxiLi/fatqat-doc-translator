@@ -4,7 +4,7 @@
   status: retired
 - id: 9bf34699612b6c6b
   en: Start with [Choose how much physics to model](../../guide/execution-models.md) to choose an execution level, or follow [Test a Program against a hardware profile](../../guide/hardware-profile-simulation.md) for the profile workflow.
-  zh: 请先阅读[选择建模的物理程度](../../guide/execution-models.md)来选定执行层级，或按照[用硬件配置测试 Program](../../guide/hardware-profile-simulation.md)了解硬件配置的工作流程。
+  zh: "请先阅读[选择需要建模的物理细节](../../guide/execution-models.md)来选定执行层级，或按照[用硬件配置测试 Program](../../guide/hardware-profile-simulation.md)了解硬件配置的工作流程。"
   status: machine
 - id: 08872929bcfdb369
   en: The superconducting profiles use a fixed rectangular grid. [`SCQubitIBMSimulator`][fatqat.simulator.SCQubitIBMSimulator] accepts IBM-style native gates and nearest-neighbour `CZ`. [`SCQubitGoogleSimulator`][fatqat.simulator.SCQubitGoogleSimulator] accepts native rotations and nearest-neighbour `iSwap` and `CZ`. Both offer an optional reference noise model.
@@ -16,7 +16,7 @@
   status: retired
 - id: f1b9253556594d02
   en: 'The profiles validate the program as written: they do not transpile or route it, and they do not reproduce a named processor. Use the [pulse emulators](../emulators/index.md) when timing or Hamiltonian evolution matters.'
-  zh: 硬件配置按程序原样进行验证：它们不做转译或布线，也不复现任何具名处理器。当时序或哈密顿量演化重要时，请使用[脉冲仿真器](../emulators/index.md)。
+  zh: "硬件配置按程序已有的指令进行验证，不会自动转译或路由，也不对应某一台实际处理器。若研究需要考虑时序或哈密顿量演化，请使用[脉冲仿真器](../emulators/index.md)。"
   status: machine
 - id: b423a251c71fdae6
   en: '**Choose a simulator**'
@@ -64,7 +64,7 @@
   status: machine
 - id: 933c61ba7f9876bb
   en: FatQat provides a general circuit simulator and two hardware profiles. They use the same run and result API. Choose [`Simulator`][fatqat.simulator.Simulator] for unrestricted gate-level work, or a profile when the program must obey a native gate set, layout, or connectivity rule.
-  zh: FatQat 提供通用电路模拟器和两种硬件配置，使用相同的运行与结果 API。无限制的门级工作可选择 [`Simulator`][fatqat.simulator.Simulator]；当程序必须遵守原生门集、布局或连接规则时，选择硬件配置。
+  zh: "FatQat 提供通用电路模拟器和两种硬件配置，它们使用相同的运行与结果 API。无需考虑设备约束时，可用 [`Simulator`][fatqat.simulator.Simulator]；需要检查原生门集、布局或连接规则时，则选择对应的硬件配置。"
   status: machine
 - id: e5bbaff4b52ca744
   en: '[`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] uses a configurable superconducting coupling graph and accepts `X`, `SX`, virtual `RZ`, and coupled `CZ`. It offers an optional reference noise model.'

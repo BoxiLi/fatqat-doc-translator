@@ -46,3 +46,11 @@ check` enforces the structural ones; reviewers enforce the rest.
 7. **Status discipline.** Machine output sets `status: machine`. Only a human
    reviewer flips an entry to `reviewed`. Never edit `id:` or `en:` by hand —
    they belong to the extractor.
+8. **Write for Chinese-speaking developers.** Explain what the reader can do,
+   what happens, and why it matters in natural Chinese. Restructure sentences
+   instead of copying English word order or metaphors, while preserving every
+   technical condition. For example, eager execution means execution has already
+   happened when the Job is returned, not “急切执行”; a hardware profile is
+   “硬件配置”, not necessarily a file. Use “综合征” for syndrome, “复苏” for
+   quantum revival, and “淬火” for quantum quench. Keep prose concise and use
+   the same wording in headings, navigation, and links to those headings.

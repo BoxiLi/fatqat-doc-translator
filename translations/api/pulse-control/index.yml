@@ -4,7 +4,7 @@
   status: machine
 - id: 4c1b4dccb6e49b6e
   en: Read [Follow a Program into physical dynamics](../../guide/hamiltonian-emulation.md) first for the gate-calibration, direct-control, and scheduling workflow. This section defines the exact pulse objects and validation rules.
-  zh: 请先阅读[跟随 Program 进入物理动力学](../../guide/hamiltonian-emulation.md)，了解门校准、直接控制与调度工作流。本节定义确切的脉冲对象及其验证规则。
+  zh: "请先阅读[用 Program 模拟物理动力学](../../guide/hamiltonian-emulation.md)，了解门校准、直接控制与调度工作流。本节定义确切的脉冲对象及其验证规则。"
   status: machine
 - id: ddca672ef1110b07
   en: 'A direct pulse block is built from three values:'
@@ -68,7 +68,7 @@
   status: machine
 - id: 2d512d6140f104a8
   en: 'Pulse emulators evolve noise over time, so their family-owned Lindblad realizations use rates or relaxation times. They do not infer a rate from a finite probability. In particular, [`PauliChannel`][fatqat.noise.PauliChannel] remains a discrete Simulator channel: its probabilities do not specify a duration or conversion convention. Use [`Simulator`][fatqat.simulator.Simulator] for discrete Pauli noise, or a rate-form declaration listed for the pulse-emulator family in [Pulse emulators](../noise/backend-support.md#noise-emulator-support).'
-  zh: 脉冲仿真器随时间演化噪声，因此其家族专属的 Lindblad 实现使用速率或弛豫时间，而不会从有限概率推断速率。特别地，[`PauliChannel`][fatqat.noise.PauliChannel] 仍然是离散的 Simulator 信道：其概率并未指定时长或换算约定。对于离散 Pauli 噪声，请使用 [`Simulator`][fatqat.simulator.Simulator]，或使用[脉冲仿真器](../noise/backend-support.md#noise-emulator-support)中为脉冲仿真器家族列出的速率形式声明。
+  zh: "脉冲仿真器随时间演化噪声，因此其各自的 Lindblad 实现使用速率或弛豫时间，而不会从有限概率推断速率。特别地，[`PauliChannel`][fatqat.noise.PauliChannel] 仍然是离散的 Simulator 信道：其概率并未指定时长或换算约定。对于离散 Pauli 噪声，请使用 [`Simulator`][fatqat.simulator.Simulator]，或使用[脉冲仿真器](../noise/backend-support.md#noise-emulator-support)中为脉冲仿真器类型列出的速率形式声明。"
   status: machine
 - id: e82ac69fa308ff9f
   en: '[PulseOperation](pulse-operation.md)'

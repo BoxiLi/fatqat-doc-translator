@@ -8,7 +8,7 @@
   status: machine
 - id: 3bc601a71335ff45
   en: Why compile against a target
-  zh: '为什么针对编译目标进行编译'
+  zh: "为什么单独定义编译目标"
   status: machine
 - id: 08b32b1a6571a790
   en: A target contains only the information the compiler needs. It has no gate set, runtime, simulation method, or noise model, and it cannot run a program. You can therefore compile without constructing a simulator, and choose how to run the result afterwards.

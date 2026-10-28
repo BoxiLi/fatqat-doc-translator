@@ -40,11 +40,11 @@
   status: machine
 - id: c6c4846e2d6ecd30
   en: For target-based operations, [`add`][fatqat.Program.add] resolves target references, checks arity, and rejects repeated scalar targets. The selected backend checks operation and device support when you submit the program; an unsupported family raises [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. A direct [`PulseOperation`][fatqat.operations.PulseOperation] follows the channel-addressing rules on [PulseOperation](pulse-control/pulse-operation.md) and is added without targets.
-  zh: "对于基于目标的操作，[`add`][fatqat.Program.add] 会解析目标引用、检查操作数个数，并拒绝重复的标量目标。所选后端在你提交程序时检查操作与设备支持；不受支持的操作族会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。直接添加的 [`PulseOperation`][fatqat.operations.PulseOperation] 遵循 [PulseOperation](pulse-control/pulse-operation.md) 中的通道寻址规则，添加时不带目标。"
+  zh: "对于基于目标的操作，[`add`][fatqat.Program.add] 会解析目标引用、检查操作数个数，并拒绝重复的标量目标。所选后端在你提交程序时检查操作与设备支持；不受支持的操作类型会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。直接添加的 [`PulseOperation`][fatqat.operations.PulseOperation] 遵循 [PulseOperation](pulse-control/pulse-operation.md) 中的通道寻址规则，添加时不带目标。"
   status: machine
 - id: e112586e4acd1531
   en: Most targets are a scalar [`RegisterRef`][fatqat.RegisterRef] or an integer. Use an integer when the program has one quantum register; with multiple registers, index the register you want. Controlled gates use control-first order, and the first local operand is the most-significant digit in the matrices and basis actions on the family pages.
-  zh: "大多数目标是标量 [`RegisterRef`][fatqat.RegisterRef] 或整数。程序只有一个量子 Register 时可以使用整数；存在多个 Register 时，请索引所需的 Register。受控门采用控制位在前的顺序，并且在各操作族页面的矩阵和基作用中，第一个局部操作数是最高有效数位。"
+  zh: "大多数目标是标量 [`RegisterRef`][fatqat.RegisterRef] 或整数。程序只有一个量子 Register 时可以使用整数；存在多个 Register 时，请索引所需的 Register。受控门采用控制位在前的顺序，并且在各操作类型页面的矩阵和基作用中，第一个局部操作数是最高有效数位。"
   status: machine
 - id: f7b72fa50fc6eb9f
   en: Every built-in unitary gate accepts [`RegisterView`](registers.md#fatqat.RegisterView) targets. A unary gate acts on each selected member. A multi-target gate accepts one compatible view per operand and zips their members in order. See [Registers](registers.md) for the compatibility rules and [Write quantum computations with Program](../guide/program.md) for the ordinary construction workflow.
@@ -56,7 +56,7 @@
   status: machine
 - id: 83a7dfd2e4379f90
   en: Subclassing [`Operation`][fatqat.operations.Operation] defines a new program-level value; it does not register a matrix or pulse realization. See [Matrix implementations](implementation.md) for the custom matrix contract and [Gate realization](pulse-control/gate-realization.md) for pulse realizations.
-  zh: 子类化 [`Operation`][fatqat.operations.Operation] 只定义一个新的程序级值；它不会注册矩阵实现或脉冲实现。有关自定义矩阵契约，参见[矩阵实现](implementation.md)；有关脉冲实现，参见[门实现](pulse-control/gate-realization.md)。
+  zh: "子类化 [`Operation`][fatqat.operations.Operation] 只定义一个新的程序级值；它不会注册矩阵实现或脉冲实现。有关自定义矩阵的接口约定，参见[矩阵实现](implementation.md)；有关脉冲实现，参见[门实现](pulse-control/gate-realization.md)。"
   status: machine
 - id: d98d878da3d15b0e
   en: '| Page | Contents |'
