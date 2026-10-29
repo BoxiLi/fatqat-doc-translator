@@ -60,7 +60,7 @@
   status: machine
 - id: 46c03a3fde0e3b99
   en: 'FatQat can prepare the same logical circuit for a superconducting simulator or a neutral-atom simulator. The normal workflow has three steps:'
-  zh: "FatQat 可以将同一个逻辑电路编译为超导模拟器或中性原子模拟器可运行的程序。通常分为三步："
+  zh: FatQat 可以将同一个逻辑电路编译为超导模拟器或中性原子模拟器可运行的程序。通常分为三步：
   status: machine
 - id: fa0f17cc5980da2e
   en: Build a [`LogicalProgram`][fatqat.LogicalProgram].
@@ -128,7 +128,7 @@
   status: machine
 - id: 9b06dadff5471f8d
   en: '`compiled.output` is the final compiler representation: an `SCNativeProgram` for SC or a `ZonedPlan` for NA.'
-  zh: "`compiled.output` 保存最终编译产物：SC 对应 `SCNativeProgram`，NA 对应 `ZonedPlan`。"
+  zh: '`compiled.output` 保存最终编译产物：SC 对应 `SCNativeProgram`，NA 对应 `ZonedPlan`。'
   status: machine
 - id: 76bec3679bda0d83
   en: '`compiled.route` lists the compiler stages that ran.'
@@ -176,21 +176,21 @@
   status: machine
 - id: a0eb5c50fd3df5ba
   en: '`couplings` can describe any valid graph; the topology does not need to be a grid. The current public SC profile uses X, SX, RZ, and CZ as its native gate set. Toffoli (`CCX`) gates are decomposed into one- and two-qubit gates before routing.'
-  zh: "`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。"
+  zh: '`couplings` 可以描述任意有效图，拓扑不必是网格。当前公共 SC 硬件配置使用 X、SX、RZ 和 CZ 作为原生门集。Toffoli（`CCX`）门会在路由前分解为单量子比特和双量子比特门。'
   status: machine
 - id: a78b91dd4db9ad90
   en: 'Describe the device with an [`SCTarget`][fatqat.compiler.SCTarget]: the number of physical qubits and their allowed two-qubit connections. The compiler maps the logical qubits to this topology and adds routing operations where they are needed.'
-  zh: '使用 [`SCTarget`][fatqat.compiler.SCTarget] 描述设备：物理量子比特数量及允许的双量子比特连接。编译器将逻辑量子比特映射到此拓扑，并在需要时添加路由指令。'
+  zh: 使用 [`SCTarget`][fatqat.compiler.SCTarget] 描述设备：物理量子比特数量及允许的双量子比特连接。编译器将逻辑量子比特映射到此拓扑，并在需要时添加路由指令。
   status: machine
 - id: 2dea8262bfd52d6c
   en: 'The target describes only the device''s qubits and connections. Choose how to run the result separately: create an [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator] that provides the qubits and connections the result uses, and select its runtime, simulation method, and noise model there.'
-  zh: "编译目标只描述设备的量子比特和连接关系。执行方式另行配置：创建一个 [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator]，确保它包含编译结果所需的量子比特和连接，再选择运行时、模拟方法与噪声模型。"
+  zh: 编译目标只描述设备的量子比特和连接关系。执行方式另行配置：创建一个 [`SCQubitSimulator`][fatqat.simulator.SCQubitSimulator]，确保它包含编译结果所需的量子比特和连接，再选择运行时、模拟方法与噪声模型。
   status: machine
 - id: bef30853ea8b21ce
   en: A simulator with more qubits or additional connections can run the same result. If the simulator lacks a qubit or connection that the result uses, `run()` raises an error immediately. The [SCTarget reference](../api/sc-target.md#when-errors-are-raised) lists these errors.
-  zh: '具有更多量子比特或额外连接的模拟器也能运行同一个结果。如果模拟器缺少结果所用的某个量子比特或连接，`run()` 会立即抛出错误。[SCTarget 参考文档](../api/sc-target.md#when-errors-are-raised)列出了这些错误。'
+  zh: 具有更多量子比特或额外连接的模拟器也能运行同一个结果。如果模拟器缺少结果所用的某个量子比特或连接，`run()` 会立即抛出错误。[SCTarget 参考文档](../api/sc-target.md#when-errors-are-raised)列出了这些错误。
   status: machine
 - id: 5d2ca6e80653c2ea
   en: 'Code that passes a simulator to the compiler continues to work. The compiler then uses the simulator''s qubits and connections, and also checks the emitted gates against its implementation map:'
-  zh: '将模拟器传给编译器的代码仍然可用。此时，编译器使用模拟器的量子比特与连接，并根据其实现映射检查生成的量子门：'
+  zh: 将模拟器传给编译器的代码仍然可用。此时，编译器使用模拟器的量子比特与连接，并根据其实现映射检查生成的量子门：
   status: machine

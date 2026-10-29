@@ -8,7 +8,7 @@
   status: machine
 - id: 7f15acf255570f6a
   en: FATQAT provides drawing methods on the object that owns the data. A [`Program`][fatqat.Program] draws its circuit or derives a logical interaction summary, while a [`Result`][fatqat.Result] draws the measurement outcomes from one run.
-  zh: "FATQAT 将绘图方法放在对应的数据对象上：[`Program`][fatqat.Program] 负责绘制电路和导出逻辑相互作用汇总，[`Result`][fatqat.Result] 负责绘制一次运行的测量结果。"
+  zh: FATQAT 将绘图方法放在对应的数据对象上：[`Program`][fatqat.Program] 负责绘制电路和导出逻辑相互作用汇总，[`Result`][fatqat.Result] 负责绘制一次运行的测量结果。
   status: machine
 - id: dd47988b226ad49c
   en: Draw a circuit
@@ -20,7 +20,7 @@
   status: machine
 - id: e17d8f654653d20a
   en: The default Matplotlib renderer returns a `Figure`. The text renderer returns a string and does not print it. Circuit drawings use one wire per register slot; they do not depict register dimension or hardware connectivity.
-  zh: "默认的 Matplotlib 渲染器返回一个 `Figure`。文本渲染器返回一个字符串，并不会把它打印出来。电路图为每个 Register 槽位使用一条线；它们不描绘 Register 维度或硬件连通性。"
+  zh: 默认的 Matplotlib 渲染器返回一个 `Figure`。文本渲染器返回一个字符串，并不会把它打印出来。电路图为每个 Register 槽位使用一条线；它们不描绘 Register 维度或硬件连通性。
   status: machine
 - id: 82b7b851abc37586
   en: '![Three-qubit circuit containing H, controlled-X, controlled-Z, and measurement operations.](../assets/generated/guide/visualization-circuit.png)'
@@ -28,11 +28,11 @@
   status: machine
 - id: 3d2314df491fef4c
   en: Passing `ax=` embeds the circuit in a Matplotlib layout owned by the caller.
-  zh: "传入 `ax=`，即可将电路画到你已有的 Matplotlib 布局中。"
+  zh: 传入 `ax=`，即可将电路画到你已有的 Matplotlib 布局中。
   status: machine
 - id: 214c482f6b8fdaad
   en: The same composition pattern works for the FATQAT-owned Matplotlib visualizations below.
-  zh: "下文其他基于 Matplotlib 的 FATQAT 绘图方法也支持这种用法。"
+  zh: 下文其他基于 Matplotlib 的 FATQAT 绘图方法也支持这种用法。
   status: machine
 - id: b41a7567e8b288a6
   en: Draw logical interaction frequency

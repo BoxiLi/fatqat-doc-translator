@@ -44,7 +44,7 @@
   status: machine
 - id: 3fa5ee8ab76aa28c
   en: 'The gap between those two numbers is the thing to keep in view. The QUBO''s minimum is cheaper than the best feasible split, and it is cheaper precisely because it is allowed to be wrong: its islands are disconnected. An optimizer pointed at this model is being pointed slightly past the answer.'
-  zh: "这两个数的差距值得注意：QUBO 最小值比最佳可行划分的代价更低，因为模型允许孤岛不连通。直接最小化这个模型，并不能保证得到原问题的可行答案。"
+  zh: 这两个数的差距值得注意：QUBO 最小值比最佳可行划分的代价更低，因为模型允许孤岛不连通。直接最小化这个模型，并不能保证得到原问题的可行答案。
   status: machine
 - id: 7533a0f3b88bedbc
   en: Running QAOA on the 14-bus model

@@ -8,7 +8,7 @@
   status: machine
 - id: 7354235e0d0b9af3
   en: Use these tables to see which built-in backends accept each noise type and form. **Built in** means the standard backend accepts it. **Unsupported** means the backend family rejects it.
-  zh: "通过这些表格可以查看各内置后端接受哪些噪声类型与形式。**内置**表示标准后端接受它。**不支持**表示该后端类型拒绝它。"
+  zh: 通过这些表格可以查看各内置后端接受哪些噪声类型与形式。**内置**表示标准后端接受它。**不支持**表示该后端类型拒绝它。
   status: machine
 - id: b5b07a3a53fdcaaf
   en: For one configured backend, use [`validate_noise_model`][fatqat.simulator.Simulator.validate_noise_model] on a simulator or [`validate_noise_model`][fatqat.emulator.TransmonEmulator.validate_noise_model] on a pulse emulator. These methods validate a model without a program. FATQAT checks references, device labels, operation matches, dimensions, and execution-method limits when it runs a concrete program.
@@ -40,7 +40,7 @@
   status: retired
 - id: ed8073b6663c451e
   en: Execution method also matters. `statevector` samples one Kraus trajectory per noisy shot, while `density_matrix` and `superop` apply probability-form channels exactly. `unitary` rejects any channel that matches the program. Only `statevector` and `density_matrix` support the AtomArray occupancy lifecycle; requesting a final state with loss requires `shots == 1`.
-  zh: "执行方法同样重要。`statevector` 对每个含噪 shot 采样一条 Kraus 轨迹，而 `density_matrix` 与 `superop` 精确应用概率形式的信道。`unitary` 拒绝任何与程序匹配的信道。只有 `statevector` 与 `density_matrix` 支持 AtomArray 的占据生命周期；存在丢失时请求最终状态要求 `shots == 1`。"
+  zh: 执行方法同样重要。`statevector` 对每个含噪 shot 采样一条 Kraus 轨迹，而 `density_matrix` 与 `superop` 精确应用概率形式的信道。`unitary` 拒绝任何与程序匹配的信道。只有 `statevector` 与 `density_matrix` 支持 AtomArray 的占据生命周期；存在丢失时请求最终状态要求 `shots == 1`。
   status: machine
 - id: a8fb7d389dad1bf5
   en: <a id="noise-emulator-support"></a>
@@ -48,7 +48,7 @@
   status: machine
 - id: ac7d35b392ad9f96
   en: Pulse emulators use local Lindblad operators built from supported rates and times. They do not infer a rate from a probability. Built-in probability forms, [`PauliChannel`][fatqat.noise.PauliChannel], and [`Loss`][fatqat.noise.Loss] are unsupported. Each emulator family owns its continuous-noise realizations.
-  zh: "脉冲仿真器使用由受支持的速率与时间构建的局部 Lindblad 算符。它们不会从概率推断速率。内置概率形式、[`PauliChannel`][fatqat.noise.PauliChannel] 与 [`Loss`][fatqat.noise.Loss] 均不受支持。每个仿真器类型拥有各自的连续噪声实现。"
+  zh: 脉冲仿真器使用由受支持的速率与时间构建的局部 Lindblad 算符。它们不会从概率推断速率。内置概率形式、[`PauliChannel`][fatqat.noise.PauliChannel] 与 [`Loss`][fatqat.noise.Loss] 均不受支持。每个仿真器类型拥有各自的连续噪声实现。
   status: machine
 - id: a97a21f3c246baba
   en: '**Emulator support**'

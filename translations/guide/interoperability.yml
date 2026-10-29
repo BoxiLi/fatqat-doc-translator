@@ -12,15 +12,15 @@
   status: machine
 - id: acf7cc09cf0c9b93
   en: Use OpenQASM when the exchange artifact should be portable source text.
-  zh: "需要用可移植的源文本交换电路时，使用 OpenQASM。"
+  zh: 需要用可移植的源文本交换电路时，使用 OpenQASM。
   status: machine
 - id: e4e42bb51352300b
   en: Convert a Qiskit circuit when FatQat should own execution and interpretation.
-  zh: "希望用 FatQat 执行电路并分析结果时，将 Qiskit 电路转换为 Program。"
+  zh: 希望用 FatQat 执行电路并分析结果时，将 Qiskit 电路转换为 Program。
   status: machine
 - id: ba49c497d0eda34f
   en: Use `FatqatBackend` when Qiskit should continue to own the surrounding job and result workflow.
-  zh: "希望继续通过 Qiskit 管理作业和结果时，使用 `FatqatBackend`。"
+  zh: 希望继续通过 Qiskit 管理作业和结果时，使用 `FatqatBackend`。
   status: machine
 - id: eb310ca6fc79842c
   en: Import, run, and export OpenQASM
@@ -56,7 +56,7 @@
   status: machine
 - id: 80a6608d4decb790
   en: 'Use [`circuit_to_program`][fatqat.qiskit.circuit_to_program] when you want to cross the boundary into FatQat and then use its backends and result model:'
-  zh: "若要将电路交给 FatQat，并使用它的后端和结果接口，请调用 [`circuit_to_program`][fatqat.qiskit.circuit_to_program]："
+  zh: 若要将电路交给 FatQat，并使用它的后端和结果接口，请调用 [`circuit_to_program`][fatqat.qiskit.circuit_to_program]：
   status: machine
 - id: 3537a8d8a33cf0ca
   en: From `program` onward this is the same workflow as a Program authored directly in Python. In particular, you can choose a FatQat execution model and work with FatQat's `Result` accessors.

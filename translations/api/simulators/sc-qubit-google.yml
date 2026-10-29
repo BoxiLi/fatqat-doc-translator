@@ -100,5 +100,5 @@
   status: machine
 - id: 15ec2ec4ac5a537c
   en: '| Measurement | — | `P(report 1 \| true 0) = 0.02` and `P(report 0 \| true 1) = 0.04` |'
-  zh: "| 测量 | — | `P(report 1 \\| true 0) = 0.02` 和 `P(report 0 \\| true 1) = 0.04` |"
+  zh: '| 测量 | — | `P(report 1 \| true 0) = 0.02` 和 `P(report 0 \| true 1) = 0.04` |'
   status: machine

@@ -16,7 +16,7 @@
   status: machine
 - id: ec2fe80e8e7b8f8e
   en: Held-out handwritten digit predictions after training
-  zh: "训练后在留出测试集上的手写数字预测"
+  zh: 训练后在留出测试集上的手写数字预测
   status: machine
 - id: a87da96845755370
   en: A quantum neural network (QNN) classifier is an ordinary parameterized function $f(x;\theta)$ — the twist is that the function is evaluated by a quantum circuit. The input features $x$ and the trainable weights $\theta$ both enter the circuit as rotation angles, and the class scores are read off the final state as expectation values.
@@ -24,7 +24,7 @@
   status: machine
 - id: eaf0fccde7501325
   en: 'This tutorial trains such a classifier to tell the handwritten digits 3 and 6 apart, and it showcases the piece fatqat contributes beyond a plain "build one circuit per sample" workflow: **the circuit is built once as a parameterized template, and a whole batch of inputs is evaluated with a single** `run_sweep` **call**.'
-  zh: "本教程训练一个分类器来区分手写数字 3 和 6，并展示 fatqat 如何省去逐样本构建电路的重复工作：**只构建一次参数化电路模板，再通过一次** `run_sweep` **调用评估整批输入**。"
+  zh: 本教程训练一个分类器来区分手写数字 3 和 6，并展示 fatqat 如何省去逐样本构建电路的重复工作：**只构建一次参数化电路模板，再通过一次** `run_sweep` **调用评估整批输入**。
   status: machine
 - id: 1ba70b3e6cfc2bb1
   en: The model
@@ -36,11 +36,11 @@
   status: machine
 - id: 02227a745fdc83b8
   en: so the 16 features and 16 weights are consumed one per qubit per round. Re-uploading the same features in every round lets a small circuit fit a nonlinear decision boundary.
-  zh: "这样，16 个特征和 16 个权重就分配到了各轮的量子比特上，每轮每个量子比特各用一个。在各轮中重复编码相同特征，小电路也能拟合非线性决策边界。"
+  zh: 这样，16 个特征和 16 个权重就分配到了各轮的量子比特上，每轮每个量子比特各用一个。在各轮中重复编码相同特征，小电路也能拟合非线性决策边界。
   status: machine
 - id: 07facfe486b5561d
   en: 'The readout follows Farhi & Neven ([arXiv:1802.06002](https://arxiv.org/abs/1802.06002)): measure the four single-qubit expectations $\langle Z_q\rangle$ and fold them into two class logits,'
-  zh: "读出采用 Farhi 与 Neven 的方法（[arXiv:1802.06002](https://arxiv.org/abs/1802.06002)）：测量四个单量子比特期望值 $\\langle Z_q\\rangle$，再将它们组合为两个类别的 logits，"
+  zh: 读出采用 Farhi 与 Neven 的方法（[arXiv:1802.06002](https://arxiv.org/abs/1802.06002)）：测量四个单量子比特期望值 $\langle Z_q\rangle$，再将它们组合为两个类别的 logits，
   status: machine
 - id: 0e5a5ca1098c1a06
   en: Training minimizes the mean cross-entropy $-\frac{1}{N}\sum_i \log p_i(\text{label}_i)$ with the gradient-free COBYLA optimizer — the loss is a black box, so no circuit differentiation is needed.
@@ -104,7 +104,7 @@
   status: machine
 - id: af42f483a97e143e
   en: The trained weights are evaluated on the held-out test split — again with a single sweep over the whole batch.
-  zh: "在留出测试集上评估训练后的权重，同样只需一次参数扫描即可处理整批数据。"
+  zh: 在留出测试集上评估训练后的权重，同样只需一次参数扫描即可处理整批数据。
   status: machine
 - id: 51578c9d1d451798
   en: A sample of test predictions; wrong calls are marked in red.
@@ -144,5 +144,5 @@
   status: machine
 - id: adb221d68af7fcd3
   en: (In this fatqat version `run_sweep` still lowers and executes row by row; the win today is the single-template workflow and one-call batch interface, which is also where fused batched execution will land. The estimator handles final-state evolution and observable contraction; see [interpreting results](../guide/interpret-results.md).)
-  zh: "（在这个 fatqat 版本中，`run_sweep` 仍逐行转换程序并执行。目前主要方便之处是只需维护一个模板，并通过一次调用提交整批参数；未来融合后的批量执行也会使用这个接口。估计器负责演化最终态，并与可观测量进行张量收缩，详见[解读结果](../guide/interpret-results.md)。）"
+  zh: （在这个 fatqat 版本中，`run_sweep` 仍逐行转换程序并执行。目前主要方便之处是只需维护一个模板，并通过一次调用提交整批参数；未来融合后的批量执行也会使用这个接口。估计器负责演化最终态，并与可观测量进行张量收缩，详见[解读结果](../guide/interpret-results.md)。）
   status: machine

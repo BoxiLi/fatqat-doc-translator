@@ -184,7 +184,7 @@
   status: machine
 - id: 347f6fbcf9c629f7
   en: The original loader reads `x_train.npy`, `y_train.npy`, `x_test.npy`, and `y_test.npy` from `Elivagar/experiment_data/<dataset>/`, keeps the first 128 input columns, and passes them directly to rotation gates for `angle` encoding. In particular, it does **not** multiply those values by $\pi$. The following loader retains that behavior for one data repetition. It requires finite numeric arrays, matching row counts, binary labels already encoded as $\{-1,+1\}$, or regression targets already scaled to $[-1,1]$. It fails on incompatible data instead of silently changing the experiment.
-  zh: "原始加载器从 `Elivagar/experiment_data/<dataset>/` 读取 `x_train.npy`、`y_train.npy`、`x_test.npy` 和 `y_test.npy`，保留前 128 个输入列，并直接传给旋转门进行 `angle` 编码。特别地，它**不会**将这些值乘以 $\\pi$。下面的加载器在一次数据重复实验中保留这一行为。数组必须为有限数值且行数匹配；二分类标签需编码为 $\\{-1,+1\\}$，回归目标则需缩放到 $[-1,1]$。遇到不兼容数据会报错，不会自动改动实验设置。"
+  zh: 原始加载器从 `Elivagar/experiment_data/<dataset>/` 读取 `x_train.npy`、`y_train.npy`、`x_test.npy` 和 `y_test.npy`，保留前 128 个输入列，并直接传给旋转门进行 `angle` 编码。特别地，它**不会**将这些值乘以 $\pi$。下面的加载器在一次数据重复实验中保留这一行为。数组必须为有限数值且行数匹配；二分类标签需编码为 $\{-1,+1\}$，回归目标则需缩放到 $[-1,1]$。遇到不兼容数据会报错，不会自动改动实验设置。
   status: machine
 - id: 9c4c8adde3b481ad
   en: In a downloaded notebook or script, move this loader above the data setup, replace the synthetic `tasks` assignment with the following, and set `NUM_QUBITS = 7`, `NUM_FEATURES = 128`, and `NUM_WEIGHTS = 32` **before** constructing the parameter vectors and candidate programs. Set `root` to your local checkout. These lines are not executed in the documentation build, which always uses the synthetic example.

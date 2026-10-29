@@ -12,7 +12,7 @@
   status: machine
 - id: 048713a5001fc80f
   en: Registers
-  zh: "Registers"
+  zh: Registers
   status: machine
 - id: 07203021cae3b43e
   en: 'The two register arguments accept these forms:'
@@ -24,11 +24,11 @@
   status: machine
 - id: 6e7d50e84f4731ef
   en: Result
-  zh: "Result"
+  zh: Result
   status: machine
 - id: 700ca4f96b4fedeb
   en: See [Registers](registers.md) for explicit registers, dimensions, and grid selections.
-  zh: "有关显式寄存器、维度和网格选择，参见[Registers](registers.md)。"
+  zh: 有关显式寄存器、维度和网格选择，参见[Registers](registers.md)。
   status: machine
 - id: f8e3cd1a2ea4f98c
   en: A bare integer indexes the sole register of the relevant kind; it is not a global index across several registers. With multiple registers, index the register you want and pass the resulting [`RegisterRef`][fatqat.RegisterRef].
@@ -44,7 +44,7 @@
   status: machine
 - id: 8974a8716ebd0f38
   en: For other operations, `targets` is one tuple in operand order. Controlled gates list controls before targets. See [Registers](registers.md) for view selection and compatibility, and [Write quantum computations with Program](../guide/program.md) for the ordinary construction workflow.
-  zh: "对于其他操作，`targets` 是一个按操作数顺序排列的元组。受控门先列出控制位再列出目标位。有关视图选择与兼容性，参见[Registers](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。"
+  zh: 对于其他操作，`targets` 是一个按操作数顺序排列的元组。受控门先列出控制位再列出目标位。有关视图选择与兼容性，参见[Registers](registers.md)；有关常规构建工作流，参见[使用 Program 编写量子计算](../guide/program.md)。
   status: machine
 - id: 08bb8d08f90dad77
   en: Pass `condition=(slot, literal)` to [`add`][fatqat.Program.add], or pass a non-empty tuple or list of such pairs for logical AND. A slot follows the same integer-or-ref rules as other classical operands. Each literal is a Python integer in `0 <= literal < slot.dim`; booleans are also accepted. Every term is compared with the current classical value when the operation is reached.
@@ -76,7 +76,7 @@
   status: machine
 - id: e4dc1f9124f6f07c
   en: 'Parameters are immutable identity objects. Names are labels only: two `Parameter("theta")` objects are different binding keys. Reuse one object when several operation arguments should share a value.'
-  zh: "参数对象不可变，并以对象身份区分。名称只是标签：两个 `Parameter(\"theta\")` 对象是不同的绑定键。若多个 Operation 参数需要共享同一个值，应复用同一个参数对象。"
+  zh: 参数对象不可变，并以对象身份区分。名称只是标签：两个 `Parameter("theta")` 对象是不同的绑定键。若多个 Operation 参数需要共享同一个值，应复用同一个参数对象。
   status: machine
 - id: fd517d015ab000eb
   en: '**Binding forms**'
@@ -84,7 +84,7 @@
   status: machine
 - id: f0cdca999be213ea
   en: '[`assign_parameters`][fatqat.Program.assign_parameters] accepts an empty or partial mapping and returns a new program. It binds only [`Parameter`][fatqat.Parameter] objects used directly as operation arguments. Unbound parameters remain symbolic and are rejected by numeric execution and export. String keys, positional assignments, boolean or complex values, and assigning both a vector and one of its elements are rejected. Replacement values still undergo the operation''s normal validation. Read [Write quantum computations with Program](../guide/program.md) for the authoring workflow and [Simulate a quantum program](../guide/simulation.md) for a parameter sweep. The complete binding and execution contracts are specified here and in [Simulator](simulator.md).'
-  zh: "[`assign_parameters`][fatqat.Program.assign_parameters] 接受空映射或部分映射，并返回一个新程序。它只绑定直接用作操作实参的 [`Parameter`][fatqat.Parameter] 对象。未绑定的参数保持符号形式，会被数值执行和导出拒绝。字符串键、按位置赋值、布尔值或复数值，以及同时为一个向量及其某个元素赋值都会被拒绝。替换值仍需通过该操作的常规验证。有关编写工作流，请阅读[使用 Program 编写量子计算](../guide/program.md)；有关参数扫描，请阅读[模拟量子程序](../guide/simulation.md)。完整的绑定与执行规则在本页和[Simulator](simulator.md)中给出。"
+  zh: '[`assign_parameters`][fatqat.Program.assign_parameters] 接受空映射或部分映射，并返回一个新程序。它只绑定直接用作操作实参的 [`Parameter`][fatqat.Parameter] 对象。未绑定的参数保持符号形式，会被数值执行和导出拒绝。字符串键、按位置赋值、布尔值或复数值，以及同时为一个向量及其某个元素赋值都会被拒绝。替换值仍需通过该操作的常规验证。有关编写工作流，请阅读[使用 Program 编写量子计算](../guide/program.md)；有关参数扫描，请阅读[模拟量子程序](../guide/simulation.md)。完整的绑定与执行规则在本页和[Simulator](simulator.md)中给出。'
   status: machine
 - id: e9dfa196fd71df85
   en: '[`copy`][fatqat.Program.copy] and [`assign_parameters`][fatqat.Program.assign_parameters] return new programs. [`add`][fatqat.Program.add], [`measure`][fatqat.Program.measure], and [`measure_all`][fatqat.Program.measure_all] update the current program and return `None`.'
@@ -152,7 +152,7 @@
   status: machine
 - id: 466efa4a2e2c7b6a
   en: '| [`ParameterVector`][fatqat.ParameterVector] | One-dimensional NumPy array, or a non-string, non-bytes, non-mapping iterable of accepted scalars | Consumed once in iteration order. The value length must match and every vector element must be used directly as an operation parameter. Bind individual elements for a partial vector. |'
-  zh: "| [`ParameterVector`][fatqat.ParameterVector] | 一维 NumPy 数组，或由可接受标量构成的、非字符串、非字节且非映射的可迭代对象 | 按迭代顺序读取一次。值的长度必须匹配，并且每个向量元素都必须直接用作操作参数。若只需绑定向量的一部分，请逐个绑定其元素 |"
+  zh: '| [`ParameterVector`][fatqat.ParameterVector] | 一维 NumPy 数组，或由可接受标量构成的、非字符串、非字节且非映射的可迭代对象 | 按迭代顺序读取一次。值的长度必须匹配，并且每个向量元素都必须直接用作操作参数。若只需绑定向量的一部分，请逐个绑定其元素 |'
   status: machine
 - id: 24a00fe63d2fa655
   en: '| `renderer` | Return value | Notes |'
@@ -160,7 +160,7 @@
   status: machine
 - id: adc72a6f37add82f
   en: '| `"matplotlib"` (default) | Matplotlib `Figure` | Pass `ax=` to draw on an existing axis; other keyword arguments are forwarded to the renderer. |'
-  zh: "| `\"matplotlib\"`（默认） | Matplotlib `Figure` | 传入 `ax=` 可在现有坐标轴上绘制；其他关键字参数会转发给渲染器 |"
+  zh: '| `"matplotlib"`（默认） | Matplotlib `Figure` | 传入 `ax=` 可在现有坐标轴上绘制；其他关键字参数会转发给渲染器 |'
   status: machine
 - id: 2d11cf26e8f478af
   en: '| `"text"` | Terminal diagram string | The string is returned, not printed. |'
@@ -200,13 +200,13 @@
   status: machine
 - id: 94b0fd4467e21909
   en: Read instructions
-  zh: '读取指令'
+  zh: 读取指令
   status: machine
 - id: fa8af34ab44c5255
   en: Use [`Program.instructions`][fatqat.Program.instructions] to read a program's instructions in insertion order. It returns a read-only snapshot containing [`OperationInstruction`][fatqat.program.OperationInstruction] and [`Measurement`][fatqat.operations.Measurement] records.
-  zh: '使用 [`Program.instructions`][fatqat.Program.instructions] 按插入顺序读取程序指令。它返回一个只读快照，包含 [`OperationInstruction`][fatqat.program.OperationInstruction] 和 [`Measurement`][fatqat.operations.Measurement] 记录。'
+  zh: 使用 [`Program.instructions`][fatqat.Program.instructions] 按插入顺序读取程序指令。它返回一个只读快照，包含 [`OperationInstruction`][fatqat.program.OperationInstruction] 和 [`Measurement`][fatqat.operations.Measurement] 记录。
   status: machine
 - id: 62ef756a14c66b7c
   en: Backends and other program readers should use this interface instead of depending on FatQat's private instruction representation.
-  zh: '后端及其他程序读取方应使用此接口，不应依赖 FatQat 的私有指令表示。'
+  zh: 后端及其他程序读取方应使用此接口，不应依赖 FatQat 的私有指令表示。
   status: machine
