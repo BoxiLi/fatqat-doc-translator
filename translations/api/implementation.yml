@@ -28,7 +28,7 @@
   status: machine
 - id: 6dc0a44677c7c095
   en: '`op` is the applied operation value, so it contains parameters such as a rotation angle. `targets` contains scalar program [`RegisterRef`][fatqat.RegisterRef] objects in operand order; a rule can inspect `target.register.dim` when its matrix depends on subsystem dimension.'
-  zh: "`op` 是当前要执行的 Operation 对象，其中包含旋转角等参数。`targets` 按操作数顺序给出程序中的标量 [`RegisterRef`][fatqat.RegisterRef]。若矩阵形式取决于子系统维数，可以读取 `target.register.dim`。"
+  zh: '`op` 是当前要执行的 Operation 对象，其中包含旋转角等参数。`targets` 按操作数顺序给出程序中的标量 [`RegisterRef`][fatqat.RegisterRef]。若矩阵形式取决于子系统维数，可以读取 `target.register.dim`。'
   status: machine
 - id: 2950147f148b66c8
   en: Local basis order
@@ -48,7 +48,7 @@
   status: machine
 - id: bf3586251296875b
   en: 'Pass `device_operands=` to `add` to register a rule only for that exact ordered tuple of backend-defined physical labels. These labels are not program register references. One operation family uses exactly one registration mode:'
-  zh: "向 `add` 传入 `device_operands=`，可仅针对该确切有序的、由后端定义的物理标签元组注册规则。这些标签不是程序寄存器引用。一个操作类型只能使用一种注册模式："
+  zh: 向 `add` 传入 `device_operands=`，可仅针对该确切有序的、由后端定义的物理标签元组注册规则。这些标签不是程序寄存器引用。一个操作类型只能使用一种注册模式：
   status: machine
 - id: 0d324fe487f3d1c0
   en: A *uniform* rule, added without `device_operands`, matches every physical tuple of the correct arity.
@@ -60,7 +60,7 @@
   status: machine
 - id: bd6928b5d5312b1f
   en: Call [`remove`][fatqat.implementation.MatrixImplementationMap.remove] before switching a family between these modes.
-  zh: "在这两种模式之间切换某个操作类型之前，先调用 [`remove`][fatqat.implementation.MatrixImplementationMap.remove]。"
+  zh: 在这两种模式之间切换某个操作类型之前，先调用 [`remove`][fatqat.implementation.MatrixImplementationMap.remove]。
   status: machine
 - id: 03d8783769910f22
   en: Validation timing
@@ -80,7 +80,7 @@
   status: machine
 - id: c8d39d581916d005
   en: Alias for an ordered tuple of hashable backend-defined physical labels.
-  zh: "有序元组的类型别名；每个元素是后端定义的、可哈希的物理标签。"
+  zh: 有序元组的类型别名；每个元素是后端定义的、可哈希的物理标签。
   status: machine
 - id: 50cbd645e833b814
   en: '| Form | Use it for | Value passed to `add` |'

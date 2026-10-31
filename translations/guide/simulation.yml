@@ -32,7 +32,7 @@
   status: retired
 - id: b6d344af5f9bb899
   en: Measure a distribution
-  zh: "通过测量观察分布"
+  zh: 通过测量观察分布
   status: machine
 - id: ea0eb7588e797171
   en: 'To see the outcomes an experiment would report, copy the bound Program, append a measurement, and request repeated shots:'
@@ -44,7 +44,7 @@
   status: retired
 - id: e23739e7ac814952
   en: Sweep without rebuilding
-  zh: "复用程序进行参数扫描"
+  zh: 复用程序进行参数扫描
   status: machine
 - id: 36fa144938ef9619
   en: '[`run_sweep`][fatqat.simulator.Simulator.run_sweep] binds each row of values to the same Program structure. Here the state itself is the useful answer, so no measurement or sampling is needed:'
@@ -148,5 +148,5 @@
   status: machine
 - id: c3bb5e8439260fd8
   en: For more sweep options, see the [Simulator API](../api/simulator.md). Continue with [Estimate observables](interpret-results.md) to calculate correlations and understand the uncertainty of sampled estimates.
-  zh: "更多扫描选项见[Simulator API](../api/simulator.md)。继续阅读[估计可观测量](interpret-results.md)，学习计算关联并理解采样估计的不确定度。"
+  zh: 更多扫描选项见[Simulator API](../api/simulator.md)。继续阅读[估计可观测量](interpret-results.md)，学习计算关联并理解采样估计的不确定度。
   status: machine

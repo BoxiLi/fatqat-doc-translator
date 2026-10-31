@@ -24,11 +24,11 @@
   status: machine
 - id: 15f9e5f79f4b0467
   en: The atom-array simulator is the profile introduced in [Hardware-profile simulation](hardware-profile-simulation.md); it does not integrate a Hamiltonian. The physical emulator below uses the pulse workflow from [Hamiltonian emulation](hamiltonian-emulation.md).
-  zh: "原子阵列模拟器就是[硬件配置模拟](hardware-profile-simulation.md)中介绍的硬件模型，不对哈密顿量进行积分。下面的物理仿真器则采用[哈密顿量仿真](hamiltonian-emulation.md)中的脉冲流程。"
+  zh: 原子阵列模拟器就是[硬件配置模拟](hardware-profile-simulation.md)中介绍的硬件模型，不对哈密顿量进行积分。下面的物理仿真器则采用[哈密顿量仿真](hamiltonian-emulation.md)中的脉冲流程。
   status: machine
 - id: ff611845e5bdbb41
   en: Describe the sites once
-  zh: "定义原子位置"
+  zh: 定义原子位置
   status: machine
 - id: 5df0c1bedf249775
   en: 'The physical emulator uses a fixed set of sites described by an [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Program resources map to those sites in declaration order by default:'
@@ -48,7 +48,7 @@
   status: machine
 - id: ec7297494dfafc6b
   en: 'The two-level model uses global drive and detuning channels. Its default gate map is empty, so a Program normally contains direct pulse blocks:'
-  zh: "二能级模型使用全局的驱动通道和失谐通道。它的默认门映射为空，因此 Program 通常包含直接脉冲块："
+  zh: 二能级模型使用全局的驱动通道和失谐通道。它的默认门映射为空，因此 Program 通常包含直接脉冲块：
   status: machine
 - id: 6368d4bf664cbbb9
   en: Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts; `interaction_cutoff` can remove terms beyond a distance, but it is a Hamiltonian truncation rather than a blockade radius.
@@ -68,9 +68,25 @@
   status: machine
 - id: 5478bf9c31bd904b
   en: Continue with the tutorials for a [PXP revival](../tutorials/pxp-z2-revival.md), [antiferromagnetic chain](../tutorials/antiferromagnetic-chain.md), or [gate-level GHZ preparation](../tutorials/atom-array-ghz8.md). For model schemas, units, channel limits, and noise support, use the [neutral-atom emulator API](../api/atom-emulators.md).
-  zh: "接下来可以学习 [PXP 复苏](../tutorials/pxp-z2-revival.md)、[反铁磁链](../tutorials/antiferromagnetic-chain.md)或[门级 GHZ 态制备](../tutorials/atom-array-ghz8.md)教程。有关模型模式、单位、信道限制和噪声支持，请使用[中性原子仿真器 API](../api/atom-emulators.md)。"
+  zh: 接下来可以学习 [PXP 复苏](../tutorials/pxp-z2-revival.md)、[反铁磁链](../tutorials/antiferromagnetic-chain.md)或[门级 GHZ 态制备](../tutorials/atom-array-ghz8.md)教程。有关模型模式、单位、信道限制和噪声支持，请使用[中性原子仿真器 API](../api/atom-emulators.md)。
   status: machine
 - id: 5823ac31dd84d4b3
   en: 'Both controls act on every site. The arrangement supplies the distances and the model supplies the signed interaction strength, so changing the spacing can change the dynamics without changing the Program. By default every site pair interacts. Set `simulation_config={"interaction_cutoff": distance}` on a particular `run()` to remove terms beyond that distance; this is a numerical Hamiltonian truncation rather than a blockade radius.'
   zh: '两个控制都作用于每个位点。排布提供距离，模型提供带符号的相互作用强度，因此改变间距可以在不改变 Program 的情况下改变动力学。默认情况下所有位点对都相互作用。在某次特定的 `run()` 上设置 `simulation_config={"interaction_cutoff": distance}` 可以去掉超过该距离的项；这是数值上的哈密顿量截断，而不是阻塞半径。'
   status: machine
+- id: 343e3c2ec0edb89d
+  en: 'To choose individual positions, supply `(x, y)` coordinates for a 2D layout or `(x, y, z)` coordinates for a 3D layout. All sites in an arrangement must use the same number of components, and distances are in micrometres:'
+  zh: ''
+  status: pending
+- id: bfcb526c556b4c18
+  en: The factory preserves input order as site order and copies the positions into immutable tuples. Explicit z values select 3D even when every z value is zero. `chain()` and `rectangular()` describe layouts embedded in 2D. Custom coordinates have no declared row count, column count, or uniform spacing; their `rows`, `cols`, and `spacing` attributes are `None`. See the [arrangement API](../api/atom-emulators.md#arrangements-and-program-resources) for input constraints.
+  zh: ''
+  status: pending
+- id: 44a25dd275a963aa
+  en: 'You can give rectangular layouts different x and y spacings, then combine layouts in the order their sites should appear. Labels let you retrieve the site indices belonging to each part:'
+  zh: ''
+  status: pending
+- id: f3a256dde7146674
+  en: Combining layouts requires distinct positions and unique group names. A combination containing any 3D layout is 3D. Nested combinations retain their groups with indices adjusted to the final site order. You can also give `combine()` a label for a group covering the entire result.
+  zh: ''
+  status: pending

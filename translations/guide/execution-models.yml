@@ -1,6 +1,6 @@
 - id: f180315ca93c1b46
   en: Choose how much physics to model
-  zh: "选择需要建模的物理细节"
+  zh: 选择需要建模的物理细节
   status: machine
 - id: 4cd4a8d10171803c
   en: A backend is more than a place to send a program. It decides what FatQat means by “run this.” The general simulator follows logical circuit evolution; a hardware profile adds device rules; an emulator follows a physical model in time.
@@ -24,7 +24,7 @@
   status: retired
 - id: 8e2a7685bdbb5b7f
   en: Hardware profile
-  zh: "硬件配置"
+  zh: 硬件配置
   status: machine
 - id: 9367753b7945f1d0
   en: 'A hardware-profile simulator still evolves gates at circuit level, but first checks that the program is native and physically placeable. `RX` is native to the Google-style profile used here:'
@@ -120,11 +120,11 @@
   status: machine
 - id: c25cad9ff4b59211
   en: 'An ideal `RX(pi/2)` rotation of a qubit initially in `|0>` gives equal probabilities for `0` and `1`. The three backends let you examine this operation under different assumptions:'
-  zh: "对初态为 `|0>` 的量子比特施加理想 `RX(pi/2)` 旋转，得到 `0` 和 `1` 的概率相等。三个后端可以在不同假设下考察这次旋转："
+  zh: 对初态为 `|0>` 的量子比特施加理想 `RX(pi/2)` 旋转，得到 `0` 和 `1` 的概率相等。三个后端可以在不同假设下考察这次旋转：
   status: machine
 - id: 43a8951cb014fca3
   en: 'The general [`Simulator`][fatqat.simulator.Simulator] applies the circuit operation without assigning the qubit to a particular device. With no noise model, this run gives the ideal probabilities:'
-  zh: "通用 [`Simulator`][fatqat.simulator.Simulator] 施加电路中的该旋转，无需将量子比特分配到特定设备。不附加噪声模型时，此次运行给出理想概率："
+  zh: 通用 [`Simulator`][fatqat.simulator.Simulator] 施加电路中的该旋转，无需将量子比特分配到特定设备。不附加噪声模型时，此次运行给出理想概率：
   status: machine
 - id: e78d618e931b4f51
   en: 'A hardware-profile simulator also evolves circuit operations, while checking that they belong to its native set and obey its resource rules. The superconducting profile expresses this rotation as `SX`, which has the same effect as `RX(pi/2)` up to a global phase:'
@@ -136,7 +136,7 @@
   status: machine
 - id: 31aee7daba61b7c2
   en: Calling `profile.run(program)` with the original `RX(pi/2)` operation would raise [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError] because `RX` is not native to this profile.
-  zh: "若用原始的 `RX(pi/2)` 旋转调用 `profile.run(program)`，将抛出 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]，因为 `RX` 不是此配置的原生门。"
+  zh: 若用原始的 `RX(pi/2)` 旋转调用 `profile.run(program)`，将抛出 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]，因为 `RX` 不是此配置的原生门。
   status: machine
 - id: 9604bc687cbe5e32
   en: 'The [`TransmonEmulator`][fatqat.emulator.TransmonEmulator] turns `RX` into a pulse using its packaged reference calibration, then integrates the physical state over the pulse''s duration:'
@@ -144,7 +144,7 @@
   status: machine
 - id: b5d0b180c2c28030
   en: The Program declares one qubit with two basis states. The reference model contains two physical transmons with three levels each, so the returned state has nine amplitudes. Reshaping it gives populations indexed by the levels of `q0` and `q1`; summing over `q1` leaves the three populations on `q0` shown above.
-  zh: "Program 声明了一个量子比特，对应两个基矢。参考模型则包含两个物理 transmon，每个有三个能级，因此返回的量子态共有九个振幅。调整数组形状后，可按 `q0` 和 `q1` 的能级计算布居；沿 `q1` 求和，就得到上面显示的 `q0` 三个能级的布居。"
+  zh: Program 声明了一个量子比特，对应两个基矢。参考模型则包含两个物理 transmon，每个有三个能级，因此返回的量子态共有九个振幅。调整数组形状后，可按 `q0` 和 `q1` 的能级计算布居；沿 `q1` 求和，就得到上面显示的 `q0` 三个能级的布居。
   status: machine
 - id: ea4c36e4a8340d3e
   en: Level `|2>` represents leakage out of the qubit's `|0>`, `|1>` subspace. Retaining that physical level does not make the Program a qutrit program. The second transmon also remains in the state even though this Program does not address it. For this reference pulse, the final populations are close to the ideal values and the leakage rounds to zero at this precision. The packaged calibration supplies a reproducible simulation example, not a current hardware characterization.

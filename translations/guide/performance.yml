@@ -4,11 +4,11 @@
   status: machine
 - id: 35e8ddfcf44d29bd
   en: Before tuning runtimes, estimate how much state FatQat must carry. Subsystem dimensions and the chosen representation usually matter sooner than a runtime switch.
-  zh: "调优 FatQat 运行时之前，先估算量子态需要多大的存储空间。子系统维数和所选表示方式通常比切换运行时更能决定模拟规模。"
+  zh: 调优 FatQat 运行时之前，先估算量子态需要多大的存储空间。子系统维数和所选表示方式通常比切换运行时更能决定模拟规模。
   status: machine
 - id: 3e5ca39f7683080d
   en: First choose the simplest execution level that contains the effect you need; [Choose how much physics to model](execution-models.md) draws that boundary. Then use the estimates and benchmark pattern below on your own [`Program`][fatqat.Program].
-  zh: "首先选择包含所需效应的最简执行层级；[选择需要建模的物理细节](execution-models.md)划定了这条边界。然后在你自己的 [`Program`][fatqat.Program] 上使用下面的估算方法和基准测试模式。"
+  zh: 首先选择包含所需效应的最简执行层级；[选择需要建模的物理细节](execution-models.md)划定了这条边界。然后在你自己的 [`Program`][fatqat.Program] 上使用下面的估算方法和基准测试模式。
   status: machine
 - id: de0a741db58a69c7
   en: Count the state space before running
@@ -16,7 +16,7 @@
   status: machine
 - id: e1a1b07622eb77d3
   en: 'If the local dimensions are `d0, d1, ...`, the state-space dimension is their product. This makes FatQat''s mixed-dimensional Program support useful and also makes its scaling explicit:'
-  zh: "各子系统的局域维数为 `d0, d1, ...` 时，总状态空间的维数就是它们的乘积。这个公式同样适用于 FatQat 的混合维数 Program，可以直接用来估算模拟规模："
+  zh: 各子系统的局域维数为 `d0, d1, ...` 时，总状态空间的维数就是它们的乘积。这个公式同样适用于 FatQat 的混合维数 Program，可以直接用来估算模拟规模：
   status: machine
 - id: 49eb55bbc0afecbe
   en: A statevector stores one complex entry per basis state. A density matrix or unitary stores a square array, and a super-operator is square in the already squared density-matrix space. In terms of total dimension `D`, their entry counts scale as `D`, `D**2`, `D**2`, and `D**4`, respectively. Temporary work space and backend overhead add to these lower-level counts.
@@ -40,7 +40,7 @@
   status: machine
 - id: fb76dbda332cead8
   en: Result choice can dominate scaling. A complete unitary or super-operator asks for the action on every input, while a state run asks for one input state. Likewise, a full state is unnecessary when you only need counts or a few expectation values.
-  zh: "需要输出什么，会显著影响计算和存储开销。完整酉矩阵或超算符描述对所有输入的作用，量子态演化只需计算一个输入态。如果只关心计数或少量期望值，就不必输出完整量子态。"
+  zh: 需要输出什么，会显著影响计算和存储开销。完整酉矩阵或超算符描述对所有输入的作用，量子态演化只需计算一个输入态。如果只关心计数或少量期望值，就不必输出完整量子态。
   status: machine
 - id: 64fd0cb292e0e365
   en: Shot cost also depends on the Program. A circuit that evolves deterministically and measures only at the end can reuse more work than one with mid-circuit measurement, reset, feedforward, or stochastic trajectories. Avoid estimating shot cost from `shots` alone; benchmark the same Program and result request you will use in practice.
@@ -68,7 +68,7 @@
   status: machine
 - id: e93a77ce6e3e4cef
   en: Neither choice changes the Program or the modeled mathematics. Compilation, array-library behavior, CPU, operating system, Program shape, and repetition count all affect the result, so benchmark rather than assuming one runtime is always preferable. FatQat does not currently provide a GPU runtime.
-  zh: "两种运行时执行相同的 Program 和数学模型。性能会受到编译开销、数组库、CPU、操作系统、Program 结构和重复次数影响，应通过实际测量比较，不能假定某一种总是更快。FatQat 目前不提供 GPU 运行时。"
+  zh: 两种运行时执行相同的 Program 和数学模型。性能会受到编译开销、数组库、CPU、操作系统、Program 结构和重复次数影响，应通过实际测量比较，不能假定某一种总是更快。FatQat 目前不提供 GPU 运行时。
   status: machine
 - id: 02bce73ef1399c4a
   en: 'The following harness separates one untimed warm-up from repeated measurements and compares like-for-like final states:'
@@ -76,7 +76,7 @@
   status: machine
 - id: 8cdae70e6e2bf362
   en: Treat the printed values as local evidence, not package guarantees. If startup latency matters, measure the first run separately instead of discarding it. If sustained throughput matters, increase the repetition count and Program size to match the intended workload.
-  zh: "输出的计时只反映本地测试结果，不是软件包的性能保证。关注启动延迟时，应单独记录首次运行的时间；关注持续吞吐量时，则应调整重复次数和 Program 规模，使测试接近实际负载。"
+  zh: 输出的计时只反映本地测试结果，不是软件包的性能保证。关注启动延迟时，应单独记录首次运行的时间；关注持续吞吐量时，则应调整重复次数和 Program 规模，使测试接近实际负载。
   status: machine
 - id: 9fe0e41be0efcc43
   en: Tune parallelism and fusion only after measuring
@@ -116,7 +116,7 @@
   status: machine
 - id: 37f6e7b028ddadff
   en: For eligible combinations and error behavior, see [Simulator runtime and execution](../api/simulator.md). Fusion is opt-in, and explicit parallel modes can be rejected when the Program cannot use them.
-  zh: "有关可用组合与错误行为，请参阅[Simulator 运行时与执行](../api/simulator.md)。融合需要显式开启，而当 Program 无法使用显式并行模式时，这些模式可能会被拒绝。"
+  zh: 有关可用组合与错误行为，请参阅[Simulator 运行时与执行](../api/simulator.md)。融合需要显式开启，而当 Program 无法使用显式并行模式时，这些模式可能会被拒绝。
   status: machine
 - id: 32305c55b3b2e6b9
   en: Account for physical emulation separately
@@ -132,5 +132,5 @@
   status: machine
 - id: b0fe69b8b621bc2c
   en: See [Estimate observables](interpret-results.md) for expectation values and uncertainty, and the [Simulator API](../api/simulator.md) for method and result constraints.
-  zh: "期望值与不确定度见[估计可观测量](interpret-results.md)，方法和结果限制见[Simulator API](../api/simulator.md)。"
+  zh: 期望值与不确定度见[估计可观测量](interpret-results.md)，方法和结果限制见[Simulator API](../api/simulator.md)。
   status: machine

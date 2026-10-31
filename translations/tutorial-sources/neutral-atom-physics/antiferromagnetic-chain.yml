@@ -32,7 +32,7 @@
   status: machine
 - id: 309ae74481ba6f64
   en: Model selection is explicit. The document tells us which atomic states and units its interaction coefficient describes; `from_document` validates it before the emulator sees it.
-  zh: "先明确选择所用模型。模型文档记录原子态、相互作用系数及单位；`from_document` 会先验证这些数据，再交给仿真器。"
+  zh: 先明确选择所用模型。模型文档记录原子态、相互作用系数及单位；`from_document` 会先验证这些数据，再交给仿真器。
   status: machine
 - id: 9b06b7660ad2401b
   en: 2. Choose the distance from the desired ZZ strength
@@ -56,7 +56,7 @@
   status: machine
 - id: 5ba35375996662b5
   en: 'Why ten sites? It is already a 1024-dimensional many-body state, but it remains quick enough for a local tutorial run. An even chain also keeps us honest: its open boundaries admit several low-energy patterns, and global controls do not have to select one perfect alternating bit string. We will therefore measure both site populations and a squared order parameter that recognizes staggered correlations without assuming a unique final pattern.'
-  zh: "选择十个格点，是因为它已经能表示一个 1024 维的多体态，同时仍适合在本地快速运行教程。偶数长度的开放链允许多种低能构型，全局控制未必能选出唯一、完美交替的比特串。因此，我们同时测量格点布居和序参量的平方：后者可以反映交错关联，无需假设最终只有一种构型。"
+  zh: 选择十个格点，是因为它已经能表示一个 1024 维的多体态，同时仍适合在本地快速运行教程。偶数长度的开放链允许多种低能构型，全局控制未必能选出唯一、完美交替的比特串。因此，我们同时测量格点布居和序参量的平方：后者可以反映交错关联，无需假设最终只有一种构型。
   status: machine
 - id: 20a585f0d1e7b45c
   en: 3. Account for the induced longitudinal field
@@ -104,7 +104,7 @@
   status: machine
 - id: 3bafffe966932b77
   en: Plotting the controls before running is a useful sanity check. Normalizing by $U$ makes the physically important ratios visible.
-  zh: "运行前先画出控制波形，检查设置是否合理。用 $U$ 归一化后，可以更直观地比较各物理量之间的重要比值。"
+  zh: 运行前先画出控制波形，检查设置是否合理。用 $U$ 归一化后，可以更直观地比较各物理量之间的重要比值。
   status: machine
 - id: 08a10b2d3d504ef0
   en: 5. Ask for observables, not measurement shots
@@ -152,7 +152,7 @@
   status: machine
 - id: 201231e5d3f5c3ee
   en: 'The one-site profile is reflection symmetric and visibly influenced by the open edges; it does not pretend that the finite chain selected one perfect bit string. The connected-correlation matrix carries the clearer many-body signature: its signs alternate with separation, while neighbouring double excitations are strongly suppressed. Retaining all $C_6/R^6$ pairs and keeping only nearest pairs lead to the same qualitative state; their small quantitative difference comes from the long-range tails and the associated site-dependent Z shifts. The all-pair result is the physical default. The truncated result is useful because it exposes the familiar nearest-neighbour Ising interpretation.'
-  zh: "单格点分布具有反射对称性，也明显受到开放边界影响，不能据此认为有限链选出了某个完美的交替比特串。连通关联矩阵更清楚地显示了多体特征：关联的符号随间距交替，相邻双激发则受到强烈抑制。保留全部 $C_6/R^6$ 相互作用与只保留最近邻相互作用时，所得量子态在定性上相同；微小的定量差异来自长程尾部及其引起的、随格点变化的 Z 偏移。默认应保留全部相互作用，截断结果则有助于用熟悉的最近邻 Ising 模型理解系统。"
+  zh: 单格点分布具有反射对称性，也明显受到开放边界影响，不能据此认为有限链选出了某个完美的交替比特串。连通关联矩阵更清楚地显示了多体特征：关联的符号随间距交替，相邻双激发则受到强烈抑制。保留全部 $C_6/R^6$ 相互作用与只保留最近邻相互作用时，所得量子态在定性上相同；微小的定量差异来自长程尾部及其引起的、随格点变化的 Z 偏移。默认应保留全部相互作用，截断结果则有助于用熟悉的最近邻 Ising 模型理解系统。
   status: machine
 - id: 513df175ff6eeefb
   en: The first run uses the default `interaction_cutoff=None` and retains every unordered pair. The second run on the same emulator deletes terms beyond one lattice spacing. That cutoff is a numerical Hamiltonian truncation, not a blockade radius.
