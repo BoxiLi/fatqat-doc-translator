@@ -76,23 +76,23 @@
   status: machine
 - id: fb73586a7acf39ff
   en: '| [`Shift`][fatqat.operations.Shift] `(power)` | One scalar or view; any `d >= 2` | `\|k> -> \|(k + power) mod d>`. `Shift(1)` is X for `d=2`. |'
-  zh: "| [`Shift`][fatqat.operations.Shift] `(power)` | 一个标量或视图；任意 `d >= 2` | `\\|k> -> \\|(k + power) mod d>`。`Shift(1)` 在 `d=2` 时即为 X。 |"
+  zh: '| [`Shift`][fatqat.operations.Shift] `(power)` | 一个标量或视图；任意 `d >= 2` | `\|k> -> \|(k + power) mod d>`。`Shift(1)` 在 `d=2` 时即为 X。 |'
   status: machine
 - id: 9a38808a06abbc77
   en: '| [`Clock`][fatqat.operations.Clock] `(power)` | One scalar or view; any `d >= 2` | `\|k> -> omega**(k*power)\|k>`, `omega=exp(2*pi*i/d)`. `Clock(1)` is Z for `d=2`. |'
-  zh: "| [`Clock`][fatqat.operations.Clock] `(power)` | 一个标量或视图；任意 `d >= 2` | `\\|k> -> omega**(k*power)\\|k>`，其中 `omega=exp(2*pi*i/d)`。`Clock(1)` 在 `d=2` 时即为 Z。 |"
+  zh: '| [`Clock`][fatqat.operations.Clock] `(power)` | 一个标量或视图；任意 `d >= 2` | `\|k> -> omega**(k*power)\|k>`，其中 `omega=exp(2*pi*i/d)`。`Clock(1)` 在 `d=2` 时即为 Z。 |'
   status: machine
 - id: 373a32b7d8e66f74
   en: '| [`Sum`][fatqat.operations.Sum] | Scalar or view pair with equal dimensions | `\|i,j> -> \|i,(i+j) mod d>`. It is CX for `d=2`. |'
-  zh: "| [`Sum`][fatqat.operations.Sum] | 标量或视图对，二者维度须相等 | `\\|i,j> -> \\|i,(i+j) mod d>`。在 `d=2` 时即为 CX。 |"
+  zh: '| [`Sum`][fatqat.operations.Sum] | 标量或视图对，二者维度须相等 | `\|i,j> -> \|i,(i+j) mod d>`。在 `d=2` 时即为 CX。 |'
   status: machine
 - id: 630504439d1193d5
   en: '| [`SwapLevels`][fatqat.operations.SwapLevels] `(j, k)` | One scalar or view; `0 <= j,k < d` and `j != k` | Exchanges `\|j>` and `\|k>` and fixes every other level. |'
-  zh: "| [`SwapLevels`][fatqat.operations.SwapLevels] `(j, k)` | 一个标量或视图；`0 <= j,k < d` 且 `j != k` | 交换 `\\|j>` 与 `\\|k>`，并保持其他所有能级不变。 |"
+  zh: '| [`SwapLevels`][fatqat.operations.SwapLevels] `(j, k)` | 一个标量或视图；`0 <= j,k < d` 且 `j != k` | 交换 `\|j>` 与 `\|k>`，并保持其他所有能级不变。 |'
   status: machine
 - id: 590e1d1cda481ac5
   en: '| [`Fourier`][fatqat.operations.Fourier] | One scalar or view; any `d >= 2` | `\|j> -> sum(exp(2*pi*i*j*k/d)\|k>) / sqrt(d)`. It is H for `d=2`. |'
-  zh: "| [`Fourier`][fatqat.operations.Fourier] | 一个标量或视图；任意 `d >= 2` | `\\|j> -> sum(exp(2*pi*i*j*k/d)\\|k>) / sqrt(d)`。在 `d=2` 时即为 H。 |"
+  zh: '| [`Fourier`][fatqat.operations.Fourier] | 一个标量或视图；任意 `d >= 2` | `\|j> -> sum(exp(2*pi*i*j*k/d)\|k>) / sqrt(d)`。在 `d=2` 时即为 H。 |'
   status: machine
 - id: 9ef4e451a8909d00
   en: '| [`InverseFourier`][fatqat.operations.InverseFourier] | One scalar or view; any `d >= 2` | Conjugate transpose of `Fourier`; uses the negative exponent. |'
@@ -100,17 +100,17 @@
   status: machine
 - id: 1e4b22b4ea34b1e5
   en: '| [`SubspaceRX`][fatqat.operations.SubspaceRX] `(theta, (j, k))` | One scalar or view; two distinct in-range levels | With `c=cos(theta/2)`, `s=sin(theta/2)`: `\|j> -> c\|j>-i*s\|k>` and `\|k> -> -i*s\|j>+c\|k>`. |'
-  zh: "| [`SubspaceRX`][fatqat.operations.SubspaceRX] `(theta, (j, k))` | 一个标量或视图；两个互异且在范围内的能级 | 令 `c=cos(theta/2)`、`s=sin(theta/2)`，则 `\\|j> -> c\\|j>-i*s\\|k>`，且 `\\|k> -> -i*s\\|j>+c\\|k>`。 |"
+  zh: '| [`SubspaceRX`][fatqat.operations.SubspaceRX] `(theta, (j, k))` | 一个标量或视图；两个互异且在范围内的能级 | 令 `c=cos(theta/2)`、`s=sin(theta/2)`，则 `\|j> -> c\|j>-i*s\|k>`，且 `\|k> -> -i*s\|j>+c\|k>`。 |'
   status: machine
 - id: a2f9e47da0b991f1
   en: '| [`SubspaceRY`][fatqat.operations.SubspaceRY] `(theta, (j, k))` | One scalar or view; two distinct in-range levels | `\|j> -> c\|j>+s\|k>` and `\|k> -> -s\|j>+c\|k>`. Reversing `(j, k)` reverses the rotation. |'
-  zh: "| [`SubspaceRY`][fatqat.operations.SubspaceRY] `(theta, (j, k))` | 一个标量或视图；两个互异且在范围内的能级 | `\\|j> -> c\\|j>+s\\|k>`，且 `\\|k> -> -s\\|j>+c\\|k>`。将 `(j, k)` 反序则旋转方向相反。 |"
+  zh: '| [`SubspaceRY`][fatqat.operations.SubspaceRY] `(theta, (j, k))` | 一个标量或视图；两个互异且在范围内的能级 | `\|j> -> c\|j>+s\|k>`，且 `\|k> -> -s\|j>+c\|k>`。将 `(j, k)` 反序则旋转方向相反。 |'
   status: machine
 - id: e1d79a9aece490cb
   en: '| [`SubspaceRZ`][fatqat.operations.SubspaceRZ] `(theta, (j, k))` | One scalar or view; two distinct in-range levels | `\|j>` gains `exp(-i*theta/2)` and `\|k>` gains `exp(i*theta/2)`. Reversing the pair reverses the rotation. |'
-  zh: "| [`SubspaceRZ`][fatqat.operations.SubspaceRZ] `(theta, (j, k))` | 一个标量或视图；两个互异且在范围内的能级 | `\\|j>` 获得因子 `exp(-i*theta/2)`，而 `\\|k>` 获得因子 `exp(i*theta/2)`。将该能级对反序则旋转方向相反。 |"
+  zh: '| [`SubspaceRZ`][fatqat.operations.SubspaceRZ] `(theta, (j, k))` | 一个标量或视图；两个互异且在范围内的能级 | `\|j>` 获得因子 `exp(-i*theta/2)`，而 `\|k>` 获得因子 `exp(i*theta/2)`。将该能级对反序则旋转方向相反。 |'
   status: machine
 - id: f74152c4350f99e3
   en: '| [`CClock`][fatqat.operations.CClock] `(power)` | Scalar or view pair; dimensions may differ | `\|i,j>` gains `omega**(i*j*power)` using the target''s `omega=exp(2*pi*i/d_target)`. It is CZ for two qubits and power 1. |'
-  zh: "| [`CClock`][fatqat.operations.CClock] `(power)` | 标量或视图对；维度可以不同 | `\\|i,j>` 获得因子 `omega**(i*j*power)`，其中目标位的 `omega=exp(2*pi*i/d_target)`。对两个量子比特且 power 为 1 时即为 CZ。 |"
+  zh: '| [`CClock`][fatqat.operations.CClock] `(power)` | 标量或视图对；维度可以不同 | `\|i,j>` 获得因子 `omega**(i*j*power)`，其中目标位的 `omega=exp(2*pi*i/d_target)`。对两个量子比特且 power 为 1 时即为 CZ。 |'
   status: machine

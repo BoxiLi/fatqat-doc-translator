@@ -4,11 +4,11 @@
   status: machine
 - id: cd6db36d8ee186bf
   en: '[`Simulator`][fatqat.simulator.Simulator] runs gate-level programs with matrix operations and finite noise channels. It supports qubits, qudits, mixed register dimensions, and custom implementation maps. It runs the program as written; it does not transpile or route it.'
-  zh: "[`Simulator`][fatqat.simulator.Simulator] 通过矩阵运算和有限噪声信道运行门级程序，支持量子比特、qudit、混合维数寄存器和自定义实现映射。它按程序中已有的指令执行，不会自动转译或路由。"
+  zh: '[`Simulator`][fatqat.simulator.Simulator] 通过矩阵运算和有限噪声信道运行门级程序，支持量子比特、qudit、混合维数寄存器和自定义实现映射。它按程序中已有的指令执行，不会自动转译或路由。'
   status: machine
 - id: 640495aae22d27e3
   en: The default implementation map covers FATQAT's built-in matrix gates. State methods also support measurement, reset, and classical conditions. `Barrier` has no numerical effect.
-  zh: "默认实现映射包含 FATQAT 内置的矩阵门。量子态演化方法还支持测量、重置和经典条件。`Barrier` 不参与数值计算。"
+  zh: 默认实现映射包含 FATQAT 内置的矩阵门。量子态演化方法还支持测量、重置和经典条件。`Barrier` 不参与数值计算。
   status: machine
 - id: 8696622f344183c4
   en: Methods

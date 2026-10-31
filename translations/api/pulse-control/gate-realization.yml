@@ -24,7 +24,7 @@
   status: machine
 - id: d7e74cff60a094dc
   en: '`PhaseShift` changes one model frame after the pulse. `PhaseSwap` exchanges two frames. Direct pulse operations do not have post-actions.'
-  zh: "`PhaseShift` 在脉冲结束后改变一个模型参考系，`PhaseSwap` 则交换两个参考系。直接脉冲操作不包含这类后续动作。"
+  zh: '`PhaseShift` 在脉冲结束后改变一个模型参考系，`PhaseSwap` 则交换两个参考系。直接脉冲操作不包含这类后续动作。'
   status: machine
 - id: 5f94377411a3958a
   en: The emulator calls and validates a selected rule when the gate is used. Raise [`BackendValidationError`][fatqat.errors.BackendValidationError] to report unsupported operands or parameters. Other exceptions and return values that are not `PulseDefinition` are reported as `PulseImplementationError`.
@@ -40,7 +40,7 @@
   status: machine
 - id: 822ba8cbdf4f8d59
   en: The pulse control module is under active development. Its interfaces and supported behavior may change between releases. Pin an exact FatQat version when reproducibility matters.
-  zh: "脉冲控制模块仍在持续开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的具体版本。"
+  zh: 脉冲控制模块仍在持续开发，其接口和支持的行为可能随版本变化。如果需要可复现性，请固定 FatQat 的具体版本。
   status: machine
 - id: d513be446bd35769
   en: Both modes accept `num_subsystems=None`; device-specific tuples may then have different lengths. Otherwise, each tuple must match the declared target count.

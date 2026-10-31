@@ -1,6 +1,6 @@
 - id: 063e8d01586c723b
   en: Test a Program against a hardware profile
-  zh: "用硬件配置检验 Program"
+  zh: 用硬件配置检验 Program
   status: machine
 - id: dd5d423aa27c8b6c
   en: A hardware-profile simulator checks whether a Program can run on a selected device shape as written. Like the general [`Simulator`][fatqat.simulator.Simulator], it evolves discrete gates at circuit level; it also enforces a native operation set, placement, connectivity, capacity, and, for atom arrays, occupancy.
@@ -24,7 +24,7 @@
   status: retired
 - id: 9e4c8419e4254a3c
   en: Submitting `bell` would therefore raise [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]. FatQat does not silently decompose `H` or `CX` into this profile's native operations.
-  zh: "因此，提交 `bell` 会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。FatQat 不会悄悄地把 `H` 或 `CX` 分解为该配置的原生门。"
+  zh: 因此，提交 `bell` 会引发 [`UnsupportedOperationError`][fatqat.errors.UnsupportedOperationError]。FatQat 不会悄悄地把 `H` 或 `CX` 分解为该配置的原生门。
   status: machine
 - id: 99e35bd7fe9ea137
   en: Make placement explicit
@@ -32,11 +32,11 @@
   status: machine
 - id: 7c4114505c751fc6
   en: 'Native operations are only half the question. On this 2 x 3 profile, integer device labels are arranged row by row:'
-  zh: "除了原生门，还需要检查量子比特的放置。在这个 2 x 3 硬件配置中，整数设备标号按行排列："
+  zh: 除了原生门，还需要检查量子比特的放置。在这个 2 x 3 硬件配置中，整数设备标号按行排列：
   status: machine
 - id: 7011c7a69c8943a3
   en: 'The next Program is native, but placing its two qubits at `0` and `4` asks for a diagonal `CZ` that the grid does not provide:'
-  zh: "下面的 Program 只使用原生门，但将两个量子比特放在 `0` 和 `4` 上，就需要在网格的对角位置执行 `CZ`；这两个位置之间并没有连接："
+  zh: 下面的 Program 只使用原生门，但将两个量子比特放在 `0` 和 `4` 上，就需要在网格的对角位置执行 `CZ`；这两个位置之间并没有连接：
   status: machine
 - id: e188fe557e4d245f
   en: 'Move the second program qubit to the neighbouring device label `1`; the Program itself does not need to change:'
@@ -48,7 +48,7 @@
   status: retired
 - id: 60aa19096ca566cb
   en: Add reference noise deliberately
-  zh: "按需添加参考噪声"
+  zh: 按需添加参考噪声
   status: machine
 - id: 1a2c8568f0b110f0
   en: 'The superconducting profiles are ideal unless a noise model is passed. Their packaged models are useful comparison baselines, not current hardware characterizations:'
@@ -128,7 +128,7 @@
   status: machine
 - id: da756325639ec210
   en: This confirms that the operation set and placement are valid. The profile can also apply noise channels, as the next example shows. Use a physical emulator when the question depends on pulse shapes or how the state evolves during a control.
-  zh: "这确认了门集与放置均有效。硬件配置也能施加噪声信道，下一个示例将展示这一点。如果问题依赖脉冲形状或控制期间态的演化，请使用物理仿真器。"
+  zh: 这确认了门集与放置均有效。硬件配置也能施加噪声信道，下一个示例将展示这一点。如果问题依赖脉冲形状或控制期间态的演化，请使用物理仿真器。
   status: machine
 - id: a05cef06273fc9cb
   en: 'The superconducting profile is ideal unless a noise model is passed. Its packaged model is a useful comparison baseline, not a current hardware characterization:'
@@ -140,7 +140,7 @@
   status: machine
 - id: fb1f69303ed5d66a
   en: 'Unlike the superconducting profile, the atom array has no fixed geometry. Program resources define sites that begin empty. `Put` loads the atoms, while `Pair` and `Unpair` reshape the connectivity on which `CZ` is legal:'
-  zh: "与超导配置不同，原子阵列没有固定几何结构。Program 资源定义初始为空的位置。`Put` 加载原子，`Pair` 和 `Unpair` 则改变允许施加 `CZ` 的连接关系："
+  zh: 与超导配置不同，原子阵列没有固定几何结构。Program 资源定义初始为空的位置。`Put` 加载原子，`Pair` 和 `Unpair` 则改变允许施加 `CZ` 的连接关系：
   status: machine
 - id: 9a47173f4a88d627
   en: '![An occupied atom undergoes a matched operation, after which Loss either leaves it present with probability one minus p or removes it with probability p; measurement of the empty site returns 2.](../assets/generated/guide/atom-loss-lifecycle.svg)'

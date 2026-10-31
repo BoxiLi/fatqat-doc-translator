@@ -88,7 +88,7 @@
   status: machine
 - id: 8996a60b9917127d
   en: Every path starts from the same [`Program`][fatqat.Program] and returns familiar `Job` and `Result` objects. Choose the least physical detail that can answer the question in front of you.
-  zh: "各条路径都接受同一个 [`Program`][fatqat.Program]，并返回相同类型的 `Job` 和 `Result`。根据当前问题，选择能满足需要的最简物理模型即可。"
+  zh: 各条路径都接受同一个 [`Program`][fatqat.Program]，并返回相同类型的 `Job` 和 `Result`。根据当前问题，选择能满足需要的最简物理模型即可。
   status: machine
 - id: 87698054e77679b1
   en: :material-chart-box-outline:{ .lg .middle } **General simulation**
@@ -212,7 +212,7 @@
   status: machine
 - id: 40d9e61b7aa34a99
   en: '[:octicons-arrow-right-24: Track occupancy, pairing, and loss](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)'
-  zh: "[:octicons-arrow-right-24: 跟踪占据、配对与丢失](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)"
+  zh: '[:octicons-arrow-right-24: 跟踪占据、配对与丢失](guide/hardware-profile-simulation.md#atom-occupancy-and-pairing)'
   status: machine
 - id: 218012b043fe7425
   en: Explore the documentation
@@ -260,7 +260,7 @@
   status: machine
 - id: 7f98c8b333de3c4c
   en: Find exact signatures and validation contracts.
-  zh: "查询函数签名与验证规则。"
+  zh: 查询函数签名与验证规则。
   status: machine
 - id: b242595bbda9459f
   en: '[:octicons-arrow-right-24: Look up an API](api/index.md)'
@@ -392,37 +392,37 @@
   status: machine
 - id: dc1d0b2c29a59bd3
   en: Under active development
-  zh: "开发中"
+  zh: 开发中
   status: machine
 - id: ebb1cef8f27a9148
   en: FatQat is under active development, and its interfaces may change between releases. **Pin an exact version when reproducibility matters.**
-  zh: "FatQat 仍在持续开发，接口可能随版本变化。**如需复现实验，请固定具体版本。**"
+  zh: FatQat 仍在持续开发，接口可能随版本变化。**如需复现实验，请固定具体版本。**
   status: machine
 - id: fa32672227a9ed82
   en: '![The SCQubitSimulator result gives the target outcome 101 a probability of 81.65 percent with 200-microsecond coherence times and additional CZ depolarizing noise of 0.003 on both edges.](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
-  zh: "![SCQubitSimulator 在相干时间为 200 微秒、两条边均添加 0.003 的 CZ 退极化噪声时，得到目标结果 101 的概率为 81.65%。](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }"
+  zh: '![SCQubitSimulator 在相干时间为 200 微秒、两条边均添加 0.003 的 CZ 退极化噪声时，得到目标结果 101 的概率为 81.65%。](assets/generated/home/grover-sc-profile.png){ loading=lazy width=714 height=515 }'
   status: machine
 - id: e0dd853dd661f302
   en: With `T1 = T2 = 200 µs`, we add CZ depolarizing noise with `p = 0.003`. Compiled native-gate simulation then returns `101` with **81.65%** probability.
-  zh: "设 `T1 = T2 = 200 µs`，并添加 `p = 0.003` 的 CZ 退极化噪声。编译后的原生门模拟以 **81.65%** 的概率返回 `101`。"
+  zh: 设 `T1 = T2 = 200 µs`，并添加 `p = 0.003` 的 CZ 退极化噪声。编译后的原生门模拟以 **81.65%** 的概率返回 `101`。
   status: machine
 - id: 5727a0b51520e3b5
   en: '![The three-level TransmonEmulator result gives the target outcome 101 a probability of about 64.05 percent with the same coherence times.](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
-  zh: "![三能级 TransmonEmulator 在相同相干时间下，得到目标结果 101 的概率约为 64.05%。](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }"
+  zh: '![三能级 TransmonEmulator 在相同相干时间下，得到目标结果 101 的概率约为 64.05%。](assets/generated/home/grover-transmon.png){ loading=lazy width=714 height=515 }'
   status: machine
 - id: c0722ef9790a984b
   en: Calibrated pulses, three physical levels, and the same coherence times return `101` with about **64.05%** probability; physical leakage is **0.0649%**. This run realizes the compiled X/SX/RZ/CZ gates with calibrated pulses.
-  zh: "使用校准脉冲、三个物理能级和相同的相干时间时，得到 `101` 的概率约为 **64.05%**，物理泄漏为 **0.0649%**。这次运行以校准脉冲实现编译后的 X/SX/RZ/CZ 门。"
+  zh: 使用校准脉冲、三个物理能级和相同的相干时间时，得到 `101` 的概率约为 **64.05%**，物理泄漏为 **0.0649%**。这次运行以校准脉冲实现编译后的 X/SX/RZ/CZ 门。
   status: machine
 - id: 7b314aaff7ff66e9
   en: With the fixed routing seed, compilation produces **51 CZ**, **172 SX**, and **383 RZ** gates. These results use the same compiled circuit for both hardware models; the SC noise channels and the Transmon pulse dynamics model different physical effects. The Transmon model also uses 60 ns CZ pulses, while the SC coherence channels use a 50 ns CZ duration. Compilation preserves ideal algorithm behavior, but the gate decomposition and routing affect noisy results.
-  zh: "固定路由随机种子后，编译得到 **51 个 CZ**、**172 个 SX** 和 **383 个 RZ** 门。两种硬件模型使用同一个编译后的电路；SC 噪声信道和 Transmon 脉冲动力学描述不同的物理效应。此外，Transmon 模型使用 60 ns 的 CZ 脉冲，而 SC 相干噪声信道采用 50 ns 的 CZ 门时长。编译保持算法的理想行为，但门分解和路由会影响含噪结果。"
+  zh: 固定路由随机种子后，编译得到 **51 个 CZ**、**172 个 SX** 和 **383 个 RZ** 门。两种硬件模型使用同一个编译后的电路；SC 噪声信道和 Transmon 脉冲动力学描述不同的物理效应。此外，Transmon 模型使用 60 ns 的 CZ 脉冲，而 SC 相干噪声信道采用 50 ns 的 CZ 门时长。编译保持算法的理想行为，但门分解和路由会影响含噪结果。
   status: machine
 - id: 7cc9bf4b96af55d4
   en: All three scripts start from the same compact `LogicalProgram` shown above. General simulation runs it directly; the SC and Transmon scripts use `compile_to_sc()` to decompose its Toffoli gates and route the circuit onto the three-site line. The routing seed is fixed for reproducible results. The shared axis helper restores logical qubit order when reading a compiled final state.
-  zh: "三个脚本都从上面同一个简洁的 `LogicalProgram` 开始。通用模拟直接运行该程序；SC 和 Transmon 脚本使用 `compile_to_sc()` 分解其中的 Toffoli 门，并将电路路由到三个位置组成的链上。固定路由随机种子使结果可复现。共用的轴处理辅助函数在读取编译后的最终态时恢复逻辑量子比特顺序。"
+  zh: 三个脚本都从上面同一个简洁的 `LogicalProgram` 开始。通用模拟直接运行该程序；SC 和 Transmon 脚本使用 `compile_to_sc()` 分解其中的 Toffoli 门，并将电路路由到三个位置组成的链上。固定路由随机种子使结果可复现。共用的轴处理辅助函数在读取编译后的最终态时恢复逻辑量子比特顺序。
   status: machine
 - id: 68adc938030ac905
   en: Each tab is a top-to-bottom script. The general script also verifies that ideal compiled execution matches the source state up to a global phase. The Transmon script binds compiled sites to model subsystems and supplies X/SX pulse definitions using its calibrated RX recipe.
-  zh: "每个选项卡都是可从头到尾运行的脚本。通用模拟脚本还会验证：除全局相位外，编译后的理想执行结果与源程序的态相同。Transmon 脚本将编译后的设备位置绑定到模型子系统，并利用校准后的 RX 脉冲方案定义 X/SX 脉冲。"
+  zh: 每个选项卡都是可从头到尾运行的脚本。通用模拟脚本还会验证：除全局相位外，编译后的理想执行结果与源程序的态相同。Transmon 脚本将编译后的设备位置绑定到模型子系统，并利用校准后的 RX 脉冲方案定义 X/SX 脉冲。
   status: machine

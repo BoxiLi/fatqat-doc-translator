@@ -1,140 +1,140 @@
 - id: e602f0c05a1eeb4d
   en: Atom loss as an erasure in a repetition code
-  zh: "重复码中的原子丢失与擦除"
+  zh: 重复码中的原子丢失与擦除
   status: machine
 - id: bf7504deb5c04c63
   en: Run a repetition-code memory on AtomArraySimulator with atom loss, see what the parity checks reveal about a lost atom, and measure how much the erasure flag in the final readout is worth to a simple decoder.
-  zh: "在 AtomArraySimulator 上运行含原子丢失的重复码存储实验，观察奇偶校验能揭示哪些丢失信息，并衡量最终读出中的擦除标记对简单解码器的帮助。"
+  zh: 在 AtomArraySimulator 上运行含原子丢失的重复码存储实验，观察奇偶校验能揭示哪些丢失信息，并衡量最终读出中的擦除标记对简单解码器的帮助。
   status: machine
 - id: 35ee9e01f2bdfec7
   en: Logical error rate versus per-gate loss probability for distance-3 and distance-5 repetition codes, decoded by a majority vote over the final readout with and without the erasure flag. Simulated points follow the exact curves, and the curves that use the flag fall much more steeply at each distance.
-  zh: "码距为 3 和 5 的重复码中，逻辑错误率随单次量子门原子丢失概率的变化。解码采用最终读出的多数投票，比较使用和不使用擦除标记的结果。模拟点与精确曲线吻合；对每种码距，使用标记的曲线都下降得更陡。"
+  zh: 码距为 3 和 5 的重复码中，逻辑错误率随单次量子门原子丢失概率的变化。解码采用最终读出的多数投票，比较使用和不使用擦除标记的结果。模拟点与精确曲线吻合；对每种码距，使用标记的曲线都下降得更陡。
   status: machine
 - id: ce369adb03bf9678
   en: 'A neutral-atom processor can lose an atom from its trap. The atom takes its quantum state with it, but the loss is not invisible: when the array is imaged, the trap is empty. On [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] an empty site measures as the digit `2`, distinct from `0` and `1`. An error whose location is known in this way is called an *erasure*.'
-  zh: "中性原子处理器中的原子可能从阱中丢失。量子态随原子一起丢失，但原子丢失并非无法察觉：对阵列成像时，可以看到空阱。在 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 上，空位置的测量结果为数字 `2`，与 `0` 和 `1` 不同。这样能够确定发生位置的错误称为*擦除（erasure）*。"
+  zh: 中性原子处理器中的原子可能从阱中丢失。量子态随原子一起丢失，但原子丢失并非无法察觉：对阵列成像时，可以看到空阱。在 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 上，空位置的测量结果为数字 `2`，与 `0` 和 `1` 不同。这样能够确定发生位置的错误称为*擦除（erasure）*。
   status: machine
 - id: b1a55137c3a54145
   en: 'Erasures are easier to correct than errors at unknown locations. A code of distance $d$ corrects any $\lfloor (d-1)/2 \rfloor$ errors at unknown locations, but up to $d-1$ erasures. This tutorial shows what that means in a small memory experiment. We run a bit-flip repetition code, lose atoms during its entangling gates, and look at the loss from two sides: what the parity checks reveal while the circuit runs, and what the erasure flag in the final readout is worth to a decoder.'
-  zh: "擦除比位置未知的错误更容易纠正。码距为 $d$ 的码可以纠正任意 $\\lfloor (d-1)/2 \\rfloor$ 个位置未知的错误，而最多可以纠正 $d-1$ 个擦除。本教程用一个小型存储实验展示这一区别。我们运行比特翻转重复码，让原子在纠缠门期间丢失，并从两个角度观察：电路运行时，奇偶校验能揭示什么；最终读出的擦除标记对解码器有多大帮助。"
+  zh: 擦除比位置未知的错误更容易纠正。码距为 $d$ 的码可以纠正任意 $\lfloor (d-1)/2 \rfloor$ 个位置未知的错误，而最多可以纠正 $d-1$ 个擦除。本教程用一个小型存储实验展示这一区别。我们运行比特翻转重复码，让原子在纠缠门期间丢失，并从两个角度观察：电路运行时，奇偶校验能揭示什么；最终读出的擦除标记对解码器有多大帮助。
   status: machine
 - id: 29e4558fd9e4781e
   en: Imports and settings
-  zh: "导入与设置"
+  zh: 导入与设置
   status: machine
 - id: 314bdca43c166935
   en: A repetition code with reloaded ancillas
-  zh: "使用可重新加载辅助原子的重复码"
+  zh: 使用可重新加载辅助原子的重复码
   status: machine
 - id: 77fafda5d35c1c04
   en: 'The distance-$d$ repetition code stores one bit in $d$ data atoms, $|0_L\rangle = |0\cdots0\rangle$ and $|1_L\rangle = |1\cdots1\rangle$. Between neighbouring data atoms sits an ancilla that measures the parity $Z_j Z_{j+1}$: prepared in $|+\rangle$, it picks up a phase from a `CZ` with each neighbour, and a final Hadamard turns that phase into a bit. A round of these measurements is a *syndrome*. For an intact code it reports even parity everywhere.'
-  zh: "码距为 $d$ 的重复码用 $d$ 个数据原子存储一个比特，$|0_L\\rangle = |0\\cdots0\\rangle$，$|1_L\\rangle = |1\\cdots1\\rangle$。每对相邻数据原子之间有一个辅助原子，用来测量奇偶性 $Z_j Z_{j+1}$：先将其制备为 $|+\\rangle$，再分别与两个邻居施加 `CZ` 以积累相位，最后用 Hadamard 门将该相位转换为一个比特。一轮这样的测量构成一个*综合征（syndrome）*。对于没有错误的码，所有校验都报告偶校验。"
+  zh: 码距为 $d$ 的重复码用 $d$ 个数据原子存储一个比特，$|0_L\rangle = |0\cdots0\rangle$，$|1_L\rangle = |1\cdots1\rangle$。每对相邻数据原子之间有一个辅助原子，用来测量奇偶性 $Z_j Z_{j+1}$：先将其制备为 $|+\rangle$，再分别与两个邻居施加 `CZ` 以积累相位，最后用 Hadamard 门将该相位转换为一个比特。一轮这样的测量构成一个*综合征（syndrome）*。对于没有错误的码，所有校验都报告偶校验。
   status: machine
 - id: 972208f117b4941c
   en: The atom array accepts only `RX`, `RY`, `RZ`, and `CZ`, and a `CZ` needs its two atoms to be paired first, as in the [eight-atom GHZ tutorial](atom-array-ghz8.md). Each round pairs every ancilla with its left data atom, applies the `CZ` gates, and then does the same with the right neighbours. The pairs within a layer are disjoint, so the gates of a layer can run in parallel.
-  zh: "原子阵列只接受 `RX`、`RY`、`RZ` 和 `CZ`，而且施加 `CZ` 前必须先将两个原子配对，见[八原子 GHZ 教程](atom-array-ghz8.md)。每轮先将各辅助原子与其左侧数据原子配对并施加 `CZ` 门，再对右侧邻居重复这一过程。同一层中的原子对互不重叠，因此该层的门可以并行执行。"
+  zh: 原子阵列只接受 `RX`、`RY`、`RZ` 和 `CZ`，而且施加 `CZ` 前必须先将两个原子配对，见[八原子 GHZ 教程](atom-array-ghz8.md)。每轮先将各辅助原子与其左侧数据原子配对并施加 `CZ` 门，再对右侧邻居重复这一过程。同一层中的原子对互不重叠，因此该层的门可以并行执行。
   status: machine
 - id: 3901100e31e3ffb7
   en: Every site starts empty. [`Put`][fatqat.operations.Put] loads the data atoms once and the ancillas at the start of every round. Because `Put` leaves an occupied site unchanged, it only refills an ancilla lost in an earlier round. Each round writes its syndrome to its own classical register, and the data atoms are read out at the end.
-  zh: "所有位置初始均为空。[`Put`][fatqat.operations.Put] 在开始时加载一次数据原子，并在每轮开始时加载辅助原子。由于 `Put` 不改变已占据的位置，它只会补充之前轮次中丢失的辅助原子。每轮将综合征写入独立的经典寄存器，最后读出数据原子。"
+  zh: 所有位置初始均为空。[`Put`][fatqat.operations.Put] 在开始时加载一次数据原子，并在每轮开始时加载辅助原子。由于 `Put` 不改变已占据的位置，它只会补充之前轮次中丢失的辅助原子。每轮将综合征写入独立的经典寄存器，最后读出数据原子。
   status: machine
 - id: 79246318e9a3f395
   en: 'Count keys list the classical registers in declaration order: three rounds of two syndrome bits, then the three data bits. Without noise every check reports even parity and the data atoms read `111`.'
-  zh: "计数键按声明顺序列出经典寄存器：先是三轮各两个综合征比特，再是三个数据比特。无噪声时，所有校验均报告偶校验，数据原子的读出为 `111`。"
+  zh: 计数键按声明顺序列出经典寄存器：先是三轮各两个综合征比特，再是三个数据比特。无噪声时，所有校验均报告偶校验，数据原子的读出为 `111`。
   status: machine
 - id: 296ed536f64782ff
   en: Lose atoms during the entangling gates
-  zh: "让原子在纠缠门期间丢失"
+  zh: 让原子在纠缠门期间丢失
   status: machine
 - id: 82bc06f4a50b3612
   en: 'Attach [`Loss`][fatqat.noise.Loss] to `CZ`. The backend samples a loss independently for each of the two atoms after every `CZ`, so an atom that takes part in more gates is more likely to be lost. A lost atom stays lost: later gates on its site do nothing, and its final readout is `2`.'
-  zh: "将 [`Loss`][fatqat.noise.Loss] 附加到 `CZ`。后端在每个 `CZ` 之后，对两个原子分别独立采样丢失事件，因此参与量子门越多的原子越容易丢失。丢失的原子不会自行恢复：之后作用于该位置的门均不产生效果，最终读出为 `2`。"
+  zh: 将 [`Loss`][fatqat.noise.Loss] 附加到 `CZ`。后端在每个 `CZ` 之后，对两个原子分别独立采样丢失事件，因此参与量子门越多的原子越容易丢失。丢失的原子不会自行恢复：之后作用于该位置的门均不产生效果，最终读出为 `2`。
   status: machine
 - id: a85464bd7cbc974d
   en: A `2` among the syndrome bits is a lost ancilla. It is flagged in the round in which it happens, since that round's parity is missing, and the next round's `Put` loads a fresh ancilla. A lost data atom is different. Data atoms are not imaged until the end, so the `2` of a lost data atom appears only in the final readout, and nothing in the record says when the atom was lost.
-  zh: "综合征比特中的 `2` 表示辅助原子丢失。由于当轮缺少该奇偶校验结果，丢失会在发生的这一轮被标记，下一轮的 `Put` 则加载新的辅助原子。数据原子丢失时有所不同。直到最后才对数据原子成像，因此丢失数据原子的 `2` 只会出现在最终读出中，记录并不直接说明原子何时丢失。"
+  zh: 综合征比特中的 `2` 表示辅助原子丢失。由于当轮缺少该奇偶校验结果，丢失会在发生的这一轮被标记，下一轮的 `Put` 则加载新的辅助原子。数据原子丢失时有所不同。直到最后才对数据原子成像，因此丢失数据原子的 `2` 只会出现在最终读出中，记录并不直接说明原子何时丢失。
   status: machine
 - id: a421640dc765ca06
   en: What a parity check sees of a lost atom
-  zh: "奇偶校验如何反映原子丢失"
+  zh: 奇偶校验如何反映原子丢失
   status: machine
 - id: 2f80da5b9da8c16e
   en: 'A `CZ` with an empty trap applies no phase, exactly as an atom in $|0\rangle$ would. A check next to a lost data atom therefore measures its surviving neighbour alone: instead of $Z_j Z_{j+1}$ it measures a single $Z$. The next cell selects shots in which exactly one data atom and no ancilla was lost, and counts how often the last syndrome round shows an odd parity.'
-  zh: "与空阱施加 `CZ` 不会引入相位，这与原子处于 $|0\\rangle$ 时完全相同。因此，丢失数据原子旁边的校验只测量另一个仍存在的邻居：测量从 $Z_j Z_{j+1}$ 变为单个 $Z$。下一个代码单元筛选恰好丢失一个数据原子且未丢失辅助原子的采样，并统计最后一轮综合征出现奇校验的频率。"
+  zh: 与空阱施加 `CZ` 不会引入相位，这与原子处于 $|0\rangle$ 时完全相同。因此，丢失数据原子旁边的校验只测量另一个仍存在的邻居：测量从 $Z_j Z_{j+1}$ 变为单个 $Z$。下一个代码单元筛选恰好丢失一个数据原子且未丢失辅助原子的采样，并统计最后一轮综合征出现奇校验的频率。
   status: machine
 - id: f67bfff477d5cf89
   en: 'For $|0_L\rangle$ the checks never fire, because the lost atom looks like the $|0\rangle$ atoms around it. For $|1_L\rangle$ they fire in most shots; in the rest the atom was lost after its last `CZ`, too late for any check to notice. A lost atom is therefore not a Pauli error: what the checks show depends on the state the atom held.'
-  zh: "对于 $|0_L\\rangle$，校验始终不触发，因为丢失原子的效果与周围处于 $|0\\rangle$ 的原子相同。对于 $|1_L\\rangle$，大多数采样都会触发校验；其余采样中，原子在最后一次 `CZ` 之后才丢失，已来不及被校验发现。因此，原子丢失并不是 Pauli 错误：校验结果取决于该原子原先存储的态。"
+  zh: 对于 $|0_L\rangle$，校验始终不触发，因为丢失原子的效果与周围处于 $|0\rangle$ 的原子相同。对于 $|1_L\rangle$，大多数采样都会触发校验；其余采样中，原子在最后一次 `CZ` 之后才丢失，已来不及被校验发现。因此，原子丢失并不是 Pauli 错误：校验结果取决于该原子原先存储的态。
   status: machine
 - id: 006e91f4d2e1aaec
   en: 'This also means the syndrome carries information about the logical value itself. In the repetition code every single-atom $Z$ is a logical operator, so a check that has lost one of its atoms measures the logical bit. Codes such as the surface code do not have this property, because no single-atom $Z$ is a logical operator there. Keep this in mind below: it is a feature of this small code, not of atom loss in general.'
-  zh: "这也意味着综合征携带了逻辑值本身的信息。在重复码中，每个单原子 $Z$ 都是逻辑算符，因此，当校验涉及的一个数据原子丢失时，它测量的就是逻辑比特。表面码等编码不具有这一性质，因为其中没有单原子 $Z$ 是逻辑算符。阅读下文时请注意：这是这个小型编码的特征，并非原子丢失的一般性质。"
+  zh: 这也意味着综合征携带了逻辑值本身的信息。在重复码中，每个单原子 $Z$ 都是逻辑算符，因此，当校验涉及的一个数据原子丢失时，它测量的就是逻辑比特。表面码等编码不具有这一性质，因为其中没有单原子 $Z$ 是逻辑算符。阅读下文时请注意：这是这个小型编码的特征，并非原子丢失的一般性质。
   status: machine
 - id: e20240b603677329
   en: Decoders and logical error rates
-  zh: "解码器与逻辑错误率"
+  zh: 解码器与逻辑错误率
   status: machine
 - id: 97bedd95528c8b9b
   en: 'A *decoder* maps the recorded outcomes of a shot to a guess of the stored logical bit. Its *logical error rate* (LER) is the probability that the guess is wrong. The LER is a property of the decoder as much as of the noise: the same shots decoded two ways give two error rates.'
-  zh: "*解码器*根据一次采样记录的结果，猜测所存储的逻辑比特。*逻辑错误率*（LER）就是猜错的概率。LER 同时取决于解码器和噪声：对同一批采样采用两种解码方式，会得到两个错误率。"
+  zh: '*解码器*根据一次采样记录的结果，猜测所存储的逻辑比特。*逻辑错误率*（LER）就是猜错的概率。LER 同时取决于解码器和噪声：对同一批采样采用两种解码方式，会得到两个错误率。'
   status: machine
 - id: 066a6fe98c231ccd
   en: 'This tutorial uses the simplest decoder for a repetition code: a majority vote over the final data readout. For the repetition code this is the minimum-weight correction of the last syndrome, which the final readout determines. It ignores the syndrome history, so it is not the best possible decoder, even without loss. What it offers here is a controlled comparison. We run the same vote in two versions that differ only in whether they use the erasure flag:'
-  zh: "本教程使用重复码最简单的解码器：对最终数据读出进行多数投票。对于重复码，这等价于根据最终读出确定最后一次综合征，再进行最小权重纠错。它忽略综合征的历史记录，因此即使没有原子丢失，也不是最优解码器。这里采用它是为了进行受控比较。我们运行两个版本的投票，唯一区别在于是否使用擦除标记："
+  zh: 本教程使用重复码最简单的解码器：对最终数据读出进行多数投票。对于重复码，这等价于根据最终读出确定最后一次综合征，再进行最小权重纠错。它忽略综合征的历史记录，因此即使没有原子丢失，也不是最优解码器。这里采用它是为了进行受控比较。我们运行两个版本的投票，唯一区别在于是否使用擦除标记：
   status: machine
 - id: f6869efd29999296
   en: '**Loss-unaware.** The vote cannot tell an empty trap from an atom, as if the loss went undetected. Each `2` enters the vote as a random bit.'
-  zh: "**不识别丢失。**投票无法区分空阱和原子，相当于未检测到丢失。每个 `2` 都以随机比特的形式参与投票。"
+  zh: '**不识别丢失。**投票无法区分空阱和原子，相当于未检测到丢失。每个 `2` 都以随机比特的形式参与投票。'
   status: machine
 - id: 0e76be9341fb8bb1
   en: '**Erasure-aware.** The vote drops every `2` and counts only the surviving atoms. A tie, or a shot with no survivors, is decided by a coin flip.'
-  zh: "**识别擦除。**投票忽略所有 `2`，只统计仍存在的原子。出现平票，或一次采样中没有任何原子存活时，随机选择结果。"
+  zh: '**识别擦除。**投票忽略所有 `2`，只统计仍存在的原子。出现平票，或一次采样中没有任何原子存活时，随机选择结果。'
   status: machine
 - id: 3a07aa1d5ee8ecb1
   en: Both versions see the same shots, so the difference between their error rates is the value of the erasure flag to this decoder.
-  zh: "两个版本处理同一批采样，因此它们的错误率之差体现了擦除标记对这个解码器的价值。"
+  zh: 两个版本处理同一批采样，因此它们的错误率之差体现了擦除标记对这个解码器的价值。
   status: machine
 - id: 54e07674d729d016
   en: When loss is the only noise, every surviving atom reads the stored value. The erasure-aware vote then fails only when all $d$ data atoms are lost and it has to guess. No decoder that sees only the final readout can do better, since such a shot contains no information about the logical bit. A decoder that also reads the syndrome history can do better, because of the leak described in the previous section, so this is not a lower bound on the LER of the experiment.
-  zh: "当原子丢失是唯一噪声时，每个存活原子都会读出所存储的值。此时，识别擦除的投票只有在全部 $d$ 个数据原子都丢失、不得不猜测时才会失败。只查看最终读出的解码器不可能做得更好，因为这种采样不包含逻辑比特的任何信息。能够读取综合征历史的解码器可能做得更好，原因是上一节所述的信息泄露，因此这并不是整个实验 LER 的下界。"
+  zh: 当原子丢失是唯一噪声时，每个存活原子都会读出所存储的值。此时，识别擦除的投票只有在全部 $d$ 个数据原子都丢失、不得不猜测时才会失败。只查看最终读出的解码器不可能做得更好，因为这种采样不包含逻辑比特的任何信息。能够读取综合征历史的解码器可能做得更好，原因是上一节所述的信息泄露，因此这并不是整个实验 LER 的下界。
   status: machine
 - id: 7cd9505044c9e26e
   en: 'The two error rates also have exact values under pure loss. Data atom $i$ takes part in $n_i$ `CZ` gates: $R$ at either end of the chain and $2R$ in between, for $R$ rounds. It is lost with probability $q_i = 1-(1-p)^{n_i}$, independently of the others, and each decoder fails on a known set of loss patterns. The loss-unaware vote fails when at least $(d+1)/2$ of the random bits that replace lost atoms are wrong. The erasure-aware vote fails with probability $1/2$ when every atom is lost.'
-  zh: "在只有原子丢失的情况下，两种错误率也有精确值。对于 $R$ 轮测量，数据原子 $i$ 参与 $n_i$ 个 `CZ` 门：链两端为 $R$ 个，中间为 $2R$ 个。它以概率 $q_i = 1-(1-p)^{n_i}$ 丢失，且与其他原子独立；每个解码器在哪些丢失模式下失败都是已知的。不识别丢失的投票在用于替代丢失原子的随机比特中至少有 $(d+1)/2$ 个出错时失败。识别擦除的投票在全部原子丢失时以 $1/2$ 的概率失败。"
+  zh: 在只有原子丢失的情况下，两种错误率也有精确值。对于 $R$ 轮测量，数据原子 $i$ 参与 $n_i$ 个 `CZ` 门：链两端为 $R$ 个，中间为 $2R$ 个。它以概率 $q_i = 1-(1-p)^{n_i}$ 丢失，且与其他原子独立；每个解码器在哪些丢失模式下失败都是已知的。不识别丢失的投票在用于替代丢失原子的随机比特中至少有 $(d+1)/2$ 个出错时失败。识别擦除的投票在全部原子丢失时以 $1/2$ 的概率失败。
   status: machine
 - id: cdfd28e49b9acd4f
   en: Logical error rate versus loss rate
-  zh: "逻辑错误率与原子丢失率"
+  zh: 逻辑错误率与原子丢失率
   status: machine
 - id: 74a43e8bfdfdaf42
   en: Sweep the loss probability for distances 3 and 5, and decode each set of shots both ways.
-  zh: "对码距 3 和 5 扫描原子丢失概率，并用两种方式分别解码每批采样。"
+  zh: 对码距 3 和 5 扫描原子丢失概率，并用两种方式分别解码每批采样。
   status: machine
 - id: 9e35fa112719c410
   en: Markers are sampled error rates; dashed and solid lines are the exact loss-unaware and erasure-aware rates. Points with no failures in the sampled shots are left out, which is why the distance-5 erasure-aware curve has no markers at the lowest loss rates.
-  zh: "标记点表示采样得到的错误率；虚线和实线分别表示不识别丢失和识别擦除时的精确错误率。图中省略了采样中未发生失败的点，因此码距为 5、识别擦除的曲线在最低丢失率处没有标记点。"
+  zh: 标记点表示采样得到的错误率；虚线和实线分别表示不识别丢失和识别擦除时的精确错误率。图中省略了采样中未发生失败的点，因此码距为 5、识别擦除的曲线在最低丢失率处没有标记点。
   status: machine
 - id: 9bf2a14d64f93845
   en: At small $p$ each curve becomes a straight line whose slope counts the losses needed to cause a logical error. The loss-unaware vote fails once $(d+1)/2$ lost atoms happen to contribute the wrong bit, so its error rate scales as $p^{(d+1)/2}$. The erasure-aware vote fails only when all $d$ atoms are lost, so it scales as $p^d$. These are the two numbers from the introduction, $\lfloor (d-1)/2 \rfloor + 1$ unknown errors against $d$ erasures. Going from distance 3 to 5 gains the loss-unaware vote one power of $p$ and the erasure-aware vote two.
-  zh: "当 $p$ 较小时，各条曲线都趋于直线，斜率对应于造成逻辑错误所需的丢失数。不识别丢失的投票在 $(d+1)/2$ 个丢失原子恰好贡献错误比特时失败，因此错误率按 $p^{(d+1)/2}$ 缩放。识别擦除的投票只有在全部 $d$ 个原子都丢失时才失败，因此按 $p^d$ 缩放。这正是开头提到的两个数量：$\\lfloor (d-1)/2 \\rfloor + 1$ 个未知位置错误与 $d$ 个擦除。码距从 3 增加到 5 时，不识别丢失的投票在 $p$ 的幂次上增加一阶，而识别擦除的投票增加两阶。"
+  zh: 当 $p$ 较小时，各条曲线都趋于直线，斜率对应于造成逻辑错误所需的丢失数。不识别丢失的投票在 $(d+1)/2$ 个丢失原子恰好贡献错误比特时失败，因此错误率按 $p^{(d+1)/2}$ 缩放。识别擦除的投票只有在全部 $d$ 个原子都丢失时才失败，因此按 $p^d$ 缩放。这正是开头提到的两个数量：$\lfloor (d-1)/2 \rfloor + 1$ 个未知位置错误与 $d$ 个擦除。码距从 3 增加到 5 时，不识别丢失的投票在 $p$ 的幂次上增加一阶，而识别擦除的投票增加两阶。
   status: machine
 - id: d03ae4d4e73d0fa6
   en: Loss together with bit flips
-  zh: "原子丢失与比特翻转同时存在"
+  zh: 原子丢失与比特翻转同时存在
   status: machine
 - id: 1c9cbb819b4e593d
   en: Atoms that stay in their traps can still flip. Add a 2% `X` error on the data atom of every `CZ`, keep 5% loss, and decode again. The surviving atoms are no longer always right, so the erasure-aware vote can now fail with atoms left to vote, but it still removes the lost atoms instead of letting them add random bits.
-  zh: "留在阱中的原子仍可能发生比特翻转。在每个 `CZ` 的数据原子上添加 2% 的 `X` 错误，保持 5% 的丢失概率，然后再次解码。存活原子不再总是正确，因此识别擦除的投票即使还有原子参与投票也可能失败，但它仍会排除丢失原子，避免它们引入随机比特。"
+  zh: 留在阱中的原子仍可能发生比特翻转。在每个 `CZ` 的数据原子上添加 2% 的 `X` 错误，保持 5% 的丢失概率，然后再次解码。存活原子不再总是正确，因此识别擦除的投票即使还有原子参与投票也可能失败，但它仍会排除丢失原子，避免它们引入随机比特。
   status: machine
 - id: 18d22878464f39df
   en: '`AtomArraySimulator` reports a lost atom as the digit `2`, which turns atom loss into an erasure. For a majority vote over the final readout, using that flag changes the scaling of the logical error rate from $p^{(d+1)/2}$ to $p^d$. The comparison holds the decoder fixed and so isolates the value of the flag; it does not show the best error rate the experiment allows.'
-  zh: "`AtomArraySimulator` 用数字 `2` 报告原子丢失，从而将原子丢失转化为擦除。对于最终读出的多数投票，使用该标记会将逻辑错误率的缩放规律从 $p^{(d+1)/2}$ 改为 $p^d$。这一比较固定了解码器，因此可以单独衡量标记的价值；它并不代表该实验所能达到的最低错误率。"
+  zh: '`AtomArraySimulator` 用数字 `2` 报告原子丢失，从而将原子丢失转化为擦除。对于最终读出的多数投票，使用该标记会将逻辑错误率的缩放规律从 $p^{(d+1)/2}$ 改为 $p^d$。这一比较固定了解码器，因此可以单独衡量标记的价值；它并不代表该实验所能达到的最低错误率。'
   status: machine
 - id: 219d0e0547a29def
   en: While the circuit runs, loss is harder to read. A lost ancilla is flagged in its own round, but a lost data atom shows up in the checks only as a changed parity, which depends on the state the atom held. A decoder that uses the syndrome history must therefore treat a data-atom loss as a set of possible error patterns, one for each time at which the atom may have been lost. Such decoders go beyond this tutorial.
-  zh: "电路运行期间，丢失信息更难解读。辅助原子丢失会在当轮被标记，而数据原子丢失只会通过奇偶校验变化体现，并且取决于原子原先存储的态。因此，使用综合征历史的解码器必须将数据原子丢失视为一组可能的错误模式，每种模式对应一种可能的丢失时刻。这类解码器超出了本教程的范围。"
+  zh: 电路运行期间，丢失信息更难解读。辅助原子丢失会在当轮被标记，而数据原子丢失只会通过奇偶校验变化体现，并且取决于原子原先存储的态。因此，使用综合征历史的解码器必须将数据原子丢失视为一组可能的错误模式，每种模式对应一种可能的丢失时刻。这类解码器超出了本教程的范围。
   status: machine
 - id: a488990ff955dfb5
   en: To explore further, attach `Loss` to `Pair` and `Unpair` to model the cost of transport, as in the [eight-atom GHZ tutorial](atom-array-ghz8.md). You can also raise `ROUNDS` to see loss accumulate over a longer memory, or replace the majority vote with a decoder that reads the syndrome history and compare its error rate with the curves above.
-  zh: "如需进一步探索，可以像[八原子 GHZ 教程](atom-array-ghz8.md)那样，将 `Loss` 附加到 `Pair` 和 `Unpair`，对输运代价建模。也可以增大 `ROUNDS`，观察更长存储时间中的丢失积累，或者用读取综合征历史的解码器替代多数投票，并将其错误率与上述曲线比较。"
+  zh: 如需进一步探索，可以像[八原子 GHZ 教程](atom-array-ghz8.md)那样，将 `Loss` 附加到 `Pair` 和 `Unpair`，对输运代价建模。也可以增大 `ROUNDS`，观察更长存储时间中的丢失积累，或者用读取综合征历史的解码器替代多数投票，并将其错误率与上述曲线比较。
   status: machine

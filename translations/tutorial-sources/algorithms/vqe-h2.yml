@@ -20,11 +20,11 @@
   status: machine
 - id: 6cffdd317d1dc07e
   en: 'The variational quantum eigensolver (VQE) estimates the ground-state energy of a Hamiltonian $H$ by making the variational principle $E(\theta) \geq E_0$ do the work: a parameterized circuit prepares $|\psi(\theta)\rangle$, the energy'
-  zh: "变分量子本征求解器（VQE）利用变分原理 $E(\\theta) \\geq E_0$，估计哈密顿量 $H$ 的基态能量。参数化电路先制备 $|\\psi(\\theta)\\rangle$，对应能量为"
+  zh: 变分量子本征求解器（VQE）利用变分原理 $E(\theta) \geq E_0$，估计哈密顿量 $H$ 的基态能量。参数化电路先制备 $|\psi(\theta)\rangle$，对应能量为
   status: machine
 - id: 6521b6b039748329
   en: is evaluated on the quantum processor, and a classical optimizer walks $\theta$ downhill. The lowest energy found is an upper bound on the true ground-state energy $E_0$.
-  zh: "这一能量由量子处理器计算，经典优化器则调整 $\\theta$，使能量逐步降低。搜索得到的最低能量是真实基态能量 $E_0$ 的上界。"
+  zh: 这一能量由量子处理器计算，经典优化器则调整 $\theta$，使能量逐步降低。搜索得到的最低能量是真实基态能量 $E_0$ 的上界。
   status: machine
 - id: 8803437142be4dba
   en: 'This tutorial runs the full loop on the smallest interesting chemistry example: molecular hydrogen in the STO-3G basis, reduced to two qubits by qubit tapering (the form used in O''Malley et al., [arXiv:1512.06860](https://arxiv.org/abs/1512.06860)). The Hamiltonian is a sum of five Pauli terms,'
@@ -36,7 +36,7 @@
   status: machine
 - id: 5b00ff3de9375c2a
   en: 'The tutorial source contains three executable acts:'
-  zh: "教程包含三个可直接运行的部分："
+  zh: 教程包含三个可直接运行的部分：
   status: machine
 - id: 7e072085a6d67316
   en: '**Exact VQE** — the energy is evaluated exactly from the statevector, and COBYLA minimizes it. The convergence curve is compared against the exact ground energy, obtained here by dense diagonalization.'
@@ -48,7 +48,7 @@
   status: machine
 - id: f0d9187f27f688a5
   en: '**VQE under noise** — a depolarizing noise model is attached to the simulator, and the energy floor moves up: a two-line summary of why NISQ chemistry is hard.'
-  zh: "**含噪声的 VQE**：为模拟器添加退极化噪声模型后，可达到的最低能量会上升。这个简短示例展示了 NISQ 量子化学计算面临的一项困难。"
+  zh: '**含噪声的 VQE**：为模拟器添加退极化噪声模型后，可达到的最低能量会上升。这个简短示例展示了 NISQ 量子化学计算面临的一项困难。'
   status: machine
 - id: a8f123ba36178e9b
   en: Everything is seeded and runs in seconds on a laptop CPU.
@@ -132,7 +132,7 @@
   status: machine
 - id: 02f9374ac261d1d1
   en: 'First, the degradation: the exact-VQE minimum is re-evaluated under noise. Then COBYLA re-optimizes under noise — and recovers essentially nothing: a variational ansatz cannot rotate unital noise away, so the lifted floor is there to stay (it can only be mitigated classically, not optimized away).'
-  zh: "先把精确 VQE 找到的最优参数放到含噪声模型中重新计算，观察性能下降。再用 COBYLA 针对含噪声模型重新优化，结果几乎没有改善：变分拟设无法通过旋转消除 unital 噪声，因此能量下限仍被抬高。这里需要经典误差缓解，单靠优化参数无法消除这一影响。"
+  zh: 先把精确 VQE 找到的最优参数放到含噪声模型中重新计算，观察性能下降。再用 COBYLA 针对含噪声模型重新优化，结果几乎没有改善：变分拟设无法通过旋转消除 unital 噪声，因此能量下限仍被抬高。这里需要经典误差缓解，单靠优化参数无法消除这一影响。
   status: machine
 - id: 175956a7ad13988f
   en: Bigger molecules need a chemistry package to produce the Pauli sum and a physically motivated ansatz (e.g. UCCSD) instead of the hardware-efficient one used here.

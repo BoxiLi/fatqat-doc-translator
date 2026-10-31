@@ -4,11 +4,11 @@
   status: machine
 - id: a203ab4324b74c2c
   en: This page is for simulator extension authors. Most applications need only FATQAT's built-in noise types. Use this API to define a new [`Channel`][fatqat.noise.Channel] or change how a matrix simulator applies an existing type. Pulse-emulator continuous-noise realizations are family-owned and are not a public extension surface.
-  zh: "本页面面向模拟器扩展作者。大多数应用只需 FATQAT 的内置噪声类型。使用此 API 可定义新的 [`Channel`][fatqat.noise.Channel]，或更改矩阵模拟器应用现有类型的方式。脉冲仿真器的连续噪声实现由各后端类型自行管理，不属于公开的扩展接口。"
+  zh: 本页面面向模拟器扩展作者。大多数应用只需 FATQAT 的内置噪声类型。使用此 API 可定义新的 [`Channel`][fatqat.noise.Channel]，或更改矩阵模拟器应用现有类型的方式。脉冲仿真器的连续噪声实现由各后端类型自行管理，不属于公开的扩展接口。
   status: machine
 - id: eba3bd7e42ac6531
   en: Simulator implementation map
-  zh: "Simulator 实现映射"
+  zh: Simulator 实现映射
   status: retired
 - id: ecdec387b694378c
   en: A [`ChannelImplementationMap`][fatqat.noise.ChannelImplementationMap] rule receives `(channel, *, targets)`, where `targets` is the ordered tuple of program [`RegisterRef`][fatqat.RegisterRef] objects, and returns a nonempty tuple of Kraus matrices acting on the combined target space. It represents one finite channel application; it is not used as a pulse-emulator Lindblad fallback.
@@ -40,7 +40,7 @@
   status: retired
 - id: 2164f7b527ede062
   en: Simulator rules
-  zh: "Simulator 规则"
+  zh: Simulator 规则
   status: machine
 - id: 29e3c9f91b482299
   en: 'A matrix rule returns Kraus operators for the matching operation:'
@@ -64,7 +64,7 @@
   status: retired
 - id: 77839e213e980a1c
   en: Simulator types
-  zh: "Simulator 类型"
+  zh: Simulator 类型
   status: machine
 - id: 6123a79a5c2b97ef
   en: '| Method | Contract |'

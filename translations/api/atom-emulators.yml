@@ -4,7 +4,7 @@
   status: machine
 - id: ed7d514f8879f0ff
   en: The neutral-atom pulse emulator follows the standard [`Simulator`][fatqat.simulator.Simulator] workflow. Pass a [`Program`][fatqat.Program] to `run()`, then call `job.result()` on the eager [`Job`][fatqat.Job] to get a [`Result`][fatqat.Result]. It is a pulse-resolved physical emulator rather than a mode of [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator].
-  zh: "中性原子脉冲仿真器沿用标准的 [`Simulator`][fatqat.simulator.Simulator] 调用流程：将 [`Program`][fatqat.Program] 传给 `run()`，再调用返回的 [`Job`][fatqat.Job] 的 `job.result()` 获取 [`Result`][fatqat.Result]。返回 Job 时执行已经完成。它对脉冲期间的物理过程进行仿真，是独立的后端，不是 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 的一种模式。"
+  zh: 中性原子脉冲仿真器沿用标准的 [`Simulator`][fatqat.simulator.Simulator] 调用流程：将 [`Program`][fatqat.Program] 传给 `run()`，再调用返回的 [`Job`][fatqat.Job] 的 `job.result()` 获取 [`Result`][fatqat.Result]。返回 Job 时执行已经完成。它对脉冲期间的物理过程进行仿真，是独立的后端，不是 [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 的一种模式。
   status: machine
 - id: ee1ecfd8b861cb83
   en: Use [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] for directly authored global controls in the physical `|g>, |r>` model. See [Choose and run a neutral-atom workflow](../guide/neutral-atom-emulation.md) for a complete executable example.
@@ -76,7 +76,7 @@
   status: machine
 - id: f8f47a58563d185f
   en: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] requires an `Atom2LevelModel` and an arrangement. Its global drive and detuning channels act on every site; see [PulseOperation](pulse-control/pulse-operation.md) for how to add a direct pulse block. A terminal measurement may follow the pulse program, and barriers are ignored. The built-in gate map is empty, so ordinary gates require a custom map. Reset, conditions, per-site controls, mid-circuit measurement, and pulses after measurement are not supported.'
-  zh: "[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 需要一个 `Atom2LevelModel` 和一个排布。其全局驱动通道和失谐通道作用于每个位点；关于如何添加直接脉冲块，请参见 [PulseOperation](pulse-control/pulse-operation.md)。脉冲程序之后可以跟随一次末端测量，barrier 会被忽略。内置门映射为空，因此普通门需要自定义映射。不支持重置、条件、逐位点控制、电路中途测量以及测量之后的脉冲。"
+  zh: '[`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator] 需要一个 `Atom2LevelModel` 和一个排布。其全局驱动通道和失谐通道作用于每个位点；关于如何添加直接脉冲块，请参见 [PulseOperation](pulse-control/pulse-operation.md)。脉冲程序之后可以跟随一次末端测量，barrier 会被忽略。内置门映射为空，因此普通门需要自定义映射。不支持重置、条件、逐位点控制、电路中途测量以及测量之后的脉冲。'
   status: machine
 - id: b22b8b950b9c3eaf
   en: Model and controls
@@ -84,7 +84,7 @@
   status: machine
 - id: 38f52ec4df7534d9
   en: The runtime model exposes basis order `("g", "r")`, the pulse time unit, and global control selectors, but it contains no geometry or calibration. Retain the decoded source document when application code needs persisted species data, state labels, signed `C6`, interaction-law metadata, parameter units, or channel bounds. Derive the local dimension as `len(model.basis_order)`.
-  zh: "运行时模型暴露基矢顺序 `(\"g\", \"r\")`、脉冲时间单位和全局控制选择器，但不包含几何结构或校准信息。当应用代码需要持久化的原子种类数据、状态标签、带符号的 `C6`、相互作用规律元数据、参数单位或通道边界时，请保留解码后的源文档。局部维度可由 `len(model.basis_order)` 得到。"
+  zh: 运行时模型暴露基矢顺序 `("g", "r")`、脉冲时间单位和全局控制选择器，但不包含几何结构或校准信息。当应用代码需要持久化的原子种类数据、状态标签、带符号的 `C6`、相互作用规律元数据、参数单位或通道边界时，请保留解码后的源文档。局部维度可由 `len(model.basis_order)` 得到。
   status: machine
 - id: 3eba5ccb267af8ad
   en: Create instances with [`from_document`][fatqat.emulator.Atom2LevelModel.from_document]; direct construction is not supported.
@@ -152,7 +152,7 @@
   status: machine
 - id: 15f2b26982144298
   en: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | A pure coherent state, or one sampled posterior/trajectory when the execution is stochastic. |'
-  zh: "| `\"statevector\"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | 纯相干态；执行包含随机过程时，返回一次采样得到的后验态或轨迹。 |"
+  zh: '| `"statevector"` | [`get_statevector`][fatqat.Result.get_statevector] | `(d**N,)` | 纯相干态；执行包含随机过程时，返回一次采样得到的后验态或轨迹。 |'
   status: machine
 - id: b2d0790c9a35b6fa
   en: '| `"density_matrix"` | [`get_density_matrix`][fatqat.Result.get_density_matrix] | `(d**N, d**N)` | The exact ensemble state under supported Lindblad evolution. |'
@@ -165,7 +165,7 @@
 - id: a597d6350acebd4c
   en: The backend requires a regular [`AtomArrangement`][fatqat.emulator.AtomArrangement]. Coordinates are row-major, `(column * spacing, row * spacing, 0)`, and the atom model interprets spacing in micrometres. A program must declare exactly one dimension-two quantum resource per site; declaration order binds resources to coordinates. The arrangement describes fixed geometry; it does not track atom loading or loss. `arrangement.num_sites` and `len(arrangement)` both return the site count, which must exactly match the number of quantum resources declared by a pulse program. At the gate level, [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] instead derives its site count from each [`Program`][fatqat.Program] and needs no separate capacity setting.
   zh: 该后端需要一个规则的 [`AtomArrangement`][fatqat.emulator.AtomArrangement]。坐标按行主序排列，即 `(column * spacing, row * spacing, 0)`，原子模型将间距解释为微米。程序必须为每个位点恰好声明一个维度为 2 的量子资源；声明顺序将资源绑定到坐标。排布描述的是固定的几何结构，不跟踪原子的装载或丢失。`arrangement.num_sites` 和 `len(arrangement)` 都返回位点数量，该数量必须与脉冲程序声明的量子资源数量完全一致。在门级层面，[`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] 则从每个 [`Program`][fatqat.Program] 推导其位点数量，不需要单独的容量设置。
-  status: machine
+  status: retired
 - id: 717899110983b6ec
   en: '`simulation_config` accepts the shared pulse controls plus an Atom2-specific Hamiltonian cutoff:'
   zh: '`simulation_config` 接受共享的脉冲控制项，外加一个 Atom2 特有的哈密顿量截断：'
@@ -177,7 +177,7 @@
 - id: 36a4d466182fe2fe
   en: 'Set `interaction_cutoff` per run through `simulation_config`. The default `None` keeps every pair and preserves the complete `C6/R^6` Hamiltonian. A finite nonnegative cutoff keeps pairs whose Euclidean distance is at or below that value in `arrangement.distance_unit` (currently micrometres); `0.0` disables pair interactions. For a rectangular arrangement, `simulation_config={"interaction_cutoff": arrangement.spacing}` keeps only horizontal and vertical nearest pairs. This is a numerical Hamiltonian truncation, not a physical blockade radius. One emulator can therefore be reused to compare several truncations without rebuilding its model or arrangement.'
   zh: '通过 `simulation_config` 为每次运行设置 `interaction_cutoff`。默认的 `None` 保留所有原子对，并保持完整的 `C6/R^6` 哈密顿量。有限的非负截断值保留欧几里得距离不超过该值（以 `arrangement.distance_unit` 计，目前为微米）的原子对；`0.0` 禁用原子对相互作用。对于矩形排布，`simulation_config={"interaction_cutoff": arrangement.spacing}` 仅保留水平和竖直方向的最近邻原子对。这是对哈密顿量的数值截断，而非物理上的阻塞半径。因此同一个仿真器可以重复使用来比较多种截断，而无需重建其模型或排布。'
-  status: machine
+  status: retired
 - id: dc3e82eff6515f0b
   en: Here `d=2` for [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]. Its results use FATQAT and NumPy types; the public API does not expose QuTiP objects or `superop`. Informational QuTiP solver names and options appear only in result `runtime_details`.
   zh: 对于 [`Atom2LevelEmulator`][fatqat.emulator.Atom2LevelEmulator]，这里 `d=2`。其结果使用 FATQAT 和 NumPy 类型；公共 API 不暴露 QuTiP 对象或 `superop`。QuTiP 求解器名称及选项仅作为信息出现在结果的 `runtime_details` 中。
@@ -190,3 +190,39 @@
   en: The emulator provides built-in qubit amplitude damping, explicit transition relaxation, phase damping, qubit thermal relaxation, and depolarizing noise. These forms accept background declarations only; operation-scoped continuous noise is unsupported.
   zh: 仿真器内置量子比特振幅阻尼、显式跃迁弛豫、相位阻尼、量子比特热弛豫和退极化噪声。这些形式仅支持背景噪声声明，不支持限定于操作的连续噪声。
   status: machine
+- id: 248a68bd26987d0e
+  en: 'The backend requires an immutable [`AtomArrangement`][fatqat.emulator.AtomArrangement] with coordinates in micrometres (`distance_unit == "um"`). Use `chain()` or `rectangular()` for a regular layout, or `from_coordinates()` to supply explicit sites:'
+  zh: ''
+  status: pending
+- id: 7f6928dd52d96ea8
+  en: '`from_coordinates()` accepts a nonempty ordered iterable. Every coordinate must contain two components `(x, y)`, or every coordinate must contain three `(x, y, z)`; mixed dimensions are rejected. Components must be finite `numbers.Real` values, excluding booleans. Negative coordinates are allowed. Strings, mappings, and sets are not accepted as the outer iterable or as individual coordinates. Invalid input, including duplicate positions after conversion to floats, raises `ValueError`.'
+  zh: ''
+  status: pending
+- id: 10cbc2f0299d675a
+  en: '`coordinates` contains a copy of the input as immutable `(x, y, z)` tuples, with `z=0.0` added to two-component input. Input order defines site indices. `spatial_dimension` records the input dimension, so explicit z components give `3` even when they are all zero. For arrangements created with `from_coordinates()`, `rows`, `cols`, and `spacing` are `None`, even if the coordinates form a regular grid.'
+  zh: ''
+  status: pending
+- id: a7d9bb638384c736
+  en: '`rectangular()` accepts a positive finite scalar `spacing` for equal spacing along both axes, or an ordered iterable of two positive finite real values `(x_spacing, y_spacing)` to set each axis separately. Booleans are rejected. The `spacing` attribute stores a scalar as a float and a pair as an immutable tuple of floats, including when both values are equal. Its coordinates are row-major, `(column * x_spacing, row * y_spacing, 0)`. Regular factories retain their row and column counts. Their `spatial_dimension` is `2`, including chains embedded in the xy plane. Spatial dimension is independent of the atom''s number of energy levels.'
+  zh: ''
+  status: pending
+- id: 6111f69b0cd9f92c
+  en: Use `AtomArrangement.combine(A, B, C)` to concatenate two or more arrangements in argument order, preserving the site order within each input. The result's `spatial_dimension` is the largest input dimension, so a combination containing any 3D arrangement is 3D. Its `rows`, `cols`, and `spacing` are `None`. Overlapping coordinates or fewer than two inputs raise `ValueError`; non-arrangement inputs raise `TypeError`.
+  zh: ''
+  status: pending
+- id: 2e39b95a657aad5e
+  en: Every factory, including `combine()`, accepts a keyword-only `label`, default `None`, to name all of its sites. A label must be a string containing at least one non-whitespace character; it is preserved without stripping spaces. The `label` attribute stores that value, and the read-only `groups` mapping contains group names and immutable tuples of site indices. `group(label)` retrieves one tuple and raises `KeyError` for an unknown name. A combination retains all input groups, adjusting their indices to the new site order; its own optional label adds a group covering every site. This also preserves groups from nested combinations. Invalid labels and duplicate group names raise `ValueError`.
+  zh: ''
+  status: pending
+- id: 6c13b91517bf3896
+  en: For any layout, `row_groups` maps each y coordinate to the site indices in that row, and `column_groups` maps each x coordinate to its column's indices. Both mappings are read-only, with keys in first-seen coordinate order and immutable index tuples in site order. Grouping uses exact equality of the stored float coordinates across the entire arrangement. It ignores z, so these groups describe the xy projection of a 3D layout.
+  zh: ''
+  status: pending
+- id: 14be04905930fe1b
+  en: A program must declare exactly one dimension-two quantum resource per site; declaration order binds resources to coordinates. The arrangement describes fixed geometry; it does not track atom loading or loss. `arrangement.num_sites` and `len(arrangement)` both return the site count, which must exactly match the number of quantum resources declared by a pulse program. At the gate level, [`AtomArraySimulator`][fatqat.simulator.AtomArraySimulator] instead derives its site count from each [`Program`][fatqat.Program] and needs no separate capacity setting.
+  zh: ''
+  status: pending
+- id: 6d502055303ba98a
+  en: 'Set `interaction_cutoff` per run through `simulation_config`. The default `None` keeps every pair and preserves the complete `C6/R^6` Hamiltonian. A finite nonnegative cutoff keeps pairs whose Euclidean distance is at or below that value in `arrangement.distance_unit` (currently micrometres); `0.0` disables pair interactions. For a rectangular arrangement with scalar spacing, `simulation_config={"interaction_cutoff": arrangement.spacing}` keeps only horizontal and vertical nearest pairs. This is a numerical Hamiltonian truncation, not a physical blockade radius. One emulator can therefore be reused to compare several truncations without rebuilding its model or arrangement.'
+  zh: ''
+  status: pending
